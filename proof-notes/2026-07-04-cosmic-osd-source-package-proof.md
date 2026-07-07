@@ -12,7 +12,14 @@ This does not yet prove a binary `.deb` build. It closes the previous source-pac
 
 - repo: `cosmic-epoch/cosmic-osd`
 - branch: `rahul/week6-cosmic-osd-package-preflight`
-- commit: `b816838` (`Normalize cosmic-osd source package metadata`)
+- current public branch commit: `0bd3b81` (`Normalize cosmic-osd source package metadata`)
+- original proof commit before upstream rebase: `b816838`
+
+Rebase note:
+
+- On 2026-07-08, this branch was rebased onto current `pop-os/cosmic-osd` `origin/master`.
+- After rebase, `dpkg-source --before-build .` passed with the same source options.
+- A fresh full `dpkg-buildpackage -S -us -uc -d` rerun still needs build-output cleanup because existing/generated `target/release` binary artifacts can make `dpkg-source` complain. Do not treat the full source package rerun as newly re-proven after the rebase yet.
 
 ## Changes
 
