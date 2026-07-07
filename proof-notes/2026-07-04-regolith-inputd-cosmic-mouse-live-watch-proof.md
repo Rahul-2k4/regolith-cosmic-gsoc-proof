@@ -27,17 +27,9 @@ ddba0f63368b9a29cc5b3e244a0004b45c2de256ef7556e601c8aa13e23682af  target/debug/r
 
 ## Proof assets
 
-Vault assets:
+This public bundle includes the proof summary, source commit, commands, and captured result excerpts. Large raw runtime assets remain in the private working vault and are not part of this public repo.
 
-```text
-05_Testing_Proof/assets/inputd-watch-6029121/
-```
-
-The temporary setter helper source is saved as:
-
-```text
-05_Testing_Proof/assets/inputd-watch-6029121/cosmic_set_mouse_natural_scroll.rs
-```
+The temporary setter helper source is retained with the private raw proof assets.
 
 The helper was not committed to `regolith-inputd`; it was only used for proof. It writes through `cosmic_config::ConfigSet::set`, not by manually overwriting the config file.
 
@@ -67,7 +59,7 @@ WAYLAND_DISPLAY=wayland-1
 SWAYSOCK=/run/user/1000/sway-ipc.1000.1210.sock
 ```
 
-Source: `05-env-run.txt`
+Source: captured runtime environment from the private raw proof assets.
 
 ## Result
 

@@ -17,7 +17,7 @@ This closes the earlier clean-session blocker where `regolith-init-kanshi.servic
   - `usr/lib/regolith/regolith-session-cosmic.sh`
   - `tests/regolith-cosmic-autostart.sh`
 
-Source tests passed on `regolith-test-host`:
+Source tests passed on the QEMU test host:
 
 ```bash
 bash tests/regolith-cosmic-autostart.sh
@@ -26,10 +26,9 @@ bash tests/regolith-cosmic-status-bar.sh
 
 ## Runtime proof environment
 
-- host: `regolith-test-host`
+- host: local QEMU test host alias, redacted in this public note
 - guest: Pop/COSMIC QEMU disk `pop-cosmic-qual.qcow2`
-- proof assets:
-  `05_Testing_Proof/assets/kanshi-mask-2026-07-04/`
+- proof assets: raw reboot/session assets retained in the private working vault
 
 The staged helper was copied into the guest and installed over `/usr/lib/regolith/regolith-session-cosmic.sh` after backing up the original helper into the proof directory.
 
@@ -86,10 +85,9 @@ After the patched helper and reboot, the service was masked and inactive with no
 ## Caveats
 
 - This is QEMU proof, not full laptop boot proof.
-- The patched helper remains staged in the QEMU guest for the next validation step; original helper backup is saved as:
-  `assets/kanshi-mask-2026-07-04/regolith-session-cosmic.sh.before`
+- The patched helper remained staged in the QEMU guest for the next validation step; the original helper backup is retained with the private raw proof assets.
 - This proof validates the legacy-helper masking behavior. It does not yet validate `regolith-inputd` live watcher behavior or end-to-end Voulage package install.
 
-## Next step
+## Follow-up note
 
-Run the `regolith-inputd` live watcher proof using a real `cosmic-settings mouse` toggle so the config write goes through COSMIC's normal settings path.
+The later `regolith-inputd` mouse live-watch proof used a temporary helper that writes through `cosmic_config::ConfigSet`. It did not use a manual config-file overwrite, and it did not require claiming a full `cosmic-settings` UI click path.

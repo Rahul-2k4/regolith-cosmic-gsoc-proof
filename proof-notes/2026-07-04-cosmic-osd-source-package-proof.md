@@ -32,7 +32,7 @@ Summary:
 
 ## Verification
 
-Command run on `regolith-test-host`:
+Command run on the packaging test host:
 
 ```bash
 cd <remote-regolith-workspace>/cosmic-epoch/cosmic-osd
@@ -46,7 +46,7 @@ dpkg-buildpackage: info: source-only upload (original source is included)
 EXIT_STATUS=0
 ```
 
-Artifacts produced on `regolith-test-host`:
+Artifacts produced on the packaging test host:
 
 ```text
 cosmic-osd_0.1.0-1-1regolith-resolute.debian.tar.xz
@@ -56,11 +56,7 @@ cosmic-osd_0.1.0-1-1regolith-resolute_source.changes
 cosmic-osd_0.1.0-1-1regolith.orig.tar.gz
 ```
 
-Small proof artifacts and full source build log are saved under:
-
-```text
-05_Testing_Proof/assets/cosmic-osd-source-package-2026-07-04/
-```
+Small proof artifacts and the full source build log are retained in the private working vault. This public note includes the command, exit status, artifact names, and blocker summary.
 
 The 90 MB `.debian.tar.xz` artifact was left on the laptop and listed in the asset manifest instead of copied into the vault.
 

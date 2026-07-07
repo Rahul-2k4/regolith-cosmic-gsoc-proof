@@ -29,7 +29,7 @@ Proof:
 
 Proof note:
 
-- `05_Testing_Proof/2026-07-04-regolith-session-kanshi-mask-qemu-proof.md`
+- `proof-notes/2026-07-04-regolith-session-kanshi-mask-qemu-proof.md`
 
 Status: Done for the QEMU-tested path.
 
@@ -48,7 +48,7 @@ Proof result:
 
 Proof note:
 
-- `05_Testing_Proof/2026-07-04-regolith-inputd-cosmic-mouse-live-watch-proof.md`
+- `proof-notes/2026-07-04-regolith-inputd-cosmic-mouse-live-watch-proof.md`
 
 Status: Partial. Mouse live-watch works. Keyboard, touchpad, and input-source paths still need the same runtime proof.
 
@@ -67,7 +67,7 @@ Done:
 
 Proof note:
 
-- `05_Testing_Proof/2026-07-04-cosmic-osd-source-package-proof.md`
+- `proof-notes/2026-07-04-cosmic-osd-source-package-proof.md`
 
 Status: Partial. Source package proof is done. Binary `.deb`, Voulage publish/install path, and lintian cleanup remain.
 
@@ -95,7 +95,7 @@ The gap is narrow now: `regolith-displayd` can notice output changes, but it doe
 
 Research note:
 
-- `03_Research/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
+- `proof-notes/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
 
 Status: Direction clear. Implementation not finished yet.
 
@@ -118,7 +118,7 @@ Result:
 
 Proof note:
 
-- `05_Testing_Proof/2026-07-04-cosmic-randr-sway-output-monitor-proof.md`
+- `proof-notes/2026-07-04-cosmic-randr-sway-output-monitor-proof.md`
 
 Status: Sway IPC fallback monitoring works in QEMU. Wayland/wlr monitoring still needs investigation.
 

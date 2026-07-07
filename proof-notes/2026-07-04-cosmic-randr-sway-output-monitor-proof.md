@@ -10,7 +10,7 @@ This proves the fallback monitoring path for the mentor-directed display persist
 
 ## Environment
 
-- Host: `regolith-test-host`
+- Host: QEMU test host alias, redacted in this public note
 - Guest: QEMU Pop/COSMIC qualification VM
 - Guest display session: Regolith/Sway
 - `XDG_CURRENT_DESKTOP`: `Regolith-Wayland:COSMIC:sway`
@@ -56,9 +56,7 @@ State proof:
 
 ## Proof assets
 
-Assets:
-
-`05_Testing_Proof/assets/display-monitor-mode-proof-2026-07-04/`
+The raw command outputs are retained in the private working vault. This public bundle includes the command path and the result excerpts needed to review the claim. The reproduction script in `scripts/reproduce-qemu-display-proof.sh` regenerates the same class of artifacts.
 
 Files:
 
