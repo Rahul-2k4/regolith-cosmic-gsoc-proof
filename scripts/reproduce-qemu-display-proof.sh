@@ -34,7 +34,7 @@ echo "Guest proof dir: ${REMOTE_PROOF_DIR}"
 
 ssh "${HOST}" "${GUEST} 'printf GUEST_OK'" >/dev/null
 
-ssh "${HOST}" "${GUEST} 'bash -s' -- ${REMOTE_PROOF_DIR_Q} ${OUTPUT_NAME_Q} ${TEST_WIDTH_Q} ${TEST_HEIGHT_Q} ${TEST_REFRESH_Q} ${RESTORE_WIDTH_Q} ${RESTORE_HEIGHT_Q} ${RESTORE_REFRESH_Q} <<'GUEST_SCRIPT'"
+read -r -d '' GUEST_SCRIPT_CONTENT <<'GUEST_SCRIPT' || true
 set -euo pipefail
 
 PROOF_DIR="${1:-/tmp/regolith-cosmic-display-proof}"
@@ -107,6 +107,8 @@ echo "Output events:"
 cat "${PROOF_DIR}/05-sway-output-events.jsonl" || true
 echo "Failed units after proof: $(wc -c < "${PROOF_DIR}/12-user-failed-after.txt") bytes"
 GUEST_SCRIPT
+
+printf '%s\n' "${GUEST_SCRIPT_CONTENT}" | ssh "${HOST}" "${GUEST} 'bash -s' -- ${REMOTE_PROOF_DIR_Q} ${OUTPUT_NAME_Q} ${TEST_WIDTH_Q} ${TEST_HEIGHT_Q} ${TEST_REFRESH_Q} ${RESTORE_WIDTH_Q} ${RESTORE_HEIGHT_Q} ${RESTORE_REFRESH_Q}"
 
 echo
 echo "Done. Proof remains in the guest at: ${REMOTE_PROOF_DIR}"
