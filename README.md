@@ -1,6 +1,6 @@
-# Regolith COSMIC midterm proof bundle
+# Regolith COSMIC proof bundle
 
-Date: 2026-07-07
+Midterm snapshot: 2026-07-07. Latest proof note: 2026-07-26.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
@@ -14,6 +14,7 @@ Proof notes:
 - `proof-notes/2026-07-04-cosmic-randr-sway-output-monitor-proof.md`
 - `proof-notes/2026-07-04-cosmic-osd-source-package-proof.md`
 - `proof-notes/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
+- `proof-notes/2026-07-26-qemu-display-monitoring-rerun.md`
 
 Script:
 
@@ -86,6 +87,7 @@ QEMU-proven:
 - COSMIC session helper cleanup
 - `regolith-inputd` mouse natural-scroll live watch
 - `cosmic-randr` changes visible through Sway IPC output events
+- the 2026-07-26 fresh single-output rerun and restore check
 
 Source-package proven:
 
@@ -99,6 +101,6 @@ Source-researched:
 Not done yet:
 
 - vanilla `cosmic.desktop` / `cosmic-comp` persistence proof
-- final `regolith-displayd` persistence implementation
-- binary `.deb` proof for `cosmic-osd`
+- multi-display, hotplug, and mixed-DPI runtime proof
+- final installed package-set runtime matrix
 - hardware/full laptop boot proof
