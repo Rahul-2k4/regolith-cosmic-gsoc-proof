@@ -1,6 +1,8 @@
 # Regolith COSMIC proof bundle
 
-Midterm snapshot: 2026-07-07. Latest proof note: 2026-07-26.
+Midterm snapshot: 2026-07-07. This is a public snapshot, not the complete
+2026-07-27 audit. The private vault contains the newer package and source-pin
+proof.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
@@ -15,6 +17,8 @@ Proof notes:
 - `proof-notes/2026-07-04-cosmic-osd-source-package-proof.md`
 - `proof-notes/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
 - `proof-notes/2026-07-26-qemu-display-monitoring-rerun.md`
+- `proof-notes/2026-07-26-displayd-source-fix-laptop-test.md`
+- `proof-notes/2026-07-26-displayd-fixed-binary-qemu-proof.md`
 
 Script:
 
@@ -93,10 +97,19 @@ Source-package proven:
 
 - `cosmic-osd` source package generation
 
+Source/unit proven, with limits:
+
+- `regolith-displayd` `Monitor` and `LogicalMonitor` equality/hash fixes,
+  empty-output guard, and direct regression tests. The reviewed functional
+  source is commit `9b7fb458` on the
+  [Rahul displayd branch](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-observed-output-persistence).
+- single-output fixed-binary QEMU smoke test through Sway IPC
+
 Source-researched:
 
 - COSMIC display apply path through `cosmic-randr` / Wayland output-management
-- likely `regolith-displayd` extension point for observed display persistence
+- native `cosmic-comp` display persistence, multi-display/hotplug, mixed DPI,
+  and hardware behavior remain unverified
 
 Not done yet:
 
