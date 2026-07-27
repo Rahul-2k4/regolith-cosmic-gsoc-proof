@@ -17,8 +17,6 @@ Proof notes:
 - `proof-notes/2026-07-04-cosmic-osd-source-package-proof.md`
 - `proof-notes/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
 - `proof-notes/2026-07-26-qemu-display-monitoring-rerun.md`
-- `proof-notes/2026-07-26-displayd-source-fix-laptop-test.md`
-- `proof-notes/2026-07-26-displayd-fixed-binary-qemu-proof.md`
 
 Script:
 
@@ -97,12 +95,15 @@ Source-package proven:
 
 - `cosmic-osd` source package generation
 
-Source/unit proven, with limits:
+Source/unit reviewable from the public branch, with limits:
 
-- `regolith-displayd` `Monitor` and `LogicalMonitor` equality/hash fixes,
-  empty-output guard, and direct regression tests. The reviewed functional
-  source is commit `9b7fb458` on the
+- The reviewed `regolith-displayd` source branch contains the `Monitor` and
+  `LogicalMonitor` equality/hash fixes, empty-output guard, and direct
+  regression tests at commit `9b7fb458` on the
   [Rahul displayd branch](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-observed-output-persistence).
+- The laptop test logs and fixed-binary QEMU proof are not copied into this
+  public snapshot; the private vault/current audit remains authoritative for
+  those environment-specific results.
 - single-output fixed-binary QEMU smoke test through Sway IPC
 
 Source-researched:
