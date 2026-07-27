@@ -40,9 +40,9 @@ The script reproduces the QEMU display-monitoring proof:
 The session-contract verifier checks an already-installed, already-running
 Regolith/Sway COSMIC guest without changing guest services or session state:
 
-- running `sway` with `XDG_CURRENT_DESKTOP` containing `COSMIC`
-- running `regolith-inputd`
-- masked and inactive legacy inputd, displayd, and kanshi user services
+- running `sway` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked from the Sway process environment
+- running `regolith-inputd` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked separately from the inputd process environment
+- the legacy inputd, displayd, and kanshi user services are strictly masked (or `masked-runtime`) and inactive; absence is not equivalent to the mentor-approved COSMIC mask/direct-start contract
 - no `gnome-session-bin` process
 - user failed units plus process and session evidence in the selected proof directory
 
@@ -57,10 +57,12 @@ bash scripts/verify-qemu-inputd-session-contract.sh
 
 Prerequisites: SSH access to the QEMU host and guest, an active logged-in
 Regolith/Sway COSMIC session, and guest access to `bash`, `pgrep`, `ps`,
-`loginctl`, `systemctl`, `grep`, `head`, and `tee`. The verifier creates only
-the caller-selected proof directory and its evidence files. Its PASS result is
-an installed-session contract check, not proof of hardware, cold-login, or
-touchpad behavior.
+`loginctl`, `systemctl`, `grep`, `head`, `tee`, and `tr`. The verifier creates
+only the caller-selected proof directory and its evidence files. Its PASS
+result requires both the Sway and regolith-inputd process environments to
+contain the COSMIC selector, plus the strict masked-and-inactive legacy-unit
+contract. It is an installed-session contract check, not proof of hardware,
+cold-login, or touchpad behavior.
 
 Prerequisites:
 

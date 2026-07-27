@@ -54,12 +54,23 @@ fi
 
 if [ ! -s "${PROOF_DIR}/02-regolith-inputd-pids.txt" ]; then
   fail "regolith-inputd is not running"
+else
+  INPUTDPID="$(head -n 1 "${PROOF_DIR}/02-regolith-inputd-pids.txt" || true)"
+  if [ -r "/proc/${INPUTDPID}/environ" ]; then
+    tr '\0' '\n' < "/proc/${INPUTDPID}/environ" > "${PROOF_DIR}/06-regolith-inputd-environ.txt"
+    if ! grep -Eq '^XDG_CURRENT_DESKTOP=.*COSMIC' "${PROOF_DIR}/06-regolith-inputd-environ.txt"; then
+      fail "regolith-inputd environment lacks XDG_CURRENT_DESKTOP containing COSMIC"
+    fi
+  else
+    : > "${PROOF_DIR}/06-regolith-inputd-environ.txt"
+    fail "cannot read regolith-inputd environment"
+  fi
 fi
 
 for unit in regolith-init-inputd.service regolith-init-displayd.service regolith-init-kanshi.service; do
   enabled="$(systemctl --user is-enabled "${unit}" 2>&1 || true)"
   active="$(systemctl --user is-active "${unit}" 2>&1 || true)"
-  printf 'unit=%s is-enabled=%s is-active=%s\n' "${unit}" "${enabled}" "${active}" >> "${PROOF_DIR}/06-legacy-service-state.txt"
+  printf 'unit=%s is-enabled=%s is-active=%s\n' "${unit}" "${enabled}" "${active}" >> "${PROOF_DIR}/07-legacy-service-state.txt"
   case "${enabled}" in
     masked|masked-runtime) ;;
     *) fail "${unit} is not masked or masked-runtime (reported: ${enabled})" ;;
@@ -69,18 +80,18 @@ for unit in regolith-init-inputd.service regolith-init-displayd.service regolith
   fi
 done
 
-pgrep -x gnome-session-bin > "${PROOF_DIR}/07-gnome-session-pids.txt" || true
-if [ -s "${PROOF_DIR}/07-gnome-session-pids.txt" ]; then
+pgrep -x gnome-session-bin > "${PROOF_DIR}/08-gnome-session-pids.txt" || true
+if [ -s "${PROOF_DIR}/08-gnome-session-pids.txt" ]; then
   fail "gnome-session-bin process is present"
 fi
 
-systemctl --user --failed --no-legend > "${PROOF_DIR}/08-user-failed-units.txt" || true
-printf 'Contract failures: %s\n' "${failures}" | tee "${PROOF_DIR}/09-result.txt"
+systemctl --user --failed --no-legend > "${PROOF_DIR}/09-user-failed-units.txt" || true
+printf 'Contract failures: %s\n' "${failures}" | tee "${PROOF_DIR}/10-result.txt"
 if [ "${failures}" -ne 0 ]; then
   exit 1
 fi
 
-printf 'PASS: installed Regolith/Sway COSMIC session contract verified\n'
+printf 'PASS: Sway and regolith-inputd COSMIC environments, plus strict legacy-unit mask/inactive contract, verified\n'
 printf 'Proof dir: %s\n' "${PROOF_DIR}"
 GUEST_SCRIPT
 
