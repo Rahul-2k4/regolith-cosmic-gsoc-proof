@@ -25,6 +25,7 @@ Proof notes:
 Script:
 
 - `scripts/reproduce-qemu-display-proof.sh`
+- `scripts/verify-qemu-inputd-session-contract.sh`
 
 ## What can be reproduced directly
 
@@ -35,6 +36,31 @@ The script reproduces the QEMU display-monitoring proof:
 - watches Sway IPC output events
 - restores the configured restore mode tuple
 - checks user failed units afterward
+
+The session-contract verifier checks an already-installed, already-running
+Regolith/Sway COSMIC guest without changing guest services or session state:
+
+- running `sway` with `XDG_CURRENT_DESKTOP` containing `COSMIC`
+- running `regolith-inputd`
+- masked and inactive legacy inputd, displayd, and kanshi user services
+- no `gnome-session-bin` process
+- user failed units plus process and session evidence in the selected proof directory
+
+Run it with the same `HOST`/`GUEST` convention as the display script:
+
+```bash
+HOST=my-qemu-host \
+GUEST='ssh -p 2222 user@127.0.0.1' \
+REMOTE_PROOF_DIR=/tmp/regolith-cosmic-inputd-session-proof \
+bash scripts/verify-qemu-inputd-session-contract.sh
+```
+
+Prerequisites: SSH access to the QEMU host and guest, an active logged-in
+Regolith/Sway COSMIC session, and guest access to `bash`, `pgrep`, `ps`,
+`loginctl`, `systemctl`, `grep`, `head`, and `tee`. The verifier creates only
+the caller-selected proof directory and its evidence files. Its PASS result is
+an installed-session contract check, not proof of hardware, cold-login, or
+touchpad behavior.
 
 Prerequisites:
 
