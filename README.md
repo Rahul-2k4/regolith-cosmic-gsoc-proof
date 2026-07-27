@@ -1,8 +1,9 @@
 # Regolith COSMIC proof bundle
 
-Midterm snapshot: 2026-07-07. This is a public snapshot, not the complete
-2026-07-27 audit. The private vault contains the newer package and source-pin
-proof.
+This bundle contains the original midterm snapshot plus the reviewed
+2026-07-27 QEMU rerun notes. It is still not the complete proposal proof
+package; target-distro packaging, fresh cold login, hardware, and the final
+runtime matrix remain open.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
@@ -17,6 +18,9 @@ Proof notes:
 - `proof-notes/2026-07-04-cosmic-osd-source-package-proof.md`
 - `proof-notes/2026-07-04-regolith-displayd-display-persistence-monitoring.md`
 - `proof-notes/2026-07-26-qemu-display-monitoring-rerun.md`
+- `proof-notes/2026-07-27-installed-inputd-live-handler-rerun.md`
+- `proof-notes/2026-07-27-installed-display-observation-rerun.md`
+- `proof-notes/2026-07-27-lock-rerun-boundary.md`
 
 Script:
 
@@ -88,8 +92,17 @@ QEMU-proven:
 
 - COSMIC session helper cleanup
 - `regolith-inputd` mouse natural-scroll live watch
+- installed-session keyboard/input-source live update and restoration
+- installed-session mouse natural-scroll update and restoration
 - `cosmic-randr` changes visible through Sway IPC output events
 - the 2026-07-26 fresh single-output rerun and restore check
+
+QEMU-boundary findings:
+
+- the current guest has no touchpad device, so touchpad state-change coverage
+  remains open
+- the latest explicit lock check launched gtklock but did not prove a complete
+  logind unlock and process-cleanup lifecycle
 
 Source-package proven:
 
