@@ -14,8 +14,8 @@ tuple for current claims:
 
 - [Corrected tuple lifecycle and rollback](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
 
-Current closure displayd model: `c8fba468`, session source `fc03e975`, displayd
-source `817becd9`. The earlier model
+Current closure displayd model: `c8fba468`, session source `3523047b`, displayd
+source `817becd9`. The current session-build model is `bf0145e3`. The earlier model
 `9794c188` and session `9c35074` remain historical proof only.
 
 - [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
@@ -27,6 +27,10 @@ source `817becd9`. The earlier model
 - [Clean Voulage rebuild and exact package hashes](proof-notes/2026-08-09-clean-voulage-rebuild.md)
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
+- [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
+- [COSMIC volume OSD](proof-notes/2026-08-09-cosmic-osd-volume.md)
+- [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 
 ### Historical installer
@@ -53,9 +57,9 @@ or lock files were edited. The QEMU notes prove the Sway-backed runtime repair
 and resource-fallback fix, but do not claim current-hash cold-login, native
 `cosmic-comp`, release signing, rollback, or hardware completion.
 
-Known lintian findings remain. QEMU installation and runtime proof remain
-partially open for the current hashes; the live repair proof is recorded in
-the linked QEMU notes.
+Known lintian findings remain. The current QEMU acceptance snapshot is recorded
+in the linked proof note. Packages remain unsigned and are not presented as
+release-ready.
 
 ## Contents
 
@@ -92,7 +96,9 @@ Regolith/Sway COSMIC guest without changing guest services or session state:
 
 - running `sway` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked from the Sway process environment
 - running `regolith-inputd` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked separately from the inputd process environment
-- the legacy inputd, displayd, and kanshi user services are strictly masked (or `masked-runtime`) and inactive; absence is not equivalent to the mentor-approved COSMIC mask/direct-start contract
+- the current mentor-approved contract uses COSMIC target ownership for the
+  shared helpers; older masked/inactive checks in this historical script are
+  not the current acceptance definition
 - no `gnome-session-bin` process
 - user failed units plus process and session evidence in the selected proof directory
 
@@ -179,8 +185,8 @@ QEMU-boundary findings:
 
 - the current guest has no touchpad device, so touchpad state-change coverage
   remains open
-- the latest explicit lock check launched gtklock but did not prove a complete
-  logind unlock and process-cleanup lifecycle
+- fallback timeout-to-lock and unlock now have QEMU evidence; native idle and
+  logind semantics remain open
 
 Source-package proven:
 
@@ -208,4 +214,5 @@ Not done yet:
 - vanilla `cosmic.desktop` / `cosmic-comp` persistence proof
 - multi-display, hotplug, and mixed-DPI runtime proof
 - final installed package-set runtime matrix
+- direct Settings-panel interaction and media-key delivery
 - hardware/full laptop boot proof
