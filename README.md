@@ -1,13 +1,21 @@
 # Regolith COSMIC proof bundle
 
-This bundle contains the original midterm snapshot plus the reviewed
-2026-07-27 QEMU rerun notes. It is still not the complete proposal proof
-package; target-distro packaging, fresh cold login, hardware, and the final
-runtime matrix remain open.
+This bundle contains the original midterm snapshot plus the reviewed QEMU
+proof notes. It is still not the complete proposal proof package; native
+compositor behavior, hardware/display coverage, full idle lifecycle, signing,
+and final release review remain open.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
 ## Current closure slice - 2026-08-08
+
+The corrected 2026-08-09 lifecycle result supersedes the older native-idle
+tuple for current claims:
+
+- [Corrected tuple lifecycle and rollback](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
+
+Current model: `954fe159`, session source `fc03e975`. The earlier model
+`9794c188` and session `9c35074` remain historical proof only.
 
 - [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
 - [QEMU Sway resource fallback rerun](proof-notes/2026-08-08-qemu-sway-resource-fallback-rerun.md)
@@ -33,9 +41,9 @@ The script rejects missing or unexpected package files, verifies the recorded
 historical SHA-256 values, installs the tuple in deterministic order, and runs
 `sudo dpkg --audit`.
 
-This slice records the current immutable model and package hashes. Builds used
-Voulage model commit `9794c18826d87981e783cdeabe392233b9218890` with session
-`9c35074`, WM-config `10225c5`, inputd `e32d049`, and displayd `e8cc8e`.
+The older slice below records the superseded model and package hashes. Builds
+used Voulage model commit `9794c18826d87981e783cdeabe392233b9218890` with
+session `9c35074`, WM-config `10225c5`, inputd `e32d049`, and displayd `e8cc8e`.
 Displayd used the nightly Cargo toolchain required by Cargo.lock v4; no source
 or lock files were edited. The QEMU notes prove the Sway-backed runtime repair
 and resource-fallback fix, but do not claim current-hash cold-login, native
