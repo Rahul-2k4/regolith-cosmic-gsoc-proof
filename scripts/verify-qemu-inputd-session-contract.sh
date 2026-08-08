@@ -67,16 +67,42 @@ else
   fi
 fi
 
-for unit in regolith-init-inputd.service regolith-init-displayd.service regolith-init-kanshi.service; do
-  enabled="$(systemctl --user is-enabled "${unit}" 2>&1 || true)"
-  active="$(systemctl --user is-active "${unit}" 2>&1 || true)"
-  printf 'unit=%s is-enabled=%s is-active=%s\n' "${unit}" "${enabled}" "${active}" >> "${PROOF_DIR}/07-legacy-service-state.txt"
-  case "${enabled}" in
-    masked|masked-runtime) ;;
-    *) fail "${unit} is not masked or masked-runtime (reported: ${enabled})" ;;
-  esac
-  if [ "${active}" != "inactive" ]; then
-    fail "${unit} is not inactive (reported: ${active})"
+for target in regolith-cosmic.target regolith-gnome.target; do
+  enabled="$(systemctl --user is-enabled "${target}" 2>&1 || true)"
+  active="$(systemctl --user is-active "${target}" 2>&1 || true)"
+  printf 'target=%s is-enabled=%s is-active=%s\n' "${target}" "${enabled}" "${active}" >> "${PROOF_DIR}/07-target-state.txt"
+done
+
+cosmic_target_active="$(systemctl --user is-active regolith-cosmic.target 2>&1 || true)"
+if [ "${cosmic_target_active}" != "active" ]; then
+  fail "regolith-cosmic.target is not active (reported: ${cosmic_target_active})"
+fi
+
+gnome_target_enabled="$(systemctl --user is-enabled regolith-gnome.target 2>&1 || true)"
+gnome_target_active="$(systemctl --user is-active regolith-gnome.target 2>&1 || true)"
+case "${gnome_target_enabled}" in
+  masked|masked-runtime) ;;
+  *)
+    if [ "${gnome_target_active}" != "inactive" ]; then
+      fail "regolith-gnome.target is neither inactive nor masked (enabled=${gnome_target_enabled}, active=${gnome_target_active})"
+    fi
+    ;;
+esac
+
+for unit in regolith-init-inputd.service regolith-init-displayd.service; do
+  active_state="$(systemctl --user show "${unit}" --property=ActiveState --value 2>&1 || true)"
+  service_state="$(systemctl --user show -p Result -p NRestarts "${unit}" 2>&1 || true)"
+  result="$(printf '%s\n' "${service_state}" | sed -n 's/^Result=//p')"
+  nrestarts="$(printf '%s\n' "${service_state}" | sed -n 's/^NRestarts=//p')"
+  printf 'unit=%s ActiveState=%s Result=%s NRestarts=%s\n' "${unit}" "${active_state}" "${result}" "${nrestarts}" >> "${PROOF_DIR}/08-helper-service-state.txt"
+  if [ "${active_state}" != "active" ]; then
+    fail "${unit} is not active (reported: ${active_state})"
+  fi
+  if [ "${result}" != "success" ]; then
+    fail "${unit} Result is not success (reported: ${result})"
+  fi
+  if [ "${nrestarts}" != "0" ]; then
+    fail "${unit} NRestarts is not 0 (reported: ${nrestarts})"
   fi
 done
 
@@ -86,12 +112,15 @@ if [ -s "${PROOF_DIR}/08-gnome-session-pids.txt" ]; then
 fi
 
 systemctl --user --failed --no-legend > "${PROOF_DIR}/09-user-failed-units.txt" || true
+if grep -Eq '(^|[[:space:]])(regolith-|cosmic-)' "${PROOF_DIR}/09-user-failed-units.txt"; then
+  fail "project-owned failed user units are present"
+fi
 printf 'Contract failures: %s\n' "${failures}" | tee "${PROOF_DIR}/10-result.txt"
 if [ "${failures}" -ne 0 ]; then
   exit 1
 fi
 
-printf 'PASS: Sway and regolith-inputd COSMIC environments, plus strict legacy-unit mask/inactive contract, verified\n'
+printf 'PASS: COSMIC target active, GNOME target inactive or masked, inputd/displayd helper services healthy, Sway/inputd environments, and failed-unit checks verified\n'
 printf 'Proof dir: %s\n' "${PROOF_DIR}"
 GUEST_SCRIPT
 

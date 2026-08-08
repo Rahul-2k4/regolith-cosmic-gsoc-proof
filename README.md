@@ -96,11 +96,12 @@ Regolith/Sway COSMIC guest without changing guest services or session state:
 
 - running `sway` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked from the Sway process environment
 - running `regolith-inputd` with `XDG_CURRENT_DESKTOP` containing `COSMIC`, checked separately from the inputd process environment
-- the current mentor-approved contract uses COSMIC target ownership for the
-  shared helpers; older masked/inactive checks in this historical script are
-  not the current acceptance definition
+- `regolith-cosmic.target` active and `regolith-gnome.target` inactive or masked
+- `regolith-init-inputd.service` and `regolith-init-displayd.service` active,
+  with `Result=success` and `NRestarts=0`
 - no `gnome-session-bin` process
-- user failed units plus process and session evidence in the selected proof directory
+- no project-owned failed user units
+- user failed units plus target, helper-service, process, and session evidence in the selected proof directory
 
 Run it with the same `HOST`/`GUEST` convention as the display script:
 
@@ -116,9 +117,10 @@ Regolith/Sway COSMIC session, and guest access to `bash`, `pgrep`, `ps`,
 `loginctl`, `systemctl`, `grep`, `head`, `tee`, and `tr`. The verifier creates
 only the caller-selected proof directory and its evidence files. Its PASS
 result requires both the Sway and regolith-inputd process environments to
-contain the COSMIC selector, plus the strict masked-and-inactive legacy-unit
-contract. It is an installed-session contract check, not proof of hardware,
-cold-login, or touchpad behavior.
+contain the COSMIC selector, COSMIC target ownership, healthy inputd/displayd
+helpers, GNOME exclusion, and no project-owned failed user units. Kanshi does
+not need to be active. It is an installed-session contract check, not proof of
+hardware, cold-login, or touchpad behavior.
 
 Prerequisites:
 
