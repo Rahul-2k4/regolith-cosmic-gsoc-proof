@@ -12,6 +12,8 @@ This bundle contains the proof notes and one reproduction script for the current
 - [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
 - [QEMU Sway resource fallback rerun](proof-notes/2026-08-08-qemu-sway-resource-fallback-rerun.md)
 - [QEMU live manager/socket repair](proof-notes/2026-08-08-qemu-live-manager-socket-repair.md)
+- [Current tuple QEMU runtime rerun](proof-notes/2026-08-08-current-tuple-qemu-runtime-rerun.md)
+- [Current tuple display persistence](proof-notes/2026-08-08-current-tuple-display-persistence.md)
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 
