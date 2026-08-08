@@ -23,6 +23,7 @@ Current model: `954fe159`, session source `fc03e975`. The earlier model
 - [Current tuple QEMU runtime rerun](proof-notes/2026-08-08-current-tuple-qemu-runtime-rerun.md)
 - [Current tuple display persistence](proof-notes/2026-08-08-current-tuple-display-persistence.md)
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
+- [Clean Voulage rebuild and exact package hashes](proof-notes/2026-08-09-clean-voulage-rebuild.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 
 ### Historical installer
