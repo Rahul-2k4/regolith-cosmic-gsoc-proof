@@ -25,13 +25,17 @@ The script rejects missing or unexpected package files, verifies the recorded
 SHA-256 values, installs the tuple in deterministic order, and runs
 `sudo dpkg --audit`.
 
-This slice records four successful package builds and exact hashes. It does
-not claim QEMU installation, visible login, release signing, or completion of
-the remaining runtime boundaries.
+This slice records four successful package builds and exact hashes. Builds used
+the Voulage branch `codex/voulage-model-repin-regolith-cosmic-20260808` at
+`53c342c2492524210b4856f581e1abfc6e904a7c` and package-model SHA
+`e0ee1b8d7696185ab9741b9b87d561771e5b6e10a956fceb93dd8837a45ccfcb`.
+The environment used Linux Bash 5.2, an apt-only no-sudo test shim, and
+displayd's absolute nightly Rust/Cargo toolchain; no source or lock files were
+edited. It does not claim QEMU installation, visible login, release signing,
+or completion of the remaining runtime boundaries.
 
-The recorded package hashes are tied to Voulage commit `41200693`. The public
-model branch later advanced to `997a7e26`; use the immutable recorded commit or
-perform a fresh build before treating the tuple as reproducible.
+Known lintian findings remain. QEMU installation and runtime proof remain
+pending.
 
 ## Contents
 
