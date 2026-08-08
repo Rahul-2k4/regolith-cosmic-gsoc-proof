@@ -12,8 +12,12 @@ successful Resolute package builds. It does not claim release readiness.
 | `regolith-inputd` | `rahul/inputd-handler-startup-retry-fixed-20260802` | `e612e20bba09d9d0a722c141b1df2be513c5abf6` |
 | `regolith-displayd` | `rahul/cosmic-systemd-displayd-metadata` | `fa8655c4e95b5af97970dd49cab31d2dce3ed4cb` |
 
-Voulage model branch: `codex/voulage-model-closure-20260808` at
-`41200693d69b14914f4ff15ea55c674e80b1a953`.
+Voulage package proof was built at model commit
+`41200693d69b14914f4ff15ea55c674e80b1a953`. The named public branch later
+advanced to `997a7e26eaf1a74ad3ba81c89a3859f457812590`; the published package
+hashes must not be rebuilt from that moving tip without a fresh tuple audit.
+The current tip changes the Resolute `regolith-displayd` entry to `6c94fd...`,
+so it is not equivalent to the tested `fa8655c...` tuple.
 
 ## Build results
 

@@ -29,6 +29,10 @@ This slice records four successful package builds and exact hashes. It does
 not claim QEMU installation, visible login, release signing, or completion of
 the remaining runtime boundaries.
 
+The recorded package hashes are tied to Voulage commit `41200693`. The public
+model branch later advanced to `997a7e26`; use the immutable recorded commit or
+perform a fresh build before treating the tuple as reproducible.
+
 ## Contents
 
 Proof notes:
