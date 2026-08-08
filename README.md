@@ -14,7 +14,8 @@ tuple for current claims:
 
 - [Corrected tuple lifecycle and rollback](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
 
-Current model: `954fe159`, session source `fc03e975`. The earlier model
+Current closure displayd model: `c8fba468`, session source `fc03e975`, displayd
+source `817becd9`. The earlier model
 `9794c188` and session `9c35074` remain historical proof only.
 
 - [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
@@ -24,6 +25,7 @@ Current model: `954fe159`, session source `fc03e975`. The earlier model
 - [Current tuple display persistence](proof-notes/2026-08-08-current-tuple-display-persistence.md)
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
 - [Clean Voulage rebuild and exact package hashes](proof-notes/2026-08-09-clean-voulage-rebuild.md)
+- [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 
 ### Historical installer
