@@ -27,6 +27,21 @@ build root per package and `SKIP_APT_BUILD_DEP=true`.
 | `regolith-inputd_0.4.1-1-1regolith-resolute_amd64.deb` | `16506d0d0ade08ed566a7b04db093cfc508add9e626f1b735f5d190d744c8535` |
 | `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `0444483c883bff81cbfe16793ca32afbddd8442f9978fab32e7ed31c680668cd` |
 
+## QEMU staging tuple
+
+The following separate table records the seven binary packages staged for
+QEMU installation. It is staging evidence only and is not build provenance.
+
+| Staged package | SHA-256 |
+|---|---|
+| `regolith-session-cosmic_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` | `bdd8dd763c28145b6439fda592b35813429a20b96af4ce6dd2e1bec9e5d2c095` |
+| `regolith-sway-root-config_4.11.11-1-1regolith-resolute_amd64.deb` | `b6f79493deac28d50795b7e2e5f7b9804f5e4f786111890fb9aac602013a3e12` |
+| `regolith-sway-ilia_4.11.11-1-1regolith-resolute_amd64.deb` | `4220b4edbbd69910563b758b4f9cc6e13613aa88efbf066e2189aa3e1348a433` |
+| `regolith-sway-default-style_4.11.11-1-1regolith-resolute_amd64.deb` | `69cf8ef1a5c525ecab6665ce3180d455e3c420ca3b74a266bbfddf63b0b893a3` |
+| `regolith-sway-cosmic-idle_4.11.11-1-1regolith-resolute_amd64.deb` | `a322a48b802f47a221588c542155469da3d348ae373e02c4c68547231d7494a5` |
+| `regolith-inputd_0.4.1-1-1regolith-resolute_amd64.deb` | `16506d0d0ade08ed566a7b04db093cfc508add9e626f1b735f5d190d744c8535` |
+| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `0444483c883bff81cbfe16793ca32afbddd8442f9978fab32e7ed31c680668cd` |
+
 Builds used `-us -uc`, so packages are unsigned. Lintian completed; existing
 metadata/manual-page findings remain recorded for inputd and displayd.
 

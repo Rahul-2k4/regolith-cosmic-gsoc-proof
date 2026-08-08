@@ -11,6 +11,19 @@ This bundle contains the proof notes and one reproduction script for the current
 
 - [Branch-ref Voulage tuple build](proof-notes/2026-08-08-voulage-branch-tuple-build.md)
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
+- [Install current seven-package QEMU tuple](scripts/install-current-tuple.sh)
+
+### Install the current QEMU tuple
+
+With the seven hash-verified `.deb` files in one directory, run:
+
+```bash
+bash scripts/install-current-tuple.sh /path/to/package-directory
+```
+
+The script rejects missing or unexpected package files, verifies the recorded
+SHA-256 values, installs the tuple in deterministic order, and runs
+`sudo dpkg --audit`.
 
 This slice records four successful package builds and exact hashes. It does
 not claim QEMU installation, visible login, release signing, or completion of
