@@ -26,6 +26,7 @@ source `817becd9`. The earlier model
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
 - [Clean Voulage rebuild and exact package hashes](proof-notes/2026-08-09-clean-voulage-rebuild.md)
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
+- [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 
 ### Historical installer
