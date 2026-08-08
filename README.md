@@ -9,33 +9,39 @@ This bundle contains the proof notes and one reproduction script for the current
 
 ## Current closure slice - 2026-08-08
 
-- [Branch-ref Voulage tuple build](proof-notes/2026-08-08-voulage-branch-tuple-build.md)
+- [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
+- [QEMU Sway resource fallback rerun](proof-notes/2026-08-08-qemu-sway-resource-fallback-rerun.md)
+- [QEMU live manager/socket repair](proof-notes/2026-08-08-qemu-live-manager-socket-repair.md)
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
-- [Install current seven-package QEMU tuple](scripts/install-current-tuple.sh)
+- [Historical seven-package installer](scripts/install-current-tuple.sh)
 
-### Install the current QEMU tuple
+### Historical installer
 
-With the seven hash-verified `.deb` files in one directory, run:
+The existing installer targets the earlier seven-package snapshot. Do not use
+it for the current model until its manifest is refreshed from the current
+tuple proof note.
+
+With the historical seven hash-verified `.deb` files in one directory, run:
 
 ```bash
 bash scripts/install-current-tuple.sh /path/to/package-directory
 ```
 
 The script rejects missing or unexpected package files, verifies the recorded
-SHA-256 values, installs the tuple in deterministic order, and runs
+historical SHA-256 values, installs the tuple in deterministic order, and runs
 `sudo dpkg --audit`.
 
-This slice records four successful package builds and exact hashes. Builds used
-the Voulage branch `codex/voulage-model-repin-regolith-cosmic-20260808` at
-`53c342c2492524210b4856f581e1abfc6e904a7c` and package-model SHA
-`e0ee1b8d7696185ab9741b9b87d561771e5b6e10a956fceb93dd8837a45ccfcb`.
-The environment used Linux Bash 5.2, an apt-only no-sudo test shim, and
-displayd's absolute nightly Rust/Cargo toolchain; no source or lock files were
-edited. It does not claim QEMU installation, visible login, release signing,
-or completion of the remaining runtime boundaries.
+This slice records the current immutable model and package hashes. Builds used
+Voulage model commit `9794c18826d87981e783cdeabe392233b9218890` with session
+`9c35074`, WM-config `10225c5`, inputd `e32d049`, and displayd `e8cc8e`.
+Displayd used the nightly Cargo toolchain required by Cargo.lock v4; no source
+or lock files were edited. The QEMU notes prove the Sway-backed runtime repair
+and resource-fallback fix, but do not claim current-hash cold-login, native
+`cosmic-comp`, release signing, rollback, or hardware completion.
 
 Known lintian findings remain. QEMU installation and runtime proof remain
-pending.
+partially open for the current hashes; the live repair proof is recorded in
+the linked QEMU notes.
 
 ## Contents
 
