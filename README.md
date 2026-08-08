@@ -7,6 +7,15 @@ runtime matrix remain open.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
+## Current closure slice - 2026-08-08
+
+- [Branch-ref Voulage tuple build](proof-notes/2026-08-08-voulage-branch-tuple-build.md)
+- [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
+
+This slice records four successful package builds and exact hashes. It does
+not claim QEMU installation, visible login, release signing, or completion of
+the remaining runtime boundaries.
+
 ## Contents
 
 Proof notes:
