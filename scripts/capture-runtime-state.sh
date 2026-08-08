@@ -25,13 +25,13 @@ capture() {
 
 packages=(
   regolith-session-cosmic
-  regolith-session-common
   regolith-wm-config
+  regolith-sway-root-config
+  regolith-sway-ilia
+  regolith-sway-default-style
+  regolith-sway-cosmic-idle
   regolith-inputd
   regolith-displayd
-  regolith-sway-cosmic-idle
-  regolith-sway-gtklock
-  regolith-sway
 )
 
 capture 01-dpkg-query.txt dpkg-query -W -f='${binary:Package}\t${Version}\t${Status}\n' "${packages[@]}"
