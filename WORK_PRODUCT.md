@@ -67,13 +67,14 @@ integrity evidence, not a new package build or release claim.
   touchpad command mappings and partial configurations. This is unit coverage;
   physical-device and live reverse-sync behavior remain open.
   [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
-- **Inputd robustness candidate:** isolated commit `cd1c2cd` guards empty Sway
-  keyboard-layout metadata and passes 46 all-feature tests plus focused
-  regression tests. Voulage candidate `5d8a904` pins that public source and
-  builds an unsigned Ubuntu Resolute amd64 package with SHA-256
-  `ab4283c0b667104ceb231719ecb51ee8113edc09b5e2de2cda50ac210b48815d`.
-  The candidate is not part of the installed tuple until separate QEMU runtime
-  proof exists.
+- **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
+  Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
+  commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
+  commit `4dc7de8` builds an unsigned Ubuntu Resolute amd64 package with
+  SHA-256 `759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193`.
+  Direct Debian Lintian is clean; Voulage retains one same-day changelog-date
+  warning. The candidate is not part of the installed tuple until separate
+  QEMU runtime proof exists.
   [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
