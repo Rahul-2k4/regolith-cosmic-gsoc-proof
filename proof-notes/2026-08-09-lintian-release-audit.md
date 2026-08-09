@@ -13,4 +13,11 @@ Two packaging-only fixes are isolated and not merged upstream:
 - WM-config branch `codex/wm-config-release-audit-20260809` at `1122266a`
 
 Post-fix artifacts have not yet been rebuilt, so lintian and release readiness
-remain open. Signing is also not included in this proof bundle.
+remain open. A bounded isolated rebuild of `regolith-wm-config` then
+completed successfully at `4.11.11-1-1regolith-resolute` with SHA-256
+`e6e54bab85a5ebf76581ac4dcb68c287feec938695a93b119d95e979019e5937`.
+
+The two targeted errors disappeared, but broader existing lintian errors in
+sibling packages remained. Displayd reached source packaging and offline
+binary compilation but had no completed post-fix binary artifact at the stop
+boundary. Signing is not included in this proof bundle.

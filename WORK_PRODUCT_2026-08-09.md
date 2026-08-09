@@ -49,8 +49,9 @@ coverage, release disposition, and final mentor review.
   live in COSMIC QEMU, but a fresh visible GNOME login is still unproven
   because the greeter auto-starts COSMIC.
 - The lintian audit found a real wm-config dependency contradiction and a
-  builder-host changelog identity issue. Packaging-only fixes are isolated, but
-  post-fix artifacts are not yet rebuilt.
+  builder-host changelog identity issue. The wm-config fix rebuilt and removed
+  those targeted errors, but broader lintian errors remain; displayd's post-fix
+  binary was not completed.
 
 ## Public evidence
 
