@@ -6,8 +6,8 @@ sanitized wrapper proof.
 
 ## Current estimate
 
-- Strict proposal completion: **70-75%**.
-- Engineering/component progress: **80-85%**.
+- Strict proposal completion: **74-78%**.
+- Engineering/component progress: **82-86%**.
 
 The strict estimate remains lower because the runtime matrix, lifecycle,
 release, and review gates are not closed.
@@ -73,12 +73,18 @@ merge is claimed, and no hardware result is claimed.
   tuple are recorded.
   [Clean Voulage rebuild](proof-notes/2026-08-09-clean-voulage-rebuild.md) ·
   [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
+- **Cosmolith package boundary:** the exact `cosmolith` source was built through
+  vendoring, offline compilation, Debian source-package generation, and binary
+  package creation. The resulting `.deb` was installed in QEMU with matching
+  SHA-256 values and an empty `dpkg --audit`. A fresh-session launch of the
+  packaged executable is not claimed.
+  [Cosmolith package/install boundary](proof-notes/2026-08-09-cosmolith-package-install-boundary.md)
 
 ## Open boundaries
 
-- The accepted cosmolith source branch still needs a reproducible Voulage/
-  Debian artifact. Cargo currently sees incompatible upstream git dependency
-  trees, so no cosmolith package or release claim is made.
+- A fresh-session runtime check for the packaged cosmolith executable remains
+  open. Signing, canonical publication, and final release disposition are also
+  open.
 
 - Settings panel display interaction, including its reproducible renderer
   crash.

@@ -36,6 +36,7 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 - [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
 - [Regolith wrapper cold-reboot QEMU proof](proof-notes/2026-08-09-regolith-wrapper-cold-reboot-qemu-proof.md)
 - [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
+- [Cosmolith package/install boundary](proof-notes/2026-08-09-cosmolith-package-install-boundary.md)
 - [Live QEMU runtime recheck](proof-notes/2026-08-09-live-qemu-runtime-recheck.md)
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
 - [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
@@ -204,9 +205,12 @@ QEMU-boundary findings:
 - fallback timeout-to-lock and unlock now have QEMU evidence; native idle and
   logind semantics remain open
 
-Source-package proven:
+Source/package proven:
 
 - `cosmic-osd` source package generation
+- Cosmolith vendored/offline build, binary `.deb` creation, and exact QEMU
+  installation. A fresh-session packaged cosmolith runtime, signing, and
+  canonical publication remain open.
 
 Source/unit reviewable from the public branch, with limits:
 
