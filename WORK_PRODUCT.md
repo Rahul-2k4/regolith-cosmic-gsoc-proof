@@ -22,10 +22,10 @@ merge is claimed, and no hardware result is claimed.
 
 ## Proven areas
 
-- **Sway-backed wrapper cold reboot:** the installed `regolith-session-cosmic`
-  wrapper returned to the Regolith Wayland COSMIC session after a disposable
-  QEMU reboot. The session exposed `Regolith-Wayland:COSMIC:sway`.
-  [Wrapper cold-reboot proof](proof-notes/2026-08-09-regolith-wrapper-cold-reboot-qemu-proof.md)
+- **Final-tuple wrapper closure:** two sequential cold boots of the installed
+  final package tuple returned to the Sway-backed Regolith Wayland COSMIC
+  session. The target/helper health checks passed on both logins.
+  [Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md)
 - **Target ownership:** the COSMIC target owned healthy `regolith-inputd` and
   `regolith-displayd` helpers, while the GNOME target remained separate and
   inactive for that COSMIC login.
@@ -67,7 +67,8 @@ merge is claimed, and no hardware result is claimed.
 [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md) ·
 [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md) ·
 [Live QEMU runtime boundary](proof-notes/2026-08-09-live-qemu-runtime-recheck.md) ·
-[Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
+[Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md) ·
+[Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md)
 
 ## Claim boundary
 
