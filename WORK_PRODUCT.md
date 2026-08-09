@@ -124,6 +124,11 @@ integrity evidence, not a new package build or release claim.
   targets. The parent `cosmic-session`/`dbus-run-session` lifecycle remains a
   named boundary and is not presented as a clean logout result.
   [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
+- **Physical hardware boundary:** a read-only host audit found a physical
+  touchpad but no active Regolith/COSMIC session and only the internal display
+  connected. No host state was changed; physical touchpad, hotplug, and
+  multi-display behavior remain unverified.
+  [Hardware capability boundary](proof-notes/2026-08-10-physical-hardware-capability-boundary.md)
 
 ## Open boundaries
 
