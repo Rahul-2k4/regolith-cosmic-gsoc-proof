@@ -1,0 +1,3 @@
+SWAYSOCK=/run/user/1000/sway-ipc.1000.6742.sock
+WAYLAND_DISPLAY=wayland-1
+XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway

@@ -88,6 +88,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
 - [Inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
+- [Inputd candidate verifier QEMU runtime proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
 
 ### Historical installer
 
@@ -156,11 +157,14 @@ mutation, or hardware coverage.
 
 Example:
 
+`EXPECTED_BINARY_SHA256` is the hash of the installed
+`/usr/bin/regolith-inputd` binary, not the `.deb` archive hash.
+
 ```bash
 HOST=my-qemu-host \
 GUEST='ssh -p 2222 user@127.0.0.1' \
 EXPECTED_PACKAGE_VERSION=0.4.1-2-1regolith-resolute \
-EXPECTED_BINARY_SHA256=759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193 \
+EXPECTED_BINARY_SHA256=b484e3f05f8042f217d1fca46507a8c1011c565bc2c69034b202f8d8599981eb \
 REMOTE_PROOF_DIR=/tmp/regolith-cosmic-inputd-candidate-proof \
 bash scripts/verify-inputd-candidate-qemu-runtime.sh
 ```

@@ -90,6 +90,14 @@ integrity evidence, not a new package build or release claim.
   restoration. The candidate is still separate from the frozen `e32d049`
   source tuple pending mentor/release direction.
   [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
+- **Candidate verifier runtime:** the hardened verifier passed in qualification
+  QEMU after a visible greeter login with the exact candidate package version
+  and installed-binary hash. It proved COSMIC target selection, GNOME target
+  exclusion, helper health, zero restarts, target dependency membership, and
+  allowlisted process environment values. The guest proof intentionally
+  excludes unrelated failed units and does not claim hardware or native
+  compositor coverage.
+  [Verifier QEMU proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
 - **Cosmolith source closure:** the personal fork now has structured watcher

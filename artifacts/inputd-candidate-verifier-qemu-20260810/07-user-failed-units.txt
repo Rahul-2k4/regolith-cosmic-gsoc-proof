@@ -1,0 +1,1 @@
+● app-polkit\x2dmate\x2dauthentication\x2dagent\x2d1@autostart.service loaded failed failed PolicyKit Authentication Agent
