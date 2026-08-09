@@ -12,10 +12,11 @@ sanitized wrapper proof.
 The strict estimate remains lower because the runtime matrix, lifecycle,
 release, and review gates are not closed.
 
-The public branch is currently at commit `cedcd52`. It includes the reviewed
+The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
-which checks an already-installed session without installing packages,
-restarting services, or changing persistent configuration.
+introduced in commit `cedcd52`. It checks an already-installed session without
+installing packages, restarting services, or changing persistent
+configuration.
 
 ## Source of truth
 
