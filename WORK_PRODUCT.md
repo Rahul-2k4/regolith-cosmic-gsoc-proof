@@ -59,8 +59,9 @@ merge is claimed, and no hardware result is claimed.
   DPI behavior remain unverified.
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
-- Full logout, reboot, shutdown, idle, and unlock lifecycle coverage remains
-  open beyond the recorded fallback path.
+- Full logout, shutdown, idle, and unlock lifecycle coverage remains open
+  beyond the recorded fallback path; reboot ordering is covered by the wrapper
+  proof.
 - Signing, release readiness/publication, and final mentor review remain open.
 
 [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md) ·

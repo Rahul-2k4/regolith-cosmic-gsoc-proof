@@ -1,9 +1,10 @@
 # Regolith COSMIC proof bundle
 
 This bundle contains the original midterm snapshot plus the reviewed QEMU
-proof notes. Native `cosmic-comp` compositor runtime is now proven on the
-QEMU seat; native Regolith-wrapper behavior, hardware/display coverage, full
-idle lifecycle, signing, and final release review remain open.
+proof notes. Native `cosmic-comp` compositor runtime and the installed
+Sway-backed Regolith wrapper cold-reboot path are both proven on the QEMU
+seat; hardware/display coverage, full idle lifecycle, signing, and final
+release review remain open.
 
 For the current status and the latest sanitized evidence, start with the
 [stable reviewer-facing work product](WORK_PRODUCT.md). The dated
