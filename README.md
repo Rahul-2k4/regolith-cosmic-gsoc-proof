@@ -5,6 +5,9 @@ proof notes. It is still not the complete proposal proof package; native
 compositor behavior, hardware/display coverage, full idle lifecycle, signing,
 and final release review remain open.
 
+For the current status and the latest sanitized evidence, start with the
+[2026-08-09 work-product snapshot](WORK_PRODUCT_2026-08-09.md).
+
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
 ## Current closure slice - 2026-08-08
@@ -28,6 +31,9 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
 - [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
+- [Live QEMU runtime recheck](proof-notes/2026-08-09-live-qemu-runtime-recheck.md)
+- [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
 - [COSMIC volume OSD](proof-notes/2026-08-09-cosmic-osd-volume.md)
 - [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
