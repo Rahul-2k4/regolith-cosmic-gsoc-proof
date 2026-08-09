@@ -1,17 +1,18 @@
 # Regolith COSMIC proof bundle
 
 This bundle contains the original midterm snapshot plus the reviewed QEMU
-proof notes. Native `cosmic-comp` compositor runtime and the installed
-Sway-backed Regolith wrapper cold-reboot path are both proven on the QEMU
-seat; hardware/display coverage, full idle lifecycle, signing, and final
-release review remain open.
+proof notes. Use `WORK_PRODUCT.md` for the current submission status. Native
+`cosmic-comp` compositor runtime and the installed Sway-backed Regolith
+wrapper cold-reboot path are proven on the QEMU seat; hardware/display
+coverage, full idle lifecycle, signing, and final release review remain open.
 
 For the current status and the latest sanitized evidence, start with the
 [stable reviewer-facing work product](WORK_PRODUCT.md). The dated
 [2026-08-09 snapshot](WORK_PRODUCT_2026-08-09.md) remains available as a
 dated companion record.
 
-This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
+This bundle contains the proof notes and reproduction scripts for the current
+closure state of the Regolith COSMIC session work.
 
 ## Current closure slice - 2026-08-10
 
@@ -20,9 +21,19 @@ tuple for current claims:
 
 - [Corrected tuple lifecycle and rollback](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
 
-Current closure displayd model: `c8fba468`, session source `3523047b`, displayd
-source `817becd9`. The current session-build model is `bf0145e3`. The earlier model
-`9794c188` and session `9c35074` remain historical proof only.
+Current wrapper source tuple: `regolith-session` `3523047b`, `regolith-wm-config`
+`10225c05`, `regolith-inputd` `e32d049`, and `regolith-displayd` `817becd9`.
+The corrected Voulage model is `f3827893`; older models such as `9794c188`,
+`bf0145e3`, and source `9c35074` remain historical proof only.
+
+**Acceptance-boundary note:** the submitted PDF says the legacy inputd and
+displayd units should remain inactive after a COSMIC login. Mentor feedback
+later approved separate GNOME/COSMIC targets and target-owned helper units.
+The current implementation therefore expects those helpers to be active under
+`regolith-cosmic.target`; the QEMU proof checks target ownership, healthy
+services, zero restarts, and GNOME-session exclusion. This supersedes the
+older inactive-helper wording without changing the goal of removing the GNOME
+bootstrap path.
 
 Provenance correction: the corrected Voulage model has now been rebuilt and
 exercised through the real QEMU greeter. Model commit
@@ -81,7 +92,7 @@ The script rejects missing or unexpected package files, verifies the recorded
 historical SHA-256 values, installs the tuple in deterministic order, and runs
 `sudo dpkg --audit`.
 
-The older slice below records the superseded model and package hashes. Builds
+The older slice below records superseded model and package hashes. Builds
 used Voulage model commit `9794c18826d87981e783cdeabe392233b9218890` with
 session `9c35074`, WM-config `10225c5`, inputd `e32d049`, and displayd `e8cc8e`.
 Displayd used the nightly Cargo toolchain required by Cargo.lock v4; no source

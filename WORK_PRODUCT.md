@@ -20,6 +20,14 @@ The public source of truth is the
 This page is a proof bundle, not an upstream merge. No upstream PR or `main`
 merge is claimed, and no hardware result is claimed.
 
+**Acceptance-boundary note:** the submitted PDF used “legacy helper units
+inactive” as its success wording. Mentor feedback later approved separate
+GNOME/COSMIC systemd targets, with the COSMIC target owning the compatible
+inputd and displayd helpers. The current proof therefore expects those helpers
+to be active under `regolith-cosmic.target`, with successful results, zero
+restarts, and no GNOME session bootstrap. This is the current implementation
+boundary; it is not a claim that the original PDF wording was tested unchanged.
+
 **Voulage provenance correction:** corrected model commit
 [`f38278934be32e9d051390b19cc416c3f320e7e5`](https://github.com/Rahul-2k4/voulage/commit/f38278934be32e9d051390b19cc416c3f320e7e5) restores session source `3523047b`,
 was rebuilt into the exact unsigned session package, installed in QEMU, and
