@@ -8,6 +8,7 @@ REMOTE_PROOF_DIR="${REMOTE_PROOF_DIR:-/tmp/regolith-cosmic-inputd-candidate-proo
 INPUTD_HELPER="${INPUTD_HELPER:-}"
 EXPECTED_PACKAGE_VERSION="${EXPECTED_PACKAGE_VERSION:-}"
 EXPECTED_BINARY_SHA256="${EXPECTED_BINARY_SHA256:-}"
+INPUTD_HELPER_SENTINEL='__INPUTD_HELPER_ABSENT__'
 
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   cat <<'USAGE'
@@ -46,11 +47,17 @@ fi
 read -r -d '' GUEST_SCRIPT_CONTENT <<'GUEST_SCRIPT' || true
 set -euo pipefail
 umask 077
+INPUTD_HELPER_SENTINEL='__INPUTD_HELPER_ABSENT__'
 
 proof_dir=$1
 expected_version=$2
 expected_hash=$3
-helper=$4
+helper_arg=$4
+if [[ "${helper_arg}" == "${INPUTD_HELPER_SENTINEL}" ]]; then
+  helper=''
+else
+  helper=${helper_arg}
+fi
 mkdir -p "${proof_dir}"
 chmod 700 "${proof_dir}"
 failures=0
@@ -144,4 +151,5 @@ printf 'Proof dir: %s\n' "${proof_dir}"
 GUEST_SCRIPT
 
 printf '%s\n' "${GUEST_SCRIPT_CONTENT}" | ssh "${HOST}" "${GUEST} 'bash -s'" -- \
-  "${REMOTE_PROOF_DIR}" "${EXPECTED_PACKAGE_VERSION}" "${EXPECTED_BINARY_SHA256}" "${INPUTD_HELPER}"
+  "${REMOTE_PROOF_DIR}" "${EXPECTED_PACKAGE_VERSION}" "${EXPECTED_BINARY_SHA256}" \
+  "${INPUTD_HELPER:-${INPUTD_HELPER_SENTINEL}}"
