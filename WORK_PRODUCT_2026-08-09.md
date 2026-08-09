@@ -50,8 +50,8 @@ coverage, release disposition, and final mentor review.
   because the greeter auto-starts COSMIC.
 - The lintian audit found a real wm-config dependency contradiction and a
   builder-host changelog identity issue. The wm-config fix rebuilt and removed
-  those targeted errors, but broader lintian errors remain; displayd's post-fix
-  binary was not completed.
+  those targeted errors, but broader lintian errors remain. Displayd also
+  rebuilt, with residual release-hygiene tags still open.
 
 ## Public evidence
 

@@ -18,6 +18,9 @@ completed successfully at `4.11.11-1-1regolith-resolute` with SHA-256
 `e6e54bab85a5ebf76581ac4dcb68c287feec938695a93b119d95e979019e5937`.
 
 The two targeted errors disappeared, but broader existing lintian errors in
-sibling packages remained. Displayd reached source packaging and offline
-binary compilation but had no completed post-fix binary artifact at the stop
-boundary. Signing is not included in this proof bundle.
+sibling packages remained. Displayd also rebuilt successfully at
+`0.3.4-1-1regolith-trixie` with SHA-256
+`5d8c43de1d3ca6aab8ba070f79cbd58e17caa6180050303295052c71fc242cb9`.
+Its residual tags are `bad-distribution-in-changes-file`, two missing
+manual-page warnings, and an empty dbgsym warning. Signing is not included in
+this proof bundle.
