@@ -67,6 +67,11 @@ integrity evidence, not a new package build or release claim.
   touchpad command mappings and partial configurations. This is unit coverage;
   physical-device and live reverse-sync behavior remain open.
   [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
+- **Inputd robustness candidate:** isolated commit `cd1c2cd` guards empty Sway
+  keyboard-layout metadata and passes 46 all-feature tests plus focused
+  regression tests. It is not part of the installed tuple until its package
+  model is rebuilt and installed.
+  [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
 - **Cosmolith source closure:** the personal fork now has structured watcher
   errors and deterministic COSMIC session detection. A clean laptop check
   passed with 14 tests and no failures.
@@ -80,9 +85,11 @@ integrity evidence, not a new package build or release claim.
   Sway IPC for compatibility and fallback. Single-output fresh-login
   persistence is proven in the frozen Sway-backed wrapper. The older `e8cc8e07`
   package note remains useful as direct observer evidence, but no repin is
-  needed. Native `cosmic-comp`, hotplug, mixed-DPI, and Settings-panel proof
-  are still open.
+  needed. The frozen source audit passes 73 locked tests and found no safe
+  patch to transplant from the newer candidate. Native `cosmic-comp`,
+  hotplug, mixed-DPI, and Settings-panel proof are still open.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
+  [Frozen source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md)
 - **Newer displayd artifact:** an isolated unsigned `regolith-displayd`
   artifact from source commit `21e4553618cb8f0d21e46bac13a37451cb489059`
   produced package `0.3.4-1-1regolith-resolute` with SHA-256
@@ -100,6 +107,10 @@ integrity evidence, not a new package build or release claim.
   the earlier package had a matching disposable-QEMU install with empty
   `dpkg --audit`.
   [Displayd packaging proof](proof-notes/2026-08-09-displayd-packaging-proof.md)
+- **Voulage changelog identity:** isolated commit `db0ff7b` adds a tested
+  maintainer-identity fallback so local Voulage builds do not inherit the
+  builder hostname. It has not yet been used for a package rebuild or release.
+  [Changelog identity proof](proof-notes/2026-08-10-voulage-changelog-identity-proof.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)

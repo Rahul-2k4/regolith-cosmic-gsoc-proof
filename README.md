@@ -26,6 +26,10 @@ Current wrapper source tuple: `regolith-session` `3523047b`, `regolith-wm-config
 The corrected Voulage model is `f3827893`; older models such as `9794c188`,
 `bf0145e3`, and source `9c35074` remain historical proof only.
 
+The frozen `regolith-displayd` source audit passed 73 locked tests and retained
+the Wayland observer; it does not claim native or physical display coverage.
+See [the source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md).
+
 **Acceptance-boundary note:** the submitted PDF says the legacy inputd and
 displayd units should remain inactive after a COSMIC login. Mentor feedback
 later approved separate GNOME/COSMIC targets and target-owned helper units.
