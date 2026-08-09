@@ -36,6 +36,14 @@ merge is claimed, and no hardware result is claimed.
 - **Single-output persistence:** fresh-login display profile reapplication
   passed on the Sway-backed QEMU path.
   [Display profile reapplication proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
+- **Newer displayd artifact:** an isolated unsigned `regolith-displayd`
+  artifact from source commit `21e4553618cb8f0d21e46bac13a37451cb489059`
+  produced package `0.3.4-1-1regolith-resolute` with SHA-256
+  `766a2a19a5b0e478f02384ff8b0b2c35ae278789e0c7922d09eb8d6b26d161ed`.
+  Twelve tests passed with 142 vendored crates. A live `1024x768` recording
+  restored to `1280x800` after one cold reboot; the service had zero restarts
+  and the package audit was clean.
+  [Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
@@ -63,12 +71,16 @@ merge is claimed, and no hardware result is claimed.
   beyond the recorded fallback path; reboot ordering is covered by the wrapper
   proof.
 - Signing, release readiness/publication, and final mentor review remain open.
+- Voulage script publication, the full display matrix, native Settings
+  validation, and hardware validation remain open for the newer unsigned
+  displayd artifact.
 
 [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md) ·
 [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md) ·
 [Live QEMU runtime boundary](proof-notes/2026-08-09-live-qemu-runtime-recheck.md) ·
 [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md) ·
-[Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md)
+[Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md) ·
+[Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
 
 ## Claim boundary
 
