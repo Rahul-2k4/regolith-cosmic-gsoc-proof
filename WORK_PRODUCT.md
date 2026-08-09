@@ -6,11 +6,16 @@ sanitized wrapper proof.
 
 ## Current estimate
 
-- Strict proposal completion: **74-78%**.
-- Engineering/component progress: **82-86%**.
+- Strict proposal completion: **76-80%**.
+- Engineering/component progress: **84-87%**.
 
 The strict estimate remains lower because the runtime matrix, lifecycle,
 release, and review gates are not closed.
+
+The public branch is currently at commit `cedcd52`. It includes the reviewed
+[inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
+which checks an already-installed session without installing packages,
+restarting services, or changing persistent configuration.
 
 ## Source of truth
 

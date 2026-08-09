@@ -14,6 +14,11 @@ dated companion record.
 This bundle contains the proof notes and reproduction scripts for the current
 closure state of the Regolith COSMIC session work.
 
+The latest public proof commit is `cedcd52`; the new
+[inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
+is read-only with respect to package installation and persistent session
+configuration.
+
 ## Current closure slice - 2026-08-10
 
 The corrected 2026-08-09 lifecycle result supersedes the older native-idle
