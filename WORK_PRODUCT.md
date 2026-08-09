@@ -33,6 +33,10 @@ merge is claimed, and no hardware result is claimed.
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
+- **Cosmolith source closure:** the personal fork now has structured watcher
+  errors and deterministic COSMIC session detection. A clean laptop check
+  passed with 14 tests and no failures.
+  [Cosmolith source closure](proof-notes/2026-08-09-cosmolith-source-closure.md)
 - **Single-output persistence:** fresh-login display profile reapplication
   passed on the Sway-backed QEMU path.
   [Display profile reapplication proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
@@ -71,6 +75,10 @@ merge is claimed, and no hardware result is claimed.
   [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
 
 ## Open boundaries
+
+- The accepted cosmolith source branch still needs a reproducible Voulage/
+  Debian artifact. Cargo currently sees incompatible upstream git dependency
+  trees, so no cosmolith package or release claim is made.
 
 - Settings panel display interaction, including its reproducible renderer
   crash.
