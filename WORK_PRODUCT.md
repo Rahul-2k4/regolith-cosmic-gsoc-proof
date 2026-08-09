@@ -100,9 +100,9 @@ but it requires a rebuild before it can be called the current package model.
   DPI behavior remain unverified.
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
-- Full logout, shutdown, idle, and unlock lifecycle coverage remains open
-  beyond the recorded fallback path; reboot ordering is covered by the wrapper
-  proof.
+- Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
+  one fallback idle timeout-lock/unlock cycle are proven; repeated cycles,
+  native idle/logind semantics, and hardware remain open.
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.
