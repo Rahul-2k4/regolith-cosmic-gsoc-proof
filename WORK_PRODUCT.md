@@ -54,6 +54,11 @@ integrity evidence, not a new package build or release claim.
   inputd service and COSMIC backend environment. One keyboard/input-source
   transition was observed and then restored.
   [Current-hash inputd QEMU proof](proof-notes/2026-08-09-current-hash-inputd-qemu-proof.md)
+- **Inputd touchpad mapping coverage:** the frozen source already passes 43
+  COSMIC-feature tests and 20 GNOME-feature tests, including deterministic
+  touchpad command mappings and partial configurations. This is unit coverage;
+  physical-device and live reverse-sync behavior remain open.
+  [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
 - **Cosmolith source closure:** the personal fork now has structured watcher
   errors and deterministic COSMIC session detection. A clean laptop check
   passed with 14 tests and no failures.
