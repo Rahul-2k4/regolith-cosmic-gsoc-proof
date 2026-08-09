@@ -45,6 +45,12 @@ coverage, release disposition, and final mentor review.
 - The current live QEMU health recheck passed target/helper health, zero
   restarts, zero failed user units, and empty `dpkg --audit`, but did not claim
   a second idle cycle because the guest was not in a clean baseline.
+- The GNOME launch assets remain installed and the Regolith surface remains
+  live in COSMIC QEMU, but a fresh visible GNOME login is still unproven
+  because the greeter auto-starts COSMIC.
+- The lintian audit found a real wm-config dependency contradiction and a
+  builder-host changelog identity issue. Packaging-only fixes are isolated, but
+  post-fix artifacts are not yet rebuilt.
 
 ## Public evidence
 
@@ -52,6 +58,8 @@ coverage, release disposition, and final mentor review.
 - [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
 - [Live QEMU runtime boundary](proof-notes/2026-08-09-live-qemu-runtime-recheck.md)
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
+- [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
+- [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
 - [Display persistence fix](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [Headless display matrix](proof-notes/2026-08-09-headless-display-matrix.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
