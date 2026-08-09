@@ -65,11 +65,14 @@ but it requires a rebuild before it can be called the current package model.
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
-- **Fallback lock:** the configured five-minute `swayidle + gtklock` path now
-  has a visible QEMU timeout-lock capture. The exact unlock attempt did not
-  clear that run, so native idle, logind semantics, and a complete repeated
-  lifecycle remain open.
-  [Corrected tuple lifecycle](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
+- **Fallback lock:** the target-owned five-minute `swayidle + gtklock` path
+  produced a visible QEMU timeout lock; graphical unlock succeeded and the
+  desktop returned with `Type=wayland`, `Desktop=Regolith-Wayland`,
+  `IdleHint=no`, and `LockedHint=no`. After unlock, only `swayidle` remained
+  and the failed user-unit audit was empty. This is one QEMU cycle only;
+  repeated cycles, native cosmic-idle/logind semantics, logout/shutdown,
+  hardware, and signing/publication remain open.
+  [Current tuple fallback lock/unlock proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md)
 - **OSD:** a visible COSMIC volume overlay was produced in the Sway-backed
   COSMIC QEMU session.
   [COSMIC volume OSD proof](proof-notes/2026-08-09-cosmic-osd-volume.md)
@@ -109,6 +112,7 @@ but it requires a rebuild before it can be called the current package model.
 [Live QEMU runtime boundary](proof-notes/2026-08-09-live-qemu-runtime-recheck.md) ·
 [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md) ·
 [Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md) ·
+[Fallback lock/unlock proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md) ·
 [Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
 
 ## Claim boundary

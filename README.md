@@ -51,6 +51,7 @@ model.
 - [Native compositor launch boundary](proof-notes/2026-08-09-native-compositor-launch-boundary.md)
 - [Native compositor QEMU seat proof](proof-notes/2026-08-09-native-cosmic-comp-qemu-proof.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
+- [Current tuple fallback lock/unlock QEMU proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md)
 - [COSMIC volume OSD](proof-notes/2026-08-09-cosmic-osd-volume.md)
 - [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
