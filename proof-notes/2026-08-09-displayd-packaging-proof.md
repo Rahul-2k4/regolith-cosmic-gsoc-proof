@@ -6,15 +6,16 @@ The isolated displayd packaging branch is
 normalizes Debian metadata, and adds a source-level packaging regression test.
 
 The corresponding personal-fork Voulage model branch is
-`codex/voulage-displayd-model-39c3746-20260809` at
-`dc9bc6c8ec5ab90f590dafd983732e9dab8f06e7`. The unsigned package has version
+`codex/voulage-displayd-model-39c3746-20260809`. The follow-up source branch
+`c99495e` also fixes the historical changelog version and disables automatic
+dbgsym generation. The corrected unsigned package has version
 `0.3.4-1-1regolith-resolute` and SHA-256
-`f9dedba0a53e50c3f5122ac6cd95a4e0882ae71cd11e8e127bd69d11f5ebe245`.
+`f733551be828ea4ff73043f71ebbd4a955b3d6a06ae3071190e761623a6df512`.
 
-The binary Lintian result is clean. A corrected nightly library test reports
-12 passed tests. The package was installed in the disposable QEMU guest with
-the same hash, both manual pages present, and empty `dpkg --audit`.
+The binary and `.changes` Lintian results are clean. A corrected nightly
+library test reports 12 passed tests. The earlier package was installed in the
+disposable QEMU guest with the same hash, both manual pages present, and empty
+`dpkg --audit`.
 
-Signing remains pending. The source changes file retains two warnings, so this
-is package/build proof, not release publication proof. No upstream PR or
-`main` merge is claimed.
+Signing remains pending, so this is package/build proof, not release
+publication proof. No upstream PR or `main` merge is claimed.
