@@ -22,7 +22,7 @@ merge is claimed, and no hardware result is claimed.
 
 **Voulage provenance correction:** the existing clean artifacts remain tied to
 the audited build evidence that produced them. Corrected model commit
-`f38278934be32e9d051390b19cc416c3f320e7e5` restores session source `3523047b`,
+[`f38278934be32e9d051390b19cc416c3f320e7e5`](https://github.com/Rahul-2k4/voulage/commit/f38278934be32e9d051390b19cc416c3f320e7e5) restores session source `3523047b`,
 but it requires a rebuild before it can be called the current package model.
 
 ## Proven areas

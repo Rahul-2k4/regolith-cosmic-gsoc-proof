@@ -26,7 +26,7 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 
 Provenance correction: the existing clean Voulage artifacts remain tied to the
 audited build evidence that produced them. Corrected model commit
-`f38278934be32e9d051390b19cc416c3f320e7e5` restores session source `3523047b`,
+[`f38278934be32e9d051390b19cc416c3f320e7e5`](https://github.com/Rahul-2k4/voulage/commit/f38278934be32e9d051390b19cc416c3f320e7e5) restores session source `3523047b`,
 but it still requires a rebuild before it can be called the current package
 model.
 
