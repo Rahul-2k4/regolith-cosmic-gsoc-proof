@@ -137,8 +137,12 @@ integrity evidence, not a new package build or release claim.
   [Displayd packaging proof](proof-notes/2026-08-09-displayd-packaging-proof.md)
 - **Voulage changelog identity:** isolated commit `db0ff7b` adds a tested
   maintainer-identity fallback so local Voulage builds do not inherit the
-  builder hostname. It has not yet been used for a package rebuild or release.
+  builder hostname. The corrected branch rebuilt the Resolute COSMIC session
+  package and the exact unsigned artifact passed an isolated QEMU install,
+  visible login, target/helper checks, and rollback. One non-blocking Lintian
+  manual-page warning remains; signing and publication are open.
   [Changelog identity proof](proof-notes/2026-08-10-voulage-changelog-identity-proof.md)
+  [Rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)

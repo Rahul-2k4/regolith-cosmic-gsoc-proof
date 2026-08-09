@@ -88,8 +88,12 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
 - [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
+- [Corrected Voulage session rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
 - [Inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
 - [Inputd candidate verifier QEMU runtime proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
+
+The corrected Voulage session rebuild is documented in
+[the rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md).
 
 ### Historical installer
 
