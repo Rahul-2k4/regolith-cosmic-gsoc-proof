@@ -79,6 +79,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Corrected Voulage model real-greeter proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md)
 - [Native COSMIC display mutation boundary](proof-notes/2026-08-10-native-cosmic-display-mutation-boundary.md)
 - [Frozen Voulage pin regression](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md)
+- [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
 
 ### Historical installer
 
