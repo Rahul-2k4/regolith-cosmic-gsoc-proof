@@ -7,6 +7,7 @@ GUEST="${GUEST:-}"
 REMOTE_PROOF_DIR="${REMOTE_PROOF_DIR:-/tmp/regolith-cosmic-inputd-candidate-proof}"
 INPUTD_HELPER="${INPUTD_HELPER:-}"
 EXPECTED_PACKAGE_VERSION="${EXPECTED_PACKAGE_VERSION:-}"
+# Expected SHA-256 digest of the installed regolith-inputd binary.
 EXPECTED_BINARY_SHA256="${EXPECTED_BINARY_SHA256:-}"
 INPUTD_HELPER_SENTINEL='__INPUTD_HELPER_ABSENT__'
 
@@ -84,7 +85,9 @@ else
 fi
 
 check_desktop() {
-  local name=$1 pid=$2 output="${proof_dir}/04-${name}-environment.txt"
+  local name=$1
+  local pid=$2
+  local output="${proof_dir}/04-${name}-environment.txt"
   if [[ -z "${pid}" ]]; then fail "${name} process is not running"; return; fi
   if [[ ! -r "/proc/${pid}/environ" ]]; then fail "cannot read ${name} environment"; return; fi
   tr '\0' '\n' <"/proc/${pid}/environ" |
@@ -92,7 +95,10 @@ check_desktop() {
   grep -Eq '^XDG_CURRENT_DESKTOP=.*COSMIC' "${output}" || fail "${name} lacks COSMIC XDG_CURRENT_DESKTOP"
 }
 
-pgrep -x gnome-session-bin >/dev/null && fail 'gnome-session-bin process is running' || true
+# Match the complete command name despite pgrep's 15-character limit. The
+# bracketed first character keeps pgrep itself from matching this pattern.
+pgrep -af '(^|[[:space:]])[g]nome-session-bin([[:space:]]|$)' >/dev/null &&
+  fail 'gnome-session-bin process is running' || true
 sway_pid=$(pgrep -x sway | head -n 1 || true)
 inputd_pid=$(pgrep -x regolith-inputd | head -n 1 || true)
 check_desktop sway "${sway_pid}"
