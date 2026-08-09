@@ -40,6 +40,7 @@ model.
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
 - [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- [Current-hash regolith-inputd QEMU proof](proof-notes/2026-08-09-current-hash-inputd-qemu-proof.md)
 - [Regolith wrapper cold-reboot QEMU proof](proof-notes/2026-08-09-regolith-wrapper-cold-reboot-qemu-proof.md)
 - [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
 - [Cosmolith package/install boundary](proof-notes/2026-08-09-cosmolith-package-install-boundary.md)
@@ -199,6 +200,8 @@ This public repo is a lightweight proof-note bundle. Large raw assets from the p
 
 QEMU-proven:
 
+- current-hash `regolith-inputd` COSMIC login, active service, COSMIC backend
+  environment, and one keyboard/input-source live transition with restoration
 - COSMIC session helper cleanup
 - `regolith-inputd` mouse natural-scroll live watch
 - installed-session keyboard/input-source live update and restoration
@@ -210,6 +213,8 @@ QEMU-boundary findings:
 
 - the current guest has no touchpad device, so touchpad state-change coverage
   remains open
+- this current-hash inputd result does not prove reverse-sync runtime behavior,
+  hardware behavior, signing/release, or an upstream merge
 - two real five-minute fallback timeout-to-lock/unlock cycles now have QEMU
   evidence; native cosmic-idle/logind semantics remain open
 

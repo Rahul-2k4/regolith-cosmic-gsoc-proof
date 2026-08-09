@@ -38,6 +38,11 @@ but it requires a rebuild before it can be called the current package model.
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
+- **Current-hash inputd runtime:** source `e32d049`, package
+  `0.4.1-1-1regolith-resolute`, and a QEMU COSMIC cold login with the active
+  inputd service and COSMIC backend environment. One keyboard/input-source
+  transition was observed and then restored.
+  [Current-hash inputd QEMU proof](proof-notes/2026-08-09-current-hash-inputd-qemu-proof.md)
 - **Cosmolith source closure:** the personal fork now has structured watcher
   errors and deterministic COSMIC session detection. A clean laptop check
   passed with 14 tests and no failures.
@@ -100,6 +105,8 @@ but it requires a rebuild before it can be called the current package model.
   DPI behavior remain unverified.
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
+- The current-hash inputd note is QEMU-only; it does not claim hardware,
+  signing/release, or an upstream merge.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
   cosmic-idle/logind semantics and hardware remain open.
