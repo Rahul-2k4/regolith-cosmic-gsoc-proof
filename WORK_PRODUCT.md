@@ -20,10 +20,10 @@ The public source of truth is the
 This page is a proof bundle, not an upstream merge. No upstream PR or `main`
 merge is claimed, and no hardware result is claimed.
 
-**Voulage provenance correction:** the existing clean artifacts remain tied to
-the audited build evidence that produced them. Corrected model commit
+**Voulage provenance correction:** corrected model commit
 [`f38278934be32e9d051390b19cc416c3f320e7e5`](https://github.com/Rahul-2k4/voulage/commit/f38278934be32e9d051390b19cc416c3f320e7e5) restores session source `3523047b`,
-but it requires a rebuild before it can be called the current package model.
+was rebuilt into the exact unsigned session package, installed in QEMU, and
+exercised through the real greeter. See the [corrected-model proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
 
 ## Proven areas
 
@@ -31,6 +31,11 @@ but it requires a rebuild before it can be called the current package model.
   final package tuple returned to the Sway-backed Regolith Wayland COSMIC
   session. The target/helper health checks passed on both logins.
   [Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md)
+- **Corrected Voulage model runtime:** the exact package built from model
+  `f38278934be32e9d051390b19cc416c3f320e7e5` and session source `3523047b`
+  launched through the real QEMU greeter. The package version, target-owned
+  helper health, `dpkg --audit`, and rollback checksum are recorded in the
+  [corrected-model proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
 - **Target ownership:** the COSMIC target owned healthy `regolith-inputd` and
   `regolith-displayd` helpers, while the GNOME target remained separate and
   inactive for that COSMIC login.
