@@ -25,6 +25,12 @@ merge is claimed, and no hardware result is claimed.
 was rebuilt into the exact unsigned session package, installed in QEMU, and
 exercised through the real greeter. See the [corrected-model proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
 
+The separate Voulage branch
+[`codex/voulage-cosmic-pin-regression-20260810`](https://github.com/Rahul-2k4/voulage/commit/abbf6562dd670637d9c7fa70284befc5dba01fd6)
+adds a regression test for the exact immutable source pins of the frozen
+session, inputd, and displayd package model. The test passes; this is model
+integrity evidence, not a new package build or release claim.
+
 ## Proven areas
 
 - **Final-tuple wrapper closure:** two sequential cold boots of the installed
