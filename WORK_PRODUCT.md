@@ -44,11 +44,19 @@ merge is claimed, and no hardware result is claimed.
   restored to `1280x800` after one cold reboot; the service had zero restarts
   and the package audit was clean.
   [Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
+- **Displayd packaging cleanup:** personal-fork source commit `39c3746c`
+  adds the two manual pages, corrects Debian metadata, and adds a packaging
+  regression test. Its isolated Voulage artifact has binary Lintian `0`, exact
+  package SHA-256 `f9dedba0a53e50c3f5122ac6cd95a4e0882ae71cd11e8e127bd69d11f5ebe245`,
+  and a matching disposable-QEMU install with empty `dpkg --audit`.
+  [Displayd packaging proof](proof-notes/2026-08-09-displayd-packaging-proof.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
-- **Fallback lock:** the `swayidle + gtklock` timeout-to-lock/unlock fallback
-  has QEMU evidence; native idle and logind semantics remain open.
+- **Fallback lock:** the configured five-minute `swayidle + gtklock` path now
+  has a visible QEMU timeout-lock capture. The exact unlock attempt did not
+  clear that run, so native idle, logind semantics, and a complete repeated
+  lifecycle remain open.
   [Corrected tuple lifecycle](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
 - **OSD:** a visible COSMIC volume overlay was produced in the Sway-backed
   COSMIC QEMU session.
@@ -71,9 +79,9 @@ merge is claimed, and no hardware result is claimed.
   beyond the recorded fallback path; reboot ordering is covered by the wrapper
   proof.
 - Signing, release readiness/publication, and final mentor review remain open.
-- Voulage script publication, the full display matrix, native Settings
-  validation, and hardware validation remain open for the newer unsigned
-  displayd artifact.
+- Signing, the changes-file warnings, the full display matrix, native Settings
+  validation, and hardware validation remain open for the newer displayd
+  artifact.
 
 [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md) ·
 [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md) ·
