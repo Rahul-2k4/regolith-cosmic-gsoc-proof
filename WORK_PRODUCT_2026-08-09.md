@@ -61,6 +61,7 @@ coverage, release disposition, and final mentor review.
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
 - [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
 - [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
+- [Native compositor launch boundary](proof-notes/2026-08-09-native-compositor-launch-boundary.md)
 - [Display persistence fix](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [Headless display matrix](proof-notes/2026-08-09-headless-display-matrix.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)

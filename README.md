@@ -36,6 +36,7 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
 - [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
 - [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
+- [Native compositor launch boundary](proof-notes/2026-08-09-native-compositor-launch-boundary.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
 - [COSMIC volume OSD](proof-notes/2026-08-09-cosmic-osd-volume.md)
 - [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
