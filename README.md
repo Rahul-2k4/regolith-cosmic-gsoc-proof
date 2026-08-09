@@ -29,6 +29,11 @@ exercised through the real QEMU greeter. Model commit
 [`f38278934be32e9d051390b19cc416c3f320e7e5`](https://github.com/Rahul-2k4/voulage/commit/f38278934be32e9d051390b19cc416c3f320e7e5) restores session source `3523047b`,
 and the exact unsigned package is recorded in [the corrected-model proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
 
+The exact source pins for the frozen session, inputd, and displayd model are
+also protected by the test-only Voulage commit
+[`abbf6562dd670637d9c7fa70284befc5dba01fd6`](https://github.com/Rahul-2k4/voulage/commit/abbf6562dd670637d9c7fa70284befc5dba01fd6).
+See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md).
+
 - [Current Voulage tuple build](proof-notes/2026-08-08-voulage-current-tuple-build.md)
 - [QEMU Sway resource fallback rerun](proof-notes/2026-08-08-qemu-sway-resource-fallback-rerun.md)
 - [QEMU live manager/socket repair](proof-notes/2026-08-08-qemu-live-manager-socket-repair.md)
@@ -57,6 +62,8 @@ and the exact unsigned package is recorded in [the corrected-model proof](proof-
 - [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
 - [Historical seven-package installer](scripts/install-current-tuple.sh)
 - [Corrected Voulage model real-greeter proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md)
+- [Native COSMIC display mutation boundary](proof-notes/2026-08-10-native-cosmic-display-mutation-boundary.md)
+- [Frozen Voulage pin regression](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md)
 
 ### Historical installer
 
