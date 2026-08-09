@@ -80,6 +80,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Native COSMIC display mutation boundary](proof-notes/2026-08-10-native-cosmic-display-mutation-boundary.md)
 - [Frozen Voulage pin regression](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md)
 - [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
+- [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
 
 ### Historical installer
 

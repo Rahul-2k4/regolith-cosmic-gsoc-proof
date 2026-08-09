@@ -73,8 +73,12 @@ integrity evidence, not a new package build or release claim.
   commit `4dc7de8` builds an unsigned Ubuntu Resolute amd64 package with
   SHA-256 `759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193`.
   Direct Debian Lintian is clean; Voulage retains one same-day changelog-date
-  warning. The candidate is not part of the installed tuple until separate
-  QEMU runtime proof exists.
+  warning. The candidate remains separate from the frozen installed tuple.
+  QEMU runtime proof now exists for the isolated candidate: it installed over
+  the earlier package, reached a fresh Regolith/COSMIC login, kept the
+  target-owned inputd service healthy, and passed a live keyboard change and
+  restoration. The candidate is still separate from the frozen `e32d049`
+  source tuple pending mentor/release direction.
   [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
@@ -165,7 +169,7 @@ integrity evidence, not a new package build or release claim.
   DPI behavior remain unverified.
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
-- The current-hash inputd note is QEMU-only; it does not claim hardware,
+- The inputd candidate runtime note is QEMU-only; it does not claim hardware,
   signing/release, or an upstream merge.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native

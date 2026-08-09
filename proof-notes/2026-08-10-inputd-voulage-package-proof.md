@@ -50,6 +50,23 @@ regolith-inputd: latest-changelog-entry-without-new-date
 
 The package contains `regolith-inputd(8)` and the debug-symbol package contains
 DWARF data. This proves source resolution, model resolution, package
-generation, and the packaging cleanup. The candidate has not been installed in
-QEMU, tested on physical hardware, signed, or published to a canonical Regolith
-archive. The frozen installed tuple still uses inputd source `e32d049`.
+generation, and the packaging cleanup.
+
+## QEMU runtime follow-up
+
+The exact package was copied into the qualification QEMU guest and installed
+over `0.4.1-1-1regolith-resolute`. A fresh visible Regolith/COSMIC login then
+showed `regolith-cosmic.target`, `regolith-init-inputd.service`, and
+`regolith-init-displayd.service` active, with no failed user units, empty
+`dpkg --audit`, and clean `dpkg -V`. `regolith-inputd` remained running under
+`XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway`.
+
+The live keyboard check changed US to French AZERTY, changed repeat settings,
+and restored the original state. The capture is
+[the QEMU session screenshot](../artifacts/inputd-candidate-qemu-session-20260810.png).
+
+This is QEMU-only runtime proof for the isolated candidate. It does not prove
+physical touchpad behavior, reverse-sync persistence, native display mutation,
+signing, canonical publication, or an upstream merge. The frozen source tuple
+still records inputd `e32d049`; candidate promotion remains a separate
+mentor/release decision.
