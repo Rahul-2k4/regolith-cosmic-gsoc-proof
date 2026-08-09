@@ -6,7 +6,9 @@ QEMU seat; native Regolith-wrapper behavior, hardware/display coverage, full
 idle lifecycle, signing, and final release review remain open.
 
 For the current status and the latest sanitized evidence, start with the
-[2026-08-09 work-product snapshot](WORK_PRODUCT_2026-08-09.md).
+[stable reviewer-facing work product](WORK_PRODUCT.md). The dated
+[2026-08-09 snapshot](WORK_PRODUCT_2026-08-09.md) remains available as a
+dated companion record.
 
 This bundle contains the proof notes and one reproduction script for the current midterm state of the Regolith COSMIC session work.
 
