@@ -25,6 +25,19 @@ USAGE
   exit 0
 fi
 
+if [[ -z "${EXPECTED_PACKAGE_VERSION}" ]]; then
+  printf 'EXPECTED_PACKAGE_VERSION is required and must be non-empty\n' >&2
+  exit 2
+fi
+if [[ -z "${EXPECTED_BINARY_SHA256}" ]]; then
+  printf 'EXPECTED_BINARY_SHA256 is required and must be non-empty\n' >&2
+  exit 2
+fi
+if [[ ! "${EXPECTED_BINARY_SHA256}" =~ ^[[:xdigit:]]{64}$ ]]; then
+  printf 'EXPECTED_BINARY_SHA256 must be exactly 64 hexadecimal characters\n' >&2
+  exit 2
+fi
+
 [[ -n "${HOST}" && -n "${GUEST}" ]] || {
   printf 'HOST and GUEST are required\n' >&2
   exit 2
@@ -39,6 +52,7 @@ expected_version=$2
 expected_hash=$3
 helper=$4
 mkdir -p "${proof_dir}"
+chmod 700 "${proof_dir}"
 failures=0
 fail() { printf 'FAIL: %s\n' "$1" >&2; failures=$((failures + 1)); }
 [[ -n "${expected_version}" ]] || fail 'EXPECTED_PACKAGE_VERSION is required and must be non-empty'
@@ -85,11 +99,11 @@ for unit in regolith-init-inputd.service regolith-init-displayd.service; do
   grep -q '^ActiveState=active$' <<<"${state}" || fail "${unit} is not active"
   grep -q '^Result=success$' <<<"${state}" || fail "${unit} result is not success"
   grep -q '^NRestarts=0$' <<<"${state}" || fail "${unit} has restarted"
-  systemctl --user list-dependencies --plain regolith-cosmic.target |
+  systemctl --user --no-pager list-dependencies --plain regolith-cosmic.target |
     grep -Fxq "${unit}" || fail "${unit} is not a regolith-cosmic.target dependency"
 done
 
-systemctl --user --failed --no-legend >"${proof_dir}/07-user-failed-units.txt" || true
+systemctl --user --no-pager --failed --no-legend >"${proof_dir}/07-user-failed-units.txt" || true
 if grep -Eq '(^|[[:space:]])(regolith-|cosmic-)' "${proof_dir}/07-user-failed-units.txt"; then
   fail 'project-owned failed user units are present'
 fi
