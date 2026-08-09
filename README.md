@@ -81,6 +81,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Frozen Voulage pin regression](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md)
 - [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
 - [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
+- [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
 
 ### Historical installer
 

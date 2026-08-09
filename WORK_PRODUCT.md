@@ -174,6 +174,9 @@ integrity evidence, not a new package build or release claim.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
   cosmic-idle/logind semantics and hardware remain open.
+- **Managed logout:** `loginctl terminate-session` returned the guest to the
+  COSMIC greeter and stopped the COSMIC target plus Regolith helpers. The
+  separate `swaymsg exit` parent-process boundary remains open.
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.
