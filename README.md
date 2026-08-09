@@ -31,6 +31,7 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
 - [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- [Regolith wrapper cold-reboot QEMU proof](proof-notes/2026-08-09-regolith-wrapper-cold-reboot-qemu-proof.md)
 - [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
 - [Live QEMU runtime recheck](proof-notes/2026-08-09-live-qemu-runtime-recheck.md)
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
