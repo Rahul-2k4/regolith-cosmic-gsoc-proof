@@ -113,6 +113,7 @@ for unit in regolith-init-inputd.service regolith-init-displayd.service; do
   grep -q '^Result=success$' <<<"${state}" || fail "${unit} result is not success"
   grep -q '^NRestarts=0$' <<<"${state}" || fail "${unit} has restarted"
   systemctl --user --no-pager list-dependencies --plain regolith-cosmic.target |
+    sed -E 's/^[[:space:]]+//' |
     grep -Fxq "${unit}" || fail "${unit} is not a regolith-cosmic.target dependency"
 done
 
