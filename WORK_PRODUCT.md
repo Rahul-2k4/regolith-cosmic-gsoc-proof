@@ -168,9 +168,11 @@ integrity evidence, not a new package build or release claim.
   [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
 - **Runtime-owned helper teardown:** the reviewed Sway-backed wrapper cleans
   the Regolith-owned compositor, `cosmolith`, helper process groups, and COSMIC
-  targets. The parent `cosmic-session`/`dbus-run-session` lifecycle remains a
-  named boundary and is not presented as a clean logout result.
+  targets. A bounded QEMU test confirms that direct `swaymsg exit` leaves the
+  parent `cosmic-session`/`dbus-run-session` alive; the display-manager-owned
+  logout path remains the clean logout result.
   [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
+  [Sway-exit boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - **Physical hardware boundary:** a read-only host audit found a physical
   touchpad but no active Regolith/COSMIC session and only the internal display
   connected. No host state was changed; physical touchpad, hotplug, and
@@ -191,10 +193,12 @@ integrity evidence, not a new package build or release claim.
   signing/release, or an upstream merge.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
-  cosmic-idle/logind semantics and hardware remain open.
+  cosmic-idle/logind semantics and hardware remain open. Direct Sway exit
+  leaves the parent `cosmic-session`/`dbus-run-session` alive.
 - **Managed logout:** `loginctl terminate-session` returned the guest to the
   COSMIC greeter and stopped the COSMIC target plus Regolith helpers. The
-  separate `swaymsg exit` parent-process boundary remains open.
+  separate `swaymsg exit` parent-process boundary is documented as a QEMU
+  boundary rather than a clean parent teardown.
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.

@@ -87,6 +87,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
 - [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
+- [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - [Inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
 - [Inputd candidate verifier QEMU runtime proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
 
@@ -281,6 +282,9 @@ QEMU-boundary findings:
   hardware behavior, signing/release, or an upstream merge
 - two real five-minute fallback timeout-to-lock/unlock cycles now have QEMU
   evidence; native cosmic-idle/logind semantics remain open
+- direct `swaymsg exit` stops the Regolith wrapper, compositor, COSMIC target,
+  and helpers but leaves the parent `cosmic-session`/`dbus-run-session` alive;
+  the display-manager-owned logout path remains the clean lifecycle path
 
 Source/package proven:
 
@@ -313,4 +317,5 @@ Not done yet:
 - multi-display, hotplug, and mixed-DPI runtime proof
 - final installed package-set runtime matrix
 - direct Settings-panel interaction and media-key delivery
+- parent `cosmic-session`/`dbus-run-session` teardown after direct Sway exit
 - hardware/full laptop boot proof
