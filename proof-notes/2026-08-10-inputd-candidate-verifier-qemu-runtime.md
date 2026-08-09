@@ -59,5 +59,11 @@ not claim a globally empty failed-unit list.
 - [Displayd service state](../artifacts/inputd-candidate-verifier-qemu-20260810/06-regolith-init-displayd.service.txt)
 - [Verifier result](../artifacts/inputd-candidate-verifier-qemu-20260810/11-result.txt)
 
-The guest remains on the candidate during this capture. It must be restored to
-the baseline package before the QEMU testbed is handed back.
+Visual corroboration after unlocking the session:
+
+![Unlocked QEMU COSMIC session](../artifacts/inputd-candidate-verifier-qemu-20260810/session-unlocked.png)
+
+Screenshot SHA-256:
+`7ca9774560bb26c0c32117ed76f92b06fcf091d015422765ebf308c5e6fdfc3d`
+
+The guest was restored to the baseline package after this capture.
