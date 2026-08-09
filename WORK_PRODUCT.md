@@ -94,6 +94,11 @@ but it requires a rebuild before it can be called the current package model.
   desktop selector and Wayland/Sway sockets; the target and helper health
   checks were clean.
   [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
+- **Runtime-owned helper teardown:** the reviewed Sway-backed wrapper cleans
+  the Regolith-owned compositor, `cosmolith`, helper process groups, and COSMIC
+  targets. The parent `cosmic-session`/`dbus-run-session` lifecycle remains a
+  named boundary and is not presented as a clean logout result.
+  [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
 
 ## Open boundaries
 
