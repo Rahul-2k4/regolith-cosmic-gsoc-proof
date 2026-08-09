@@ -2,6 +2,8 @@
 
 This is the public, sanitized review surface for the Regolith COSMIC GSoC
 work. It is not an upstream merge and it does not claim release readiness.
+This is a dated historical snapshot; `WORK_PRODUCT.md` is the current
+reviewer-facing status.
 
 ## Current status
 
@@ -63,7 +65,7 @@ coverage, release disposition, and final mentor review.
 - [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
 - [Native compositor launch boundary](proof-notes/2026-08-09-native-compositor-launch-boundary.md)
 - [Display persistence fix](proof-notes/2026-08-09-display-profile-reapply-fix.md)
-- [Headless display matrix](proof-notes/2026-08-09-headless-display-matrix.md)
+- [Virtual display matrix evidence in this snapshot](WORK_PRODUCT_2026-08-09.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
 - [Clean Voulage rebuild](proof-notes/2026-08-09-clean-voulage-rebuild.md)
 
