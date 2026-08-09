@@ -1,9 +1,9 @@
 # Regolith COSMIC proof bundle
 
 This bundle contains the original midterm snapshot plus the reviewed QEMU
-proof notes. It is still not the complete proposal proof package; native
-compositor behavior, hardware/display coverage, full idle lifecycle, signing,
-and final release review remain open.
+proof notes. Native `cosmic-comp` compositor runtime is now proven on the
+QEMU seat; native Regolith-wrapper behavior, hardware/display coverage, full
+idle lifecycle, signing, and final release review remain open.
 
 For the current status and the latest sanitized evidence, start with the
 [2026-08-09 work-product snapshot](WORK_PRODUCT_2026-08-09.md).
@@ -37,6 +37,7 @@ source `817becd9`. The current session-build model is `bf0145e3`. The earlier mo
 - [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
 - [Lintian release audit](proof-notes/2026-08-09-lintian-release-audit.md)
 - [Native compositor launch boundary](proof-notes/2026-08-09-native-compositor-launch-boundary.md)
+- [Native compositor QEMU seat proof](proof-notes/2026-08-09-native-cosmic-comp-qemu-proof.md)
 - [Fallback idle timeout](proof-notes/2026-08-09-idle-timeout-fallback.md)
 - [COSMIC volume OSD](proof-notes/2026-08-09-cosmic-osd-volume.md)
 - [Media-key test boundary](proof-notes/2026-08-09-media-key-boundary.md)
