@@ -47,6 +47,8 @@ the observer retry interval.
 ## Boundary
 
 This proves the observer and single-output COSMIC persistence path on the
-reviewed branch. The current final corrected-session tuple uses a later
-displayd pin, so this note must not be presented as proof that the observer is
-already part of that frozen tuple.
+reviewed branch. The later frozen displayd source `817becd9` also contains the
+observer and COSMIC wiring; the separate `817becd9` package/fresh-login proof
+is recorded in the display-profile reapplication note. This note remains the
+direct observer-package proof, not the complete native compositor or display
+matrix proof.

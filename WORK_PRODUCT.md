@@ -55,12 +55,14 @@ exercised through the real greeter. See the [corrected-model proof](proof-notes/
 - **Single-output persistence:** fresh-login display profile reapplication
   passed on the Sway-backed QEMU path.
   [Display profile reapplication proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
-- **Wayland display observer candidate:** the reviewed personal-fork branch
-  `rahul/cosmic-wayland-persist-vendored-20260804` at `e8cc8e07` contains a
-  `zwlr_output_manager_v1` observer and prefers it for COSMIC before the Sway
-  fallback. Its single-output QEMU persistence proof passes, but it is not the
-  frozen `817becd9` displayd artifact used by the final corrected-session
-  tuple.
+- **Wayland display observer:** the frozen displayd source
+  `rahul/displayd-kanshi-target-safe-20260809` at `817becd9` already contains
+  and wires the `zwlr_output_manager_v1` observer for COSMIC, while retaining
+  Sway IPC for compatibility and fallback. Single-output fresh-login
+  persistence is proven in the frozen Sway-backed wrapper. The older `e8cc8e07`
+  package note remains useful as direct observer evidence, but no repin is
+  needed. Native `cosmic-comp`, hotplug, mixed-DPI, and Settings-panel proof
+  are still open.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
 - **Newer displayd artifact:** an isolated unsigned `regolith-displayd`
   artifact from source commit `21e4553618cb8f0d21e46bac13a37451cb489059`
