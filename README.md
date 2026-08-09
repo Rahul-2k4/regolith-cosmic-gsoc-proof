@@ -210,8 +210,8 @@ QEMU-boundary findings:
 
 - the current guest has no touchpad device, so touchpad state-change coverage
   remains open
-- fallback timeout-to-lock and unlock now have QEMU evidence; native idle and
-  logind semantics remain open
+- two real five-minute fallback timeout-to-lock/unlock cycles now have QEMU
+  evidence; native cosmic-idle/logind semantics remain open
 
 Source/package proven:
 

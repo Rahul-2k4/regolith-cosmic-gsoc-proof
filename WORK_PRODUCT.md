@@ -65,13 +65,13 @@ but it requires a rebuild before it can be called the current package model.
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
-- **Fallback lock:** the target-owned five-minute `swayidle + gtklock` path
-  produced a visible QEMU timeout lock; graphical unlock succeeded and the
-  desktop returned with `Type=wayland`, `Desktop=Regolith-Wayland`,
-  `IdleHint=no`, and `LockedHint=no`. After unlock, only `swayidle` remained
-  and the failed user-unit audit was empty. This is one QEMU cycle only;
-  repeated cycles, native cosmic-idle/logind semantics, logout/shutdown,
-  hardware, and signing/publication remain open.
+- **Fallback lock:** two real five-minute `swayidle -w timeout 300 gtklock`
+  timeout-lock/unlock cycles passed on the Sway-backed QEMU path. The
+  graphical session returned after each unlock; it reported `Type=wayland`,
+  `Desktop=Regolith-Wayland`, `IdleHint=no`, and `LockedHint=no`. After each
+  unlock, only `swayidle` remained and the failed user-unit audit was empty.
+  Native cosmic-idle/logind semantics, logout/shutdown, hardware, and
+  signing/publication remain open.
   [Current tuple fallback lock/unlock proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md)
 - **OSD:** a visible COSMIC volume overlay was produced in the Sway-backed
   COSMIC QEMU session.
@@ -101,8 +101,8 @@ but it requires a rebuild before it can be called the current package model.
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
-  one fallback idle timeout-lock/unlock cycle are proven; repeated cycles,
-  native idle/logind semantics, and hardware remain open.
+  two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
+  cosmic-idle/logind semantics and hardware remain open.
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.
