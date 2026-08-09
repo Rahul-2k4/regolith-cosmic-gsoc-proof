@@ -55,6 +55,13 @@ exercised through the real greeter. See the [corrected-model proof](proof-notes/
 - **Single-output persistence:** fresh-login display profile reapplication
   passed on the Sway-backed QEMU path.
   [Display profile reapplication proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
+- **Wayland display observer candidate:** the reviewed personal-fork branch
+  `rahul/cosmic-wayland-persist-vendored-20260804` at `e8cc8e07` contains a
+  `zwlr_output_manager_v1` observer and prefers it for COSMIC before the Sway
+  fallback. Its single-output QEMU persistence proof passes, but it is not the
+  frozen `817becd9` displayd artifact used by the final corrected-session
+  tuple.
+  [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
 - **Newer displayd artifact:** an isolated unsigned `regolith-displayd`
   artifact from source commit `21e4553618cb8f0d21e46bac13a37451cb489059`
   produced package `0.3.4-1-1regolith-resolute` with SHA-256

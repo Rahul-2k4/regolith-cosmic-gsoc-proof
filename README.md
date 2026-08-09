@@ -37,6 +37,7 @@ and the exact unsigned package is recorded in [the corrected-model proof](proof-
 - [Voulage reproduction script](scripts/reproduce-voulage-branch-tuple.sh)
 - [Clean Voulage rebuild and exact package hashes](proof-notes/2026-08-09-clean-voulage-rebuild.md)
 - [Display profile reapplication fix and fresh-login proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
+- [Wayland/wlr display observer QEMU proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
 - [COSMIC keyboard layout and variant event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
 - [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
 - [Current-hash regolith-inputd QEMU proof](proof-notes/2026-08-09-current-hash-inputd-qemu-proof.md)
