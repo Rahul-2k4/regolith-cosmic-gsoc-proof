@@ -87,6 +87,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
 - [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
+- [Inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
 
 ### Historical installer
 
@@ -137,6 +138,34 @@ Script:
 - `scripts/verify-qemu-inputd-session-contract.sh`
 
 ## What can be reproduced directly
+
+### Candidate-bound inputd session verifier
+
+The candidate verifier checks an already-installed QEMU session and requires
+the expected package version and binary SHA-256. It verifies the COSMIC target,
+GNOME target exclusion, target dependency membership for both helpers, helper
+health with zero restarts, allowlisted COSMIC process environment variables,
+absence of `gnome-session-bin`, and project-owned failed units. It writes proof
+files with restrictive permissions and does not install packages, restart
+services, reboot, or change persistent configuration.
+
+When `INPUTD_HELPER` is supplied, it temporarily changes live input settings
+for a round trip and restores them on exit. That mode is not purely read-only
+and does not prove physical touchpad behavior, native `cosmic-comp` display
+mutation, or hardware coverage.
+
+Example:
+
+```bash
+HOST=my-qemu-host \
+GUEST='ssh -p 2222 user@127.0.0.1' \
+EXPECTED_PACKAGE_VERSION=0.4.1-2-1regolith-resolute \
+EXPECTED_BINARY_SHA256=759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193 \
+REMOTE_PROOF_DIR=/tmp/regolith-cosmic-inputd-candidate-proof \
+bash scripts/verify-inputd-candidate-qemu-runtime.sh
+```
+
+### Existing session-contract verifier
 
 The script reproduces the QEMU display-monitoring proof:
 

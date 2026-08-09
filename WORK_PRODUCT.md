@@ -14,9 +14,13 @@ release, and review gates are not closed.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
-introduced in commit `cedcd52`. It checks an already-installed session without
+introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
 installing packages, restarting services, or changing persistent
-configuration.
+configuration. It requires the expected package version and binary SHA-256,
+checks COSMIC/GNOME target boundaries, helper dependency membership, zero
+restarts, and allowlisted process-environment values. With `INPUTD_HELPER`,
+live input settings are temporarily changed and restored; that mode is not
+purely read-only.
 
 ## Source of truth
 
