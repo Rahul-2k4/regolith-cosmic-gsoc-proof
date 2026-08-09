@@ -81,15 +81,15 @@ but it requires a rebuild before it can be called the current package model.
 - **Cosmolith package boundary:** the exact `cosmolith` source was built through
   vendoring, offline compilation, Debian source-package generation, and binary
   package creation. The resulting `.deb` was installed in QEMU with matching
-  SHA-256 values and an empty `dpkg --audit`. A fresh-session launch of the
-  packaged executable is not claimed.
-  [Cosmolith package/install boundary](proof-notes/2026-08-09-cosmolith-package-install-boundary.md)
+  SHA-256 values and an empty `dpkg --audit`. A fresh graphical QEMU login then
+  observed the installed `/usr/bin/cosmolith` process with the expected COSMIC
+  desktop selector and Wayland/Sway sockets; the target and helper health
+  checks were clean.
+  [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
 
 ## Open boundaries
 
-- A fresh-session runtime check for the packaged cosmolith executable remains
-  open. Signing, canonical publication, and final release disposition are also
-  open.
+- Signing, canonical publication, and final release disposition remain open.
 
 - Settings panel display interaction, including its reproducible renderer
   crash.

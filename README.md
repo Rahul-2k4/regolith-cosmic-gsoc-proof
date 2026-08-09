@@ -43,6 +43,7 @@ model.
 - [Regolith wrapper cold-reboot QEMU proof](proof-notes/2026-08-09-regolith-wrapper-cold-reboot-qemu-proof.md)
 - [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
 - [Cosmolith package/install boundary](proof-notes/2026-08-09-cosmolith-package-install-boundary.md)
+- [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
 - [Live QEMU runtime recheck](proof-notes/2026-08-09-live-qemu-runtime-recheck.md)
 - [Inputd reverse-sync tests](proof-notes/2026-08-09-inputd-reverse-sync-tests.md)
 - [GNOME coexistence boundary](proof-notes/2026-08-09-gnome-regression-boundary.md)
@@ -215,8 +216,9 @@ Source/package proven:
 
 - `cosmic-osd` source package generation
 - Cosmolith vendored/offline build, binary `.deb` creation, and exact QEMU
-  installation. A fresh-session packaged cosmolith runtime, signing, and
-  canonical publication remain open.
+  installation, followed by a fresh graphical QEMU login observing the
+  packaged `/usr/bin/cosmolith` runtime. Signing and canonical publication
+  remain open.
 
 Source/unit reviewable from the public branch, with limits:
 
