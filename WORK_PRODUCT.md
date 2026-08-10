@@ -26,6 +26,7 @@ purely read-only.
 
 The public source of truth is the
 [`rahul/2026-08-08-final-tuple-proof` branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/rahul/2026-08-08-final-tuple-proof).
+Current proof-bundle head: [`05518a6`](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/commit/05518a6113195809caf6e7a130b7dc919e1e075d).
 
 This page is a proof bundle, not an upstream merge. No upstream PR or `main`
 merge is claimed, and no hardware result is claimed.
