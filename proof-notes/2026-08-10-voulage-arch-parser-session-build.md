@@ -22,6 +22,16 @@ no findings. The standalone COSMIC binary has one missing-manual-page warning;
 the complete session changeset still contains unrelated sibling-package
 findings, so this is not a release-clean claim.
 
-This exact artifact has not yet been installed in QEMU. It is build and
-packaging evidence only. Signing, publication, and final release review remain
-open.
+The exact archive was installed in the disposable QEMU guest. After a reboot,
+a fresh greetd login reported the expected package version, clean `dpkg --audit`
+and `dpkg -V`, an active COSMIC target with healthy inputd and displayd, and
+`Result=success` with `NRestarts=0` for both helpers. `cosmic-session`, Sway,
+`regolith-inputd`, and `regolith-displayd` were running.
+
+The matched baseline archive was then restored. Its SHA-256 was
+`8dd21a40e1d8cb28ff36edd4bf41c0c82fe4ce0e8cfd09b8a9743128d2065877`, and the
+same package, target, helper, and process checks passed after rollback.
+
+This closes the builder, artifact, QEMU cold-login, and rollback checks. It
+does not prove native `cosmic-comp` display mutation, physical hardware
+behavior, signing, publication, or final mentor acceptance.
