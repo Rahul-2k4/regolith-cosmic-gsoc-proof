@@ -254,6 +254,21 @@ and Voulage work is on personal fork branches, per 2026-06-19 mentor direction t
 hold upstream PRs from proof branches until review shape is agreed. That direction
 is the open question in the final mentor message.
 
+## Code inventory
+
+One canonical personal-fork head per component. Every commit link was checked
+HTTP 200 on 2026-08-10. Heads prefer the Track C reconciled tips where they
+supersede earlier frozen tuple pins.
+
+| Repo | Branch | Commit | What it does | Tests | Upstream status |
+|---|---|---|---|---|---|
+| `regolith-inputd` | `rahul/inputd-touchpad-lintian-reconciled-20260811` | [`e641b434`](https://github.com/Rahul-2k4/regolith-inputd/commit/e641b434c76c70e9a21e492adea577607e096d03) | COSMIC input backend plus lintian-clean packaging; reconciles touchpad reverse-sync with the packaging pin | cosmic 46 / all-features 49 / gnome-default 22, all 0 failed | Fork only; no `regolith-linux` PR |
+| `regolith-session` | `rahul/flashback-gnome-target-20260811` | [`b12b837d`](https://github.com/Rahul-2k4/regolith-session/commit/b12b837dba44e6f0c7b8eede428eee09cb4d0c31) | Moves `regolith-gnome.target` and `gnome-session.target.d` into `regolith-session-common` so flashback and sway co-install without dpkg path collision | 8 shell regression scripts PASS, including systemd target single-owner invariant | Fork only; no `regolith-linux` PR |
+| `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
+| `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
+| `voulage` | `main` | [`1bbaa39b`](https://github.com/Rahul-2k4/voulage/commit/1bbaa39b0a9a0ef5604a3e72c20ee87afafe42cc) | Personal-fork mainline carries COSMIC package-model entries and the reconciled inputd pin | Model pin regression and related shell checks PASS on proof branches | Fork `main` only (recorded AGENTS.md deviation: land model on personal fork main for reviewer visibility; not upstream `regolith-linux/voulage`) |
+| `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
+
 ## Claim boundary
 
 The wrapper and target-ownership result is QEMU proof. Native `cosmic-comp`
