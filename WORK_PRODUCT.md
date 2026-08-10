@@ -19,7 +19,7 @@ sanitized wrapper proof.
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
-| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Unproven | config presence only, no interactive verification |
+| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Unproven | bounded HMP attempt stopped at greeter; no Sway tree proof |
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
@@ -36,8 +36,10 @@ purely read-only.
 The public source of truth is the `main` branch of this repository. Per-claim
 commit references appear inline in the code inventory below.
 
-This page is a proof bundle, not an upstream merge. No upstream PR or `main`
-merge is claimed, and no hardware result is claimed.
+This page is a proof bundle, not an upstream merge. No common Regolith
+upstream PR or `main` merge is claimed. COSMIC-specific cosmolith PRs #17,
+#18, and #19 are open under mentor authorization and are not presented as
+merged. No hardware result is claimed.
 
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
@@ -204,6 +206,11 @@ integrity evidence, not a new package build or release claim.
   [Hardware capability boundary](proof-notes/2026-08-10-physical-hardware-capability-boundary.md)
 
 ## Open boundaries
+
+- **Final technical article:** the reconciled integration article is available
+  at [`docs/ARTICLE.md`](docs/ARTICLE.md). It uses the corrected `62-68%`
+  strict estimate and keeps QEMU, native-compositor, hardware, signing, and
+  mentor-review boundaries explicit.
 
 - Signing, canonical publication, and final release disposition remain open.
 

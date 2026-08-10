@@ -8,13 +8,13 @@ authority. This note records the Track E3 public-surface and test gates only.
 | Check | Result |
 |---|---|
 | Default branch | `main` |
-| Proof-note count (API + local) | **63** |
+| Proof-note count (local pending packet) | **65** |
 | `WORK_PRODUCT.md` | present |
 | `docs/INSTALL.md` | present |
 | `docs/KNOWN_LIMITATIONS.md` | present |
 | `docs/BUILD_DEP_MATRIX.md` | present |
 | `artifacts/README.md` | present |
-| Public HEAD at sweep | `021f7cc` (D4 inventory + D5 next steps) |
+| Parent public HEAD at sweep | `b8857d1` (cosmolith PR authorization update) |
 
 ## Artifact hashes
 
@@ -50,5 +50,7 @@ All three published `.deb` files match `artifacts/README.md`:
 ## Explicit non-claims
 
 - No new hardware / full-laptop proof.
-- No upstream PR opens (held pending mentor Q1).
+- No PRs were opened against the common Regolith session repositories. The
+  mentor-approved COSMIC-specific cosmolith PRs #17, #18, and #19 are open and
+  mergeable; they are not presented as merged.
 - No signed Voulage publication.
