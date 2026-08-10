@@ -75,6 +75,13 @@ integrity evidence, not a new package build or release claim.
   and `regolith-displayd` helpers, while the GNOME target remained separate and
   inactive for that COSMIC login.
   [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- **Mentor-aligned source regression coverage:** the session package test now
+  derives the COSMIC-only ownership set from its install manifest and rejects
+  path overlap in other session packages. The inputd branch directly tests
+  COSMIC touchpad reverse sync, and the displayd branch tests Wayland observer
+  head/mode removal. These are Linux source/package checks, not hardware or
+  graphical-session proof.
+  [Source-test proof](proof-notes/2026-08-11-mentor-boundary-source-tests.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
