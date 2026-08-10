@@ -78,6 +78,15 @@ integrity evidence, not a new package build or release claim.
   touchpad command mappings and partial configurations. This is unit coverage;
   physical-device and live reverse-sync behavior remain open.
   [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
+- **Inputd touchpad reverse-sync candidate:** isolated source `24c7ec2` adds
+  read-modify-write coverage for `accel_speed` and `natural_scroll`, with a
+  watcher guard that prevents a Sway-to-COSMIC-to-Sway loop. The branch passes
+  46 COSMIC-feature tests and 49 all-feature tests. Voulage model `7e7e5b8`
+  produced an unsigned Resolute amd64 package, and a fresh QEMU login proved
+  package identity, target-owned helper health, zero inputd restarts, and
+  rollback to the saved baseline. QEMU has no touchpad device, so physical
+  reverse-sync remains open.
+  [Touchpad reverse-sync candidate proof](proof-notes/2026-08-10-inputd-touchpad-reverse-sync.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model

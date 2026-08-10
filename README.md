@@ -94,6 +94,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [COSMIC idle ownership and fallback QEMU proof](proof-notes/2026-08-10-idle-ownership-cold-login.md)
 - [Inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh)
 - [Inputd candidate verifier QEMU runtime proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
+- [Inputd touchpad reverse-sync candidate](proof-notes/2026-08-10-inputd-touchpad-reverse-sync.md)
 
 The corrected Voulage session rebuild is documented in
 [the rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md).
