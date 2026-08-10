@@ -29,4 +29,8 @@ Architecture: amd64
 - Standalone `lintian` on the exact COSMIC package returned no findings.
 - The candidate worktree passed `git diff --check` and `tests/regolith-cosmic-launch.sh`.
 
-The full source build still reports unrelated legacy findings on sibling packages (`regolith-session-common`, `regolith-session-sway`, and flashback packages). This note claims only the exact COSMIC binary result; it does not claim the complete source package is lintian-clean, signed, published canonically, or runtime-installed in QEMU.
+## QEMU install and rollback
+
+The exact candidate package was installed in the disposable qualification QEMU guest. The guest reported the expected package/version, the launcher manpage was present, `dpkg --audit` was empty, and `regolith-cosmic.target`, `regolith-init-inputd.service`, and `regolith-init-displayd.service` were active. The retained baseline package was then reinstalled with a forced downgrade and the same target/helper health plus empty `dpkg --audit` were verified.
+
+The full source build still reports unrelated legacy findings on sibling packages (`regolith-session-common`, `regolith-session-sway`, and flashback packages). This note claims only the exact COSMIC binary result; it does not claim the complete source package is lintian-clean, signed, or published canonically. The QEMU result is package/target health proof, not new functional session behavior because the change is documentation-only.
