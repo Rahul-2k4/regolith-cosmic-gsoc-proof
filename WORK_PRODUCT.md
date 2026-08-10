@@ -87,6 +87,12 @@ integrity evidence, not a new package build or release claim.
   head/mode removal. These are Linux source/package checks, not hardware or
   graphical-session proof.
   [Source-test proof](proof-notes/2026-08-11-mentor-boundary-source-tests.md)
+- **Latest source verification:** the inputd branch adds direct COSMIC mouse
+  reverse-sync and watcher-gate coverage, while the session branch bounds
+  parent cleanup to the packaged COSMIC launcher and exact `cosmic-session`
+  ancestry. Fresh laptop clones passed 7 focused inputd tests, 55 full COSMIC
+  tests, and the session shell/teardown checks.
+  [Mouse/session source proof](proof-notes/2026-08-11-mouse-session-source-verification.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
@@ -311,8 +317,8 @@ supersede earlier frozen tuple pins.
 
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
-| `regolith-inputd` | `rahul/inputd-touchpad-lintian-reconciled-20260811` | [`e641b434`](https://github.com/Rahul-2k4/regolith-inputd/commit/e641b434c76c70e9a21e492adea577607e096d03) | COSMIC input backend plus lintian-clean packaging; reconciles touchpad reverse-sync with the packaging pin | cosmic 46 / all-features 49 / gnome-default 22, all 0 failed | Fork only; no `regolith-linux` PR |
-| `regolith-session` | `rahul/flashback-gnome-target-20260811` | [`b12b837d`](https://github.com/Rahul-2k4/regolith-session/commit/b12b837dba44e6f0c7b8eede428eee09cb4d0c31) | Moves `regolith-gnome.target` and `gnome-session.target.d` into `regolith-session-common` so flashback and sway co-install without dpkg path collision | 8 shell regression scripts PASS, including systemd target single-owner invariant | Fork only; no `regolith-linux` PR |
+| `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`66099f67`](https://github.com/Rahul-2k4/regolith-inputd/commit/66099f67a5498f3ad10fe65ef69eb6e8b57ac0c2) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and preservation tests | 7 focused tests; full COSMIC suite 55 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`7fb72a8d`](https://github.com/Rahul-2k4/regolith-session/commit/7fb72a8d93e8b33fc6bfbca9292398252003b477) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry while keeping GNOME unchanged | launcher, target, teardown, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
 | `voulage` | `main` | [`1bbaa39b`](https://github.com/Rahul-2k4/voulage/commit/1bbaa39b0a9a0ef5604a3e72c20ee87afafe42cc) | Personal-fork mainline carries COSMIC package-model entries and the reconciled inputd pin | Model pin regression and related shell checks PASS on proof branches | Fork `main` only (recorded AGENTS.md deviation: land model on personal fork main for reviewer visibility; not upstream `regolith-linux/voulage`) |
