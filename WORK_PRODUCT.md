@@ -269,6 +269,42 @@ supersede earlier frozen tuple pins.
 | `voulage` | `main` | [`1bbaa39b`](https://github.com/Rahul-2k4/voulage/commit/1bbaa39b0a9a0ef5604a3e72c20ee87afafe42cc) | Personal-fork mainline carries COSMIC package-model entries and the reconciled inputd pin | Model pin regression and related shell checks PASS on proof branches | Fork `main` only (recorded AGENTS.md deviation: land model on personal fork main for reviewer visibility; not upstream `regolith-linux/voulage`) |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
+## Next steps
+
+### Immediately actionable by a maintainer
+
+- Open cosmolith upstream PRs for issues #1 (session detection) and #2
+  (structured error enum). Source is complete and pushed on the personal fork;
+  opening those PRs is the highest-value remaining action and takes under an
+  hour once mentor direction allows.
+- Land the Voulage COSMIC package-model entries on upstream
+  `regolith-linux/voulage` (personal fork `main` already carries them).
+- Sign and publish the unsigned Resolute amd64 package tuple once a first
+  publication target is agreed.
+
+### Needs hardware
+
+- Multi-display / hotplug / mixed-DPI matrix (one physical panel available
+  today; QEMU is single-output for these claims).
+- Physical touchpad reverse-sync execution (QEMU exposes no `type:touchpad`).
+- Media-key OSD delivery (QEMU cannot inject multimedia keys).
+
+### Needs upstream
+
+- `cosmic-settings` Resolution-selector renderer crash under both Vulkan and
+  GL.
+- Native `cosmic-randr` mutation that currently returns success without effect
+  on the Sway-backed path.
+- Native `cosmic-comp` session and native cosmic-idle/logind semantics as
+  Regolith-wrapper validation (separate from the existing native-comp QEMU
+  exploration note).
+
+### Post-GSoC maintenance
+
+Per the accepted proposal: about five hours per week for six months after the
+program — triage mentor/reviewer follow-ups, keep fork branches rebaseable,
+and finish the maintainer-actionable items above as direction arrives.
+
 ## Claim boundary
 
 The wrapper and target-ownership result is QEMU proof. Native `cosmic-comp`
