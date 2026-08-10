@@ -139,10 +139,14 @@ integrity evidence, not a new package build or release claim.
   maintainer-identity fallback so local Voulage builds do not inherit the
   builder hostname. The corrected branch rebuilt the Resolute COSMIC session
   package and the exact unsigned artifact passed an isolated QEMU install,
-  visible login, target/helper checks, and rollback. One non-blocking Lintian
-  manual-page warning remains; signing and publication are open.
+  visible login, target/helper checks, and rollback. A follow-up source
+  candidate `bdb2b00` adds the COSMIC launcher manpage; its exact Voulage-built
+  `regolith-session-cosmic` binary has the manpage payload and standalone
+  Lintian-clean output. Sibling session packages still have unrelated legacy
+  findings; signing and canonical publication are open.
   [Changelog identity proof](proof-notes/2026-08-10-voulage-changelog-identity-proof.md)
   [Rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
+  [COSMIC manpage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
