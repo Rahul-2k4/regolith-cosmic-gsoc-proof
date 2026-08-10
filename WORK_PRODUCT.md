@@ -240,9 +240,24 @@ integrity evidence, not a new package build or release claim.
 [Fallback lock/unlock proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md) ·
 [Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
 
+## Upstream contribution status
+
+| PR / Issue | Repo | State |
+|---|---|---|
+| PR #15 — bootstrap startup xkb events | `sandptel/cosmolith` | **Merged and approved** 2026-04-21 (`7d47b8b6`) |
+| PR #13 — earlier over-scoped version | `sandptel/cosmolith` | Closed, superseded by #15 |
+| Issue #1 — session detection | `sandptel/cosmolith` | Open upstream; source complete on fork branch, no PR opened |
+| Issue #2 — structured error enum | `sandptel/cosmolith` | Open upstream; source complete on fork branch, no PR opened |
+
+No PR has been opened against `regolith-linux/*`. All session, inputd, displayd,
+and Voulage work is on personal fork branches, per 2026-06-19 mentor direction to
+hold upstream PRs from proof branches until review shape is agreed. That direction
+is the open question in the final mentor message.
+
 ## Claim boundary
 
 The wrapper and target-ownership result is QEMU proof. Native `cosmic-comp`
 runtime has a separate QEMU proof, but it is not Regolith-wrapper validation:
 [native compositor proof](proof-notes/2026-08-09-native-cosmic-comp-qemu-proof.md).
-No hardware claim, upstream PR, or `main` merge is included here.
+No hardware claim is included here. Upstream status is limited to the table
+above; no `regolith-linux/*` PR or Regolith `main` merge is claimed.
