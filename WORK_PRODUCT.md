@@ -21,6 +21,11 @@ sanitized wrapper proof.
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Unproven | bounded HMP attempt stopped at greeter; no Sway tree proof |
 
+The later read-only QEMU pass confirmed guest key-based SSH, but again found
+only the greeter and no user COSMIC/Regolith session. No native display command
+was run against the greeter. See the
+[greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
