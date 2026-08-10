@@ -4,13 +4,22 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
-## Current estimate
+## Proposal success criteria: 4 of 12 fully met
 
-- Strict proposal completion: **76-80%**.
-- Engineering/component progress: **84-87%**.
-
-The strict estimate remains lower because the runtime matrix, lifecycle,
-release, and review gates are not closed.
+| # | Criterion | Status | Scope |
+|---|---|---|---|
+| 1 | Fresh login into COSMIC-backed session | Met | QEMU |
+| 2 | `gnome-session-bin` absent, `cosmic-session` PID, correct desktop token | Met | QEMU |
+| 3 | Multi-display hotplug / mixed DPI / persistence on hardware | Not met | hardware unavailable |
+| 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
+| 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
+| 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
+| 7 | Settings persist across reboot | Partial | single-output display profile only |
+| 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | ilia not observable headless |
+| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
+| 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
+| 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
+| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Unproven | config presence only, no interactive verification |
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
