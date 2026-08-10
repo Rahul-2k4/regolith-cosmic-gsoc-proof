@@ -36,3 +36,15 @@ The post-install check found the package installed but no running `cosmolith`
 process because the guest was not in an active COSMIC session at that moment.
 This proves installation, not fresh-login launch, packaged config-change
 behavior, signing, or canonical publication.
+
+## Artifact retraction - 2026-08-11
+
+The package described above was built in a disposable Voulage worktree that was
+removed by the 2026-08-10 disk-cleanup second pass. `find /` on the build host
+returns no `cosmolith*.deb`. The SHA-256 recorded above is therefore no longer
+verifiable and must not be cited as evidence.
+
+`cosmolith` has no `debian/` directory on any branch, so the package cannot be
+regenerated within the remaining project window. This note now claims only that a
+vendored offline build and a guest `dpkg -i` succeeded at the time of the run,
+with no verifiable artifact.
