@@ -37,7 +37,7 @@ All three published `.deb` files match `artifacts/README.md`:
 
 - Relative `proof-notes|docs|artifacts` links: no dangling paths after README
   follow-up target pointed at the dedicated candidate-verifier note.
-- Stale figures `76-80` / `84-87` / `4a7cf24`: none in public markdown.
+- Withdrawn percentage bands and unreachable head refs from Track B: none left as live claims in public markdown.
 - Secret-pattern recheck: clean after renaming the vault filename citation that
   previously matched the remote-access keyword filter.
 
