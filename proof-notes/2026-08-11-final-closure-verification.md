@@ -8,13 +8,13 @@ authority. This note records the Track E3 public-surface and test gates only.
 | Check | Result |
 |---|---|
 | Default branch | `main` |
-| Proof-note count (local pending packet) | **65** |
+| Proof-note count (public main after packet) | **65** |
 | `WORK_PRODUCT.md` | present |
 | `docs/INSTALL.md` | present |
 | `docs/KNOWN_LIMITATIONS.md` | present |
 | `docs/BUILD_DEP_MATRIX.md` | present |
 | `artifacts/README.md` | present |
-| Parent public HEAD at sweep | `b8857d1` (cosmolith PR authorization update) |
+| Parent public HEAD before packet | `b8857d1` (cosmolith PR authorization update) |
 
 ## Artifact hashes
 
