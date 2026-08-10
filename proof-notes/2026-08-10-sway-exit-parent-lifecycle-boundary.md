@@ -14,7 +14,8 @@ boundary result, not a clean-logout claim and not hardware proof.
 3. Run `SWAYSOCK=<live-socket> swaymsg exit`.
 4. Wait eight seconds and inspect the user session, COSMIC target, helper
    services, and parent processes.
-5. Reset the disposable QEMU guest through HMP and verify the greeter state.
+5. Terminate only the disposable graphical session through the display
+   manager and verify the greeter state.
 
 The compositor did not export `SWAYSOCK` in its process environment, so the
 test used the socket discovered under `/run/user/1000/`. This is recorded to
@@ -29,16 +30,17 @@ avoid confusing an environment-export issue with a lifecycle result.
 - Sway, the Regolith wrapper, `regolith-inputd`, and `regolith-displayd` were
   absent.
 - The parent `cosmic-session` and `dbus-run-session` processes remained alive.
-- The normal display-manager session ID was not available for termination;
-  HMP reset restored the disposable guest to the `cosmic-greeter` with no
-  project session processes and an inactive COSMIC target.
+- The graphical session was then terminated through the display manager;
+  the guest returned to `cosmic-greeter` with no project session processes and
+  an inactive COSMIC target. This is the separate managed-logout path, not a
+  direct-Sway-exit success.
 
 ## Result
 
 `regolith-session` correctly loses ownership of the compositor and helper
 processes, but direct Sway exit does not terminate the parent session-bus and
 `cosmic-session` processes. The parent-session lifecycle remains `Partial`.
-Display-manager-owned `loginctl terminate-session` remains the separately
-proven clean logout path.
+Display-manager-owned `loginctl terminate-session` is the separately proven
+clean logout path.
 
 No source code or persistent guest configuration was changed.
