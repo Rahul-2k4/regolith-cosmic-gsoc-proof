@@ -85,7 +85,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Native COSMIC display mutation boundary](proof-notes/2026-08-10-native-cosmic-display-mutation-boundary.md)
 - [Frozen Voulage pin regression](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-regression.md)
 - [Inputd Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md)
-- [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-voulage-package-proof.md#qemu-runtime-follow-up)
+- [Inputd candidate QEMU runtime follow-up](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
 - [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - [Corrected Voulage session rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)

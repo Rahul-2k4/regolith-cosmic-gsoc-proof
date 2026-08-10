@@ -55,7 +55,7 @@ Each entry: what fails or is unproven, why, what would close it.
   `2026-07-18-laptop-connectivity-current.md`,
   `2026-07-21-laptop-connectivity-current.md`,
   `2026-07-26-laptop-connectivity-after-target-build.md`,
-  `2026-07-27-laptop-tailscale-resolution.md`,
+  `2026-07-27-laptop-remote-access-resolution.md`,
   `2026-08-09-laptop-ssh-alias-dns-boundary.md`,
   `2026-08-10-inputd-worker-remote-connectivity.md`
 
