@@ -147,6 +147,11 @@ integrity evidence, not a new package build or release claim.
   [Changelog identity proof](proof-notes/2026-08-10-voulage-changelog-identity-proof.md)
   [Rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
   [COSMIC manpage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
+- **Voulage builder parser:** isolated commit `a8b0e0d` makes the documented
+  `--arch` option work and produced the canonical Resolute amd64 COSMIC session
+  artifact. The exact package hash and Lintian scope are recorded in the
+  [parser and build proof](proof-notes/2026-08-10-voulage-arch-parser-session-build.md).
+  This artifact is not yet QEMU-installed and is not presented as release-ready.
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
