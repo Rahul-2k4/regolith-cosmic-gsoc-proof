@@ -244,15 +244,45 @@ integrity evidence, not a new package build or release claim.
 
 | PR / Issue | Repo | State |
 |---|---|---|
-| PR #15 — bootstrap startup xkb events | `sandptel/cosmolith` | **Merged and approved** 2026-04-21 (`7d47b8b6`) |
-| PR #13 — earlier over-scoped version | `sandptel/cosmolith` | Closed, superseded by #15 |
-| Issue #1 — session detection | `sandptel/cosmolith` | Open upstream; source complete on fork branch, no PR opened |
-| Issue #2 — structured error enum | `sandptel/cosmolith` | Open upstream; source complete on fork branch, no PR opened |
+| [PR #15](https://github.com/sandptel/cosmolith/pull/15) — bootstrap startup xkb events | `sandptel/cosmolith` | **Merged and approved** 2026-04-21 (`7d47b8b6`) |
+| [PR #13](https://github.com/sandptel/cosmolith/pull/13) — earlier over-scoped version | `sandptel/cosmolith` | Closed, superseded by #15 |
+| [PR #17](https://github.com/sandptel/cosmolith/pull/17) — startup XKB event tests | `sandptel/cosmolith` | **Open**, mergeable. 1 file, +55/-0. Restores the test coverage dropped by #15's squash merge |
+| [PR #18](https://github.com/sandptel/cosmolith/pull/18) — deterministic session detection (`Fixes #1`) | `sandptel/cosmolith` | **Open**, mergeable. 1 file, +117/-8 |
+| [PR #19](https://github.com/sandptel/cosmolith/pull/19) — structured watcher errors (`Fixes #2`) | `sandptel/cosmolith` | **Open**, mergeable. 5 files, +288/-48. Stacked on #18 |
+| Issue #1 — session detection | `sandptel/cosmolith` | Open upstream; addressed by PR #18 |
+| Issue #2 — central error enum | `sandptel/cosmolith` | Open upstream; addressed by PR #19 |
+
+**Mentor decision, 2026-08-11.** The 2026-06-19 hold on upstream PRs was lifted
+for cosmolith specifically: cosmolith PRs are fine because it is a COSMIC-specific
+component, while COSMIC code should not enter common session packages until it is
+ready. Recorded in `07_Decisions/2026-08-11-mentor-cosmolith-prs-ok.md`. The three
+PRs above were opened under that direction.
+
+**Suggested merge order:** #17 (independent) → #18 → #19. PR #19 is stacked on
+#18, so its diff against `main` includes #18's commits until #18 merges. This is
+disclosed in #19's description.
+
+**Verification, 2026-08-11 (no upstream CI exists on this repo).** Each PR head
+was checked out from `sandptel/cosmolith` and built independently:
+
+| PR | `cargo test` |
+|---|---|
+| #17 | `2 passed; 0 failed` |
+| #18 | `3 passed; 0 failed` |
+| #19 | `5 passed; 0 failed` |
+
+Counts are cumulative because #18 and #19 are stacked. `cargo fmt --check` is red
+on all three, but it is **already red on upstream `main` with 73 diffs** — the
+crate is `edition = "2024"` with no `rustfmt.toml` or `rust-toolchain.toml`, and
+these branches follow the surrounding files' existing import convention rather
+than reformatting unrelated code.
 
 No PR has been opened against `regolith-linux/*`. All session, inputd, displayd,
-and Voulage work is on personal fork branches, per 2026-06-19 mentor direction to
-hold upstream PRs from proof branches until review shape is agreed. That direction
-is the open question in the final mentor message.
+and Voulage work remains on personal fork branches, consistent with the mentor's
+boundary that COSMIC code should not land in common session packages yet. The open
+mentor question is narrower: whether moving **GNOME** unit ownership into
+`regolith-session-common` (see the flashback packaging fix) is acceptable under
+that rule, since those are GNOME units rather than COSMIC code.
 
 ## Code inventory
 
