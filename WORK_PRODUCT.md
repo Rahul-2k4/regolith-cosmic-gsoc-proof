@@ -153,6 +153,10 @@ integrity evidence, not a new package build or release claim.
   [parser and build proof](proof-notes/2026-08-10-voulage-arch-parser-session-build.md).
   It also passed a QEMU cold-login and matched-baseline rollback check. Native
   display, hardware, signing, and publication remain outside this proof.
+- **Idle ownership:** the canonical WM-config ownership test passed, and the
+  QEMU session confirmed the supported `swayidle` fallback, inactive
+  `cosmic-idle`/GNOME target, and empty failed-unit list.
+  [Idle ownership proof](proof-notes/2026-08-10-idle-ownership-cold-login.md)
 - **Virtual matrix:** a reversible virtual two-output position, scale, and
   disable-enable test is recorded in the current reviewer snapshot.
   [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
