@@ -24,9 +24,8 @@ purely read-only.
 
 ## Source of truth
 
-The public source of truth is the
-[`rahul/2026-08-08-final-tuple-proof` branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/rahul/2026-08-08-final-tuple-proof).
-Current proof-bundle head: [`4a7cf24`](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/commit/4a7cf24105e6b7be5ad16e0a8c68ee89ec02e4c8).
+The public source of truth is the `main` branch of this repository. Per-claim
+commit references appear inline in the code inventory below.
 
 This page is a proof bundle, not an upstream merge. No upstream PR or `main`
 merge is claimed, and no hardware result is claimed.
@@ -52,23 +51,23 @@ integrity evidence, not a new package build or release claim.
 
 ## Proven areas
 
-- **Final-tuple wrapper closure:** two sequential cold boots of the installed
-  final package tuple returned to the Sway-backed Regolith Wayland COSMIC
-  session. The target/helper health checks passed on both logins.
+- **Final-tuple wrapper closure (QEMU):** two sequential cold boots of the
+  installed final package tuple returned to the Sway-backed Regolith Wayland
+  COSMIC session. The target/helper health checks passed on both logins.
   [Sequential cold-login proof](proof-notes/2026-08-09-final-tuple-sequential-cold-login-proof.md)
-- **Corrected Voulage model runtime:** the exact package built from model
+- **Corrected Voulage model runtime (QEMU):** the exact package built from model
   `f38278934be32e9d051390b19cc416c3f320e7e5` and session source `3523047b`
   launched through the real QEMU greeter. The package version, target-owned
   helper health, `dpkg --audit`, and rollback checksum are recorded in the
   [corrected-model proof](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
-- **Target ownership:** the COSMIC target owned healthy `regolith-inputd` and
-  `regolith-displayd` helpers, while the GNOME target remained separate and
+- **Target ownership (QEMU):** the COSMIC target owned healthy `regolith-inputd`
+  and `regolith-displayd` helpers, while the GNOME target remained separate and
   inactive for that COSMIC login.
   [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
-- **Current-hash inputd runtime:** source `e32d049`, package
+- **Current-hash inputd runtime (QEMU):** source `e32d049`, package
   `0.4.1-1-1regolith-resolute`, and a QEMU COSMIC cold login with the active
   inputd service and COSMIC backend environment. One keyboard/input-source
   transition was observed and then restored.
@@ -78,15 +77,6 @@ integrity evidence, not a new package build or release claim.
   touchpad command mappings and partial configurations. This is unit coverage;
   physical-device and live reverse-sync behavior remain open.
   [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
-- **Inputd touchpad reverse-sync candidate:** isolated source `24c7ec2` adds
-  read-modify-write coverage for `accel_speed` and `natural_scroll`, with a
-  watcher guard that prevents a Sway-to-COSMIC-to-Sway loop. The branch passes
-  46 COSMIC-feature tests and 49 all-feature tests. Voulage model `7e7e5b8`
-  produced an unsigned Resolute amd64 package, and a fresh QEMU login proved
-  package identity, target-owned helper health, zero inputd restarts, and
-  rollback to the saved baseline. QEMU has no touchpad device, so physical
-  reverse-sync remains open.
-  [Touchpad reverse-sync candidate proof](proof-notes/2026-08-10-inputd-touchpad-reverse-sync.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
@@ -99,41 +89,41 @@ integrity evidence, not a new package build or release claim.
   note into runtime proof for `cd1c2cd`, and the candidate is still separate
   from the frozen `e32d049` source tuple pending mentor/release direction.
   [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
-- **Candidate verifier runtime:** the hardened verifier passed in qualification
-  QEMU after a visible greeter login with the exact candidate package version
-  and installed-binary hash. It proved COSMIC target selection, GNOME target
-  exclusion, helper health, zero restarts, target dependency membership, and
-  allowlisted process environment values. The guest proof intentionally
-  excludes unrelated failed units and does not claim hardware or native
-  compositor coverage.
+- **Candidate verifier runtime (QEMU):** the hardened verifier passed in
+  qualification QEMU after a visible greeter login with the exact candidate
+  package version and installed-binary hash. It proved COSMIC target selection,
+  GNOME target exclusion, helper health, zero restarts, target dependency
+  membership, and allowlisted process environment values. The guest proof
+  intentionally excludes unrelated failed units and does not claim hardware or
+  native compositor coverage.
   [Verifier QEMU proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
 - **Cosmolith source closure:** the personal fork now has structured watcher
-  errors and deterministic COSMIC session detection. A clean laptop check
-  passed with 14 tests and no failures.
+  errors and deterministic COSMIC session detection. A clean local `cargo test`
+  run passed with 14 tests and no failures. This is a source-level result on
+  the build machine, not a hardware session result.
   [Cosmolith source closure](proof-notes/2026-08-09-cosmolith-source-closure.md)
-- **Single-output persistence:** fresh-login display profile reapplication
-  passed on the Sway-backed QEMU path.
+- **Single-output persistence (QEMU):** fresh-login display profile
+  reapplication passed on the Sway-backed QEMU path.
   [Display profile reapplication proof](proof-notes/2026-08-09-display-profile-reapply-fix.md)
 - **Wayland display observer:** the frozen displayd source
   `rahul/displayd-kanshi-target-safe-20260809` at `817becd9` already contains
   and wires the `zwlr_output_manager_v1` observer for COSMIC, while retaining
   Sway IPC for compatibility and fallback. Single-output fresh-login
-  persistence is proven in the frozen Sway-backed wrapper. The older `e8cc8e07`
-  package note remains useful as direct observer evidence, but no repin is
-  needed. The frozen source audit passes 73 locked tests and found no safe
-  patch to transplant from the newer candidate. Native `cosmic-comp`,
+  persistence is proven (QEMU) in the frozen Sway-backed wrapper. The older
+  `e8cc8e07` package note remains useful as direct observer evidence, but no
+  repin is needed. The frozen source audit passes 73 locked tests and found no
+  safe patch to transplant from the newer candidate. Native `cosmic-comp`,
   hotplug, mixed-DPI, and Settings-panel proof are still open.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
   [Frozen source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md)
-- **Newer displayd artifact:** an isolated unsigned `regolith-displayd`
-  artifact from source commit `21e4553618cb8f0d21e46bac13a37451cb489059`
-  produced package `0.3.4-1-1regolith-resolute` with SHA-256
-  `766a2a19a5b0e478f02384ff8b0b2c35ae278789e0c7922d09eb8d6b26d161ed`.
-  Twelve tests passed with 142 vendored crates. A live `1024x768` recording
-  restored to `1280x800` after one cold reboot; the service had zero restarts
-  and the package audit was clean.
+- **Displayd clean build:** Voulage clean-clone build `9c88f6fe` produced 12
+  passing tests with 142 vendored crates. Lintian: non-clean, warnings remain.
+  This artifact was **not** installed for the runtime checks below.
+- **Displayd runtime (QEMU):** runtime claims are tied to the installed artifact
+  `766a2a19`. A live `1024x768` recording restored to `1280x800` after one cold
+  reboot in the QEMU guest.
   [Displayd runtime artifact proof](proof-notes/2026-08-09-displayd-runtime-artifact-proof.md)
 - **Displayd packaging cleanup:** personal-fork source commit `39c3746c`
   adds the two manual pages, corrects Debian metadata, and adds a packaging
@@ -144,7 +134,7 @@ integrity evidence, not a new package build or release claim.
   the earlier package had a matching disposable-QEMU install with empty
   `dpkg --audit`.
   [Displayd packaging proof](proof-notes/2026-08-09-displayd-packaging-proof.md)
-- **Voulage changelog identity:** isolated commit `db0ff7b` adds a tested
+- **Voulage changelog identity (QEMU):** isolated commit `db0ff7b` adds a tested
   maintainer-identity fallback so local Voulage builds do not inherit the
   builder hostname. The corrected branch rebuilt the Resolute COSMIC session
   package and the exact unsigned artifact passed an isolated QEMU install,
@@ -156,20 +146,18 @@ integrity evidence, not a new package build or release claim.
   [Changelog identity proof](proof-notes/2026-08-10-voulage-changelog-identity-proof.md)
   [Rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
   [COSMIC manpage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
-- **Voulage builder parser:** isolated commit `a8b0e0d` makes the documented
-  `--arch` option work and produced the canonical Resolute amd64 COSMIC session
-  artifact. The exact package hash and Lintian scope are recorded in the
+- **Voulage builder parser (QEMU):** isolated commit `a8b0e0d` makes the
+  documented `--arch` option work and produced the canonical Resolute amd64
+  COSMIC session artifact. The exact package hash and Lintian scope are
+  recorded in the
   [parser and build proof](proof-notes/2026-08-10-voulage-arch-parser-session-build.md).
   It also passed a QEMU cold-login and matched-baseline rollback check. Native
   display, hardware, signing, and publication remain outside this proof.
-- **Idle ownership:** the canonical WM-config ownership test passed, and the
-  QEMU session confirmed the supported `swayidle` fallback, inactive
+- **Idle ownership (QEMU):** the canonical WM-config ownership test passed, and
+  the QEMU session confirmed the supported `swayidle` fallback, inactive
   `cosmic-idle`/GNOME target, and empty failed-unit list.
   [Idle ownership proof](proof-notes/2026-08-10-idle-ownership-cold-login.md)
-- **Virtual matrix:** a reversible virtual two-output position, scale, and
-  disable-enable test is recorded in the current reviewer snapshot.
-  [Dated reviewer snapshot](WORK_PRODUCT_2026-08-09.md)
-- **Fallback lock:** two real five-minute `swayidle -w timeout 300 gtklock`
+- **Fallback lock (QEMU):** two real five-minute `swayidle -w timeout 300 gtklock`
   timeout-lock/unlock cycles passed on the Sway-backed QEMU path. The
   graphical session returned after each unlock; it reported `Type=wayland`,
   `Desktop=Regolith-Wayland`, `IdleHint=no`, and `LockedHint=no`. After each
@@ -177,26 +165,26 @@ integrity evidence, not a new package build or release claim.
   Native cosmic-idle/logind semantics, logout/shutdown, hardware, and
   signing/publication remain open.
   [Current tuple fallback lock/unlock proof](proof-notes/2026-08-09-fallback-lock-unlock-current-tuple-qemu-proof.md)
-- **OSD:** a visible COSMIC volume overlay was produced in the Sway-backed
-  COSMIC QEMU session.
+- **OSD (QEMU):** a visible COSMIC volume overlay was produced in the
+  Sway-backed COSMIC QEMU session.
   [COSMIC volume OSD proof](proof-notes/2026-08-09-cosmic-osd-volume.md)
 - **Vendored/package installation:** clean Voulage builds with vendored
   dependencies and real disposable Trixie installation of the exact package
   tuple are recorded.
   [Clean Voulage rebuild](proof-notes/2026-08-09-clean-voulage-rebuild.md) ·
   [Real disposable Trixie install](proof-notes/2026-08-09-real-trixie-container-install.md)
-- **Cosmolith package boundary:** the exact `cosmolith` source was built through
-  vendoring, offline compilation, Debian source-package generation, and binary
-  package creation. The resulting `.deb` was installed in QEMU with matching
-  SHA-256 values and an empty `dpkg --audit`. A fresh graphical QEMU login then
-  observed the installed `/usr/bin/cosmolith` process with the expected COSMIC
-  desktop selector and Wayland/Sway sockets; the target and helper health
-  checks were clean.
+- **Cosmolith package boundary (QEMU):** the exact `cosmolith` source was built
+  through vendoring, offline compilation, Debian source-package generation, and
+  binary package creation. The resulting `.deb` was installed in QEMU with
+  matching SHA-256 values and an empty `dpkg --audit`. A fresh graphical QEMU
+  login then observed the installed `/usr/bin/cosmolith` process with the
+  expected COSMIC desktop selector and Wayland/Sway sockets; the target and
+  helper health checks were clean.
   [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
-- **Runtime-owned helper teardown:** the reviewed Sway-backed wrapper cleans
-  the Regolith-owned compositor, `cosmolith`, helper process groups, and COSMIC
-  targets. A bounded QEMU test confirms that direct `swaymsg exit` leaves the
-  parent `cosmic-session`/`dbus-run-session` alive; the display-manager-owned
+- **Runtime-owned helper teardown (QEMU):** the reviewed Sway-backed wrapper
+  cleans the Regolith-owned compositor, `cosmolith`, helper process groups, and
+  COSMIC targets. A bounded QEMU test confirms that direct `swaymsg exit` leaves
+  the parent `cosmic-session`/`dbus-run-session` alive; the display-manager-owned
   logout path remains the clean logout result.
   [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
   [Sway-exit boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
@@ -214,6 +202,11 @@ integrity evidence, not a new package build or release claim.
   crash.
 - Physical or equivalent display matrix: multi-display, hotplug, and mixed
   DPI behavior remain unverified.
+- **Inputd touchpad reverse-sync (open):** implemented and unit-tested
+  (`46` COSMIC-feature / `49` all-feature tests), packaged, and install-verified
+  in a QEMU guest. The code path has never executed: the guest exposes no
+  `type:touchpad` device. Physical reverse-sync remains unproven.
+  [Touchpad reverse-sync note](proof-notes/2026-08-10-inputd-touchpad-reverse-sync.md)
 - Touchpad coverage, input reverse-sync runtime behavior, and a fresh visible
   GNOME desktop selection remain open.
 - The inputd candidate runtime note is QEMU-only; it does not claim hardware,
