@@ -84,11 +84,10 @@ integrity evidence, not a new package build or release claim.
   SHA-256 `759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193`.
   Direct Debian Lintian is clean; Voulage retains one same-day changelog-date
   warning. The candidate remains separate from the frozen installed tuple.
-  QEMU runtime proof now exists for the isolated candidate: it installed over
-  the earlier package, reached a fresh Regolith/COSMIC login, kept the
-  target-owned inputd service healthy, and passed a live keyboard change and
-  restoration. The candidate is still separate from the frozen `e32d049`
-  source tuple pending mentor/release direction.
+  The separate candidate verifier proof below covers target-owned service
+  health after an isolated QEMU install. It does not turn this source/test
+  note into runtime proof for `cd1c2cd`, and the candidate is still separate
+  from the frozen `e32d049` source tuple pending mentor/release direction.
   [Empty-layout guard proof](proof-notes/2026-08-10-inputd-empty-layout-guard.md)
 - **Candidate verifier runtime:** the hardened verifier passed in qualification
   QEMU after a visible greeter login with the exact candidate package version
