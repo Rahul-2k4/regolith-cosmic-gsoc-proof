@@ -96,6 +96,7 @@ integrity evidence, not a new package build or release claim.
   clean parent teardown is still open.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
   · [Parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
+  · [Pinned historical `cosmic-session` lifecycle proof](proof-notes/2026-08-12-pinned-cosmic-session-lifecycle-qemu-proof.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
   path overlap in other session packages. The inputd branch directly tests
