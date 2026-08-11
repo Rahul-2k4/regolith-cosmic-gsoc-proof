@@ -25,6 +25,16 @@ Commit: [`8fa2832`](https://github.com/Rahul-2k4/regolith-displayd/commit/8fa283
 - `git diff --check` passed;
 - `dpkg-buildpackage -b -us -uc` passed for the unsigned amd64 package.
 
-The existing `num_derive` warning remains. The candidate package has not yet
-been installed into the QEMU guest, so post-fix profile rewrite and reboot
-persistence remain open.
+The existing `num_derive` warning remains.
+
+## Bounded QEMU runtime
+
+The unsigned package was extracted and its candidate binary was run as the
+test user with the live compositor environment. The live output changed from
+`1280x800 @ 74.994 Hz` to `1024x768 @ 60.004 Hz`, and the candidate rewrote the
+saved `Virtual-1` profile to `1024x768@60.004Hz`. The original mode was then
+restored and the packaged service restarted.
+
+This is candidate-binary QEMU evidence. It does not prove system-wide `.deb`
+installation, cold-reboot persistence, physical hardware behaviour, or mentor
+acceptance. The guest package-install path remains open.
