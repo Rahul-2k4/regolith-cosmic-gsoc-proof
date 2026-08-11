@@ -196,7 +196,8 @@ integrity evidence, not a new package build or release claim.
   follows.
   [Final QEMU transition proof](proof-notes/2026-08-12-gnome-target-transition-final-qemu.md)
 - **Final graphical session proof:** the same final session source and
-  Resolute package family were installed in a disposable QEMU overlay and
+  current inputd routing source `271bc2a` plus the Resolute package family
+  were installed in a disposable QEMU overlay and
   started through greetd IPC. `cosmic-session`, Sway, and inputd were running
   with `XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway`; the COSMIC target
   and both target-owned helpers were active, GNOME was inactive, and
@@ -206,9 +207,9 @@ integrity evidence, not a new package build or release claim.
   [Graphical-login proof](proof-notes/2026-08-12-final-session-graphical-login-qemu.md)
 - **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
   proof remains valid for that source head. The newer routing source `271bc2a`
-  builds through Voulage and passes its source tests, but the combined
-  target-split QEMU install/reboot proof was not completed. Do not merge these
-  two evidence scopes.
+  builds through Voulage, passes its source tests, and is installed in the
+  combined final graphical-login tuple. There is no isolated inputd-only
+  runtime matrix for that head; do not merge those evidence scopes.
   [Earlier package proof](proof-notes/2026-08-12-current-inputd-package-qemu-proof.md)
   · [Routing proof](proof-notes/2026-08-12-inputd-keyboard-routing.md)
 - **Clean target-distro resolution attempt:** disposable `debian:trixie` and
@@ -460,10 +461,10 @@ supersede earlier frozen tuple pins.
 
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
-| `regolith-inputd` | [`rahul/inputd-keyboard-source-routing-20260812`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-keyboard-source-routing-20260812) | [`271bc2a`](https://github.com/Rahul-2k4/regolith-inputd/commit/271bc2a4ae21546c9b79c1d1c9b1ffd454eb0c57) | COSMIC input backend with feature/runtime selection, XKB layout/variant watcher mapping, mouse/touchpad sync, and keyboard-to-input-source event routing | COSMIC 47 tests; all-feature 50 tests; fmt/diff clean; Ubuntu binary build exit `0`; host-email Lintian warnings and a session-test harness mismatch documented; no current-head QEMU proof | Personal fork branch; no `regolith-linux` PR |
-| `regolith-session` | [`rahul/gnome-xorg-dependency-split-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-xorg-dependency-split-20260811) | [`641f796`](https://github.com/Rahul-2k4/regolith-session/commit/641f796cd193b1c5f6359b02703386e1807a1bb6) | Corrects the archive-provided loader dependency, moves GNOME target payload into a GNOME-only package, and removes the Flashback `xorg` metapackage dependency | 9 package/systemd tests, syntax, diff checks, manual Ubuntu binary build, graph simulations, old-common transitions, and Lintian exit `0` with warnings only; Voulage wrapper blocked at build-dep/archive setup | Fork only; no `regolith-linux` PR |
+| `regolith-inputd` | [`rahul/inputd-keyboard-source-routing-20260812`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-keyboard-source-routing-20260812) | [`271bc2a`](https://github.com/Rahul-2k4/regolith-inputd/commit/271bc2a4ae21546c9b79c1d1c9b1ffd454eb0c57) | COSMIC input backend with feature/runtime selection, XKB layout/variant watcher mapping, mouse/touchpad sync, and keyboard-to-input-source event routing | COSMIC 47 tests; all-feature 50 tests; fmt/diff clean; Ubuntu binary build exit `0`; host-email Lintian warnings and a session-test harness mismatch documented; combined final graphical-login tuple proof, but no isolated inputd-only runtime matrix | Personal fork branch; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/gnome-target-transition-replaces-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-transition-replaces-20260811) | [`831596f`](https://github.com/Rahul-2k4/regolith-session/commit/831596f8f054a6904b0846b6a899912c6c13d465) | Corrects the archive-provided loader dependency, moves GNOME target payload into a GNOME-only package, removes the Flashback `xorg` metapackage dependency, and adds the final unversioned ownership handoff | 9 package/systemd tests, syntax, diff checks, manual Ubuntu binary build, Voulage Resolute build, Lintian exit `0` with warnings only, package transition, cold reboot, and graphical QEMU login proof | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
-| `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
+| `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 is merged upstream (`7d47b8b6`); mentor-authorized PRs #17, #18, and #19 are open and mergeable |
 | `voulage` | [`rahul/local-build-skip-apt-build-dep`](https://github.com/Rahul-2k4/voulage/tree/rahul/local-build-skip-apt-build-dep) | [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e) | Adds the opt-in no-APT local-build gate used to build the corrected session transition; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
@@ -471,10 +472,8 @@ supersede earlier frozen tuple pins.
 
 ### Immediately actionable by a maintainer
 
-- Open cosmolith upstream PRs for issues #1 (session detection) and #2
-  (structured error enum). Source is complete and pushed on the personal fork;
-  opening those PRs is the highest-value remaining action and takes under an
-  hour once mentor direction allows.
+- Review and merge cosmolith PRs #17, #18, and #19 in order: #17, then #18,
+  then the stacked #19. They are open and mergeable; no merge is claimed here.
 - Land the Voulage COSMIC package-model entries on upstream
   `regolith-linux/voulage` (personal fork `main` already carries them).
 - Sign and publish the unsigned Resolute amd64 package tuple once a first
