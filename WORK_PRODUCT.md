@@ -195,6 +195,15 @@ integrity evidence, not a new package build or release claim.
   outside a graphical session, and no hardware, signing, or publication claim
   follows.
   [Final QEMU transition proof](proof-notes/2026-08-12-gnome-target-transition-final-qemu.md)
+- **Final graphical session proof:** the same final session source and
+  Resolute package family were installed in a disposable QEMU overlay and
+  started through greetd IPC. `cosmic-session`, Sway, and inputd were running
+  with `XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway`; the COSMIC target
+  and both target-owned helpers were active, GNOME was inactive, and
+  `dpkg --audit` was empty after the run. This is QEMU-only evidence; it does
+  not claim hardware, native display mutation, signing, publication, or
+  mentor acceptance.
+  [Graphical-login proof](proof-notes/2026-08-12-final-session-graphical-login-qemu.md)
 - **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
   proof remains valid for that source head. The newer routing source `271bc2a`
   builds through Voulage and passes its source tests, but the combined
