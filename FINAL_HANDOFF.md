@@ -2,7 +2,7 @@
 
 Project: **Build a COSMIC-based Wayland Session for Regolith**
 
-Public proof bundle: `main` at `c761eeb`
+Public proof bundle: `main` at `8b875c3`
 
 ## Start here
 
@@ -29,6 +29,12 @@ The result verified:
 - active target-owned inputd and displayd units;
 - inactive `regolith-gnome.target`;
 - empty `dpkg --audit`.
+
+The current package tuple also passes disposable amd64 filesystem installation
+on Ubuntu 26.04 and Debian Trixie with empty `dpkg --audit`. The Trixie run
+uses the available local COSMIC packages with a Resolute suffix, so it is staged
+install evidence rather than canonical Trixie publication proof. See the
+[package install proof](proof-notes/2026-08-12-clean-container-amd64-package-install.md).
 
 Representative keyboard evidence is in the [launcher binding
 proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md): QEMU HMP
@@ -65,6 +71,8 @@ session binaries; see the [native-host boundary](proof-notes/2026-08-12-native-c
 - multimedia keys and the complete keyboard matrix;
 - full native idle/logind and parent-session lifecycle semantics;
 - signed package publication and maintainer/mentor acceptance.
+- native Trixie COSMIC package-model entries and Trixie-labelled COSMIC
+  artifacts through Voulage.
 
 These are limitations, not silently converted into successes. No password,
 private host detail, or private repository path is required by this public
