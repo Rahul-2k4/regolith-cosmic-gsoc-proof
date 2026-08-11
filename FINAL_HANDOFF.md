@@ -7,9 +7,11 @@ Public proof bundle: `main` at `98e4013`
 ## Start here
 
 1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.
-2. Read [`TECHNICAL_ARTICLE.md`](TECHNICAL_ARTICLE.md) for the engineering
-   narrative and design decisions.
-3. Use the proof notes linked from those documents for command-level evidence.
+2. Read [`ARCHITECTURE.md`](ARCHITECTURE.md) for component boundaries, data
+   flow, and design decisions.
+3. Read [`TECHNICAL_ARTICLE.md`](TECHNICAL_ARTICLE.md) for the engineering
+   narrative.
+4. Use the proof notes linked from those documents for command-level evidence.
 
 ## Reproduce the verified QEMU result
 
@@ -67,4 +69,3 @@ session binaries; see the [native-host boundary](proof-notes/2026-08-12-native-c
 These are limitations, not silently converted into successes. No password,
 private host detail, or private repository path is required by this public
 bundle.
-

@@ -12,6 +12,7 @@ For the current status and the latest sanitized evidence, start with the
 dated companion record.
 
 For handoff and reproduction order, use the [final handoff](FINAL_HANDOFF.md).
+For system boundaries and design rationale, use the [architecture reference](ARCHITECTURE.md).
 
 This bundle contains the proof notes and reproduction scripts for the current
 closure state of the Regolith COSMIC session work.
