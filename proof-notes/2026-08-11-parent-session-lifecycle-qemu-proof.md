@@ -47,7 +47,7 @@ not presented as a successful command acknowledgment. An independent audit ten
 seconds later reported the following historical capture:
 
 ```text
-COSMIC_PARENT_STOPPED
+historical parent-stop observation
 SWAY_STOPPED
 inactive
 active
