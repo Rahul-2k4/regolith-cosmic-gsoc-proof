@@ -56,7 +56,7 @@ The follow-up candidate moves the GNOME target files into a GNOME-only package
 consumed by the legacy Sway/Flashback packages. That preserves GNOME
 coexistence while removing the GNOME target payload from the COSMIC dependency
 path. The build, graph, and transition evidence is recorded in the
-[target-split proof](2026-08-12-gnome-target-package-split.md); criterion 9
+[target-split proof](2026-08-11-gnome-target-package-split.md); criterion 9
 remains Partial pending mentor/release and revised-runtime review.
 
 No completion percentage changed: strict `62-68%`, `4 of 12` fully met.

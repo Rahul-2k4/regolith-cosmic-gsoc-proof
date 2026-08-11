@@ -1,6 +1,6 @@
 # GNOME target package split and transition proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 This note records the candidate package split that removes inactive GNOME
 target files from the COSMIC package path while preserving the legacy GNOME

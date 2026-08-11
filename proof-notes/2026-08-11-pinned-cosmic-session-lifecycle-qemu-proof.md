@@ -1,6 +1,6 @@
 # Pinned historical `cosmic-session` lifecycle QEMU proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 Scope: disposable Ubuntu Resolute QEMU overlay with the historical reduced-
 dependency COSMIC session tuple
 

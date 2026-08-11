@@ -1,6 +1,6 @@
 # Inputd keyboard to input-source routing proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 ## Source and tests
 

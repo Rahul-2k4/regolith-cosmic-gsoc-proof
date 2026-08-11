@@ -1,6 +1,6 @@
 # Clean target-distro package closure and transition install
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 This note records the positive follow-up to the earlier failed package-resolution
 attempt. The earlier simulation omitted the signed Regolith archive and also

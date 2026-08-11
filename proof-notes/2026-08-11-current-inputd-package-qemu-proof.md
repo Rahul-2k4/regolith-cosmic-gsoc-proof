@@ -1,6 +1,6 @@
 # Current inputd package and QEMU reboot proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 ## Source and build
 

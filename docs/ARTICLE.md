@@ -23,7 +23,7 @@ before the interface is ready. The final proof bundle records the target
 ownership and helper-service checks in a fresh QEMU login, with zero helper
 restarts and no project-owned failed user units.
 
-See the [final graphical-login proof](../proof-notes/2026-08-12-final-session-graphical-login-qemu.md),
+See the [final graphical-login proof](../proof-notes/2026-08-11-final-session-graphical-login-qemu.md),
 the [parent-lifecycle proof](../proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md),
 the [closure verification](../proof-notes/2026-08-11-final-closure-verification.md),
 and the [installation guide](INSTALL.md).
@@ -43,7 +43,7 @@ guards against a Sway-to-COSMIC-to-Sway feedback loop.
 
 The later routing head is `271bc2a`; it sends Sway keyboard events to both the
 keyboard and input-source handlers. Its source/build proof is separate from
-the touchpad package evidence and is linked in the [keyboard-routing proof](../proof-notes/2026-08-12-inputd-keyboard-routing.md).
+the touchpad package evidence and is linked in the [keyboard-routing proof](../proof-notes/2026-08-11-inputd-keyboard-routing.md).
 
 The source gates are concrete:
 

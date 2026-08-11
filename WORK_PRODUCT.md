@@ -95,8 +95,7 @@ integrity evidence, not a new package build or release claim.
   The `cosmic-session` parent remained after the direct Sway-exit attempt, so
   clean parent teardown is still open.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
-  · [Parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
-  · [Pinned historical `cosmic-session` lifecycle proof](proof-notes/2026-08-12-pinned-cosmic-session-lifecycle-qemu-proof.md)
+  · [Canonical parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
   · [Current `a14abe3` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
@@ -111,12 +110,13 @@ integrity evidence, not a new package build or release claim.
   ancestry. Fresh laptop clones passed 7 focused inputd tests, 55 full COSMIC
   tests, and the session shell/teardown checks.
   [Mouse/session source proof](proof-notes/2026-08-11-mouse-session-source-verification.md)
-- **Inputd keyboard event routing:** source `271bc2a` routes Sway keyboard
-  events to both the keyboard and input-source handlers. COSMIC-only `47` and
-  all-feature `50` tests, formatting, and diff checks passed. This is an
-  internal routing proof only; active-layout persistence and live input remain
-  open.
-  [Keyboard routing proof](proof-notes/2026-08-12-inputd-keyboard-routing.md)
+- **Inputd branch reconciliation and keyboard routing:** canonical source
+  `c658754` combines the touchpad/lintian head with keyboard routing source
+  `271bc2a`. COSMIC and all-feature tests each passed 51/51, with formatting
+  and diff checks clean. This is an internal routing proof only; active-layout
+  persistence and live input remain open.
+  [Canonical reconciliation proof](proof-notes/2026-08-12-inputd-canonical-reconciliation.md)
+  [Keyboard routing proof](proof-notes/2026-08-11-inputd-keyboard-routing.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
@@ -191,14 +191,14 @@ integrity evidence, not a new package build or release claim.
   family build passed Lintian with warnings only. The three transitive GNOME
   resource packages remain documented, so criterion 9 stays Partial pending
   mentor/release and revised-runtime review.
-  [Target split proof](proof-notes/2026-08-12-gnome-target-package-split.md)
+  [Target split proof](proof-notes/2026-08-11-gnome-target-package-split.md)
 - **Revised target split QEMU transition:** the Ubuntu Resolute candidate
   package set installed with `dpkg -i` exit `0` in a disposable overlay,
   survived a cold reboot, and returned with empty `dpkg --audit`. Both GNOME
   target files remained owned by `regolith-session-gnome-targets`, and common
   had no GNOME payload. The post-reboot check was outside a graphical user
   session, so this does not add a login or target-runtime claim.
-  [QEMU transition proof](proof-notes/2026-08-12-gnome-target-split-qemu-transition.md)
+  [QEMU transition proof](proof-notes/2026-08-11-gnome-target-split-qemu-transition.md)
 - **Final target ownership transition:** session source
   [`831596f`](https://github.com/Rahul-2k4/regolith-session/commit/831596f8f054a6904b0846b6a899912c6c13d465)
   keeps unversioned `Replaces` for both predecessor owners. The Voulage-built
@@ -208,7 +208,7 @@ integrity evidence, not a new package build or release claim.
   This closes package-transition integrity only. The post-reboot guest was
   outside a graphical session, and no hardware, signing, or publication claim
   follows.
-  [Final QEMU transition proof](proof-notes/2026-08-12-gnome-target-transition-final-qemu.md)
+  [Final QEMU transition proof](proof-notes/2026-08-11-gnome-target-transition-final-qemu.md)
 - **Final graphical session proof:** the same final session source and
   current inputd routing source `271bc2a` plus the Resolute package family
   were installed in a disposable QEMU overlay and
@@ -218,26 +218,20 @@ integrity evidence, not a new package build or release claim.
   `dpkg --audit` was empty after the run. This is QEMU-only evidence; it does
   not claim hardware, native display mutation, signing, publication, or
   mentor acceptance.
-  [Graphical-login proof](proof-notes/2026-08-12-final-session-graphical-login-qemu.md)
-- **Parent session lifecycle proof:** the corrected Resolute session tuple
-  reached a COSMIC-backed Sway login after a cold reboot. After a direct
-  `swaymsg exit`, Sway stopped but the exact `cosmic-session` parent remained.
-  The IPC client returned an error while teardown was already in progress, so
-  this is a parent-lifecycle boundary rather than a clean-logout claim.
-  [Parent lifecycle proof](proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md)
+  [Graphical-login proof](proof-notes/2026-08-11-final-session-graphical-login-qemu.md)
 - **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
   proof remains valid for that source head. The newer routing source `271bc2a`
   builds through Voulage, passes its source tests, and is installed in the
   combined final graphical-login tuple. There is no isolated inputd-only
   runtime matrix for that head; do not merge those evidence scopes.
-  [Earlier package proof](proof-notes/2026-08-12-current-inputd-package-qemu-proof.md)
-  · [Routing proof](proof-notes/2026-08-12-inputd-keyboard-routing.md)
+  [Earlier package proof](proof-notes/2026-08-11-current-inputd-package-qemu-proof.md)
+  · [Routing proof](proof-notes/2026-08-11-inputd-keyboard-routing.md)
 - **Clean target-distro resolution attempt:** disposable `debian:trixie` and
   `ubuntu:26.04` containers both completed `apt-get update` with exit `0`, but
   simulated installation of the staged package set returned exit `100` because
   the required Regolith/COSMIC runtime closure was unavailable. This is useful
   failure evidence, not clean-install proof; the exact unresolved package
-  lists are recorded in the [container resolution note](proof-notes/2026-08-12-clean-container-package-resolution.md).
+  lists are recorded in the [container resolution note](proof-notes/2026-08-11-clean-container-package-resolution.md).
 - **Clean target-distro closure and install:** after adding the signed Regolith
   archive and correcting the real `regolith-resource-loader` metadata defect,
   disposable Ubuntu 26.04 and Debian Trixie containers both resolved and
@@ -245,7 +239,15 @@ integrity evidence, not a new package build or release claim.
   both. The combined session source also carries the required
   `Replaces: regolith-session-sway` transition metadata. This is clean package
   closure evidence, not a clean graphical-login claim. See the [positive
-  closure proof](proof-notes/2026-08-12-clean-target-package-closure-install.md).
+  closure proof](proof-notes/2026-08-11-clean-target-package-closure-install.md).
+- **Lintian sequence for the target split:** the first candidate at
+  [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5)
+  failed standalone Lintian because it retained the direct `xorg` dependency;
+  [`641f796`](https://github.com/Rahul-2k4/regolith-session/commit/641f796)
+  removed that dependency, and the final [`831596f`](https://github.com/Rahul-2k4/regolith-session/commit/831596f8f054a6904b0846b6a899912c6c13d465)
+  package passed Lintian with warnings only. The warnings and the exact
+  sequence are retained in the linked package proof; this is not a claim of
+  zero warnings.
 - **Voulage session rebuild and cold reset (QEMU):** the reviewed
   `regolith-session` source at `7fb72a8d` built successfully through the local
   Voulage path with the Resolute package suffix. After a staged compatibility
@@ -255,6 +257,12 @@ integrity evidence, not a new package build or release claim.
   This is not native `cosmic-comp` or release-publication proof; the package
   collision and Lintian findings are recorded in the note.
   [Voulage cold-reset proof](proof-notes/2026-08-11-voulage-session-7fb-cold-reset.md)
+- **Voulage source-of-truth repin:** the dedicated contributor branch pins
+  `regolith-session` to `831596f` and `regolith-inputd` to the reconciled
+  `c658754`. The canonical branch hit the documented host sudo build-dep
+  boundary; the reviewed local-build skip gate then produced the exact six
+  session packages with retained hashes and Lintian warnings only.
+  [Repin and package proof](proof-notes/2026-08-12-voulage-session-repin.md)
 - **Session package ownership transition:** source commit
   [`b74dfe3`](https://github.com/Rahul-2k4/regolith-session/commit/b74dfe3d9a4b2dd848176d181f2d1f853115c5c8)
   adds the required `Replaces` relationship to the common package and passes

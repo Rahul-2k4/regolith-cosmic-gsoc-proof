@@ -1,6 +1,6 @@
 # GNOME target split QEMU package transition
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 The revised Ubuntu Resolute session packages from source commit
 [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5)
