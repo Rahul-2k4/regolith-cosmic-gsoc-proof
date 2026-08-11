@@ -4,6 +4,7 @@
 > The later run showed that the `cosmic-session` parent remained after direct
 > `swaymsg exit`; this file must not be used as evidence that parent teardown
 > is complete.
+> The current canonical boundary is [the direct lifecycle diagnostic](2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
 
 Date: 2026-08-11
 Scope: disposable QEMU overlay with the retained Resolute session tuple

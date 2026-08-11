@@ -1,5 +1,8 @@
 # Pinned historical `cosmic-session` lifecycle QEMU proof
 
+> Historical package-provenance context only. The current canonical boundary
+> is [the direct lifecycle diagnostic](2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
+
 Date: 2026-08-11
 Scope: disposable Ubuntu Resolute QEMU overlay with the historical reduced-
 dependency COSMIC session tuple
