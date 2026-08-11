@@ -132,6 +132,13 @@ integrity evidence, not a new package build or release claim.
   ancestry. Fresh laptop clones passed 7 focused inputd tests, 55 full COSMIC
   tests, and the session shell/teardown checks.
   [Mouse/session source proof](proof-notes/2026-08-11-mouse-session-source-verification.md)
+- **Inputd feature-matrix verification:** the current laptop checkout at
+  `271bc2a` passed 50 all-feature tests, 47 COSMIC-only tests, and 23 GNOME-only
+  tests on Linux, with formatting and diff checks clean. The COSMIC-only build
+  reports two Rust dead-code warnings. This confirms source-level feature
+  isolation and handler coverage; it does not prove hardware input or a fresh
+  QEMU run from this exact source commit.
+  [Feature-matrix proof](proof-notes/2026-08-12-inputd-feature-matrix-linux.md)
 - **Inputd branch reconciliation and keyboard routing:** canonical source
   `c658754` combines the touchpad/lintian head with keyboard routing source
   `271bc2a`. COSMIC and all-feature tests each passed 51/51, with formatting

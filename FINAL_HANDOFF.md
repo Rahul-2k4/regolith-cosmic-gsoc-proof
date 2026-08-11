@@ -30,6 +30,13 @@ proof](proof-notes/2026-08-12-displayd-wayland-multi-output-reconciliation.md).
 The isolated source-test branch passed 51 library and 25 binary-target tests;
 it does not claim physical hotplug or mixed-DPI runtime coverage.
 
+The inputd branch also has a [feature-matrix verification
+proof](proof-notes/2026-08-12-inputd-feature-matrix-linux.md). The Linux laptop
+checkout at source `271bc2a` passed 50 all-feature tests, 47 COSMIC-only tests,
+and 23 GNOME-only tests, with formatting and diff checks clean. This confirms
+the backend feature split at source level; it does not replace the QEMU runtime
+proof or close physical input coverage.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
