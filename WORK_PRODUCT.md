@@ -16,7 +16,7 @@ sanitized wrapper proof.
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
 | 7 | Settings persist across reboot | Partial | single-output display profile only |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
-| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | candidate split removes target payload from common; Ubuntu/Trixie graph and transition pass; survivors documented |
+| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct COSMIC metadata is clean; final target-split tuple reached a graphical QEMU login; full transitive closure and survivor review remain |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
@@ -56,7 +56,7 @@ merged. No hardware result is claimed.
 
 The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
 
-The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). It proves package installation, cold login, and healthy inputd/displayd services under the COSMIC target. Parent-session teardown remains open. A source/package candidate for the owning `cosmic-session` loop is recorded in the [parent-exit source/package proof](proof-notes/2026-08-12-cosmic-session-parent-exit-source-package-proof.md); it has not yet received QEMU runtime proof.
+The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). The final target-split package tuple has now also passed disposable QEMU installation, cold reboot, greetd graphical login, target/helper health, launcher binding, workspace switching, and empty `dpkg --audit`; see the [direct package audit and final tuple proof](proof-notes/2026-08-12-direct-session-package-audit.md). Parent-session teardown is separately covered by the reviewed `cosmic-session` candidate proof; full display-manager logout and shutdown remain open.
 
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
@@ -179,6 +179,13 @@ integrity evidence, not a new package build or release claim.
   Sway/Flashback paths. The focused test, shell syntax check, and diff check
   passed. This is a source gate, not the complete transitive audit.
   [Package-audit test proof](proof-notes/2026-08-11-package-audit-regression-test.md)
+- **Final target-split graphical integration:** the staged Resolute package
+  tuple passed direct metadata audit and a disposable QEMU graphical login.
+  The COSMIC target and both target-owned helpers were active, the GNOME target
+  was inactive, `dpkg --audit` was empty, and the existing launcher/workspace
+  bindings remained usable. This is an integration subgate; the full
+  transitive APT closure is still not claimed complete.
+  [Direct package audit and final tuple proof](proof-notes/2026-08-12-direct-session-package-audit.md)
 - **Transitive GNOME dependency audit:** the exact staged package set was
   simulated with `--no-install-recommends` on Ubuntu 26.04 and Debian Trixie.
   Both resolved successfully and selected only `gnome-keyring`,
