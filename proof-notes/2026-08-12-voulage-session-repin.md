@@ -42,3 +42,6 @@ Version: `1.2.0-1ubuntu1-1-1regolith-resolute`
 This note proves source checkout, Voulage build-path execution, package
 creation, and hashes. It does not claim graphical login, hardware testing,
 signing, or mentor acceptance.
+
+The committed package files and independently recomputed hashes are listed in
+the [public artifact manifest](../artifacts/README.md).
