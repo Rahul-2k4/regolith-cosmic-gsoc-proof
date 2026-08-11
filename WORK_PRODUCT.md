@@ -161,6 +161,12 @@ integrity evidence, not a new package build or release claim.
   inputd service and COSMIC backend environment. One keyboard/input-source
   transition was observed and then restored.
   [Current-hash inputd QEMU proof](proof-notes/2026-08-09-current-hash-inputd-qemu-proof.md)
+- **Fresh inputd runtime verifier (QEMU):** a new copy-on-write guest run
+  returned zero verifier failures for the installed inputd binary, COSMIC
+  environment, target ownership, inputd/displayd health, and failed-unit
+  state. This is installed-tuple runtime evidence; it does not claim hardware
+  input or that the package was built from source commit `271bc2a`.
+  [Fresh QEMU verifier proof](proof-notes/2026-08-12-qemu-inputd-feature-matrix-runtime.md)
 - **Inputd touchpad mapping coverage:** the frozen source already passes 43
   COSMIC-feature tests and 20 GNOME-feature tests, including deterministic
   touchpad command mappings and partial configurations. This is unit coverage;

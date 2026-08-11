@@ -37,6 +37,12 @@ and 23 GNOME-only tests, with formatting and diff checks clean. This confirms
 the backend feature split at source level; it does not replace the QEMU runtime
 proof or close physical input coverage.
 
+The fresh [QEMU inputd verifier proof](proof-notes/2026-08-12-qemu-inputd-feature-matrix-runtime.md)
+returned zero failures for the installed binary, COSMIC environment, target
+ownership, inputd/displayd health, and failed-unit state. It is installed-tuple
+runtime evidence and does not claim hardware input or exact-commit package
+rebuild provenance.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
