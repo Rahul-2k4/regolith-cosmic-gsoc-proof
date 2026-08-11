@@ -50,6 +50,8 @@ upstream PR or `main` merge is claimed. COSMIC-specific cosmolith PRs #17,
 #18, and #19 are open under mentor authorization and are not presented as
 merged. No hardware result is claimed.
 
+The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
+
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
 GNOME/COSMIC systemd targets, with the COSMIC target owning the compatible
