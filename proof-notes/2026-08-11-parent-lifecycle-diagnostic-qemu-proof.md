@@ -1,8 +1,8 @@
 # Direct Sway-exit parent lifecycle diagnostic
 
 Date: 2026-08-11
-Scope: disposable Ubuntu Resolute QEMU overlay using the reviewed COSMIC
-session tuple
+Scope: disposable Ubuntu Resolute QEMU overlay using the reviewed Regolith
+session/inputd/displayd tuple on the existing COSMIC base image
 
 ## Result
 
@@ -18,6 +18,16 @@ direct Sway-exit request:
 The target-owned helpers were healthy before the test: both were active,
 reported `ExecMainStatus=0`, and the target had `Result=success`. The overlay
 was removed by the harness and the canonical QEMU image was not modified.
+
+## Package provenance boundary
+
+This diagnostic installed the Regolith session, inputd, and displayd
+artifacts. It did not replace or hash the pre-existing `cosmic-session`
+package in the base image. Therefore this run proves the observed integrated
+process boundary, but it does not bind that observation to the
+`cosmic-session` source ref `a14abe3`. The source/package match remains an
+open verification item; no `regolith-session` patch is justified from this
+run.
 
 ## Relevant session evidence
 
