@@ -15,7 +15,7 @@ sanitized wrapper proof.
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
 | 7 | Settings persist across reboot | Partial | single-output display profile only |
-| 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; ilia launcher observed, full retained-surface matrix open |
+| 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
@@ -24,8 +24,9 @@ sanitized wrapper proof.
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
 session, activated both target-owned helpers, and opened the ilia launcher via
-one resolved Sway binding. This is still QEMU-only and does not prove the full
-keyboard or retained-surface matrix. See the
+one resolved Sway binding. A later run also switched from workspace 1 to 2 and
+back through representative bindings. This is still QEMU-only and does not
+prove the full keyboard or retained-surface matrix. See the
 [live-login proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
 and the earlier [greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
 
@@ -148,6 +149,21 @@ integrity evidence, not a new package build or release claim.
   This is not native `cosmic-comp` or release-publication proof; the package
   collision and Lintian findings are recorded in the note.
   [Voulage cold-reset proof](proof-notes/2026-08-11-voulage-session-7fb-cold-reset.md)
+- **Session package ownership transition:** source commit
+  [`b74dfe3`](https://github.com/Rahul-2k4/regolith-session/commit/b74dfe3d9a4b2dd848176d181f2d1f853115c5c8)
+  adds the required `Replaces` relationship to the common package and passes
+  its regression test. Voulage rebuilt the package with the approved Resolute
+  suffix; a disposable transition install returned `0`, left `dpkg --audit`
+  empty, and activated the user COSMIC target. The base already contained the
+  older tuple, so this is transition proof rather than clean-from-empty-base
+  installation proof. Lintian and publication remain open.
+  [Package transition proof](proof-notes/2026-08-11-session-package-transition-proof.md)
+- **Representative retained-surface matrix (QEMU):** the live session kept
+  `i3status-rs`, launched `ilia` through `Mod4+Space`, and switched from
+  workspace 1 to 2 and back through injected Sway bindings. This strengthens
+  criteria 8 and 12 but leaves the complete binding matrix, multimedia keys,
+  and hardware behavior open.
+  [Retained-surface matrix](proof-notes/2026-08-11-retained-surface-keyboard-matrix.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
@@ -360,7 +376,7 @@ supersede earlier frozen tuple pins.
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
 | `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`94222ce`](https://github.com/Rahul-2k4/regolith-inputd/commit/94222ce) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and a typed keyboard reverse-sync API boundary | 8 focused tests; full all-feature suite 58 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
-| `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`7fb72a8d`](https://github.com/Rahul-2k4/regolith-session/commit/7fb72a8d93e8b33fc6bfbca9292398252003b477) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry while keeping GNOME unchanged | launcher, target, teardown, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`b74dfe3`](https://github.com/Rahul-2k4/regolith-session/commit/b74dfe3d9a4b2dd848176d181f2d1f853115c5c8) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry; adds the common-package transition ownership fix while keeping GNOME unchanged | launcher, target, teardown, packaging, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
 | `voulage` | [`rahul/cosmic-exact-tuple-local-build-20260811`](https://github.com/Rahul-2k4/voulage/tree/rahul/cosmic-exact-tuple-local-build-20260811) | [`05dfd700`](https://github.com/Rahul-2k4/voulage/commit/05dfd7004c6941f6609a52fc4347ecdd5fa67a72) | Exact reviewed COSMIC tuple pins plus an opt-in no-APT local-build gate; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, and diff checks pass on Linux; exact inputd package build/install proof recorded | Personal fork only; no upstream merge |

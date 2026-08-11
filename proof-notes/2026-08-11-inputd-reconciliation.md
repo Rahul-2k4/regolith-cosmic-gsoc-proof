@@ -2,7 +2,7 @@
 
 Task C1 from `docs/superpowers/plans/2026-08-10-gsoc-final-closure.md`.
 
-Remote workspace: `$WORKSPACE/regolith-inputd` on SSH alias `surface-laptop`.
+Remote Linux workspace: `$WORKSPACE/regolith-inputd`.
 Push remote: `rahul` → https://github.com/Rahul-2k4/regolith-inputd.git
 
 ## Before (split confirmed)

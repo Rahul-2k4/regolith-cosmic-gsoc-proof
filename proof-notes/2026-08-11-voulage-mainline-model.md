@@ -1,7 +1,7 @@
 # Proof: Voulage mainline COSMIC package-model land (Task C4)
 
 Date: 2026-08-11  
-Host: surface-laptop `~/Desktop/GSoC_2026/ccextractor/regolith/voulage`  
+Host: remote Linux build workspace  
 Remote pushed: `rahul` → https://github.com/Rahul-2k4/voulage.git (personal fork only)  
 Upstream `origin` (regolith-linux/voulage): **not pushed**
 

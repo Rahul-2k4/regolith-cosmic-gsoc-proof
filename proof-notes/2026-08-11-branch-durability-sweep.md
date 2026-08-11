@@ -2,7 +2,7 @@
 
 ## Scope
 
-GSoC closure plan Task A2 on `surface-laptop` workspace
+GSoC closure plan Task A2 on the remote Linux workspace
 `~/Desktop/GSoC_2026/ccextractor/regolith`.
 
 Repos: voulage, regolith-session, cosmolith, cosmic-idle,

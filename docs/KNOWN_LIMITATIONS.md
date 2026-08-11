@@ -50,7 +50,7 @@ Each entry: what fails or is unproven, why, what would close it.
 - **Need:** Rollback checklist + clean QEMU gate, then a deliberate
   hardware boot with fallback session.
 - **Vault (connectivity / access history):**
-  `2026-07-12-surface-laptop-host-connectivity.md`,
+  `2026-07-12-remote-host-connectivity.md`,
   `2026-07-17-laptop-connectivity-current.md`,
   `2026-07-18-laptop-connectivity-current.md`,
   `2026-07-21-laptop-connectivity-current.md`,
