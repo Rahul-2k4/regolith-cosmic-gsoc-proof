@@ -153,6 +153,12 @@ integrity evidence, not a new package build or release claim.
   Sway/Flashback paths. The focused test, shell syntax check, and diff check
   passed. This is a source gate, not the complete transitive audit.
   [Package-audit test proof](proof-notes/2026-08-11-package-audit-regression-test.md)
+- **Clean target-distro resolution attempt:** disposable `debian:trixie` and
+  `ubuntu:26.04` containers both completed `apt-get update` with exit `0`, but
+  simulated installation of the staged package set returned exit `100` because
+  the required Regolith/COSMIC runtime closure was unavailable. This is useful
+  failure evidence, not clean-install proof; the exact unresolved package
+  lists are recorded in the [container resolution note](proof-notes/2026-08-12-clean-container-package-resolution.md).
 - **Voulage session rebuild and cold reset (QEMU):** the reviewed
   `regolith-session` source at `7fb72a8d` built successfully through the local
   Voulage path with the Resolute package suffix. After a staged compatibility
