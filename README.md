@@ -280,6 +280,9 @@ This public repo is a lightweight proof-note bundle. Large raw assets from the p
 
 QEMU-proven:
 
+- fresh staged Resolute package/session install followed by greetd graphical
+  login: COSMIC session, Sway, inputd, active COSMIC target, active target-owned
+  inputd/displayd units, inactive GNOME target, and empty `dpkg --audit`
 - current-hash `regolith-inputd` COSMIC login, active service, COSMIC backend
   environment, and one keyboard/input-source live transition with restoration
 - COSMIC session helper cleanup
@@ -291,6 +294,8 @@ QEMU-proven:
 
 QEMU-boundary findings:
 
+- the final staged tuple is QEMU-only; source provenance for every binary is
+  recorded in the private build packet, not inferred from the runtime alone
 - the current guest has no touchpad device, so touchpad state-change coverage
   remains open
 - this current-hash inputd result does not prove reverse-sync runtime behavior,
