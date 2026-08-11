@@ -106,6 +106,12 @@ integrity evidence, not a new package build or release claim.
   touchpad command mappings and partial configurations. This is unit coverage;
   physical-device and live reverse-sync behavior remain open.
   [Touchpad coverage audit](proof-notes/2026-08-10-inputd-touchpad-coverage-audit.md)
+- **Exact inputd package build/install:** the reviewed `66099f67` source built
+  as `0.4.1-2-1regolith-resolute`, passed Lintian with exit `0`, and was
+  installed and rolled back in the disposable QEMU guest with matching package
+  and installed-binary hashes. The guest was at the greeter, so no daemon or
+  graphical runtime claim follows.
+  [Package install proof](proof-notes/2026-08-11-exact-inputd-package-install-rollback.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
@@ -321,7 +327,7 @@ supersede earlier frozen tuple pins.
 | `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`7fb72a8d`](https://github.com/Rahul-2k4/regolith-session/commit/7fb72a8d93e8b33fc6bfbca9292398252003b477) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry while keeping GNOME unchanged | launcher, target, teardown, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
-| `voulage` | `main` | [`1bbaa39b`](https://github.com/Rahul-2k4/voulage/commit/1bbaa39b0a9a0ef5604a3e72c20ee87afafe42cc) | Personal-fork mainline carries COSMIC package-model entries and the reconciled inputd pin | Model pin regression and related shell checks PASS on proof branches | Fork `main` only (recorded AGENTS.md deviation: land model on personal fork main for reviewer visibility; not upstream `regolith-linux/voulage`) |
+| `voulage` | [`rahul/cosmic-exact-tuple-local-build-20260811`](https://github.com/Rahul-2k4/voulage/tree/rahul/cosmic-exact-tuple-local-build-20260811) | [`05dfd700`](https://github.com/Rahul-2k4/voulage/commit/05dfd7004c6941f6609a52fc4347ecdd5fa67a72) | Exact reviewed COSMIC tuple pins plus an opt-in no-APT local-build gate; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, and diff checks pass on Linux; exact inputd package build/install proof recorded | Personal fork only; no upstream merge |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
 ## Next steps
