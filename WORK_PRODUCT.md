@@ -198,6 +198,12 @@ integrity evidence, not a new package build or release claim.
   packages; no GNOME session manager, settings daemon, control center, Mutter,
   or Nautilus entered the graph. This was the pre-split audit; the candidate
   ownership split is recorded below. [Transitive audit](proof-notes/2026-08-11-transitive-gnome-audit.md)
+- **Native Trixie model validation:** the personal Voulage branch adds the
+  Trixie COSMIC package entries and a non-publishing CI check. The successful
+  run parsed the model, validated both immutable refs, and resolved both refs
+  from their source repositories. This is model/source-integrity evidence;
+  it is not a package build or publication result.
+  [Trixie model CI proof](proof-notes/2026-08-12-native-trixie-model-ci-proof.md)
 - **GNOME target ownership split:** candidate session source `641f796` (parent
   target split `cbd810f`) moves
   the inactive GNOME target files into `regolith-session-gnome-targets`, keeps

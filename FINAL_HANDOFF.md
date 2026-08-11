@@ -15,6 +15,10 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
    and [known limitations](docs/KNOWN_LIMITATIONS.md).
 5. Use the proof notes linked from those documents for command-level evidence.
 
+The native Trixie model work has a separate [CI proof note](proof-notes/2026-08-12-native-trixie-model-ci-proof.md).
+It validates model integrity and remote source refs only; it does not claim
+Trixie package artifacts or publication.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
