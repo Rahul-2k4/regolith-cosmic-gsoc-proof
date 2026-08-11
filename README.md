@@ -307,6 +307,8 @@ QEMU-boundary findings:
 - direct `swaymsg exit` stops the Regolith wrapper, compositor, COSMIC target,
   and helpers but leaves the parent `cosmic-session`/`dbus-run-session` alive;
   the display-manager-owned logout path remains the clean lifecycle path
+- representative workspace binding proof is recorded separately; it remains
+  partial coverage, not a complete keyboard matrix
 
 Source/package proven:
 

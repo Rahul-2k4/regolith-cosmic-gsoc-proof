@@ -29,6 +29,8 @@ back through representative bindings. This is still QEMU-only and does not
 prove the full keyboard or retained-surface matrix. See the
 [live-login proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
 and the earlier [greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
+The fresh [workspace-binding proof](proof-notes/2026-08-12-qemu-keyboard-workspace-binding-proof.md)
+records a `1 -> 2 -> 1` transition through HMP-injected Sway bindings.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
