@@ -179,6 +179,9 @@ integrity evidence, not a new package build or release claim.
   profile during a bounded QEMU run. System package installation and
   cold-reboot persistence remain open.
   [Candidate proof](proof-notes/2026-08-12-displayd-mode-selection-fix.md)
+  The isolated [Voulage model candidate](proof-notes/2026-08-12-voulage-displayd-candidate-model.md)
+  pins the same source and reaches the real build before the interactive-sudo
+  boundary; it is not release or QEMU package proof.
 - **Inputd touchpad mapping coverage:** the frozen source already passes 43
   COSMIC-feature tests and 20 GNOME-feature tests, including deterministic
   touchpad command mappings and partial configurations. This is unit coverage;

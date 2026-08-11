@@ -59,6 +59,9 @@ records the focused regression, source fix, full Linux tests, unsigned package
 build, and a bounded extracted-binary QEMU run that rewrote the saved display
 profile. The candidate remains on the personal fork; system package
 installation, cold-reboot persistence, and mentor review remain open.
+Its isolated [Voulage candidate model](proof-notes/2026-08-12-voulage-displayd-candidate-model.md)
+passes model checks and reaches the real build before the known interactive-
+sudo boundary; it is not a release or QEMU package proof.
 
 ## Reproduce the verified QEMU result
 
