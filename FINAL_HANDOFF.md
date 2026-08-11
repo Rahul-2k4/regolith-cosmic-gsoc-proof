@@ -54,6 +54,11 @@ records the repaired runtime discovery path and a live rerun of the same
 single-output observer. It keeps the same reboot-persistence and hardware
 boundaries.
 
+The [displayd mode-selection candidate](proof-notes/2026-08-12-displayd-mode-selection-fix.md)
+records the focused regression, source fix, full Linux tests, and unsigned
+package build. The candidate is on the personal fork only; post-fix QEMU
+installation and mentor review remain open.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
