@@ -49,6 +49,11 @@ successful restoration of the original mode. It does not claim physical
 hotplug, mixed-DPI, multiple-display, reboot-persistence, or native compositor
 coverage.
 
+The [display harness discovery proof](proof-notes/2026-08-12-display-harness-session-discovery.md)
+records the repaired runtime discovery path and a live rerun of the same
+single-output observer. It keeps the same reboot-persistence and hardware
+boundaries.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
