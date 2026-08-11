@@ -22,15 +22,18 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
-## Current closure slice - 2026-08-10
+## Current closure slice - 2026-08-12
+
+Current aggregate public proof tip: `8815575`.
 
 The corrected 2026-08-09 lifecycle result supersedes the older native-idle
 tuple for current claims:
 
 - [Corrected tuple lifecycle and rollback](proof-notes/2026-08-09-corrected-tuple-lifecycle.md)
 
-Current wrapper source tuple: `regolith-session` `3523047b`, `regolith-wm-config`
-`10225c05`, `regolith-inputd` `e32d049`, and `regolith-displayd` `817becd9`.
+The reference wrapper source tuple for this closure slice is
+`regolith-session` `3523047b`, `regolith-wm-config` `10225c05`,
+`regolith-inputd` `e32d049`, and `regolith-displayd` `817becd9`.
 The corrected Voulage model is `f3827893`; older models such as `9794c188`,
 `bf0145e3`, and source `9c35074` remain historical proof only.
 
