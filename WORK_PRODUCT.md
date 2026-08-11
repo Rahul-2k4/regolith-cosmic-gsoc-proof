@@ -19,7 +19,7 @@ sanitized wrapper proof.
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | candidate split removes target payload from common; Ubuntu/Trixie graph and transition pass; survivors documented |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
-| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | live QEMU launcher plus reversible workspace switch observed; full keyboard matrix open |
+| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
 
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
@@ -31,6 +31,8 @@ prove the full keyboard or retained-surface matrix. See the
 and the earlier [greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
 The fresh [workspace-binding proof](proof-notes/2026-08-12-qemu-keyboard-workspace-binding-proof.md)
 records a `1 -> 2 -> 1` transition through HMP-injected Sway bindings.
+The corrected [launcher-binding proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md)
+also records `Mod4+Space` launching `ilia`.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),

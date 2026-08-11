@@ -309,6 +309,8 @@ QEMU-boundary findings:
   the display-manager-owned logout path remains the clean lifecycle path
 - representative workspace binding proof is recorded separately; it remains
   partial coverage, not a complete keyboard matrix
+- a corrected QEMU `meta_l-spc` run launched `ilia`; launcher and workspace
+  evidence remain representative, not a complete keyboard/media-key matrix
 
 Source/package proven:
 
