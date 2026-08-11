@@ -11,7 +11,9 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
    flow, and design decisions.
 3. Read [`TECHNICAL_ARTICLE.md`](TECHNICAL_ARTICLE.md) for the engineering
    narrative.
-4. Use the proof notes linked from those documents for command-level evidence.
+4. Read the [install guide](docs/INSTALL.md), [build-dependency matrix](docs/BUILD_DEP_MATRIX.md),
+   and [known limitations](docs/KNOWN_LIMITATIONS.md).
+5. Use the proof notes linked from those documents for command-level evidence.
 
 ## Reproduce the verified QEMU result
 
