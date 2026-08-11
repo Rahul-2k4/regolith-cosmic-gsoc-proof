@@ -1,4 +1,7 @@
-# Target-owned helper lifecycle QEMU runtime boundary
+# Historical target-owned helper lifecycle QEMU runtime boundary
+
+> Superseded by [lifecycle v2](2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md).
+> The v2 run is authoritative for the parent-session result.
 
 This run installed the reviewed target-owned inputd/displayd packages in a
 disposable QEMU overlay, rebooted the guest, and started the COSMIC-backed
@@ -15,14 +18,15 @@ Regolith session through greetd.
 - `regolith-cosmic.target` was active and listed both helper services in its
   `Wants=` dependency graph.
 - `dpkg --audit` was empty.
-- After `swaymsg exit`, both Sway and its `cosmic-session` parent stopped.
+- After `swaymsg exit`, Sway stopped, but the `cosmic-session` parent remained.
 
 ## Not proven
 
 Both target-owned helper services were `inactive (dead)` at capture time. The
 journal shows each was started and then stopped almost immediately with
-`ExecMainStatus=15` (SIGTERM). The target stayed active, so the remaining issue
-is lifecycle stop ordering or cleanup, not missing `Wants=` metadata.
+`ExecMainStatus=15` (SIGTERM). The target stayed active. This historical run
+does not establish healthy helper startup or clean parent teardown; use the v2
+proof for the current target-owned helper result.
 
 The strict proposal status remains **62-68%**, with **4 of 12** criteria fully
 met. This run strengthens package and graphical-login evidence but does not

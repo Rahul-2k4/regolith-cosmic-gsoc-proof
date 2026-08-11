@@ -95,6 +95,7 @@ integrity evidence, not a new package build or release claim.
   The `cosmic-session` parent remained after the direct Sway-exit attempt, so
   clean parent teardown is still open.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
+  · [Parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
   path overlap in other session packages. The inputd branch directly tests
@@ -218,11 +219,9 @@ integrity evidence, not a new package build or release claim.
   [Graphical-login proof](proof-notes/2026-08-12-final-session-graphical-login-qemu.md)
 - **Parent session lifecycle proof:** the corrected Resolute session tuple
   reached a COSMIC-backed Sway login after a cold reboot. After a direct
-  `swaymsg exit`, the independent process audit observed both Sway and its
-  exact `cosmic-session` parent stopped. The IPC client returned an error while
-  teardown was already in progress, and `regolith-init-displayd.service` was
-  failed after compositor exit, so this is parent-cleanup evidence rather than
-  a clean-logout claim.
+  `swaymsg exit`, Sway stopped but the exact `cosmic-session` parent remained.
+  The IPC client returned an error while teardown was already in progress, so
+  this is a parent-lifecycle boundary rather than a clean-logout claim.
   [Parent lifecycle proof](proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md)
 - **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
   proof remains valid for that source head. The newer routing source `271bc2a`
@@ -375,10 +374,10 @@ integrity evidence, not a new package build or release claim.
   [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
 - **Runtime-owned helper teardown (QEMU):** the reviewed Sway-backed wrapper
   cleans the Regolith-owned compositor, `cosmolith`, helper process groups, and
-  COSMIC targets. The new packaged lifecycle run observed direct `swaymsg exit`
-  stopping the exact `cosmic-session` parent. The IPC return was interrupted by
-  teardown and displayd was failed afterward, so the display-manager-owned
-  logout path remains the clean logout result.
+  COSMIC targets. The latest packaged lifecycle run observed direct `swaymsg
+  exit` stopping Sway and the Regolith-owned helpers while the exact
+  `cosmic-session` parent remained. The display-manager-owned logout path is
+  still the clean logout result.
   [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
   [Sway-exit boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
   [Parent lifecycle proof](proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md)
@@ -412,14 +411,13 @@ integrity evidence, not a new package build or release claim.
   signing/release, or an upstream merge.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
-  cosmic-idle/logind semantics and hardware remain open. Direct Sway exit now
-  has packaged QEMU evidence that the exact `cosmic-session` parent stops, but
-  the interrupted IPC return and failed displayd state keep this from being a
-  clean logout claim.
+  cosmic-idle/logind semantics and hardware remain open. Direct Sway exit stops
+  Sway and Regolith-owned helpers but leaves the `cosmic-session` parent alive;
+  the display-manager-owned logout path remains the clean logout result.
 - **Managed logout:** `loginctl terminate-session` returned the guest to the
   COSMIC greeter and stopped the COSMIC target plus Regolith helpers. The
-  separate `swaymsg exit` parent-process result is documented as QEMU parent
-  cleanup evidence, not as complete logout semantics.
+  separate `swaymsg exit` result is documented as a QEMU parent-lifecycle
+  boundary, not as parent cleanup or complete logout semantics.
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.

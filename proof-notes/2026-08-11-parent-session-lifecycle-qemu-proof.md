@@ -1,4 +1,9 @@
-# Parent COSMIC session lifecycle QEMU proof
+# Historical parent COSMIC session lifecycle QEMU result
+
+> Superseded by [the later v2 runtime proof](2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md).
+> The later run showed that the `cosmic-session` parent remained after direct
+> `swaymsg exit`; this file must not be used as evidence that parent teardown
+> is complete.
 
 Date: 2026-08-11
 Scope: disposable QEMU overlay with the retained Resolute session tuple
@@ -39,7 +44,7 @@ After login, the guest reported:
 The harness then sent `swaymsg exit` through the live Sway socket. The IPC
 client returned an error while teardown was in progress, so the return code is
 not presented as a successful command acknowledgment. An independent audit ten
-seconds later reported:
+seconds later reported the following historical capture:
 
 ```text
 COSMIC_PARENT_STOPPED
@@ -49,12 +54,19 @@ active
 failed
 ```
 
-This shows the tested runtime stopped the exact `cosmic-session` parent after
-the Sway exit path. The `failed` helper state is retained as a limitation: this
+The parent-stop line conflicts with the later v2 run and is not authoritative.
+The `failed` helper state is retained as a limitation; this historical capture
 is not a claim of clean displayd shutdown or complete logout semantics.
 
 The QEMU overlay, monitor socket, staging directory, and log were removed, and
 the canonical base image was left intact.
+
+## Current interpretation
+
+Use the later v2 proof for the current result: Sway and Regolith-owned helpers
+stop, but the `cosmic-session` parent remains after direct Sway exit. Managed
+display-manager logout remains separately proven through
+`loginctl terminate-session`.
 
 ## Boundaries
 

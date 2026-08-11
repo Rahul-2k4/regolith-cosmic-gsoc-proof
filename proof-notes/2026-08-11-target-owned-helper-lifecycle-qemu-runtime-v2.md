@@ -33,6 +33,11 @@ and the COSMIC target and helper services became inactive, but the
 `cosmic-session` parent remained. This proves target-owned helper startup, not
 clean parent-session teardown.
 
+The follow-up [parent lifecycle diagnostic](2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
+captured process ancestry and a bounded user-journal sample after the same exit
+path. It did not justify changing the Regolith wrapper to kill the outer
+session manager.
+
 Voulage still reports existing Lintian warnings, and its temporary apt-source
 cleanup needs an interactive sudo prompt. The package build itself returned
 zero.
