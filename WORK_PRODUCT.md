@@ -319,6 +319,7 @@ integrity evidence, not a new package build or release claim.
   hotplug, mixed-DPI, and Settings-panel proof are still open.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
   [Frozen source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md)
+  · [Multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
 - **Displayd clean build:** Voulage clean-clone build `9c88f6fe` produced 12
   passing tests with 142 vendored crates. Lintian: non-clean, warnings remain.
   This artifact was **not** installed for the runtime checks below.
