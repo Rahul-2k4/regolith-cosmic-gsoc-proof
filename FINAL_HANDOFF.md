@@ -2,7 +2,7 @@
 
 Project: **Build a COSMIC-based Wayland Session for Regolith**
 
-Public proof bundle: `main` at `98e4013`
+Public proof bundle: `main` at `c761eeb`
 
 ## Start here
 
