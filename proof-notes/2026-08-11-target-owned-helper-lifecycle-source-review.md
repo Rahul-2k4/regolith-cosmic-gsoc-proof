@@ -39,3 +39,23 @@ confirmed that a PATH override does not change that selection. It exited `25`.
 No `.deb`, source package, Voulage publication, or QEMU runtime proof was
 produced for these candidates. They remain unmerged. The strict project status
 therefore stays at `4/12` fully met and `62-68%`.
+
+## Package build follow-up
+
+The proven Voulage Rust-path fix `c88d93a0` was combined with the existing
+local apt-skip change `49f26e14` in disposable builder clones. Both exact
+source commits then produced Resolute source and binary packages:
+
+| Package | Version | Binary SHA-256 |
+|---|---|---|
+| `regolith-inputd` | `0.4.1-2-1regolith-resolute` | `2a63f61d2a768fb40b2c33aab59492cadb066e071581adf35ce5f72db9332e35` |
+| `regolith-displayd` | `0.3.4-1-1regolith-resolute` | `6d6c84f40130ee49c406eb5031e5b5bbc4e23c3bc4e31c1b4d7d479b2b9eac27` |
+
+The artifacts stayed in disposable `/tmp` Voulage output directories. Inputd
+had no reported Lintian findings in this run. Displayd retained warnings for
+missing manual pages and an empty debug-symbol file. No signing or canonical
+publication was performed.
+
+The pair was staged into a fresh QEMU overlay and guest SSH became ready, but
+the supplied guest sudo credential was rejected before `dpkg -i`. The harness
+removed the overlay and temporary files. No QEMU runtime claim was added.
