@@ -96,8 +96,10 @@ integrity evidence, not a new package build or release claim.
   isolation before COSMIC target activation, a fresh cold login kept both
   daemon services `active (running)` with `ExecMainStatus=0`. The target graph,
   package transition, empty `dpkg --audit`, and overlay cleanup also passed.
-  The `cosmic-session` parent remained after the direct Sway-exit attempt, so
-  clean parent teardown is still open.
+  The patched `cosmic-session` candidate now exits cleanly after a controlled
+  Sway exit in a disposable QEMU overlay; the post-exit check reported
+  `PARENT_EXIT_PASS` and found no `cosmic-session` or `dbus-run-session` parent.
+  Full display-manager logout and shutdown behavior remains open.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
   · [Canonical parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
   · [Current `a14abe3` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
@@ -428,9 +430,10 @@ integrity evidence, not a new package build or release claim.
   signing/release, or an upstream merge.
 - Full logout and shutdown lifecycle coverage remains open. Reboot ordering and
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
-  cosmic-idle/logind semantics and hardware remain open. Direct Sway exit stops
-  Sway and Regolith-owned helpers but leaves the `cosmic-session` parent alive;
-  the display-manager-owned logout path remains the clean logout result.
+  cosmic-idle/logind semantics and hardware remain open. The patched
+  `cosmic-session` candidate now closes the direct Sway-exit parent process in
+  the disposable proof; the display-manager-owned logout path remains the
+  separately proven clean logout result.
 - **Managed logout:** `loginctl terminate-session` returned the guest to the
   COSMIC greeter and stopped the COSMIC target plus Regolith helpers. The
   separate `swaymsg exit` result is documented as a QEMU parent-lifecycle

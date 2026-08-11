@@ -37,16 +37,22 @@ On the Surface Linux host with Rust 1.93.0:
   `54ecc4a1c8ded1213166d879d0e2fff7bccf74aa095b0591397e7b9ac9930ff4`.
 - Lintian produced no findings for the binary package.
 
-## Boundary
+## QEMU runtime result
 
-This is source, test, release-build, and package-build evidence. The package
-has not yet been installed into a fresh QEMU overlay, so the direct
-`swaymsg exit` parent-process check remains open. The proposal headline stays
-at `62-68%`, with `4/12` success criteria fully met.
+The exact package was installed in a copy-on-write overlay with the reviewed
+Regolith session tuple. The guest rebooted, greetd started a real COSMIC/Sway
+session, and the target-owned inputd/displayd services were active. After a
+controlled `swaymsg exit`, the transport returned the expected IPC disconnect
+while Sway shut down; the post-exit check reported `PARENT_EXIT_PASS`. Neither
+`cosmic-session` nor `dbus-run-session` remained.
 
-## Next step
+The overlay, staging directory, HMP socket, and QEMU process were removed. The
+canonical qualification image remained unchanged.
 
-Install this exact package in a disposable QEMU overlay, perform a fresh
-greetd-managed COSMIC login, issue a controlled Sway exit, and check that both
-`cosmic-session` and its `dbus-run-session` parent have exited. Remove the
-overlay after the test and preserve the qualification base image.
+## Remaining boundary
+
+This closes the direct compositor-exit parent-process sub-gate for the tested
+QEMU package tuple. It does not close complete display-manager logout and
+shutdown behavior, native hardware, signing, publication, or mentor
+acceptance. The proposal headline stays at `62-68%`, with `4/12` success
+criteria fully met until the broader criteria are reviewed together.
