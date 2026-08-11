@@ -56,7 +56,7 @@ merged. No hardware result is claimed.
 
 The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
 
-The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). It proves package installation, cold login, and healthy inputd/displayd services under the COSMIC target. Parent-session teardown remains open.
+The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). It proves package installation, cold login, and healthy inputd/displayd services under the COSMIC target. Parent-session teardown remains open. A source/package candidate for the owning `cosmic-session` loop is recorded in the [parent-exit source/package proof](proof-notes/2026-08-12-cosmic-session-parent-exit-source-package-proof.md); it has not yet received QEMU runtime proof.
 
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate

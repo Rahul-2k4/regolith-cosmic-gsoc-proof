@@ -93,6 +93,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - [Current parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
 - [Current `a14abe3` `cosmic-session` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
+- [Upstream `cosmic-session` parent-exit source/package proof](proof-notes/2026-08-12-cosmic-session-parent-exit-source-package-proof.md)
 - [Voulage session repin and retained package build](proof-notes/2026-08-12-voulage-session-repin.md)
 - [Canonical inputd branch reconciliation](proof-notes/2026-08-12-inputd-canonical-reconciliation.md)
 - [Displayd multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
