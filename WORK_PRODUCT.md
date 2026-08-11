@@ -52,6 +52,8 @@ merged. No hardware result is claimed.
 
 The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
 
+The latest target-owned helper runtime result is recorded in the [QEMU lifecycle boundary](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime.md). It proves package installation and graphical login, but records the helper stop defect rather than claiming lifecycle completion.
+
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
 GNOME/COSMIC systemd targets, with the COSMIC target owning the compatible
