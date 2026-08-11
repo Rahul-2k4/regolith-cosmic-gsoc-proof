@@ -255,6 +255,13 @@ integrity evidence, not a new package build or release claim.
   `Replaces: regolith-session-sway` transition metadata. This is clean package
   closure evidence, not a clean graphical-login claim. See the [positive
   closure proof](proof-notes/2026-08-11-clean-target-package-closure-install.md).
+- **Current amd64 solver rerun:** the current staged tuple was independently
+  simulated under `--platform linux/amd64` in Ubuntu 26.04 and Debian Trixie.
+  Both APT updates and simulations returned `0`; only the documented
+  `gnome-keyring` and GNOME theme packages survived the GNOME allowlist, with
+  no GNOME session manager, settings daemon, control center, Mutter, or
+  Nautilus. This is solver evidence only, not a new installation or release
+  claim. [amd64 package simulation](proof-notes/2026-08-12-clean-container-amd64-package-simulation.md)
 - **Lintian sequence for the target split:** the first candidate at
   [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5)
   failed standalone Lintian because it retained the direct `xorg` dependency;
