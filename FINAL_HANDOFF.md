@@ -2,7 +2,7 @@
 
 Project: **Build a COSMIC-based Wayland Session for Regolith**
 
-Public proof bundle: `main` at `8b875c3`
+Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
 ## Start here
 
