@@ -12,7 +12,11 @@ session path.
 - Branch: [`rahul/gnome-target-package-split-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-package-split-20260811)
 - Source commit: [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5)
 - Voulage builder: [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e)
-- Voulage exit code: `0` for Ubuntu Resolute and Debian Trixie binary builds
+- Voulage wrapper status: staging reached, but the local build stopped at
+  `sudo apt build-dep` after an archive `404`; it did not produce a Voulage
+  release artifact for this exact branch.
+- Manual `dpkg-buildpackage -b -us -uc`: exit `0`; the target package was
+  produced and hashed below.
 
 The source adds `regolith-session-gnome-targets`, moves these files out of
 `regolith-session-common`, and makes the legacy Sway and Flashback packages
@@ -33,6 +37,14 @@ For both Ubuntu Resolute and Debian Trixie:
 The source tests `regolith-session-package-audit.sh` and
 `regolith-systemd-targets.sh` passed. Shell syntax and `git diff --check` also
 passed on Linux.
+
+The manually built target package was
+`regolith-session-gnome-targets_1.2.0-1ubuntu1-1-1regolith-resolute_all.deb`
+with SHA-256
+`271a99ed9bb20cd12ab3af5bc0977492279a67663835c62c4bb0c168208e0558`.
+Lintian exited `2` for the package family; the real error was the legacy
+Flashback package's `Depends: xorg` metapackage declaration. This is recorded
+as a release-quality boundary, not as a clean Lintian result.
 
 ## Transition and dependency graph
 

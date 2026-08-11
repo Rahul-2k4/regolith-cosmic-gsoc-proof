@@ -97,6 +97,12 @@ integrity evidence, not a new package build or release claim.
   ancestry. Fresh laptop clones passed 7 focused inputd tests, 55 full COSMIC
   tests, and the session shell/teardown checks.
   [Mouse/session source proof](proof-notes/2026-08-11-mouse-session-source-verification.md)
+- **Inputd keyboard event routing:** source `271bc2a` routes Sway keyboard
+  events to both the keyboard and input-source handlers. COSMIC-only `47` and
+  all-feature `50` tests, formatting, and diff checks passed. This is an
+  internal routing proof only; active-layout persistence and live input remain
+  open.
+  [Keyboard routing proof](proof-notes/2026-08-12-inputd-keyboard-routing.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
@@ -158,16 +164,18 @@ integrity evidence, not a new package build or release claim.
   Both resolved successfully and selected only `gnome-keyring`,
   `gnome-themes-extra`, and `gnome-themes-extra-data` as GNOME-related
   packages; no GNOME session manager, settings daemon, control center, Mutter,
-  or Nautilus entered the graph. The audit also found that `regolith-session-common`
-  still owns the inactive GNOME target files, so criterion 9 remains Partial
-  pending the package-ownership split. [Transitive audit](proof-notes/2026-08-11-transitive-gnome-audit.md)
+  or Nautilus entered the graph. This was the pre-split audit; the candidate
+  ownership split is recorded below. [Transitive audit](proof-notes/2026-08-11-transitive-gnome-audit.md)
 - **GNOME target ownership split:** candidate session source `cbd810f` moves
   the inactive GNOME target files into `regolith-session-gnome-targets`, keeps
   the package out of the COSMIC dependency path, and preserves legacy Sway/
-  Flashback dependencies. Ubuntu Resolute and Debian Trixie Voulage builds,
-  source tests, fresh graph simulations, and old-common transition checks
-  passed. The three transitive GNOME resource packages remain documented, so
-  criterion 9 stays Partial pending mentor/release and revised-runtime review.
+  Flashback dependencies. Source tests, manual Ubuntu binary packaging, fresh
+  graph simulations, and old-common transition checks passed. The Voulage
+  wrapper stopped at `sudo apt build-dep`/archive setup in this build, and the
+  produced package set has one real legacy Flashback Lintian error for
+  `Depends: xorg`. The three transitive GNOME resource packages remain
+  documented, so criterion 9 stays Partial pending mentor/release and
+  revised-runtime review.
   [Target split proof](proof-notes/2026-08-12-gnome-target-package-split.md)
 - **Revised target split QEMU transition:** the Ubuntu Resolute candidate
   package set installed with `dpkg -i` exit `0` in a disposable overlay,
@@ -176,15 +184,13 @@ integrity evidence, not a new package build or release claim.
   had no GNOME payload. The post-reboot check was outside a graphical user
   session, so this does not add a login or target-runtime claim.
   [QEMU transition proof](proof-notes/2026-08-12-gnome-target-split-qemu-transition.md)
-- **Current inputd package/reboot proof:** source `e641b43` built through
-  Voulage as `0.4.1-2-1regolith-resolute`; the Ubuntu build passed Lintian,
-  while the Debian Trixie binary build completed with exit `0` and its local
-  Lintian run reported only the locally generated distribution-tag warning.
-  The COSMIC and all-feature test suites passed, and the package installed in
-  the revised disposable QEMU tuple with matching package/binary hashes. The
-  package and hash survived a cold reboot with empty `dpkg --audit`; graphical
-  input behavior remains open.
-  [Current inputd proof](proof-notes/2026-08-12-current-inputd-package-qemu-proof.md)
+- **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
+  proof remains valid for that source head. The newer routing source `271bc2a`
+  builds through Voulage and passes its source tests, but the combined
+  target-split QEMU install/reboot proof was not completed. Do not merge these
+  two evidence scopes.
+  [Earlier package proof](proof-notes/2026-08-12-current-inputd-package-qemu-proof.md)
+  · [Routing proof](proof-notes/2026-08-12-inputd-keyboard-routing.md)
 - **Clean target-distro resolution attempt:** disposable `debian:trixie` and
   `ubuntu:26.04` containers both completed `apt-get update` with exit `0`, but
   simulated installation of the staged package set returned exit `100` because
@@ -434,8 +440,8 @@ supersede earlier frozen tuple pins.
 
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
-| `regolith-inputd` | [`rahul/inputd-touchpad-lintian-reconciled-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-touchpad-lintian-reconciled-20260811) | [`e641b43`](https://github.com/Rahul-2k4/regolith-inputd/commit/e641b434c76c70e9a21e492adea577607e096d03) | COSMIC input backend with feature/runtime selection, XKB layout/variant watcher mapping, mouse/touchpad sync, and current package candidate | COSMIC 46 tests; all-feature 49 tests; fmt clean; Ubuntu Voulage/Lintian, Trixie binary build, and QEMU package-reboot proof passed; Trixie Lintian has the documented local distribution-tag warning | Fork only; no `regolith-linux` PR |
-| `regolith-session` | [`rahul/gnome-target-package-split-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-package-split-20260811) | [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5) | Corrects the archive-provided loader dependency and moves GNOME target payload into a GNOME-only package while keeping COSMIC out of that dependency | Package/systemd tests, syntax, diff checks, Ubuntu/Trixie Voulage builds, graph simulations, and old-common transitions passed | Fork only; no `regolith-linux` PR |
+| `regolith-inputd` | [`rahul/inputd-keyboard-source-routing-20260812`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-keyboard-source-routing-20260812) | [`271bc2a`](https://github.com/Rahul-2k4/regolith-inputd/commit/271bc2a4ae21546c9b79c1d1c9b1ffd454eb0c57) | COSMIC input backend with feature/runtime selection, XKB layout/variant watcher mapping, mouse/touchpad sync, and keyboard-to-input-source event routing | COSMIC 47 tests; all-feature 50 tests; fmt/diff clean; Ubuntu binary build exit `0`; host-email Lintian warnings and a session-test harness mismatch documented; no current-head QEMU proof | Personal fork branch; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/gnome-target-package-split-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-package-split-20260811) | [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5) | Corrects the archive-provided loader dependency and moves GNOME target payload into a GNOME-only package while keeping COSMIC out of that dependency | Package/systemd tests, syntax, diff checks, manual Ubuntu binary build, graph simulations, and old-common transitions passed; Voulage wrapper blocked at build-dep/archive setup and legacy Flashback Lintian has `Depends: xorg` error | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
 | `voulage` | [`rahul/local-build-skip-apt-build-dep`](https://github.com/Rahul-2k4/voulage/tree/rahul/local-build-skip-apt-build-dep) | [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e) | Adds the opt-in no-APT local-build gate used to build the corrected session transition; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
