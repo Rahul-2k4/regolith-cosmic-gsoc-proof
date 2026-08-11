@@ -56,6 +56,10 @@ had no reported Lintian findings in this run. Displayd retained warnings for
 missing manual pages and an empty debug-symbol file. No signing or canonical
 publication was performed.
 
+Direct extraction of both `.deb` files confirmed the packaged service units
+contain the generic graphical-session ownership plus GNOME and COSMIC target
+ownership, and contain the expected daemon binaries.
+
 The pair was staged into a fresh QEMU overlay and guest SSH became ready, but
 the supplied guest sudo credential was rejected before `dpkg -i`. The harness
 removed the overlay and temporary files. No QEMU runtime claim was added.
