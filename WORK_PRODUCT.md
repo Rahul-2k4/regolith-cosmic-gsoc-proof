@@ -204,6 +204,13 @@ integrity evidence, not a new package build or release claim.
   from their source repositories. This is model/source-integrity evidence;
   it is not a package build or publication result.
   [Trixie model CI proof](proof-notes/2026-08-12-native-trixie-model-ci-proof.md)
+- **Native Trixie binary build:** Voulage run `31533503633` completed source
+  and binary package builds for `cosmic-session` and
+  `cosmic-settings-daemon`, using the source-declared Rust 1.93.0 and 1.90.0
+  toolchains. The exact unsigned evidence artifact IDs and digests are in the
+  [binary-build proof](proof-notes/2026-08-12-native-trixie-binary-build-proof.md).
+  This advances criterion 10, but signing, apt publication, and release
+  acceptance remain open.
 - **GNOME target ownership split:** candidate session source `641f796` (parent
   target split `cbd810f`) moves
   the inactive GNOME target files into `regolith-session-gnome-targets`, keeps

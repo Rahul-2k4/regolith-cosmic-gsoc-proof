@@ -15,9 +15,10 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
    and [known limitations](docs/KNOWN_LIMITATIONS.md).
 5. Use the proof notes linked from those documents for command-level evidence.
 
-The native Trixie model work has a separate [CI proof note](proof-notes/2026-08-12-native-trixie-model-ci-proof.md).
-It validates model integrity and remote source refs only; it does not claim
-Trixie package artifacts or publication.
+The native Trixie work has separate [model CI](proof-notes/2026-08-12-native-trixie-model-ci-proof.md)
+and [binary-build](proof-notes/2026-08-12-native-trixie-binary-build-proof.md)
+proof notes. The binary run produced unsigned `.deb` evidence for both COSMIC
+packages; it does not claim signing, apt publication, or release acceptance.
 
 ## Reproduce the verified QEMU result
 
