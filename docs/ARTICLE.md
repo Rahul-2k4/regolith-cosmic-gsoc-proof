@@ -85,6 +85,12 @@ userspace. Rebuilding from the corrected source reference produced the matching
 runtime dependency and allowed the exact tuple to install in a disposable
 Debian Trixie container with an empty `dpkg --audit`.
 
+The current amd64 tuple also installs in disposable Ubuntu 26.04 and Debian
+Trixie containers with empty audits. The Trixie check uses the available local
+COSMIC packages, which still carry the Resolute suffix, so it is staged install
+evidence rather than canonical Trixie publication proof. See the [install
+proof](../proof-notes/2026-08-12-clean-container-amd64-package-install.md).
+
 The Voulage path also exposed smaller release issues: quilt version formatting,
 source identity, manual-page metadata, debug information, and the difference
 between an unsigned local artifact and a published repository package. The

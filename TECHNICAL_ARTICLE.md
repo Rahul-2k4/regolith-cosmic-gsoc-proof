@@ -50,6 +50,14 @@ offline vendored Rust dependencies were verified. Disposable Ubuntu and Debian
 package checks passed for the corrected session transition metadata, and the
 QEMU tuple installed and rebooted with an empty `dpkg --audit`.
 
+The current amd64 tuple also installed in disposable Ubuntu 26.04 and Debian
+Trixie containers with empty `dpkg --audit`. The Trixie run used the available
+local COSMIC packages, which still carry the Resolute suffix, so this is staged
+install evidence rather than a canonical Trixie publication.
+
+See the [package install proof](proof-notes/2026-08-12-clean-container-amd64-package-install.md)
+and the [package graph proof](proof-notes/2026-08-12-clean-container-amd64-package-simulation.md).
+
 The COSMIC target owns inputd and displayd. The GNOME target remains separate.
 Fallback lock/unlock and OSD paths have QEMU evidence; native logind/idle
 semantics, complete parent-session teardown, signing, canonical publication,
