@@ -43,6 +43,12 @@ ownership, inputd/displayd health, and failed-unit state. It is installed-tuple
 runtime evidence and does not claim hardware input or exact-commit package
 rebuild provenance.
 
+The [display observer proof](proof-notes/2026-08-12-qemu-display-observer-proof.md)
+records a single-output `cosmic-randr` mode change, a Sway output event, and
+successful restoration of the original mode. It does not claim physical
+hotplug, mixed-DPI, multiple-display, reboot-persistence, or native compositor
+coverage.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login

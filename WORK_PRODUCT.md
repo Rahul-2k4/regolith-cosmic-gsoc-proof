@@ -167,6 +167,12 @@ integrity evidence, not a new package build or release claim.
   state. This is installed-tuple runtime evidence; it does not claim hardware
   input or that the package was built from source commit `271bc2a`.
   [Fresh QEMU verifier proof](proof-notes/2026-08-12-qemu-inputd-feature-matrix-runtime.md)
+- **Display observer and restore (QEMU):** the existing display harness changed
+  `Virtual-1` from `1280x800 @ 74.994 Hz` to `1024x768 @ 60.004 Hz`, observed a
+  Sway output event, and restored the original mode. This is single-output
+  QEMU evidence only; physical hotplug, mixed DPI, and reboot persistence
+  remain open.
+  [Display observer proof](proof-notes/2026-08-12-qemu-display-observer-proof.md)
 - **Inputd touchpad mapping coverage:** the frozen source already passes 43
   COSMIC-feature tests and 20 GNOME-feature tests, including deterministic
   touchpad command mappings and partial configurations. This is unit coverage;
