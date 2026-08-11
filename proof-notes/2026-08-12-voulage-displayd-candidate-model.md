@@ -19,6 +19,19 @@ upstream `regolith-linux/voulage`.
 - the real build reached the displayd checkout, then stopped when `debuild`
   required interactive `sudo` for build dependencies.
 
+## Follow-up build attempt
+
+A second isolated attempt used the already-reviewed Voulage helper branch with
+`VOULAGE_SKIP_APT_BUILD_DEP=true`, so it did not request interactive sudo. It
+reached `debian/rules clean` and stopped because the available Cargo `1.92.0`
+could not parse the lockfile:
+
+`lock file version 4 requires -Znext-lockfile-bump`
+
+No `.deb` was produced. The temporary follow-up branch was not pushed. This
+leaves the candidate at model-validation/source-build-boundary status, not
+package or QEMU runtime status.
+
 No package artifact, QEMU installation, or reboot result is claimed from this
 branch. The build-generated `pkgbuild/` directory was left untracked and was
 not committed.
