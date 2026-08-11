@@ -311,6 +311,8 @@ QEMU-boundary findings:
   partial coverage, not a complete keyboard matrix
 - a corrected QEMU `meta_l-spc` run launched `ilia`; launcher and workspace
   evidence remain representative, not a complete keyboard/media-key matrix
+- the project laptop was checked read-only and is Ubuntu GNOME without a
+  native COSMIC session; see the [native-host boundary](proof-notes/2026-08-12-native-cosmic-host-boundary.md)
 
 Source/package proven:
 
