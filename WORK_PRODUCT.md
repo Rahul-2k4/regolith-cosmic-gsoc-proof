@@ -185,6 +185,16 @@ integrity evidence, not a new package build or release claim.
   had no GNOME payload. The post-reboot check was outside a graphical user
   session, so this does not add a login or target-runtime claim.
   [QEMU transition proof](proof-notes/2026-08-12-gnome-target-split-qemu-transition.md)
+- **Final target ownership transition:** session source
+  [`831596f`](https://github.com/Rahul-2k4/regolith-session/commit/831596f8f054a6904b0846b6a899912c6c13d465)
+  keeps unversioned `Replaces` for both predecessor owners. The Voulage-built
+  Resolute package installed over the old Sway-owned file, configured the full
+  session package family, survived cold reboot, and returned with empty
+  `dpkg --audit`; target ownership and the inputd binary hash were unchanged.
+  This closes package-transition integrity only. The post-reboot guest was
+  outside a graphical session, and no hardware, signing, or publication claim
+  follows.
+  [Final QEMU transition proof](proof-notes/2026-08-12-gnome-target-transition-final-qemu.md)
 - **Current inputd package/reboot proof:** the earlier `e641b43` package/reboot
   proof remains valid for that source head. The newer routing source `271bc2a`
   builds through Voulage and passes its source tests, but the combined
