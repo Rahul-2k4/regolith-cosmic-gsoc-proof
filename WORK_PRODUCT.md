@@ -140,6 +140,19 @@ integrity evidence, not a new package build or release claim.
   not stand in for the newer Aug 11 source tuple or close native display,
   hardware, signing, publication, or the remaining interaction matrices.
   [Retained-packet proof](proof-notes/2026-08-11-retained-closure-packet-qemu.md)
+- **Clean-image audit boundary:** the retained images labelled as clean/fresh
+  were independently checked before being used for proof. Both already
+  contained Regolith and GNOME/Sway packages, so neither supports a clean-base
+  install claim. Their disposable overlays were shut down cleanly and the base
+  images were not modified.
+  [Clean-image audit](proof-notes/2026-08-11-clean-image-audit-boundary.md)
+- **Package-audit regression gate:** session test commit
+  [`a5db193`](https://github.com/Rahul-2k4/regolith-session/commit/a5db1934b3f603defc5706d3a8c0376b6d96352d)
+  parses the Debian package stanzas, rejects direct GNOME bootstrap
+  dependencies in `regolith-session-cosmic`, and preserves them in the legacy
+  Sway/Flashback paths. The focused test, shell syntax check, and diff check
+  passed. This is a source gate, not the complete transitive audit.
+  [Package-audit test proof](proof-notes/2026-08-11-package-audit-regression-test.md)
 - **Voulage session rebuild and cold reset (QEMU):** the reviewed
   `regolith-session` source at `7fb72a8d` built successfully through the local
   Voulage path with the Resolute package suffix. After a staged compatibility
