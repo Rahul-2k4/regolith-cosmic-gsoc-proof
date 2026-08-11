@@ -82,16 +82,24 @@ WAYLAND_DISPLAY_VALUE="$(sed -n 's/^WAYLAND_DISPLAY=//p' "${SWAY_ENV_FILE}" | he
 SWAY_RUNTIME_DIR="$(sed -n 's/^XDG_RUNTIME_DIR=//p' "${SWAY_ENV_FILE}" | head -1)"
 SWAY_RUNTIME_DIR="${SWAY_RUNTIME_DIR:-/run/user/${USER_ID}}"
 export XDG_RUNTIME_DIR="${SWAY_RUNTIME_DIR}"
+if [ -z "${WAYLAND_DISPLAY_VALUE}" ]; then
+  WAYLAND_SOCKET_VALUE="$(find "${SWAY_RUNTIME_DIR}" -maxdepth 1 -type s -name 'wayland-*' -print -quit 2>/dev/null)"
+  if [ -n "${WAYLAND_SOCKET_VALUE}" ]; then
+    WAYLAND_DISPLAY_VALUE="${WAYLAND_SOCKET_VALUE##*/}"
+  fi
+fi
+WAYLAND_SOCKET_VALUE="${SWAY_RUNTIME_DIR}/${WAYLAND_DISPLAY_VALUE}"
 SWAYSOCK_VALUE="$(sed -n 's/^SWAYSOCK=//p' "${SWAY_ENV_FILE}" | head -1)"
 if [ -z "${SWAYSOCK_VALUE}" ] || [ ! -S "${SWAYSOCK_VALUE}" ]; then
   SWAYSOCK_VALUE="$(find "${SWAY_RUNTIME_DIR}" -maxdepth 1 -type s -name 'sway-ipc*.sock' -print -quit 2>/dev/null)"
 fi
 
-if [ -z "${WAYLAND_DISPLAY_VALUE}" ] || [ -z "${SWAYSOCK_VALUE}" ]; then
+if [ -z "${WAYLAND_DISPLAY_VALUE}" ] || [ ! -S "${WAYLAND_SOCKET_VALUE}" ] || [ -z "${SWAYSOCK_VALUE}" ]; then
   {
     printf 'Sway discovery failed for PID %s.\n' "${SWAYPID}"
     printf 'XDG_RUNTIME_DIR=%s\n' "${SWAY_RUNTIME_DIR}"
     printf 'WAYLAND_DISPLAY=%s\n' "${WAYLAND_DISPLAY_VALUE}"
+    printf 'WAYLAND_SOCKET=%s\n' "${WAYLAND_SOCKET_VALUE}"
     printf 'SWAYSOCK=%s\n' "${SWAYSOCK_VALUE}"
     printf 'The guest may have cosmic-session without a live compositor runtime.\n'
   } > "${PROOF_DIR}/00-discovery-failure.txt"
