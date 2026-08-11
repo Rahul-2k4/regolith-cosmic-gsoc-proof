@@ -1,0 +1,70 @@
+# Final GSoC Handoff
+
+Project: **Build a COSMIC-based Wayland Session for Regolith**
+
+Public proof bundle: `main` at `98e4013`
+
+## Start here
+
+1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.
+2. Read [`TECHNICAL_ARTICLE.md`](TECHNICAL_ARTICLE.md) for the engineering
+   narrative and design decisions.
+3. Use the proof notes linked from those documents for command-level evidence.
+
+## Reproduce the verified QEMU result
+
+The exact final runtime result is recorded in [final QEMU graphical-login
+proof](proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md). It used a
+copy-on-write overlay, installed the staged Resolute tuple, rebooted, and
+created a real user session through greetd IPC.
+
+The result verified:
+
+- `cosmic-session`, Sway, and `regolith-inputd` running;
+- `XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway`;
+- live Wayland and Sway IPC;
+- active `regolith-cosmic.target`;
+- active target-owned inputd and displayd units;
+- inactive `regolith-gnome.target`;
+- empty `dpkg --audit`.
+
+Representative keyboard evidence is in the [launcher binding
+proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md): QEMU HMP
+`meta_l-spc` launched `ilia`, while `meta_l-2` and `meta_l-1` switched
+workspaces `1 -> 2 -> 1`.
+
+## Reproduction helpers
+
+- [`reproduce-voulage-branch-tuple.sh`](scripts/reproduce-voulage-branch-tuple.sh)
+  reproduces the Voulage package-model path.
+- [`reproduce-qemu-display-proof.sh`](scripts/reproduce-qemu-display-proof.sh)
+  reproduces the display observer/profile proof when the documented QEMU
+  environment is available.
+- [`capture-runtime-state.sh`](scripts/capture-runtime-state.sh) captures
+  installed package, unit, process, and failure-state information without
+  changing the system.
+
+The older [`install-current-tuple.sh`](scripts/install-current-tuple.sh) is a
+historical seven-package installer. Do not treat it as the current final tuple
+installer; use the dated proof notes for the current package names and hashes.
+
+## Status
+
+Strict evidence-backed status: **62-68%**, **4 of 12 criteria fully met**.
+
+The result is QEMU-first. It does not claim native COSMIC hardware proof. The
+project laptop was checked read-only and is Ubuntu GNOME without COSMIC
+session binaries; see the [native-host boundary](proof-notes/2026-08-12-native-cosmic-host-boundary.md).
+
+## Explicit remaining boundaries
+
+- native `cosmic-comp` display persistence and Settings-panel behavior;
+- physical touchpad, hotplug, mixed-DPI, and complete display validation;
+- multimedia keys and the complete keyboard matrix;
+- full native idle/logind and parent-session lifecycle semantics;
+- signed package publication and maintainer/mentor acceptance.
+
+These are limitations, not silently converted into successes. No password,
+private host detail, or private repository path is required by this public
+bundle.
+

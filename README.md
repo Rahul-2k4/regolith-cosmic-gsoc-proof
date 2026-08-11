@@ -11,6 +11,8 @@ For the current status and the latest sanitized evidence, start with the
 [2026-08-09 snapshot](WORK_PRODUCT_2026-08-09.md) remains available as a
 dated companion record.
 
+For handoff and reproduction order, use the [final handoff](FINAL_HANDOFF.md).
+
 This bundle contains the proof notes and reproduction scripts for the current
 closure state of the Regolith COSMIC session work.
 
