@@ -169,6 +169,13 @@ integrity evidence, not a new package build or release claim.
   passed. The three transitive GNOME resource packages remain documented, so
   criterion 9 stays Partial pending mentor/release and revised-runtime review.
   [Target split proof](proof-notes/2026-08-12-gnome-target-package-split.md)
+- **Revised target split QEMU transition:** the Ubuntu Resolute candidate
+  package set installed with `dpkg -i` exit `0` in a disposable overlay,
+  survived a cold reboot, and returned with empty `dpkg --audit`. Both GNOME
+  target files remained owned by `regolith-session-gnome-targets`, and common
+  had no GNOME payload. The post-reboot check was outside a graphical user
+  session, so this does not add a login or target-runtime claim.
+  [QEMU transition proof](proof-notes/2026-08-12-gnome-target-split-qemu-transition.md)
 - **Clean target-distro resolution attempt:** disposable `debian:trixie` and
   `ubuntu:26.04` containers both completed `apt-get update` with exit `0`, but
   simulated installation of the staged package set returned exit `100` because
