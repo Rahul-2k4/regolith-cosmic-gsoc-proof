@@ -132,6 +132,15 @@ integrity evidence, not a new package build or release claim.
   not stand in for the newer Aug 11 source tuple or close native display,
   hardware, signing, publication, or the remaining interaction matrices.
   [Retained-packet proof](proof-notes/2026-08-11-retained-closure-packet-qemu.md)
+- **Voulage session rebuild and cold reset (QEMU):** the reviewed
+  `regolith-session` source at `7fb72a8d` built successfully through the local
+  Voulage path with the Resolute package suffix. After a staged compatibility
+  check, the rebuilt session packages installed cleanly as an upgrade and
+  survived a cold reset into the COSMIC-backed Sway session. The COSMIC target,
+  inputd/displayd helpers, failed-unit check, and `dpkg --audit` were healthy.
+  This is not native `cosmic-comp` or release-publication proof; the package
+  collision and Lintian findings are recorded in the note.
+  [Voulage cold-reset proof](proof-notes/2026-08-11-voulage-session-7fb-cold-reset.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
