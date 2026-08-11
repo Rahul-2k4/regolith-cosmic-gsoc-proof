@@ -93,6 +93,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Voulage session repin and retained package build](proof-notes/2026-08-12-voulage-session-repin.md)
 - [Canonical inputd branch reconciliation](proof-notes/2026-08-12-inputd-canonical-reconciliation.md)
 - [Displayd multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
+- [Canonical inputd QEMU session boundary](proof-notes/2026-08-12-canonical-inputd-qemu-session-boundary.md)
 - [Corrected Voulage session rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
 - [COSMIC session launcher manpage Voulage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
 - [Voulage `--arch` parser and exact session build](proof-notes/2026-08-10-voulage-arch-parser-session-build.md)

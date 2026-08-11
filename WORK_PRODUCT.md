@@ -320,6 +320,7 @@ integrity evidence, not a new package build or release claim.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
   [Frozen source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md)
   · [Multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
+  · [Canonical inputd QEMU boundary](proof-notes/2026-08-12-canonical-inputd-qemu-session-boundary.md)
   The test-only branch is [`rahul/displayd-wayland-multi-output-test-20260812`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-multi-output-test-20260812) at `3db213c`; it is not silently substituted for the frozen runtime tuple.
 - **Displayd clean build:** Voulage clean-clone build `9c88f6fe` produced 12
   passing tests with 142 vendored crates. Lintian: non-clean, warnings remain.
