@@ -15,16 +15,19 @@ sanitized wrapper proof.
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
 | 7 | Settings persist across reboot | Partial | single-output display profile only |
-| 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | ilia not observable headless |
+| 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; ilia launcher observed, full retained-surface matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
-| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Unproven | bounded HMP attempt stopped at greeter; no Sway tree proof |
+| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | one live QEMU `Mod4+Space` launcher binding observed; full keyboard matrix open |
 
-The later read-only QEMU pass confirmed guest key-based SSH, but again found
-only the greeter and no user COSMIC/Regolith session. No native display command
-was run against the greeter. See the
-[greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
+The earlier read-only QEMU pass confirmed guest key-based SSH but found only
+the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
+session, activated both target-owned helpers, and opened the ilia launcher via
+one resolved Sway binding. This is still QEMU-only and does not prove the full
+keyboard or retained-surface matrix. See the
+[live-login proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
+and the earlier [greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
@@ -112,6 +115,15 @@ integrity evidence, not a new package build or release claim.
   and installed-binary hashes. The guest was at the greeter, so no daemon or
   graphical runtime claim follows.
   [Package install proof](proof-notes/2026-08-11-exact-inputd-package-install-rollback.md)
+- **Live QEMU login and keyboard path:** a snapshot-backed cold login reached
+  `cosmic-session` plus Sway with a live IPC socket. The exact reviewed inputd
+  package was then installed and its user service restarted successfully; the
+  package and installed-binary hashes matched the retained artifact. A single
+  resolved `Mod4+Space` binding launched ilia and produced a visible launcher
+  menu. This upgrades criteria 8 and 12 to partial evidence only; it does not
+  prove the full retained-surface or keyboard matrix, hardware, native
+  `cosmic-comp`, or reboot persistence.
+  [Live-login/bindsym proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
