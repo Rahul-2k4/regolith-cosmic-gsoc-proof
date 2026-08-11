@@ -24,6 +24,7 @@ ownership and helper-service checks in a fresh QEMU login, with zero helper
 restarts and no project-owned failed user units.
 
 See the [final graphical-login proof](../proof-notes/2026-08-12-final-session-graphical-login-qemu.md),
+the [parent-lifecycle proof](../proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md),
 the [closure verification](../proof-notes/2026-08-11-final-closure-verification.md),
 and the [installation guide](INSTALL.md).
 
@@ -34,8 +35,9 @@ second COSMIC-only input daemon. The existing handler interfaces are split by
 Cargo feature, while runtime selection uses the active desktop environment.
 GNOME support remains buildable and testable alongside the COSMIC backend.
 
-The touchpad reconciliation source is `e641b43`. It combines the packaging cleanup
-with the COSMIC touchpad reverse-sync implementation. The reverse-sync path
+The touchpad reconciliation was introduced at `e641b43` and is included in the
+later routing head `271bc2a`. It combines the packaging cleanup with the COSMIC
+touchpad reverse-sync implementation. The reverse-sync path
 updates only the supported `accel_speed` and `natural_scroll` fields and
 guards against a Sway-to-COSMIC-to-Sway feedback loop.
 
