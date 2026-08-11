@@ -22,9 +22,10 @@ upstream `regolith-linux/voulage`.
 ## Follow-up build attempt
 
 A second isolated attempt used the already-reviewed Voulage helper branch with
-`VOULAGE_SKIP_APT_BUILD_DEP=true`, so it did not request interactive sudo. It
-reached `debian/rules clean` and stopped because the available Cargo `1.92.0`
-could not parse the lockfile:
+`VOULAGE_SKIP_APT_BUILD_DEP=true`, so it did not request interactive sudo. The
+same failure was reproduced with the installed stable `1.93.0` toolchain and
+the installed nightly `1.95.0` toolchain: `cargo vendor` stopped because the
+lockfile could not be parsed:
 
 `lock file version 4 requires -Znext-lockfile-bump`
 
