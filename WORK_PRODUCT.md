@@ -14,7 +14,7 @@ sanitized wrapper proof.
 | 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
-| 7 | Settings persist across reboot | Partial | single-output display profile only |
+| 7 | Settings persist across reboot | Partial | extracted displayd candidate rewrites a single-output profile in QEMU; packaged install and cold-reboot persistence remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct metadata and current staged amd64 solver/install checks are clean; three expected GNOME keyring/theme survivors remain documented; canonical Trixie output and final survivor/release review remain |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
@@ -173,6 +173,12 @@ integrity evidence, not a new package build or release claim.
   QEMU evidence only; physical hotplug, mixed DPI, and reboot persistence
   remain open.
   [Display observer proof](proof-notes/2026-08-12-qemu-display-observer-proof.md)
+- **Displayd mode-selection candidate:** trace evidence identified stale
+  Wayland mode selection. Candidate `8fa2832` passes its regression, Linux
+  tests, and unsigned package build; its extracted binary rewrote the saved
+  profile during a bounded QEMU run. System package installation and
+  cold-reboot persistence remain open.
+  [Candidate proof](proof-notes/2026-08-12-displayd-mode-selection-fix.md)
 - **Inputd touchpad mapping coverage:** the frozen source already passes 43
   COSMIC-feature tests and 20 GNOME-feature tests, including deterministic
   touchpad command mappings and partial configurations. This is unit coverage;
