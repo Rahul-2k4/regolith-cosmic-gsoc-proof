@@ -25,6 +25,11 @@ proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
 clone passed all 10 library tests; the note keeps the existing formatting and
 live-IPC limitations explicit.
 
+The displayd branch also has a [Wayland multi-output reconciliation
+proof](proof-notes/2026-08-12-displayd-wayland-multi-output-reconciliation.md).
+The isolated source-test branch passed 51 library and 25 binary-target tests;
+it does not claim physical hotplug or mixed-DPI runtime coverage.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
