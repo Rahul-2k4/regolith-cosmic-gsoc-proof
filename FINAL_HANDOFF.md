@@ -20,6 +20,11 @@ and [binary-build](proof-notes/2026-08-12-native-trixie-binary-build-proof.md)
 proof notes. The binary run produced unsigned `.deb` evidence for both COSMIC
 packages; it does not claim signing, apt publication, or release acceptance.
 
+The COSMIC-specific cosmolith branch also has a [Sway helper test
+proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
+clone passed all 10 library tests; the note keeps the existing formatting and
+live-IPC limitations explicit.
+
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
