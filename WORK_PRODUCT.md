@@ -124,6 +124,14 @@ integrity evidence, not a new package build or release claim.
   prove the full retained-surface or keyboard matrix, hardware, native
   `cosmic-comp`, or reboot persistence.
   [Live-login/bindsym proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
+- **Retained closure packet QEMU check:** an older internally consistent
+  six-package Resolute tuple installed with `dpkg -i` exit `0` and reached a
+  fresh `cosmic-session`/Sway login. The relevant user COSMIC target and both
+  helper services were active, GNOME was masked/inactive, and `dpkg --audit`
+  was empty. This strengthens package/session closure evidence only; it does
+  not stand in for the newer Aug 11 source tuple or close native display,
+  hardware, signing, publication, or the remaining interaction matrices.
+  [Retained-packet proof](proof-notes/2026-08-11-retained-closure-packet-qemu.md)
 - **Inputd robustness and packaging candidate:** source `cd1c2cd` guards empty
   Sway keyboard-layout metadata and passes 46 all-feature tests. Packaging
   commit `b380c9a` adds `regolith-inputd(8)` and DWARF data. Voulage model
