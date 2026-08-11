@@ -1,5 +1,8 @@
 # Sway-exit parent-session lifecycle boundary
 
+> Historical capture only. The canonical negative result is recorded in
+> [the direct lifecycle diagnostic](2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
+
 Date: 2026-08-10
 
 ## Scope

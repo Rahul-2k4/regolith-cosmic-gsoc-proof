@@ -24,7 +24,7 @@ ownership and helper-service checks in a fresh QEMU login, with zero helper
 restarts and no project-owned failed user units.
 
 See the [final graphical-login proof](../proof-notes/2026-08-11-final-session-graphical-login-qemu.md),
-the [parent-lifecycle proof](../proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md),
+the [canonical parent-lifecycle diagnostic](../proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md),
 the [closure verification](../proof-notes/2026-08-11-final-closure-verification.md),
 and the [installation guide](INSTALL.md).
 

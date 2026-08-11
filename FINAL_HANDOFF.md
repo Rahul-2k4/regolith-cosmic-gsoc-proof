@@ -55,9 +55,10 @@ single-output observer. It keeps the same reboot-persistence and hardware
 boundaries.
 
 The [displayd mode-selection candidate](proof-notes/2026-08-12-displayd-mode-selection-fix.md)
-records the focused regression, source fix, full Linux tests, and unsigned
-package build. The candidate is on the personal fork only; post-fix QEMU
-installation and mentor review remain open.
+records the focused regression, source fix, full Linux tests, unsigned package
+build, and a bounded extracted-binary QEMU run that rewrote the saved display
+profile. The candidate remains on the personal fork; system package
+installation, cold-reboot persistence, and mentor review remain open.
 
 ## Reproduce the verified QEMU result
 

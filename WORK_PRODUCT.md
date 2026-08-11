@@ -466,9 +466,8 @@ integrity evidence, not a new package build or release claim.
   exit` stopping Sway and the Regolith-owned helpers while the exact
   `cosmic-session` parent remained. The display-manager-owned logout path is
   still the clean logout result.
-  [Teardown boundary](proof-notes/2026-08-09-runtime-teardown-boundary.md)
-  [Sway-exit boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
-  [Parent lifecycle proof](proof-notes/2026-08-11-parent-session-lifecycle-qemu-proof.md)
+  Earlier Sway-exit captures remain historical context; the canonical negative
+  result is the [parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
 - **Physical hardware boundary:** a read-only host audit found a physical
   touchpad but no active Regolith/COSMIC session and only the internal display
   connected. No host state was changed; physical touchpad, hotplug, and
