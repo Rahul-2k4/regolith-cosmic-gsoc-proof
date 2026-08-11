@@ -33,6 +33,8 @@ The fresh [workspace-binding proof](proof-notes/2026-08-12-qemu-keyboard-workspa
 records a `1 -> 2 -> 1` transition through HMP-injected Sway bindings.
 The corrected [launcher-binding proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md)
 also records `Mod4+Space` launching `ilia`.
+The fresh [final-tuple parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md)
+also records a clean controlled Sway exit with `PARENT_EXIT_PASS`.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
@@ -103,6 +105,7 @@ integrity evidence, not a new package build or release claim.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
   · [Canonical parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
   · [Current `a14abe3` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
+  · [Fresh final-tuple parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
   path overlap in other session packages. The inputd branch directly tests

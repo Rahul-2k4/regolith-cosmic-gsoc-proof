@@ -43,6 +43,12 @@ proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md): QEMU HMP
 `meta_l-spc` launched `ilia`, while `meta_l-2` and `meta_l-1` switched
 workspaces `1 -> 2 -> 1`.
 
+The same final-tuple run also exercised controlled parent teardown. After
+Sway exited, the wrapper reported `PARENT_EXIT_PASS` and found no surviving
+`cosmic-session` or `dbus-run-session` parent. See the [parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md).
+This does not replace full display-manager logout/shutdown or native logind
+proof.
+
 ## Reproduction helpers
 
 - [`reproduce-voulage-branch-tuple.sh`](scripts/reproduce-voulage-branch-tuple.sh)
