@@ -52,7 +52,7 @@ merged. No hardware result is claimed.
 
 The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
 
-The latest target-owned helper runtime result is recorded in the [QEMU lifecycle boundary](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime.md). It proves package installation and graphical login, but records the helper stop defect rather than claiming lifecycle completion.
+The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). It proves package installation, cold login, and healthy inputd/displayd services under the COSMIC target. Parent-session teardown remains open.
 
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
@@ -88,6 +88,13 @@ integrity evidence, not a new package build or release claim.
   and `regolith-displayd` helpers, while the GNOME target remained separate and
   inactive for that COSMIC login.
   [Current tuple acceptance](proof-notes/2026-08-09-current-tuple-acceptance.md)
+- **Target-owned helper lifecycle v2 (QEMU):** after moving legacy target
+  isolation before COSMIC target activation, a fresh cold login kept both
+  daemon services `active (running)` with `ExecMainStatus=0`. The target graph,
+  package transition, empty `dpkg --audit`, and overlay cleanup also passed.
+  The `cosmic-session` parent remained after the direct Sway-exit attempt, so
+  clean parent teardown is still open.
+  [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
   path overlap in other session packages. The inputd branch directly tests
