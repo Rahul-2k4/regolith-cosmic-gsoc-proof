@@ -24,7 +24,7 @@ and persistent session configuration.
 
 ## Current closure slice - 2026-08-12
 
-Current aggregate public proof tip: `a5a8136`.
+Current aggregate public proof tip: `main`.
 
 The corrected 2026-08-09 lifecycle result supersedes the older native-idle
 tuple for current claims:
