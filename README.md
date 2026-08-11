@@ -90,6 +90,7 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - [Current parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
 - [Pinned historical `cosmic-session` lifecycle proof](proof-notes/2026-08-12-pinned-cosmic-session-lifecycle-qemu-proof.md)
+- [Current `a14abe3` `cosmic-session` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
 - [Corrected Voulage session rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
 - [COSMIC session launcher manpage Voulage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
 - [Voulage `--arch` parser and exact session build](proof-notes/2026-08-10-voulage-arch-parser-session-build.md)
