@@ -262,6 +262,11 @@ integrity evidence, not a new package build or release claim.
   no GNOME session manager, settings daemon, control center, Mutter, or
   Nautilus. This is solver evidence only, not a new installation or release
   claim. [amd64 package simulation](proof-notes/2026-08-12-clean-container-amd64-package-simulation.md)
+- **Current amd64 filesystem install:** the same tuple installed in disposable
+  Ubuntu 26.04 and Debian Trixie containers with `APT_INSTALL_RC=0` and empty
+  `dpkg --audit`. The Trixie run used local COSMIC packages retaining the
+  `regolith-resolute` suffix, so this is staged install evidence rather than a
+  canonical Trixie publication claim. [amd64 package install](proof-notes/2026-08-12-clean-container-amd64-package-install.md)
 - **Lintian sequence for the target split:** the first candidate at
   [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5)
   failed standalone Lintian because it retained the direct `xorg` dependency;
