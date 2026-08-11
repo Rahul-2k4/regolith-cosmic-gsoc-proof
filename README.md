@@ -276,6 +276,8 @@ The script has a cleanup trap that tries to apply the configured restore mode tu
 
 This public repo is a lightweight proof-note bundle. Large raw assets from the private working vault are not copied here; the script above regenerates the display-monitoring proof artifacts.
 
+Reviewer-facing technical article: [TECHNICAL_ARTICLE.md](TECHNICAL_ARTICLE.md).
+
 ## Claim boundaries
 
 QEMU-proven:
