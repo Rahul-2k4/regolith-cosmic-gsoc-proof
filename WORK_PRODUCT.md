@@ -159,6 +159,14 @@ integrity evidence, not a new package build or release claim.
   the required Regolith/COSMIC runtime closure was unavailable. This is useful
   failure evidence, not clean-install proof; the exact unresolved package
   lists are recorded in the [container resolution note](proof-notes/2026-08-12-clean-container-package-resolution.md).
+- **Clean target-distro closure and install:** after adding the signed Regolith
+  archive and correcting the real `regolith-resource-loader` metadata defect,
+  disposable Ubuntu 26.04 and Debian Trixie containers both resolved and
+  installed the staged package set with exit `0`; `dpkg --audit` was empty in
+  both. The combined session source also carries the required
+  `Replaces: regolith-session-sway` transition metadata. This is clean package
+  closure evidence, not a clean graphical-login claim. See the [positive
+  closure proof](proof-notes/2026-08-12-clean-target-package-closure-install.md).
 - **Voulage session rebuild and cold reset (QEMU):** the reviewed
   `regolith-session` source at `7fb72a8d` built successfully through the local
   Voulage path with the Resolute package suffix. After a staged compatibility
@@ -395,10 +403,10 @@ supersede earlier frozen tuple pins.
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
 | `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`94222ce`](https://github.com/Rahul-2k4/regolith-inputd/commit/94222ce) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and a typed keyboard reverse-sync API boundary | 8 focused tests; full all-feature suite 58 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
-| `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`b74dfe3`](https://github.com/Rahul-2k4/regolith-session/commit/b74dfe3d9a4b2dd848176d181f2d1f853115c5c8) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry; adds the common-package transition ownership fix while keeping GNOME unchanged | launcher, target, teardown, packaging, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/session-common-loader-transition-20260812`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/session-common-loader-transition-20260812) | [`1fa242a`](https://github.com/Rahul-2k4/regolith-session/commit/1fa242a17aa0c173b3a77321266324bd821292ee) | Corrects the archive-provided loader dependency and adds the common-package transition ownership fix while keeping GNOME unchanged | 9 shell tests, focused package audit, syntax, and diff checks passed on Linux; Voulage binary builds and target-distro install proof recorded | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
-| `voulage` | [`rahul/cosmic-exact-tuple-local-build-20260811`](https://github.com/Rahul-2k4/voulage/tree/rahul/cosmic-exact-tuple-local-build-20260811) | [`05dfd700`](https://github.com/Rahul-2k4/voulage/commit/05dfd7004c6941f6609a52fc4347ecdd5fa67a72) | Exact reviewed COSMIC tuple pins plus an opt-in no-APT local-build gate; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, and diff checks pass on Linux; exact inputd package build/install proof recorded | Personal fork only; no upstream merge |
+| `voulage` | [`rahul/local-build-skip-apt-build-dep`](https://github.com/Rahul-2k4/voulage/tree/rahul/local-build-skip-apt-build-dep) | [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e) | Adds the opt-in no-APT local-build gate used to build the corrected session transition; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
 ## Next steps
