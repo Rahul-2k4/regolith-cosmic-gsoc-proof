@@ -19,7 +19,7 @@ sanitized wrapper proof.
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
-| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | one live QEMU `Mod4+Space` launcher binding observed; full keyboard matrix open |
+| 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | live QEMU launcher plus reversible workspace switch observed; full keyboard matrix open |
 
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway

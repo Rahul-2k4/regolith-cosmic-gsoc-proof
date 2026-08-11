@@ -54,12 +54,17 @@ mark the proposal's complete keyboard-first criterion as fully met because the
 workspace, tiling, lock-state, and remaining launcher bindings were not all
 exercised.
 
+In a second fresh snapshot-backed QEMU login, Sway IPC reported workspace 1 as
+focused. One HMP `sendkey meta_l-2` action moved focus to workspace 2, and
+`sendkey meta_l-1` returned focus to workspace 1. This is reversible workspace
+switch evidence, still limited to QEMU and two representative bindings.
+
 ## Result
 
 - Criterion 8: **Partial** evidence strengthened; ilia is now observable in a
   live QEMU Sway session.
-- Criterion 12: **Partial** evidence strengthened; one resolved launcher
-  `bindsym` was triggered and observed.
+- Criterion 12: **Partial** evidence strengthened; one launcher binding and
+  one reversible workspace-switch path were triggered and observed.
 - Headline remains **4 of 12 fully met** and **62-68%** strict completion.
 - The VM was powered down through HMP; no QEMU process or monitor socket
   remained.
