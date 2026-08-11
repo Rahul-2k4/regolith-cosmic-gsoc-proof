@@ -183,9 +183,11 @@ integrity evidence, not a new package build or release claim.
   tuple passed direct metadata audit and a disposable QEMU graphical login.
   The COSMIC target and both target-owned helpers were active, the GNOME target
   was inactive, `dpkg --audit` was empty, and the existing launcher/workspace
-  bindings remained usable. This is an integration subgate; the full
-  transitive APT closure is still not claimed complete.
+  bindings remained usable. A second fresh overlay reproduced the same result.
+  This is an integration subgate; the full transitive APT closure is still not
+  claimed complete.
   [Direct package audit and final tuple proof](proof-notes/2026-08-12-direct-session-package-audit.md)
+  [Second cold-login proof](proof-notes/2026-08-12-final-target-split-second-cold-login.md)
 - **Transitive GNOME dependency audit:** the exact staged package set was
   simulated with `--no-install-recommends` on Ubuntu 26.04 and Debian Trixie.
   Both resolved successfully and selected only `gnome-keyring`,
