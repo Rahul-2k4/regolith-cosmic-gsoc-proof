@@ -16,7 +16,7 @@ sanitized wrapper proof.
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
 | 7 | Settings persist across reboot | Partial | single-output display profile only |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
-| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | runtime absence proven; transitive audit open |
+| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | candidate split removes target payload from common; Ubuntu/Trixie graph and transition pass; survivors documented |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | live QEMU launcher plus reversible workspace switch observed; full keyboard matrix open |
@@ -153,6 +153,22 @@ integrity evidence, not a new package build or release claim.
   Sway/Flashback paths. The focused test, shell syntax check, and diff check
   passed. This is a source gate, not the complete transitive audit.
   [Package-audit test proof](proof-notes/2026-08-11-package-audit-regression-test.md)
+- **Transitive GNOME dependency audit:** the exact staged package set was
+  simulated with `--no-install-recommends` on Ubuntu 26.04 and Debian Trixie.
+  Both resolved successfully and selected only `gnome-keyring`,
+  `gnome-themes-extra`, and `gnome-themes-extra-data` as GNOME-related
+  packages; no GNOME session manager, settings daemon, control center, Mutter,
+  or Nautilus entered the graph. The audit also found that `regolith-session-common`
+  still owns the inactive GNOME target files, so criterion 9 remains Partial
+  pending the package-ownership split. [Transitive audit](proof-notes/2026-08-11-transitive-gnome-audit.md)
+- **GNOME target ownership split:** candidate session source `cbd810f` moves
+  the inactive GNOME target files into `regolith-session-gnome-targets`, keeps
+  the package out of the COSMIC dependency path, and preserves legacy Sway/
+  Flashback dependencies. Ubuntu Resolute and Debian Trixie Voulage builds,
+  source tests, fresh graph simulations, and old-common transition checks
+  passed. The three transitive GNOME resource packages remain documented, so
+  criterion 9 stays Partial pending mentor/release and revised-runtime review.
+  [Target split proof](proof-notes/2026-08-12-gnome-target-package-split.md)
 - **Clean target-distro resolution attempt:** disposable `debian:trixie` and
   `ubuntu:26.04` containers both completed `apt-get update` with exit `0`, but
   simulated installation of the staged package set returned exit `100` because
@@ -403,7 +419,7 @@ supersede earlier frozen tuple pins.
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
 | `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`94222ce`](https://github.com/Rahul-2k4/regolith-inputd/commit/94222ce) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and a typed keyboard reverse-sync API boundary | 8 focused tests; full all-feature suite 58 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
-| `regolith-session` | [`rahul/session-common-loader-transition-20260812`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/session-common-loader-transition-20260812) | [`1fa242a`](https://github.com/Rahul-2k4/regolith-session/commit/1fa242a17aa0c173b3a77321266324bd821292ee) | Corrects the archive-provided loader dependency and adds the common-package transition ownership fix while keeping GNOME unchanged | 9 shell tests, focused package audit, syntax, and diff checks passed on Linux; Voulage binary builds and target-distro install proof recorded | Fork only; no `regolith-linux` PR |
+| `regolith-session` | [`rahul/gnome-target-package-split-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-package-split-20260811) | [`cbd810f`](https://github.com/Rahul-2k4/regolith-session/commit/cbd810f68f2713be91f1a61cdd326cd128a857c5) | Corrects the archive-provided loader dependency and moves GNOME target payload into a GNOME-only package while keeping COSMIC out of that dependency | Package/systemd tests, syntax, diff checks, Ubuntu/Trixie Voulage builds, graph simulations, and old-common transitions passed | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
 | `voulage` | [`rahul/local-build-skip-apt-build-dep`](https://github.com/Rahul-2k4/voulage/tree/rahul/local-build-skip-apt-build-dep) | [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e) | Adds the opt-in no-APT local-build gate used to build the corrected session transition; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
