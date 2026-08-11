@@ -99,6 +99,13 @@ integrity evidence, not a new package build or release claim.
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
   [COSMIC keyboard event tests](proof-notes/2026-08-09-cosmolith-input-tests.md)
+- **Keyboard reverse-sync API boundary:** the pinned `swayipc 3.0.1` input
+  model does not expose keyboard repeat fields. The reviewed inputd branch
+  records a typed no-op adapter and keeps keyboard/input-source handling
+  separate instead of inventing an API. Linux verification passed 8 focused
+  tests, 58 all-feature tests, formatting, and diff checks. This is source
+  evidence only; live keyboard reverse-sync remains open.
+  [Keyboard reverse-sync boundary](proof-notes/2026-08-11-inputd-keyboard-reverse-sync-boundary.md)
 - **Current-hash inputd runtime (QEMU):** source `e32d049`, package
   `0.4.1-1-1regolith-resolute`, and a QEMU COSMIC cold login with the active
   inputd service and COSMIC backend environment. One keyboard/input-source
@@ -352,7 +359,7 @@ supersede earlier frozen tuple pins.
 
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
-| `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`66099f67`](https://github.com/Rahul-2k4/regolith-inputd/commit/66099f67a5498f3ad10fe65ef69eb6e8b57ac0c2) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and preservation tests | 7 focused tests; full COSMIC suite 55 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
+| `regolith-inputd` | [`rahul/inputd-mouse-reverse-sync-20260811`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-mouse-reverse-sync-20260811) | [`94222ce`](https://github.com/Rahul-2k4/regolith-inputd/commit/94222ce) | COSMIC input backend with mouse reverse-sync, watcher-gate protection, and a typed keyboard reverse-sync API boundary | 8 focused tests; full all-feature suite 58 passed; fmt/diff clean on Linux | Fork only; no `regolith-linux` PR |
 | `regolith-session` | [`rahul/cosmic-parent-ancestry-logout-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/cosmic-parent-ancestry-logout-20260811) | [`7fb72a8d`](https://github.com/Rahul-2k4/regolith-session/commit/7fb72a8d93e8b33fc6bfbca9292398252003b477) | Bounds COSMIC parent cleanup to the packaged launcher and exact `cosmic-session` ancestry while keeping GNOME unchanged | launcher, target, teardown, syntax, and diff checks passed on Linux | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | `rahul/displayd-kanshi-target-safe-20260809` | [`817becd9`](https://github.com/Rahul-2k4/regolith-displayd/commit/817becd9dc7e6a12f13f3f30f663555212ae78fa) | Frozen displayd: Kanshi target-owned startup, Wayland output observer, single-output persistence path | `cargo test --locked`: 73 passed (lib 48 + next 25) | Fork only; tip equals `worker/displayd-frozen-gap-20260810` |
 | `cosmolith` | `rahul/cosmolith-rustfmt-20260810` | [`f7543ebe`](https://github.com/Rahul-2k4/cosmolith/commit/f7543ebe99399a7b61955ad822577923582ce1bf) | Startup XKB event watcher plus rustfmt gate on watcher shortcuts | `cargo fmt --check` clean; `cargo test` 2 passed per test target | Fork tip; PR #15 already merged upstream (`7d47b8b6`); issues #1/#2 source-complete, no PR opened. Same SHA as checked-out `fix/startup-xkb-events-atomic` |
