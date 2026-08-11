@@ -17,6 +17,10 @@ SSH became available as the pre-existing `regolith` user, and the package
 state included Noble Regolith packages, GNOME session packages, and the Sway
 session before any current reviewed tuple was installed.
 
+The retained `regolith-qual.qcow2` disk was also inspected read-only and
+already contained the Regolith/GNOME/Sway stack and the legacy Wayland session
+entry.
+
 ## Boundary
 
 Neither image can support the claim “current reviewed tuple installed on an
