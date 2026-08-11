@@ -23,6 +23,13 @@ cargo test --lib -- --nocapture
 10 passed; 0 failed
 ```
 
+The full suite was then rerun:
+
+```text
+cargo test -- --nocapture
+10 library tests passed; 10 binary-target tests passed; 0 failed; exit 0
+```
+
 `git diff --check` passed. `cargo fmt --check` remains non-zero because the
 branch already contains unrelated formatting differences in existing files;
 the first reported differences are outside this test delta. No runtime IPC,

@@ -116,7 +116,7 @@ integrity evidence, not a new package build or release claim.
 - **Cosmolith Sway helper coverage:** the COSMIC-specific branch now has
   focused tests for keyboard-option normalization, modifier/XKB binding
   formatting, and representative retained-workflow actions. A fresh Linux
-  clone passed all 10 library tests. This remains source evidence only; the
+  clone passed 10 library tests and 10 binary-target tests. This remains source evidence only; the
   branch's pre-existing formatting debt and live IPC/hardware boundaries are
   recorded rather than hidden.
   [Sway helper test proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md)
