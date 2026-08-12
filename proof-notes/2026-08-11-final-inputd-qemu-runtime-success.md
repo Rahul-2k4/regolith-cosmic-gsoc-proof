@@ -1,6 +1,6 @@
 # Final inputd QEMU graphical-login proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 A fresh copy-on-write overlay from the qualification image installed the staged
 Resolute session tuple, rebooted, and created a real `rahul` session through

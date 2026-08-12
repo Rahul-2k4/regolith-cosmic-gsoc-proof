@@ -1,6 +1,6 @@
 # Canonical inputd branch reconciliation
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 ## Ancestry
 

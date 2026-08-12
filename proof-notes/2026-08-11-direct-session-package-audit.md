@@ -1,4 +1,4 @@
-# Direct session package metadata audit - 2026-08-12
+# Direct session package metadata audit - 2026-08-11
 
 The executable `scripts/audit-session-package-metadata.sh` audits the Debian
 control metadata of one or more session packages. It prints the requested

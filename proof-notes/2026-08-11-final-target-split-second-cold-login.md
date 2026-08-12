@@ -1,4 +1,4 @@
-# Final target-split second cold-login proof - 2026-08-12
+# Final target-split second cold-login proof - 2026-08-11
 
 The final target-split Resolute package tuple was installed in a second fresh
 copy-on-write QEMU overlay from the qualification image. The base image was
@@ -22,4 +22,4 @@ APT graph, signed publication, or mentor acceptance.
 
 The first-run package metadata and integration note is:
 
-`https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/blob/main/proof-notes/2026-08-12-direct-session-package-audit.md`
+`https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/blob/main/proof-notes/2026-08-11-direct-session-package-audit.md`

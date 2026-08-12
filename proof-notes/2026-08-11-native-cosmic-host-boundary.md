@@ -1,6 +1,6 @@
 # Native COSMIC host boundary
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 The project laptop was inspected read-only after the QEMU proof. Its active
 Wayland session is Ubuntu GNOME. The installed Wayland-session entries contain

@@ -1,6 +1,6 @@
 # Current `cosmic-session` package QEMU proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 Status: package install and cold-reboot proof passed; graphical login not
 claimed
 

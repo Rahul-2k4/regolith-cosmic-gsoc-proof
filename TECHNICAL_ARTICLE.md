@@ -56,7 +56,7 @@ local COSMIC packages, which still carry the Resolute suffix, so this is staged
 install evidence rather than a canonical Trixie publication.
 
 See the [package install proof](proof-notes/2026-08-12-clean-container-amd64-package-install.md)
-and the [package graph proof](proof-notes/2026-08-12-clean-container-amd64-package-simulation.md).
+and the [package graph proof](proof-notes/2026-08-11-clean-container-amd64-package-simulation.md).
 
 The COSMIC target owns inputd and displayd. The GNOME target remains separate.
 Fallback lock/unlock and OSD paths have QEMU evidence; native logind/idle
@@ -71,4 +71,4 @@ claim of completed hardware validation or upstream release.
 
 The complete criteria table and links to source, package, test, and runtime
 proof are in [`WORK_PRODUCT.md`](WORK_PRODUCT.md). The final graphical-login
-proof is in [`proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md`](proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md).
+proof is in [`proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md`](proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md).

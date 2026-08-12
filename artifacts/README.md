@@ -21,7 +21,7 @@ general. The hashes below are the authoritative values for the files committed h
 The following six session packages were built through the reviewed Voulage
 local-build path from `regolith-session` `831596f` on 2026-08-12. The canonical
 model branch and the apt-build-dependency boundary are documented in the
-[session repin proof](../proof-notes/2026-08-12-voulage-session-repin.md).
+[session repin proof](../proof-notes/2026-08-11-voulage-session-repin.md).
 
 | File | SHA-256 |
 |---|---|

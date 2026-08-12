@@ -1,6 +1,6 @@
 # QEMU launcher and workspace binding proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 A fresh disposable QEMU COSMIC-backed Sway session accepted these HMP key
 bindings:

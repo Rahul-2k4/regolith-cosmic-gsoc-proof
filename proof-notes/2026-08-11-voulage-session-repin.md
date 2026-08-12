@@ -1,6 +1,6 @@
 # Voulage session repin and retained package build
 
-Date: 2026-08-12
+Date: 2026-08-11
 Status: model repin published; package build passed through the reviewed local-build exception
 
 ## Source-of-truth branch

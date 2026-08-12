@@ -29,9 +29,9 @@ back through representative bindings. This is still QEMU-only and does not
 prove the full keyboard or retained-surface matrix. See the
 [live-login proof](proof-notes/2026-08-11-qemu-live-login-inputd-bindsym.md)
 and the earlier [greeter/SSH boundary](proof-notes/2026-08-11-qemu-greeter-ssh-boundary.md).
-The fresh [workspace-binding proof](proof-notes/2026-08-12-qemu-keyboard-workspace-binding-proof.md)
+The fresh [workspace-binding proof](proof-notes/2026-08-11-qemu-keyboard-workspace-binding-proof.md)
 records a `1 -> 2 -> 1` transition through HMP-injected Sway bindings.
-The corrected [launcher-binding proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md)
+The corrected [launcher-binding proof](proof-notes/2026-08-11-qemu-launcher-binding-proof.md)
 also records `Mod4+Space` launching `ilia`.
 The fresh [final-tuple parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md)
 also records a clean controlled Sway exit with `PARENT_EXIT_PASS`.
@@ -58,7 +58,7 @@ merged. No hardware result is claimed.
 
 The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
 
-The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). The final target-split package tuple has now also passed disposable QEMU installation, cold reboot, greetd graphical login, target/helper health, launcher binding, workspace switching, and empty `dpkg --audit`; see the [direct package audit and final tuple proof](proof-notes/2026-08-12-direct-session-package-audit.md). Parent-session teardown is separately covered by the reviewed `cosmic-session` candidate proof; full display-manager logout and shutdown remain open.
+The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). The final target-split package tuple has now also passed disposable QEMU installation, cold reboot, greetd graphical login, target/helper health, launcher binding, workspace switching, and empty `dpkg --audit`; see the [direct package audit and final tuple proof](proof-notes/2026-08-11-direct-session-package-audit.md). Parent-session teardown is separately covered by the reviewed `cosmic-session` candidate proof; full display-manager logout and shutdown remain open.
 
 **Acceptance-boundary note:** the submitted PDF used “legacy helper units
 inactive” as its success wording. Mentor feedback later approved separate
@@ -104,7 +104,7 @@ integrity evidence, not a new package build or release claim.
   Full display-manager logout and shutdown behavior remains open.
   [Lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md)
   · [Canonical parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
-  · [Current `a14abe3` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
+  · [Current `a14abe3` package QEMU proof](proof-notes/2026-08-11-current-a14-cosmic-session-package-qemu-proof.md)
   · [Fresh final-tuple parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md)
 - **Mentor-aligned source regression coverage:** the session package test now
   derives the COSMIC-only ownership set from its install manifest and rejects
@@ -144,7 +144,7 @@ integrity evidence, not a new package build or release claim.
   `271bc2a`. COSMIC and all-feature tests each passed 51/51, with formatting
   and diff checks clean. This is an internal routing proof only; active-layout
   persistence and live input remain open.
-  [Canonical reconciliation proof](proof-notes/2026-08-12-inputd-canonical-reconciliation.md)
+  [Canonical reconciliation proof](proof-notes/2026-08-11-inputd-canonical-reconciliation.md)
   [Keyboard routing proof](proof-notes/2026-08-11-inputd-keyboard-routing.md)
 - **Input keyboard path:** keyboard layout, variant, and repeat propagation
   into Sway, plus focused COSMIC layout/variant event tests.
@@ -230,8 +230,8 @@ integrity evidence, not a new package build or release claim.
   bindings remained usable. A second fresh overlay reproduced the same result.
   This is an integration subgate; the full transitive APT closure is still not
   claimed complete.
-  [Direct package audit and final tuple proof](proof-notes/2026-08-12-direct-session-package-audit.md)
-  [Second cold-login proof](proof-notes/2026-08-12-final-target-split-second-cold-login.md)
+  [Direct package audit and final tuple proof](proof-notes/2026-08-11-direct-session-package-audit.md)
+  [Second cold-login proof](proof-notes/2026-08-11-final-target-split-second-cold-login.md)
 - **Transitive GNOME dependency audit:** the exact staged package set was
   simulated with `--no-install-recommends` on Ubuntu 26.04 and Debian Trixie.
   Both resolved successfully and selected only `gnome-keyring`,
@@ -318,7 +318,7 @@ integrity evidence, not a new package build or release claim.
   `gnome-keyring` and GNOME theme packages survived the GNOME allowlist, with
   no GNOME session manager, settings daemon, control center, Mutter, or
   Nautilus. This is solver evidence only, not a new installation or release
-  claim. [amd64 package simulation](proof-notes/2026-08-12-clean-container-amd64-package-simulation.md)
+  claim. [amd64 package simulation](proof-notes/2026-08-11-clean-container-amd64-package-simulation.md)
 - **Current amd64 filesystem install:** the same tuple installed in disposable
   Ubuntu 26.04 and Debian Trixie containers with `APT_INSTALL_RC=0` and empty
   `dpkg --audit`. The Trixie run used local COSMIC packages retaining the
@@ -346,7 +346,7 @@ integrity evidence, not a new package build or release claim.
   `c658754`. The canonical branch hit the documented host sudo build-dep
   boundary; the reviewed local-build skip gate then produced the exact six
   session packages with retained hashes and Lintian warnings only.
-  [Repin and package proof](proof-notes/2026-08-12-voulage-session-repin.md)
+  [Repin and package proof](proof-notes/2026-08-11-voulage-session-repin.md)
 - **Session package ownership transition:** source commit
   [`b74dfe3`](https://github.com/Rahul-2k4/regolith-session/commit/b74dfe3d9a4b2dd848176d181f2d1f853115c5c8)
   adds the required `Replaces` relationship to the common package and passes
@@ -403,8 +403,8 @@ integrity evidence, not a new package build or release claim.
   hotplug, mixed-DPI, and Settings-panel proof are still open.
   [Wayland observer proof](proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
   [Frozen source audit](proof-notes/2026-08-10-displayd-frozen-source-audit.md)
-  · [Multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
-  · [Canonical inputd QEMU boundary](proof-notes/2026-08-12-canonical-inputd-qemu-session-boundary.md)
+  · [Multi-output reconciliation test](proof-notes/2026-08-11-displayd-multi-output-reconciliation-test.md)
+  · [Canonical inputd QEMU boundary](proof-notes/2026-08-11-canonical-inputd-qemu-session-boundary.md)
   The test-only branch is [`rahul/displayd-wayland-multi-output-test-20260812`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-multi-output-test-20260812) at `3db213c`; it is not silently substituted for the frozen runtime tuple.
 - **Displayd clean build:** Voulage clean-clone build `9c88f6fe` produced 12
   passing tests with 142 vendored crates. Lintian: non-clean, warnings remain.
@@ -579,11 +579,11 @@ supersede earlier frozen tuple pins.
 
 | Repo | Branch | Commit | What it does | Tests | Upstream status |
 |---|---|---|---|---|---|
-| `regolith-inputd` | [`rahul/inputd-keyboard-source-routing-20260812`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-keyboard-source-routing-20260812) | [`271bc2a`](https://github.com/Rahul-2k4/regolith-inputd/commit/271bc2a4ae21546c9b79c1d1c9b1ffd454eb0c57) | COSMIC input backend with feature/runtime selection, XKB layout/variant watcher mapping, mouse/touchpad sync, and keyboard-to-input-source event routing | COSMIC 47 tests; all-feature 50 tests; fmt/diff clean; Ubuntu binary build exit `0`; host-email Lintian warnings and a session-test harness mismatch documented; combined final graphical-login tuple proof, but no isolated inputd-only runtime matrix | Personal fork branch; no `regolith-linux` PR |
+| `regolith-inputd` | [`rahul/inputd-cosmic-canonical-20260812`](https://github.com/Rahul-2k4/regolith-inputd/tree/rahul/inputd-cosmic-canonical-20260812) | [`c658754`](https://github.com/Rahul-2k4/regolith-inputd/commit/c658754ec10ac75422cba8e1c3517bba6075795f) | Reconciled canonical head: COSMIC touchpad reverse-sync fix plus keyboard-to-input-source event routing on one lineage, superseding the earlier `271bc2a`/`b380c9a` fork split | `cargo fmt --check` clean; COSMIC-feature 48 tests; all-feature 51 tests; this is the exact ref Voulage's package model pins | Personal fork branch; no `regolith-linux` PR |
 | `regolith-session` | [`rahul/gnome-target-transition-replaces-20260811`](https://github.com/Rahul-2k4/regolith-session/tree/rahul/gnome-target-transition-replaces-20260811) | [`831596f`](https://github.com/Rahul-2k4/regolith-session/commit/831596f8f054a6904b0846b6a899912c6c13d465) | Corrects the archive-provided loader dependency, moves GNOME target payload into a GNOME-only package, removes the Flashback `xorg` metapackage dependency, and adds the final unversioned ownership handoff | 9 package/systemd tests, syntax, diff checks, manual Ubuntu binary build, Voulage Resolute build, Lintian exit `0` with warnings only, package transition, cold reboot, and graphical QEMU login proof | Fork only; no `regolith-linux` PR |
 | `regolith-displayd` | [`rahul/displayd-wayland-multi-output-reconcile-20260812`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-multi-output-reconcile-20260812) | [`e4b2168`](https://github.com/Rahul-2k4/regolith-displayd/commit/e4b2168) | Frozen target-safe displayd plus reviewed Wayland output-head/mode removal reconciliation tests | `cargo fmt --check`, `git diff --check`, 51 library tests, and 25 binary-target tests passed; existing `num_derive` warning remains | Personal fork branch; test-only extension, not the frozen package tuple |
 | `cosmolith` | [`fix/startup-xkb-events-atomic`](https://github.com/Rahul-2k4/cosmolith/tree/fix/startup-xkb-events-atomic) | [`8bf1960`](https://github.com/Rahul-2k4/cosmolith/commit/8bf1960) | Startup XKB events, deterministic session/error work, and reviewed Sway helper tests | Linux `cargo test --lib`: 10 passed; `git diff --check` clean; existing branch-wide `cargo fmt --check` differences remain documented | Personal fork branch; PRs #17, #18, and #19 remain mentor-authorized and open; no merge claimed |
-| `voulage` | [`rahul/local-build-skip-apt-build-dep`](https://github.com/Rahul-2k4/voulage/tree/rahul/local-build-skip-apt-build-dep) | [`49f26e1`](https://github.com/Rahul-2k4/voulage/commit/49f26e1485c4cb1c7e961b2a0939ab623ac0db8e) | Adds the opt-in no-APT local-build gate used to build the corrected session transition; default apt setup remains unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
+| `voulage` | [`main`](https://github.com/Rahul-2k4/voulage/tree/main) | [`02d5d49`](https://github.com/Rahul-2k4/voulage/commit/02d5d49f) | Canonical package model on the default branch: pins `regolith-session` to `831596f` and `regolith-inputd` to `c658754`; includes the opt-in no-APT local-build gate (`49f26e1`) used to build the corrected session transition, with default apt setup unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
 ## Next steps

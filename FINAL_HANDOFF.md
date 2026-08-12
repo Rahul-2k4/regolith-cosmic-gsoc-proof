@@ -66,7 +66,7 @@ sudo boundary; it is not a release or QEMU package proof.
 ## Reproduce the verified QEMU result
 
 The exact final runtime result is recorded in [final QEMU graphical-login
-proof](proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md). It used a
+proof](proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md). It used a
 copy-on-write overlay, installed the staged Resolute tuple, rebooted, and
 created a real user session through greetd IPC.
 
@@ -87,7 +87,7 @@ install evidence rather than canonical Trixie publication proof. See the
 [package install proof](proof-notes/2026-08-12-clean-container-amd64-package-install.md).
 
 Representative keyboard evidence is in the [launcher binding
-proof](proof-notes/2026-08-12-qemu-launcher-binding-proof.md): QEMU HMP
+proof](proof-notes/2026-08-11-qemu-launcher-binding-proof.md): QEMU HMP
 `meta_l-spc` launched `ilia`, while `meta_l-2` and `meta_l-1` switched
 workspaces `1 -> 2 -> 1`.
 
@@ -118,7 +118,7 @@ Strict evidence-backed status: **62-68%**, **4 of 12 criteria fully met**.
 
 The result is QEMU-first. It does not claim native COSMIC hardware proof. The
 project laptop was checked read-only and is Ubuntu GNOME without COSMIC
-session binaries; see the [native-host boundary](proof-notes/2026-08-12-native-cosmic-host-boundary.md).
+session binaries; see the [native-host boundary](proof-notes/2026-08-11-native-cosmic-host-boundary.md).
 
 ## Explicit remaining boundaries
 

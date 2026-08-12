@@ -95,13 +95,13 @@ See the [pin regression proof](proof-notes/2026-08-10-voulage-frozen-cosmic-pin-
 - [Managed display-manager logout](proof-notes/2026-08-10-managed-logout-qemu-proof.md)
 - [Sway-exit parent-session lifecycle boundary](proof-notes/2026-08-10-sway-exit-parent-lifecycle-boundary.md)
 - [Current parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md)
-- [Current `a14abe3` `cosmic-session` package QEMU proof](proof-notes/2026-08-12-current-a14-cosmic-session-package-qemu-proof.md)
-- [Upstream `cosmic-session` parent-exit source/package proof](proof-notes/2026-08-12-cosmic-session-parent-exit-source-package-proof.md)
-- [Voulage session repin and retained package build](proof-notes/2026-08-12-voulage-session-repin.md)
-- [Canonical inputd branch reconciliation](proof-notes/2026-08-12-inputd-canonical-reconciliation.md)
-- [Displayd multi-output reconciliation test](proof-notes/2026-08-12-displayd-multi-output-reconciliation-test.md)
+- [Current `a14abe3` `cosmic-session` package QEMU proof](proof-notes/2026-08-11-current-a14-cosmic-session-package-qemu-proof.md)
+- [Upstream `cosmic-session` parent-exit source/package proof](proof-notes/2026-08-11-cosmic-session-parent-exit-source-package-proof.md)
+- [Voulage session repin and retained package build](proof-notes/2026-08-11-voulage-session-repin.md)
+- [Canonical inputd branch reconciliation](proof-notes/2026-08-11-inputd-canonical-reconciliation.md)
+- [Displayd multi-output reconciliation test](proof-notes/2026-08-11-displayd-multi-output-reconciliation-test.md)
 - [Voulage displayd candidate model](proof-notes/2026-08-12-voulage-displayd-candidate-model.md)
-- [Canonical inputd QEMU session boundary](proof-notes/2026-08-12-canonical-inputd-qemu-session-boundary.md)
+- [Canonical inputd QEMU session boundary](proof-notes/2026-08-11-canonical-inputd-qemu-session-boundary.md)
 - [Corrected Voulage session rebuild and QEMU proof](proof-notes/2026-08-10-corrected-voulage-session-rebuild-qemu-proof.md)
 - [COSMIC session launcher manpage Voulage proof](proof-notes/2026-08-10-session-manpage-voulage-proof.md)
 - [Voulage `--arch` parser and exact session build](proof-notes/2026-08-10-voulage-arch-parser-session-build.md)
@@ -320,7 +320,7 @@ QEMU-boundary findings:
 - a corrected QEMU `meta_l-spc` run launched `ilia`; launcher and workspace
   evidence remain representative, not a complete keyboard/media-key matrix
 - the project laptop was checked read-only and is Ubuntu GNOME without a
-  native COSMIC session; see the [native-host boundary](proof-notes/2026-08-12-native-cosmic-host-boundary.md)
+  native COSMIC session; see the [native-host boundary](proof-notes/2026-08-11-native-cosmic-host-boundary.md)
 
 Source/package proven:
 

@@ -56,7 +56,7 @@ Owns session launch and systemd target composition. The COSMIC path launches
 the Regolith wrapper with Sway, while the GNOME path remains available through
 separate target/package ownership. The final QEMU proof observes
 `cosmic-session`, Sway, the COSMIC target, and inactive GNOME target together:
-see [final graphical-login proof](proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md).
+see [final graphical-login proof](proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md).
 
 ### `regolith-inputd`
 
@@ -104,11 +104,11 @@ inactive GNOME target, and empty package audit.
 
 | Decision | Rationale | Evidence/boundary |
 |---|---|---|
-| Extend `regolith-inputd` | Avoid maintaining a second input daemon | [canonical inputd proof](proof-notes/2026-08-12-inputd-canonical-reconciliation.md) |
+| Extend `regolith-inputd` | Avoid maintaining a second input daemon | [canonical inputd proof](proof-notes/2026-08-11-inputd-canonical-reconciliation.md) |
 | Use Cargo features | Keep GNOME and COSMIC builds selectable | inputd source/test proof |
 | Select handlers at runtime | Match behavior to `XDG_CURRENT_DESKTOP` | mentor-aligned source design |
-| Separate systemd targets | Keep GNOME and COSMIC lifecycle ownership distinct | [final QEMU proof](proof-notes/2026-08-12-final-inputd-qemu-runtime-success.md) |
-| QEMU before hardware | Preserve rollback and repeatability | [native-host boundary](proof-notes/2026-08-12-native-cosmic-host-boundary.md) |
+| Separate systemd targets | Keep GNOME and COSMIC lifecycle ownership distinct | [final QEMU proof](proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md) |
+| QEMU before hardware | Preserve rollback and repeatability | [native-host boundary](proof-notes/2026-08-11-native-cosmic-host-boundary.md) |
 | Keep COSMIC PRs unmerged | Avoid upstream merge before maintainer direction | [`WORK_PRODUCT.md`](WORK_PRODUCT.md) |
 
 ## Packaging and deployment model

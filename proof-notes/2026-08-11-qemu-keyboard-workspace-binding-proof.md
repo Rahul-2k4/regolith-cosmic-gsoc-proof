@@ -1,6 +1,6 @@
 # QEMU keyboard workspace binding proof
 
-Date: 2026-08-12
+Date: 2026-08-11
 
 During a fresh disposable QEMU graphical-login run, HMP key injection reached
 the live COSMIC-backed Sway session through its active Sway IPC socket.
