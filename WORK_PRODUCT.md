@@ -483,6 +483,49 @@ integrity evidence, not a new package build or release claim.
   multi-display behavior remain unverified.
   [Hardware capability boundary](proof-notes/2026-08-10-physical-hardware-capability-boundary.md)
 
+- **Full apt-install DoD closure (Ubuntu 26.04):** `apt-get install -y
+  regolith-session-cosmic` was run against a clean `ubuntu:26.04` Docker
+  container using a local pool of every needed `.deb` plus Regolith's own
+  upstream apt repo as a real source, with no manual overrides and no
+  `--force`. Result: `EXIT_CODE=0`, confirmed by a full log grep for `E:`
+  errors and independently re-verified twice in fresh containers. This
+  closed 23 COSMIC/Regolith components built and verified through Voulage
+  for the first time (`cosmic-session`, `cosmic-comp`,
+  `cosmic-settings-daemon`, `cosmic-osd`, `cosmic-idle`, `cosmic-randr`,
+  `cosmic-app-library`, `cosmic-applets`, `cosmic-icons`, `cosmic-launcher`,
+  `cosmic-panel`, `cosmic-screenshot`, `cosmic-files`, `cosmic-greeter`,
+  `cosmic-notifications`, `pop-fonts`, `regolith-look-default`,
+  `xdg-desktop-portal-cosmic`, `pop-launcher`, `pop-icon-theme`, and
+  `sway-regolith`), plus two real bugs found and fixed: `cosmic-comp` built
+  against a stale build-host `libdisplay-info1` instead of the target's real
+  SONAME, fixed inside a disposable container rather than touching host
+  packages; and `cosmic-settings-daemon`'s hard `Depends` on
+  `adw-gtk3`/`pop-sound-theme` (neither package exists anywhere), moved to
+  `Recommends`. Debian trixie has one remaining real gap: `sway-regolith`
+  needs `libwlroots-0.19-dev`, which trixie's own archives only carry at
+  `0.18` — a distro-version difference, not required here since the
+  proposal's DoD names either Trixie or Ubuntu 26.04. This is a Phase 1
+  packaging result, not one of the 12 runtime/UX criteria; it strengthens
+  criterion 10's evidence but that criterion remains **Partial** since
+  nothing was signed or published to a real distribution channel.
+  [Full apt-install DoD closure proof](proof-notes/2026-08-14-full-apt-install-dod-closure.md)
+- **Cosmolith generated-config.d persistence (source/unit):** the
+  proposal-committed `generated-config.d` persistence path, previously
+  unimplemented, was added TDD-first with 4 new tests (red, then green) and
+  a clean `cargo fmt --check`. Keyboard layout/variant persistence, which
+  feeds criterion 4, was traced and confirmed to already flow through the
+  same mechanism, verified with 2 further tests rather than claimed as a
+  separate fix. This is source/unit-test evidence only: a live QEMU proof
+  was attempted and confirmed the known-good disk boots under current
+  tooling, but could not complete login because the guest password is not
+  stored anywhere in this repo and was not bypassed. Criterion 4 stays `Not
+  met as written` and criterion 7 stays `Partial`.
+  [Cosmolith persistence proof](proof-notes/2026-08-14-cosmolith-generated-config-persistence.md)
+- **`cosmic-session` parent-lifecycle reverification:** the previously
+  reported `swaymsg exit` parent-lifecycle fix was found already applied
+  from a prior session and was independently reverified this session
+  (`cargo fmt --check`, tests, push) rather than re-claimed as new work.
+
 ## Open boundaries
 
 - **Final technical article:** the reconciled integration article is available
@@ -584,6 +627,9 @@ supersede earlier frozen tuple pins.
 | `regolith-displayd` | [`rahul/displayd-wayland-multi-output-reconcile-20260812`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-multi-output-reconcile-20260812) | [`e4b2168`](https://github.com/Rahul-2k4/regolith-displayd/commit/e4b2168) | Frozen target-safe displayd plus reviewed Wayland output-head/mode removal reconciliation tests | `cargo fmt --check`, `git diff --check`, 51 library tests, and 25 binary-target tests passed; existing `num_derive` warning remains | Personal fork branch; test-only extension, not the frozen package tuple |
 | `cosmolith` | [`fix/startup-xkb-events-atomic`](https://github.com/Rahul-2k4/cosmolith/tree/fix/startup-xkb-events-atomic) | [`8bf1960`](https://github.com/Rahul-2k4/cosmolith/commit/8bf1960) | Startup XKB events, deterministic session/error work, and reviewed Sway helper tests | Linux `cargo test --lib`: 10 passed; `git diff --check` clean; existing branch-wide `cargo fmt --check` differences remain documented | Personal fork branch; PRs #17, #18, and #19 remain mentor-authorized and open; no merge claimed |
 | `voulage` | [`main`](https://github.com/Rahul-2k4/voulage/tree/main) | [`02d5d49`](https://github.com/Rahul-2k4/voulage/commit/02d5d49f) | Canonical package model on the default branch: pins `regolith-session` to `831596f` and `regolith-inputd` to `c658754`; includes the opt-in no-APT local-build gate (`49f26e1`) used to build the corrected session transition, with default apt setup unchanged | Source-pin, opt-in/default apt-gate, syntax, JSON, diff checks, and Ubuntu/Trixie binary builds passed | Personal fork only; no upstream merge |
+| `voulage` (branch, not yet on `main`) | `repin-settings-daemon-theme-fix-20260814` | `5006cd1b` (repin, on top of `reconcile-all-cosmic-pins-20260812` at `6e3f1117`) | Pins the full 23-component `cosmic-*`/`pop-*`/`sway-regolith` model used for tonight's apt-install closure, plus the `cosmic-settings-daemon` Depends-to-Recommends repin | 23 components independently sha256-verified; `git ls-remote` confirms both branches pushed | Personal fork branch; not reconciled into `main` yet |
+| `cosmolith` | [`fix/startup-xkb-events-atomic`](https://github.com/Rahul-2k4/cosmolith/tree/fix/startup-xkb-events-atomic) | [`8bf1960`](https://github.com/Rahul-2k4/cosmolith/commit/8bf1960) | Startup XKB events, deterministic session/error work, and reviewed Sway helper tests | Linux `cargo test --lib`: 10 passed; `git diff --check` clean; existing branch-wide `cargo fmt --check` differences remain documented | Personal fork branch; PRs #17, #18, and #19 remain mentor-authorized and open; no merge claimed |
+| `cosmolith` (separate branch, packaging lineage) | `rahul/generated-config-persistence-20260814` | `4134034c` (base `pkg/cosmolith-voulage-20260809` at `70bb1bd`) | Adds `generated-config.d` write-through persistence for Sway input directives; keyboard layout/variant confirmed to reuse the same path | 4 new tests red-then-green, plus 2 targeted keyboard-path tests; `cargo fmt --check` clean; `git ls-remote` confirms push | Personal fork branch; separate lineage from the PR #17/18/19 branch above, not yet reconciled with it |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
 ## Next steps
