@@ -67,9 +67,10 @@ login in a disposable QEMU overlay, the then-current candidate applied the
 named QEMU profile and Sway IPC reported `Virtual-1` at `1024x768@60.004Hz`.
 That run used the pre-correction Kanshi ownership and is retained as
 historical single-output persistence evidence only. The newer package proof
-below moves Kanshi back to GNOME-only ownership while COSMIC persistence stays
-with the displayd Wayland observer. Criterion 7 remains `Partial`, and the
-strict status remains **62-68%** and **4 of 12 criteria fully met**.
+below is a separate COSMolith generated-Sway-config path: it does not claim
+that the displayd-only observer applies profiles. Criterion 7 remains
+`Partial`, and the strict status remains **62-68%** and **4 of 12 criteria
+fully met**. See the [exact COSMolith package proof](proof-notes/2026-08-16-cosmolith-exact-package-display-runtime.md).
 
 The later [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
 tested the final displayd package alone. The live mode change was accepted,
@@ -81,7 +82,8 @@ The [e606e0c displayd candidate](proof-notes/2026-08-16-displayd-storage-pass-ap
 prevents the initial Wayland snapshot from overwriting the saved profile. In
 QEMU, the profile survived a cold reset, but the compositor remained at
 `1280x800` because the current COSMIC path has no active profile-apply helper.
-This is storage-pass/apply-fail evidence; criterion 7 remains `Partial`.
+This is storage-pass/apply-fail evidence for that displayd-only tuple;
+criterion 7 remains `Partial`.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
@@ -225,14 +227,16 @@ integrity evidence, not a new package build or release claim.
 - **Display observer and restore (QEMU):** the existing display harness changed
   `Virtual-1` from `1280x800 @ 74.994 Hz` to `1024x768 @ 60.004 Hz`, observed a
   Sway output event, and restored the original mode. This is single-output
-  QEMU evidence only; physical hotplug, mixed DPI, and reboot persistence
-  remain open.
+  observer evidence only; physical hotplug, mixed DPI, and persistence for
+  that observer-only path remain open. The newer exact COSMolith generated
+  profile proof is recorded separately below.
   [Display observer proof](proof-notes/2026-08-12-qemu-display-observer-proof.md)
 - **Displayd mode-selection candidate:** trace evidence identified stale
   Wayland mode selection. Candidate `8fa2832` passes its regression, Linux
   tests, and unsigned package build; its extracted binary rewrote the saved
   profile during a bounded QEMU run. System package installation and
-  cold-reboot persistence remain open.
+  cold-reboot persistence remained open for that extracted candidate run; the
+  later exact COSMolith package result is recorded separately.
   [Candidate proof](proof-notes/2026-08-12-displayd-mode-selection-fix.md)
   The isolated [Voulage model candidate](proof-notes/2026-08-12-voulage-displayd-candidate-model.md)
   pins the same source and reaches the real build before the interactive-sudo
