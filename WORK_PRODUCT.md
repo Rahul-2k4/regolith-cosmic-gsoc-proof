@@ -17,7 +17,7 @@ sanitized wrapper proof.
 | 7 | Settings persist across reboot | Partial | extracted displayd candidate rewrites a single-output profile in QEMU; packaged install and cold-reboot persistence remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct metadata and current staged amd64 solver/install checks are clean; three expected GNOME keyring/theme survivors remain documented; canonical Trixie output and final survivor/release review remain |
-| 10 | Voulage metadata + validated builds, publication coordinated | Partial | Ubuntu 26.04 install now proven from a signed local repository; canonical Voulage publication and maintainer coordination remain open |
+| 10 | Voulage metadata + validated builds, publication coordinated | Partial | Personal Voulage wrapper now produces a real unsigned Resolute displayd package and Ubuntu 26.04 install passes from a signed local repository; canonical publication and maintainer coordination remain open |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
 
@@ -517,6 +517,13 @@ integrity evidence, not a new package build or release claim.
   This is stronger packaging evidence, but it is not publication to Regolith's
   archive and does not close criterion 10.
   [Signed repository proof](proof-notes/2026-08-15-signed-repository-apt-install-proof.md)
+- **Voulage wrapper build closure for displayd:** the personal wrapper branch
+  now passes nightly Cargo through `debuild --prepend-path` for the lockfile-v4
+  source and produces a real unsigned
+  `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`. The exact source,
+  wrapper commit, package hash, and vendored hashes are recorded in the
+  [wrapper build proof](proof-notes/2026-08-15-voulage-displayd-wrapper-build-proof.md).
+  This is not archive publication or QEMU installation proof.
 - **Cosmolith generated-config.d persistence (source/unit):** the
   proposal-committed `generated-config.d` persistence path, previously
   unimplemented, was added TDD-first with 4 new tests (red, then green) and

@@ -26,6 +26,11 @@ Ubuntu 26.04 container with `signed-by` and no trust warnings. This remains a
 local demonstration repository, not Regolith archive publication. Canonical
 signing, publication, and maintainer acceptance remain open.
 
+The personal [Voulage displayd wrapper proof](proof-notes/2026-08-15-voulage-displayd-wrapper-build-proof.md)
+also records a real unsigned `regolith-displayd_0.3.4-1-1regolith-resolute`
+package produced through the wrapper after the Cargo.lock v4 fix. It is not
+yet a published or QEMU-installed artifact.
+
 The COSMIC-specific cosmolith branch also has a [Sway helper test
 proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
 clone passed all 10 library tests; the note keeps the existing formatting and
