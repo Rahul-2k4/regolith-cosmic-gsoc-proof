@@ -675,6 +675,16 @@ leaves the COSMIC Wayland observer in `regolith-displayd`; focused metadata
 tests pass. This is a review candidate, not yet the frozen runtime package
 tuple and not an upstream PR.
 
+The corrected source is also pinned in the isolated Voulage branch
+[`chore/repin-displayd-87c2b677`](https://github.com/Rahul-2k4/voulage/tree/chore/repin-displayd-87c2b677)
+at [`92da34a7`](https://github.com/Rahul-2k4/voulage/commit/92da34a7d41b8120e1b7f385af521f683c3361ed).
+The Ubuntu Resolute build produced
+`regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` with SHA-256
+`941d1b04489bc3ccd178d942321ad529a3ae2e78b6da5eda1046c36a6f2f6b40`.
+See the [Voulage package proof](proof-notes/2026-08-16-voulage-displayd-repin-build-proof.md).
+This is an unsigned package artifact; it does not claim a fresh QEMU install
+or canonical Regolith publication.
+
 ## Next steps
 
 ### Immediately actionable by a maintainer
