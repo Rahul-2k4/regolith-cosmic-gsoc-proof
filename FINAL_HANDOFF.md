@@ -20,6 +20,12 @@ and [binary-build](proof-notes/2026-08-12-native-trixie-binary-build-proof.md)
 proof notes. The binary run produced unsigned `.deb` evidence for both COSMIC
 packages; it does not claim signing, apt publication, or release acceptance.
 
+The latest [signed local-repository proof](proof-notes/2026-08-15-signed-repository-apt-install-proof.md)
+shows the complete `regolith-session-cosmic` install resolving twice in a fresh
+Ubuntu 26.04 container with `signed-by` and no trust warnings. This remains a
+local demonstration repository, not Regolith archive publication. Canonical
+signing, publication, and maintainer acceptance remain open.
+
 The COSMIC-specific cosmolith branch also has a [Sway helper test
 proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
 clone passed all 10 library tests; the note keeps the existing formatting and

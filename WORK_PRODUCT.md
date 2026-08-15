@@ -17,7 +17,7 @@ sanitized wrapper proof.
 | 7 | Settings persist across reboot | Partial | extracted displayd candidate rewrites a single-output profile in QEMU; packaged install and cold-reboot persistence remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct metadata and current staged amd64 solver/install checks are clean; three expected GNOME keyring/theme survivors remain documented; canonical Trixie output and final survivor/release review remain |
-| 10 | Voulage metadata + validated builds, publication coordinated | Partial | builds proven; unsigned, unpublished |
+| 10 | Voulage metadata + validated builds, publication coordinated | Partial | Ubuntu 26.04 install now proven from a signed local repository; canonical Voulage publication and maintainer coordination remain open |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
 
@@ -506,9 +506,17 @@ integrity evidence, not a new package build or release claim.
   `0.18` — a distro-version difference, not required here since the
   proposal's DoD names either Trixie or Ubuntu 26.04. This is a Phase 1
   packaging result, not one of the 12 runtime/UX criteria; it strengthens
-  criterion 10's evidence but that criterion remains **Partial** since
-  nothing was signed or published to a real distribution channel.
+  criterion 10's evidence but that criterion remains **Partial** since the
+  repository used a local demonstration signing key and was not published to
+  Regolith's distribution channel.
   [Full apt-install DoD closure proof](proof-notes/2026-08-14-full-apt-install-dod-closure.md)
+- **Signed local-repository install (Ubuntu 26.04):** the full
+  `regolith-session-cosmic` dependency closure was installed twice in a fresh
+  `ubuntu:26.04` container from a local GPG-signed repository using
+  `signed-by`, with zero trust warnings and independent `dpkg -l` confirmation.
+  This is stronger packaging evidence, but it is not publication to Regolith's
+  archive and does not close criterion 10.
+  [Signed repository proof](proof-notes/2026-08-15-signed-repository-apt-install-proof.md)
 - **Cosmolith generated-config.d persistence (source/unit):** the
   proposal-committed `generated-config.d` persistence path, previously
   unimplemented, was added TDD-first with 4 new tests (red, then green) and
