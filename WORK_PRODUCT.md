@@ -687,6 +687,12 @@ See the [final Voulage package proof](proof-notes/2026-08-16-voulage-displayd-fi
 This is an unsigned package artifact; it does not claim a fresh QEMU install
 or canonical Regolith publication.
 
+The [final displayd QEMU runtime proof](proof-notes/2026-08-16-final-displayd-qemu-runtime-proof.md)
+then installed this exact package in a disposable overlay and reached a cold
+Regolith COSMIC login. The target, displayd, inputd, and COSMIC idle helper
+were active with zero exit status; Kanshi was inactive under COSMIC, and Sway
+IPC reported `Virtual-1`. This remains QEMU-only and single-output evidence.
+
 ## Next steps
 
 ### Immediately actionable by a maintainer

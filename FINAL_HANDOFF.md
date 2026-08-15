@@ -145,6 +145,12 @@ Voulage package proof below keeps Kanshi GNOME-only and leaves COSMIC display
 persistence with displayd. The strict status remains **62-68%** and **4 of 12
 criteria fully met**.
 
+The [final displayd QEMU runtime proof](proof-notes/2026-08-16-final-displayd-qemu-runtime-proof.md)
+installs that exact package in a disposable overlay and records a cold
+Regolith COSMIC session with displayd, inputd, and the COSMIC idle helper
+active. Kanshi is inactive under COSMIC, and Sway IPC responds. The proof is
+QEMU-only and single-output.
+
 The later displayd review found a target-contract mismatch: Kanshi was still
 listed under the COSMIC target even though the COSMIC display path uses the
 displayd Wayland observer. The personal-fork candidate
