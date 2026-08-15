@@ -21,6 +21,13 @@ sanitized wrapper proof.
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
 
+The isolated [Voulage target-split repin](proof-notes/2026-08-16-voulage-session-target-split-repin.md)
+now pins the proven `regolith-session` target split at `831596f`. This closes
+the model-integrity gap for that isolated branch, but it is not a new build or
+runtime result. The remaining `gnome-keyring` and Regolith Look theme packages
+are retained and documented because current source inspection shows their
+runtime roles; criterion 9 remains `Partial`.
+
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
 session, activated both target-owned helpers, and opened the ilia launcher via
