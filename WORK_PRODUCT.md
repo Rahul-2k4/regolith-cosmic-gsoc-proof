@@ -14,7 +14,7 @@ sanitized wrapper proof.
 | 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
-| 7 | Settings persist across reboot | Partial | extracted displayd candidate rewrites a single-output profile in QEMU; packaged install and cold-reboot persistence remain open |
+| 7 | Settings persist across reboot | Partial | exact cosmolith/inputd packages persist one keyboard setting across a QEMU cold reboot; display and full settings matrix remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct metadata and current staged amd64 solver/install checks are clean; three expected GNOME keyring/theme survivors remain documented; canonical Trixie output and final survivor/release review remain |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | Personal Voulage wrapper now produces a real unsigned Resolute displayd package and Ubuntu 26.04 install passes from a signed local repository; canonical publication and maintainer coordination remain open |
@@ -35,6 +35,12 @@ The corrected [launcher-binding proof](proof-notes/2026-08-11-qemu-launcher-bind
 also records `Mod4+Space` launching `ilia`.
 The fresh [final-tuple parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md)
 also records a clean controlled Sway exit with `PARENT_EXIT_PASS`.
+
+The [cosmolith cold-reboot persistence proof](proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
+adds exact current package hashes, a generated-config round trip, and a fresh
+graphical QEMU login after reboot. It proves one input setting only; it does
+not close the Settings GUI, native compositor, hardware, or full display
+persistence boundaries.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),

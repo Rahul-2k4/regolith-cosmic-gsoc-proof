@@ -31,6 +31,11 @@ also records a real unsigned `regolith-displayd_0.3.4-1-1regolith-resolute`
 package produced through the wrapper after the Cargo.lock v4 fix. It is not
 yet a published or QEMU-installed artifact.
 
+The [cosmolith cold-reboot persistence proof](proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
+records the current `cosmolith` and `regolith-inputd` package hashes, a
+generated Sway configuration round trip, and a fresh graphical QEMU login
+after reboot. The result covers one keyboard setting and remains QEMU-only.
+
 The COSMIC-specific cosmolith branch also has a [Sway helper test
 proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
 clone passed all 10 library tests; the note keeps the existing formatting and

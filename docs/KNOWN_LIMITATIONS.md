@@ -184,15 +184,16 @@ Each entry: what fails or is unproven, why, what would close it.
   `2026-07-21-macos-voulage-resolver-shell.md`
   (macOS shell blocker resolved for resolver-only checks)
 
-### Cosmolith package hash unreproducible
+### Historical cosmolith artifact retraction
 
-- **What:** A previously recorded `cosmolith*.deb` SHA-256 is no longer
-  verifiable; `cosmolith` also lacks `debian/` on remaining branches.
-- **Why:** Disposable Voulage worktree removed in disk cleanup.
-- **Need:** Regenerable packaging layout or stop citing the hash (retraction
-  already recorded in the proof note).
-- **Vault:** `2026-08-10-unreachable-proof-artifacts.md`;
-  related early gap `2026-06-26-cosmolith-fresh-login-proof-blocker.md`
+- **What:** An older `cosmolith*.deb` hash from a removed disposable worktree
+  is retracted and must not be used as current evidence.
+- **Current state:** A newer exact package hash is retained in the
+  [cold-reboot persistence proof](../proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
+  and tied to the current source branch. The package is still unsigned and
+  unpublished.
+- **Need:** Canonical Voulage packaging, signing, publication, and maintainer
+  acceptance.
 
 ## Scope not attempted (stretch / rejected paths)
 
