@@ -49,6 +49,14 @@ both target-owned helper units are active, and Sway IPC reports the virtual
 output and input devices. It does not close physical hardware, publication,
 or the full display/settings matrix.
 
+The [patched display-persistence QEMU proof](proof-notes/2026-08-16-display-persistence-patched-qemu-proof.md)
+adds the patched personal-fork commits and exact package hashes. After a cold
+login in a disposable QEMU overlay, the COSMIC target started the Kanshi
+helper, the named QEMU profile held `1024x768@60.004Hz`, and Sway IPC reported
+the same mode for `Virtual-1`. This remains one-output QEMU evidence only;
+criterion 7 remains `Partial`, and the strict status remains **62-68%** and
+**4 of 12 criteria fully met**.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without

@@ -120,6 +120,13 @@ together; both helper units were active, the three daemons were running, and
 Sway IPC reported the QEMU output and input devices. See the [combined displayd
 package proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md).
 
+The patched display-persistence path has a separate [QEMU proof](proof-notes/2026-08-16-display-persistence-patched-qemu-proof.md).
+It records the exact displayd/session source commits and package hashes. In a
+disposable overlay, a cold login started the Kanshi helper from the COSMIC
+target; the named QEMU profile and Sway IPC both reported `1024x768` at
+`60.004 Hz`. This is one-output QEMU evidence only and does not change the
+strict status of **62-68%** and **4 of 12 criteria fully met**.
+
 ## Reproduction helpers
 
 - [`reproduce-voulage-branch-tuple.sh`](scripts/reproduce-voulage-branch-tuple.sh)
