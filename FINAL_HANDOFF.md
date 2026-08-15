@@ -120,6 +120,14 @@ together; both helper units were active, the three daemons were running, and
 Sway IPC reported the QEMU output and input devices. See the [combined displayd
 package proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md).
 
+The wrapper-owned cosmolith startup path has an earlier real-greeter proof in
+[the corrected Voulage model note](proof-notes/2026-08-10-corrected-voulage-model-real-greeter.md).
+That run recorded `cosmolith` in the greeter-launched process tree. The
+systemd target owns the Regolith helper units; cosmolith is started by the
+session wrapper after the Sway IPC socket is ready. The newer persistence run
+started cosmolith explicitly and is therefore not used as a second autostart
+claim.
+
 The patched display-persistence path has a separate [QEMU proof](proof-notes/2026-08-16-display-persistence-patched-qemu-proof.md).
 It records the exact displayd/session source commits and package hashes. In a
 disposable overlay, a cold login started the Kanshi helper from the COSMIC
