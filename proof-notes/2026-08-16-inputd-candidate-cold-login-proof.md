@@ -2,7 +2,8 @@
 
 Date: 2026-08-16
 
-The reviewed `regolith-inputd` source pin `c658754` was built through Voulage
+The reviewed [`regolith-inputd` source pin `c658754`](https://github.com/Rahul-2k4/regolith-inputd/commit/c658754ec10ac75422cba8e1c3517bba6075795f)
+was built through the [Voulage package model](https://github.com/Rahul-2k4/voulage/commit/e9ab3361)
 for Ubuntu Resolute as:
 
 - `regolith-inputd 0.4.1-2-1regolith-resolute amd64`
