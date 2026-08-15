@@ -137,10 +137,13 @@ claim.
 
 The patched display-persistence path has a separate [QEMU proof](proof-notes/2026-08-16-display-persistence-patched-qemu-proof.md).
 It records the exact displayd/session source commits and package hashes. In a
-disposable overlay, a cold login started the Kanshi helper from the COSMIC
-target; the named QEMU profile and Sway IPC both reported `1024x768` at
-`60.004 Hz`. This is one-output QEMU evidence only and does not change the
-strict status of **62-68%** and **4 of 12 criteria fully met**.
+disposable overlay, the then-current candidate applied the named QEMU profile
+and Sway IPC reported `Virtual-1` at `1024x768` at `60.004 Hz`. That run used
+the pre-correction Kanshi ownership, so it remains historical single-output
+persistence evidence and is not proof of the newer target contract. The newer
+Voulage package proof below keeps Kanshi GNOME-only and leaves COSMIC display
+persistence with displayd. The strict status remains **62-68%** and **4 of 12
+criteria fully met**.
 
 The later displayd review found a target-contract mismatch: Kanshi was still
 listed under the COSMIC target even though the COSMIC display path uses the

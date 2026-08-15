@@ -51,11 +51,13 @@ or the full display/settings matrix.
 
 The [patched display-persistence QEMU proof](proof-notes/2026-08-16-display-persistence-patched-qemu-proof.md)
 adds the patched personal-fork commits and exact package hashes. After a cold
-login in a disposable QEMU overlay, the COSMIC target started the Kanshi
-helper, the named QEMU profile held `1024x768@60.004Hz`, and Sway IPC reported
-the same mode for `Virtual-1`. This remains one-output QEMU evidence only;
-criterion 7 remains `Partial`, and the strict status remains **62-68%** and
-**4 of 12 criteria fully met**.
+login in a disposable QEMU overlay, the then-current candidate applied the
+named QEMU profile and Sway IPC reported `Virtual-1` at `1024x768@60.004Hz`.
+That run used the pre-correction Kanshi ownership and is retained as
+historical single-output persistence evidence only. The newer package proof
+below moves Kanshi back to GNOME-only ownership while COSMIC persistence stays
+with the displayd Wayland observer. Criterion 7 remains `Partial`, and the
+strict status remains **62-68%** and **4 of 12 criteria fully met**.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
@@ -666,7 +668,7 @@ supersede earlier frozen tuple pins.
 | `voulage` (branch, not yet on `main`) | `repin-settings-daemon-theme-fix-20260814` | `5006cd1b` (repin, on top of `reconcile-all-cosmic-pins-20260812` at `6e3f1117`) | Pins the full 23-component `cosmic-*`/`pop-*`/`sway-regolith` model used for tonight's apt-install closure, plus the `cosmic-settings-daemon` Depends-to-Recommends repin | 23 components independently sha256-verified; `git ls-remote` confirms both branches pushed | Personal fork branch; not reconciled into `main` yet |
 | `cosmolith` | [`fix/startup-xkb-events-atomic`](https://github.com/Rahul-2k4/cosmolith/tree/fix/startup-xkb-events-atomic) | [`8bf1960`](https://github.com/Rahul-2k4/cosmolith/commit/8bf1960) | Startup XKB events, deterministic session/error work, and reviewed Sway helper tests | Linux `cargo test --lib`: 10 passed; `git diff --check` clean; existing branch-wide `cargo fmt --check` differences remain documented | Personal fork branch; PRs #17, #18, and #19 remain mentor-authorized and open; no merge claimed |
 | `cosmolith` (separate branch, packaging lineage) | `rahul/generated-config-persistence-20260814` | `4134034c` (base `pkg/cosmolith-voulage-20260809` at `70bb1bd`) | Adds `generated-config.d` write-through persistence for Sway input directives; keyboard layout/variant confirmed to reuse the same path | 4 new tests red-then-green, plus 2 targeted keyboard-path tests; `cargo fmt --check` clean; `git ls-remote` confirms push | Personal fork branch; separate lineage from the PR #17/18/19 branch above, not yet reconciled with it |
-| `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
+| `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | Historical COSMIC Kanshi ownership candidate plus safe Sway resource fallbacks; superseded for display persistence by displayd's Wayland observer and the GNOME-only Kanshi correction | Source ownership test and earlier QEMU result are historical; they are not current COSMIC Kanshi ownership proof | Fork only; not the current display-persistence tuple |
 
 The latest displayd target-contract correction is on the personal fork branch
 [`rahul/displayd-wayland-description-persistence-20260815`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-description-persistence-20260815)
