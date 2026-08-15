@@ -147,6 +147,11 @@ Voulage package proof below keeps Kanshi GNOME-only and leaves COSMIC display
 persistence with displayd. The strict status remains **62-68%** and **4 of 12
 criteria fully met**.
 
+The [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
+tested the final displayd package alone. The live mode change succeeded, but a
+cold reset returned the output and profile to `1280x800`. This is a failed
+bounded attempt and is kept separate from the older exact session+Kanshi proof.
+
 The [final displayd QEMU runtime proof](proof-notes/2026-08-16-final-displayd-qemu-runtime-proof.md)
 installs that exact package in a disposable overlay and records a cold
 Regolith COSMIC session with displayd, inputd, and the COSMIC idle helper
