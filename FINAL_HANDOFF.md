@@ -135,6 +135,14 @@ target; the named QEMU profile and Sway IPC both reported `1024x768` at
 `60.004 Hz`. This is one-output QEMU evidence only and does not change the
 strict status of **62-68%** and **4 of 12 criteria fully met**.
 
+The later displayd review found a target-contract mismatch: Kanshi was still
+listed under the COSMIC target even though the COSMIC display path uses the
+displayd Wayland observer. The personal-fork candidate
+[`87c2b67`](https://github.com/Rahul-2k4/regolith-displayd/commit/87c2b677cdd8b580998c4210e1bb73a572c5785d)
+keeps Kanshi GNOME-only and preserves displayd for both session targets.
+Focused metadata checks pass. It is a review candidate, not an upstream PR or
+the frozen runtime tuple.
+
 ## Reproduction helpers
 
 - [`reproduce-voulage-branch-tuple.sh`](scripts/reproduce-voulage-branch-tuple.sh)

@@ -668,6 +668,13 @@ supersede earlier frozen tuple pins.
 | `cosmolith` (separate branch, packaging lineage) | `rahul/generated-config-persistence-20260814` | `4134034c` (base `pkg/cosmolith-voulage-20260809` at `70bb1bd`) | Adds `generated-config.d` write-through persistence for Sway input directives; keyboard layout/variant confirmed to reuse the same path | 4 new tests red-then-green, plus 2 targeted keyboard-path tests; `cargo fmt --check` clean; `git ls-remote` confirms push | Personal fork branch; separate lineage from the PR #17/18/19 branch above, not yet reconciled with it |
 | `regolith-wm-config` | `rahul/cosmic-kanshi-owner-wm-config-resource-fallbacks-20260808` | [`10225c05`](https://github.com/Rahul-2k4/regolith-wm-config/commit/10225c056ee3ae15ab5745aba5a86ba611801ed5) | COSMIC kanshi ownership plus safe Sway resource fallbacks for idle/display helpers | Canonical idle-ownership source test PASS; QEMU cold-login ownership proven separately | Fork only; checked-out published tip on personal remote |
 
+The latest displayd target-contract correction is on the personal fork branch
+[`rahul/displayd-wayland-description-persistence-20260815`](https://github.com/Rahul-2k4/regolith-displayd/tree/rahul/displayd-wayland-description-persistence-20260815)
+at [`87c2b67`](https://github.com/Rahul-2k4/regolith-displayd/commit/87c2b677cdd8b580998c4210e1bb73a572c5785d). It keeps Kanshi GNOME-only and
+leaves the COSMIC Wayland observer in `regolith-displayd`; focused metadata
+tests pass. This is a review candidate, not yet the frozen runtime package
+tuple and not an upstream PR.
+
 ## Next steps
 
 ### Immediately actionable by a maintainer
