@@ -214,6 +214,14 @@ integrity evidence, not a new package build or release claim.
   state. This is installed-tuple runtime evidence; it does not claim hardware
   input or that the package was built from source commit `271bc2a`.
   [Fresh QEMU verifier proof](proof-notes/2026-08-12-qemu-inputd-feature-matrix-runtime.md)
+- **Reviewed inputd candidate cold login (QEMU):** Voulage built the pinned
+  `c658754` source as `regolith-inputd 0.4.1-2-1regolith-resolute`. The exact
+  package was installed in a disposable overlay and survived a cold graphical
+  login with the COSMIC target, inputd/displayd helpers, Sway keyboard/pointer
+  inventory, and wrapper-owned COSMolith process present. The package and
+  executable hashes are recorded. No physical touchpad is exposed by this
+  guest, so touchpad reverse-sync remains open.
+  [Reviewed inputd cold-login proof](proof-notes/2026-08-16-inputd-candidate-cold-login-proof.md)
 - **Display observer and restore (QEMU):** the existing display harness changed
   `Virtual-1` from `1280x800 @ 74.994 Hz` to `1024x768 @ 60.004 Hz`, observed a
   Sway output event, and restored the original mode. This is single-output
