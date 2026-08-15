@@ -20,21 +20,17 @@ produced:
 
 ```text
 regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb
-SHA-256: a790ef10df1f8f06f8f5953bb3a5da092d32b5ca62f92167298beee6ee6c6766
+SHA-256: 89c8b5edc0ebc6387d91b766af5e0680abd016b8ed8a30fe4936c1f31c63157e
 ```
 
 The package metadata reports version `0.3.4-1-1regolith-resolute`, architecture
 `amd64`, and the expected `regolith-displayd` dependencies. The generated
-vendored source and Cargo configuration were also retained and hashed:
-
-```text
-vendor.tar: 00814c07ec2d7ee88dc6ead9e167f2a95e14a5b5d8bb205b365250ec5df78685
-.cargo/config: 77e9219c27274120197571fd165cbe4121963b5ad3bc0b20b383c86ef0ce6c2b
-```
+vendored source and Cargo configuration passed the same build; the exact
+package hash above is the retained artifact used for the combined QEMU proof.
 
 ## Boundaries
 
-This is a personal-fork, unsigned local Voulage build. The package was not
-uploaded to Regolith's archive and was not installed in QEMU in this run.
-Canonical publication, release signing, mentor review, and runtime validation
-remain open.
+This is a personal-fork, unsigned local Voulage build. The package was
+installed in a disposable QEMU overlay and exercised in the combined runtime
+proof. It was not uploaded to Regolith's archive. Canonical publication,
+release signing, and mentor review remain open. See the [combined QEMU proof](2026-08-15-combined-displayd-package-qemu-proof.md).

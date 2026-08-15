@@ -28,8 +28,9 @@ signing, publication, and maintainer acceptance remain open.
 
 The personal [Voulage displayd wrapper proof](proof-notes/2026-08-15-voulage-displayd-wrapper-build-proof.md)
 also records a real unsigned `regolith-displayd_0.3.4-1-1regolith-resolute`
-package produced through the wrapper after the Cargo.lock v4 fix. It is not
-yet a published or QEMU-installed artifact.
+package produced through the wrapper after the Cargo.lock v4 fix. The exact
+package was installed in the combined [QEMU proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md);
+it is not a published archive artifact.
 
 The [cosmolith cold-reboot persistence proof](proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
 records the current `cosmolith` and `regolith-inputd` package hashes, a
@@ -112,6 +113,12 @@ Sway exited, the wrapper reported `PARENT_EXIT_PASS` and found no surviving
 `cosmic-session` or `dbus-run-session` parent. See the [parent-exit proof](proof-notes/2026-08-12-final-tuple-parent-exit-proof.md).
 This does not replace full display-manager logout/shutdown or native logind
 proof.
+
+The current combined package tuple was also checked after a cold graphical
+login. The exact displayd, inputd, and cosmolith packages were installed
+together; both helper units were active, the three daemons were running, and
+Sway IPC reported the QEMU output and input devices. See the [combined displayd
+package proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md).
 
 ## Reproduction helpers
 

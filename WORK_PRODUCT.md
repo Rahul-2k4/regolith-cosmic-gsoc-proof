@@ -42,6 +42,13 @@ graphical QEMU login after reboot. It proves one input setting only; it does
 not close the Settings GUI, native compositor, hardware, or full display
 persistence boundaries.
 
+The [combined displayd package QEMU proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md)
+adds the exact current Voulage-built displayd package to the same disposable
+QEMU integration boundary. The package tuple reaches a cold graphical login,
+both target-owned helper units are active, and Sway IPC reports the virtual
+output and input devices. It does not close physical hardware, publication,
+or the full display/settings matrix.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
