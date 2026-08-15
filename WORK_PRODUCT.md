@@ -583,6 +583,16 @@ integrity evidence, not a new package build or release claim.
   stored anywhere in this repo and was not bypassed. Criterion 4 stays `Not
   met as written` and criterion 7 stays `Partial`.
   [Cosmolith persistence proof](proof-notes/2026-08-14-cosmolith-generated-config-persistence.md)
+- **Exact COSMolith package display runtime (QEMU):** the Voulage-built
+  `cosmolith 0.1.0-1-1regolith-resolute` package was installed in the
+  disposable session. A live `cosmic-randr` change updated the generated
+  `Virtual-1` profile, and after a cold reset the wrapper-owned COSMolith
+  process relaunched after compositor readiness; Sway still reported
+  `1024x768@60.004Hz`. The package and executable hashes are recorded, along
+  with the required Wayland environment and startup wait. This remains
+  single-output QEMU evidence and does not close native compositor, hardware,
+  multi-display, or publication boundaries.
+  [Exact COSMolith display runtime proof](proof-notes/2026-08-16-cosmolith-exact-package-display-runtime.md)
 - **`cosmic-session` parent-lifecycle reverification:** the previously
   reported `swaymsg exit` parent-lifecycle fix was found already applied
   from a prior session and was independently reverified this session
