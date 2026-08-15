@@ -36,8 +36,10 @@ The final target-ownership and packaging result is recorded in the [final
 displayd Voulage package proof](proof-notes/2026-08-16-voulage-displayd-final-package-proof.md).
 It pins source `294b219` through Voulage commit `5b4ee085`, installs both
 manpages, keeps Kanshi GNOME-only, and records the exact package hash. This
-newer artifact has not yet been installed in QEMU, so the earlier combined
-proof remains the runtime authority.
+package proof is build evidence; the exact artifact was later installed in a
+disposable QEMU overlay, as recorded in the final QEMU runtime proof below.
+The earlier combined proof remains historical evidence for the pre-correction
+runtime tuple.
 
 The [cosmolith cold-reboot persistence proof](proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
 records the current `cosmolith` and `regolith-inputd` package hashes, a
