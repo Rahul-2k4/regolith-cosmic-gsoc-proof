@@ -152,6 +152,11 @@ tested the final displayd package alone. The live mode change succeeded, but a
 cold reset returned the output and profile to `1280x800`. This is a failed
 bounded attempt and is kept separate from the older exact session+Kanshi proof.
 
+The follow-up [e606e0c candidate proof](proof-notes/2026-08-16-displayd-storage-pass-apply-fail.md)
+fixes the profile overwrite: the saved `1024x768` profile survives reset, but
+the current COSMIC output remains `1280x800` because no COSMIC profile-apply
+helper is active. Full display persistence is therefore still open.
+
 The [final displayd QEMU runtime proof](proof-notes/2026-08-16-final-displayd-qemu-runtime-proof.md)
 installs that exact package in a disposable overlay and records a cold
 Regolith COSMIC session with displayd, inputd, and the COSMIC idle helper

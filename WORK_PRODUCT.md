@@ -72,6 +72,12 @@ but after a cold reset the output and profile returned to `1280x800`. This is
 recorded as a failed bounded attempt; it does not replace or broaden the
 earlier exact-tuple proof.
 
+The [e606e0c displayd candidate](proof-notes/2026-08-16-displayd-storage-pass-apply-fail.md)
+prevents the initial Wayland snapshot from overwriting the saved profile. In
+QEMU, the profile survived a cold reset, but the compositor remained at
+`1280x800` because the current COSMIC path has no active profile-apply helper.
+This is storage-pass/apply-fail evidence; criterion 7 remains `Partial`.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
