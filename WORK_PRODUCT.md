@@ -601,6 +601,8 @@ integrity evidence, not a new package build or release claim.
   single-output QEMU evidence and does not close native compositor, hardware,
   multi-display, or publication boundaries.
   [Exact COSMolith display runtime proof](proof-notes/2026-08-16-cosmolith-exact-package-display-runtime.md)
+- The older displayd-only storage/apply boundary remains separately recorded;
+  it does not contradict the COSMolith generated-Sway-config result above.
 - **`cosmic-session` parent-lifecycle reverification:** the previously
   reported `swaymsg exit` parent-lifecycle fix was found already applied
   from a prior session and was independently reverified this session

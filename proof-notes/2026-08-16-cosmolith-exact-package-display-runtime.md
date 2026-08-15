@@ -45,6 +45,10 @@ the wrapper-owned COSMolith process after login. An SSH shell does not inherit
 the Wayland environment, and the wrapper starts COSMolith after compositor
 readiness.
 
+This result is distinct from the older displayd-only storage-pass/apply-fail
+tuple, where Kanshi was inactive. Here the generated Sway directive is loaded
+by the Sway-backed compositor during the next session start.
+
 ## Limits
 
 This is QEMU-only, single-output, Sway-backed evidence. It does not prove
