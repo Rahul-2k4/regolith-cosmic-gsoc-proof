@@ -46,6 +46,19 @@ records the current `cosmolith` and `regolith-inputd` package hashes, a
 generated Sway configuration round trip, and a fresh graphical QEMU login
 after reboot. The result covers one keyboard setting and remains QEMU-only.
 
+The newer [exact COSMolith display-runtime proof](proof-notes/2026-08-16-cosmolith-exact-package-display-runtime.md)
+uses the corrected COSMolith source commit `cd1cbb0` and the exact Voulage
+package. A live `cosmic-randr` mode change was followed by a cold reset and
+graphical login; the wrapper restarted COSMolith and Sway reported the saved
+`Virtual-1` mode. This is single-output, QEMU, Sway-backed evidence. It does
+not claim native `cosmic-comp`, hardware, or multi-display coverage.
+
+The matching [inputd cold-login proof](proof-notes/2026-08-16-inputd-candidate-cold-login-proof.md)
+uses source pin `c658754` and the reviewed Resolute package. It verifies the
+COSMIC target, helper units, inputd process, COSMolith process, and Sway
+keyboard/pointer inventory after a cold login. The QEMU guest exposes no
+physical touchpad.
+
 The COSMIC-specific cosmolith branch also has a [Sway helper test
 proof](proof-notes/2026-08-12-cosmolith-sway-helper-tests.md). Its fresh Linux
 clone passed all 10 library tests; the note keeps the existing formatting and
