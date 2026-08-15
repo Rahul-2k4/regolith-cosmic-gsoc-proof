@@ -28,6 +28,11 @@ runtime result. The remaining `gnome-keyring` and Regolith Look theme packages
 are retained and documented because current source inspection shows their
 runtime roles; criterion 9 remains `Partial`.
 
+The follow-up [target-split package build](proof-notes/2026-08-16-voulage-session-target-split-build.md)
+built the exact pin successfully and verified package ownership. The complete
+external dependency graph and fresh install were not rerun from this artifact,
+so criterion 9 remains `Partial`.
+
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
 session, activated both target-owned helpers, and opened the ilia launcher via
