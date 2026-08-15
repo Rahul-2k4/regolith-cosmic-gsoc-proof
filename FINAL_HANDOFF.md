@@ -32,6 +32,13 @@ package produced through the wrapper after the Cargo.lock v4 fix. The exact
 package was installed in the combined [QEMU proof](proof-notes/2026-08-15-combined-displayd-package-qemu-proof.md);
 it is not a published archive artifact.
 
+The later target-ownership correction is recorded in the [displayd Voulage
+repin and package proof](proof-notes/2026-08-16-voulage-displayd-repin-build-proof.md).
+It pins source `87c2b67` through Voulage commit `92da34a7`, produces the same
+package family with the GNOME-only Kanshi unit, and records the exact package
+hash. This newer artifact has not yet been installed in QEMU, so the earlier
+combined proof remains the runtime authority.
+
 The [cosmolith cold-reboot persistence proof](proof-notes/2026-08-15-cosmolith-cold-reboot-persistence.md)
 records the current `cosmolith` and `regolith-inputd` package hashes, a
 generated Sway configuration round trip, and a fresh graphical QEMU login
