@@ -59,6 +59,12 @@ below moves Kanshi back to GNOME-only ownership while COSMIC persistence stays
 with the displayd Wayland observer. Criterion 7 remains `Partial`, and the
 strict status remains **62-68%** and **4 of 12 criteria fully met**.
 
+The later [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
+tested the final displayd package alone. The live mode change was accepted,
+but after a cold reset the output and profile returned to `1280x800`. This is
+recorded as a failed bounded attempt; it does not replace or broaden the
+earlier exact-tuple proof.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
