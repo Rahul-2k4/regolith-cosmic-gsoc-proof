@@ -22,7 +22,14 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
-## Latest closure update - 2026-08-16
+## Latest closure update - 2026-08-17
+
+The [fresh COSMolith input/display persistence proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+supersedes the earlier same-day diagnostic tuple. With the active Sway session
+context inherited, live Sway applied French/AZERTY and repeat `540/31`; the
+same state and `1024x768` remained after a second cold reboot/login. The
+current criteria ledger is **5 of 12**, all QEMU-only, and the strict estimate
+remains **62-68%**.
 
 The latest package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
@@ -65,10 +72,9 @@ the change, and the US `600/25` state was restored. This does not claim the
 COSMIC Settings GUI or physical touchpad coverage.
 
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
-tests the same input package with COSMolith in one disposable QEMU tuple. The
-French/AZERTY layout and `Virtual-1` 1024x768 mode survived a second cold login;
-keyboard repeat reverted to `600/25`, so criterion 7 remains partial and the
-repeat-persistence fix is still open.
+is retained as a historical diagnostic tuple. Its manually traced COSMolith
+process lacked the active Sway session context, so repeat reverted to `600/25`.
+The fresh session-context proof above is the current Criterion 7 evidence.
 
 ## Current closure slice - 2026-08-12
 

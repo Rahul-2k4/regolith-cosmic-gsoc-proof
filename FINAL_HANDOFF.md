@@ -4,6 +4,16 @@ Project: **Build a COSMIC-based Wayland Session for Regolith**
 
 Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
+## Latest update - 2026-08-17
+
+The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+adds a verified live and second-cold-reboot QEMU result: French/AZERTY,
+repeat `540/31`, and `1024x768` survived with COSMIC target/inputd/displayd
+active and the GNOME target inactive. The current criteria ledger is **5 of
+12**, all QEMU-only. The strict estimate remains **62-68%**; the native
+Settings GUI, hardware display matrix, archive publication, and maintainer
+acceptance remain open.
+
 ## Start here
 
 1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.
@@ -166,8 +176,9 @@ and Sway IPC reported `Virtual-1` at `1024x768` at `60.004 Hz`. That run used
 the pre-correction Kanshi ownership, so it remains historical single-output
 persistence evidence and is not proof of the newer target contract. The newer
 Voulage package proof below keeps Kanshi GNOME-only and leaves COSMIC display
-persistence with displayd. The strict status remains **62-68%** and **4 of 12
-criteria fully met**.
+persistence with displayd. That historical proof recorded **4 of 12** criteria;
+the current handoff status is recorded above as **5 of 12** after the fresh
+session-context QEMU proof.
 
 The [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
 tested the final displayd package alone. The live mode change succeeded, but a
@@ -210,7 +221,7 @@ installer; use the dated proof notes for the current package names and hashes.
 
 ## Status
 
-Strict evidence-backed status: **62-68%**, **4 of 12 criteria fully met**.
+Strict evidence-backed status: **62-68%**, **5 of 12 criteria fully met**.
 
 The result is QEMU-first. It does not claim native COSMIC hardware proof. The
 project laptop was checked read-only and is Ubuntu GNOME without COSMIC
