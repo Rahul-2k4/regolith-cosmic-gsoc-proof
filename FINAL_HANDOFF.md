@@ -25,6 +25,9 @@ shows the complete `regolith-session-cosmic` install resolving twice in a fresh
 Ubuntu 26.04 container with `signed-by` and no trust warnings. This remains a
 local demonstration repository, not Regolith archive publication. Canonical
 signing, publication, and maintainer acceptance remain open.
+The [reproduction-input audit](proof-notes/2026-08-16-signed-closure-reproduction-input-audit.md)
+records that the current public packet does not contain the complete historical
+pool or a full-closure replay script, so no fresh replay claim is made.
 
 The personal [Voulage displayd wrapper proof](proof-notes/2026-08-15-voulage-displayd-wrapper-build-proof.md)
 also records a real unsigned `regolith-displayd_0.3.4-1-1regolith-resolute`

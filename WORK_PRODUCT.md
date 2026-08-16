@@ -583,6 +583,8 @@ integrity evidence, not a new package build or release claim.
   This is stronger packaging evidence, but it is not publication to Regolith's
   archive and does not close criterion 10.
   [Signed repository proof](proof-notes/2026-08-15-signed-repository-apt-install-proof.md)
+  The current public packet does not include the complete historical pool or a
+  full-closure replay script; see the [reproduction-input audit](proof-notes/2026-08-16-signed-closure-reproduction-input-audit.md).
 - **Voulage wrapper build closure for displayd:** the personal wrapper branch
   now passes nightly Cargo through `debuild --prepend-path` for the lockfile-v4
   source and produces a real unsigned
