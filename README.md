@@ -37,6 +37,11 @@ output. The suffix issue is now fixed and independently rebuilt on the
 personal fork; see the [Voulage version-composition fix](proof-notes/2026-08-16-voulage-version-composition-fix.md).
 The stale inputd artifact and release-level packaging checks remain open.
 
+The corrected `cosmic-osd` metadata has now been rebuilt independently with
+zero Lintian findings; see the [cosmic-osd metadata and Lintian closure](proof-notes/2026-08-16-cosmic-osd-lintian-closure.md).
+The artifact is unsigned and from a personal fork, so this does not prove
+official publication or final release readiness.
+
 ## Current closure slice - 2026-08-12
 
 Current aggregate public proof tip: `main`.
