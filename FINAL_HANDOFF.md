@@ -37,7 +37,10 @@ local demonstration repository, not Regolith archive publication. Canonical
 signing, publication, and maintainer acceptance remain open.
 The [reproduction-input audit](proof-notes/2026-08-16-signed-closure-reproduction-input-audit.md)
 records that the current public packet does not contain the complete historical
-pool or a full-closure replay script, so no fresh replay claim is made.
+pool or a full-closure replay script. A separate fresh local-pool result is now
+recorded in the [2026-08-17 Ubuntu 26.04 closure proof](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md);
+it is a verified result from the preserved project-laptop artifacts, not a
+claim that the public repository alone can reproduce the entire pool.
 
 The personal [Voulage displayd wrapper proof](proof-notes/2026-08-15-voulage-displayd-wrapper-build-proof.md)
 also records a real unsigned `regolith-displayd_0.3.4-1-1regolith-resolute`

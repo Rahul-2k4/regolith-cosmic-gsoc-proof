@@ -31,6 +31,14 @@ same state and `1024x768` remained after a second cold reboot/login. The
 current criteria ledger is **5 of 12**, all QEMU-only, and the strict estimate
 remains **62-68%**.
 
+The [Ubuntu 26.04 local-pool closure proof](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md)
+adds a fresh disposable package transaction. The local Resolute pool indexed
+44 entries from 47 artifacts, and installing the COSMIC, GNOME-target, and
+Sway session packages returned `0` with an empty `dpkg --audit`. This improves
+the package-install evidence for Criteria 9 and 10. It does not prove a
+greeter-selected graphical Resolute login, signed archive publication, or
+hardware behavior.
+
 The latest package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
 It records an exact local-provider apt transaction in a disposable Ubuntu
