@@ -130,6 +130,12 @@ mutation to French/AZERTY and repeat `540/31` was reflected by Sway, then the
 US `600/25` state was restored. This is config-layer watcher evidence, not a
 COSMIC Settings GUI, physical touchpad, or hardware claim.
 
+The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
+uses the same input package with COSMolith in one disposable tuple. French/AZERTY
+and `Virtual-1` 1024x768 survived a second cold login, but repeat reverted to
+`600/25`; criterion 7 therefore remains `Partial` and repeat persistence is an
+open implementation gate.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without

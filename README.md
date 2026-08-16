@@ -64,6 +64,12 @@ COSMIC xkb config changed to French/AZERTY with repeat `540/31`, Sway reflected
 the change, and the US `600/25` state was restored. This does not claim the
 COSMIC Settings GUI or physical touchpad coverage.
 
+The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
+tests the same input package with COSMolith in one disposable QEMU tuple. The
+French/AZERTY layout and `Virtual-1` 1024x768 mode survived a second cold login;
+keyboard repeat reverted to `600/25`, so criterion 7 remains partial and the
+repeat-persistence fix is still open.
+
 ## Current closure slice - 2026-08-12
 
 Current aggregate public proof tip: `main`.
