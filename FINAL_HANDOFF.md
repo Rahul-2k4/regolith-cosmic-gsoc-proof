@@ -14,6 +14,11 @@ active and the GNOME target inactive. The current criteria ledger is **5 of
 Settings GUI, hardware display matrix, archive publication, and maintainer
 acceptance remain open.
 
+The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
+adds a fresh overlay install, reboot, greetd COSMIC login, active COSMIC
+target/helpers, inactive GNOME target, and clean `dpkg --audit`. It strengthens
+Criterion 9 but does not replace the clean archive or complete survivor audit.
+
 ## Start here
 
 1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.

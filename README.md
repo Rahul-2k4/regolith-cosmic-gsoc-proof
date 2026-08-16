@@ -39,6 +39,13 @@ the package-install evidence for Criteria 9 and 10. It does not prove a
 greeter-selected graphical Resolute login, signed archive publication, or
 hardware behavior.
 
+The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
+then installed the same Resolute session tuple on a copy-on-write overlay,
+rebooted, and reached a greetd COSMIC login with the COSMIC target and both
+helpers active, the GNOME target inactive, and an empty `dpkg --audit`. This
+is stronger QEMU evidence for Criterion 9, not a clean archive or hardware
+claim.
+
 The latest package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
 It records an exact local-provider apt transaction in a disposable Ubuntu
