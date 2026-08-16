@@ -92,6 +92,13 @@ QEMU, the profile survived a cold reset, but the compositor remained at
 This is storage-pass/apply-fail evidence for that displayd-only tuple;
 criterion 7 remains `Partial`.
 
+The [cosmic-osd metadata and Lintian closure](proof-notes/2026-08-16-cosmic-osd-lintian-closure.md)
+records reviewed source `63afc394` and an unsigned Ubuntu Resolute package
+with version `0.1.0-1-1regolith-resolute`, SHA-256
+`a5b827b387758731e010d076a7efd7e043289cc320d71601e533ea61ad228e2d`, and
+Lintian exit `0`. This is package-quality evidence only; it does not prove
+signing, official publication, or graphical runtime.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
