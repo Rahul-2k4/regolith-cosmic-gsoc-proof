@@ -99,6 +99,14 @@ with version `0.1.0-1-1regolith-resolute`, SHA-256
 Lintian exit `0`. This is package-quality evidence only; it does not prove
 signing, official publication, or graphical runtime.
 
+The [cosmic-settings-daemon metadata closure](proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md)
+records source commit `59d674e1`, a successful vendored Ubuntu Resolute build,
+package version `0.1.0-1-1regolith-resolute`, SHA-256
+`e10c88b9a3f71b9327b4a165dca8c87f343cc3756a00d269e5cc90d6386aec3d`, and a
+clean direct binary-package Lintian run. Remaining source and dbgsym warnings
+are listed in the note; this is package-quality evidence, not release or
+runtime proof.
+
 The [final tuple graphical-login rerun](proof-notes/2026-08-16-final-tuple-graphical-login-rerun.md)
 adds a fresh Pop!_OS QEMU reboot/login using the current session target-start,
 inputd, displayd, and wm-config packages. The COSMIC target and helper units

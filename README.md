@@ -42,6 +42,11 @@ zero Lintian findings; see the [cosmic-osd metadata and Lintian closure](proof-n
 The artifact is unsigned and from a personal fork, so this does not prove
 official publication or final release readiness.
 
+The [cosmic-settings-daemon metadata closure](proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md)
+now records a corrected DEP-5 copyright, successful vendored Resolute build,
+correct package version composition, and clean direct binary-package Lintian.
+Source and generated debug-package warnings remain explicitly listed.
+
 The [final tuple graphical-login rerun](proof-notes/2026-08-16-final-tuple-graphical-login-rerun.md)
 adds a fresh disposable Pop!_OS QEMU login after reboot. It verifies the
 COSMIC target, healthy inputd/displayd helpers, GNOME target exclusion, empty
