@@ -22,6 +22,19 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
+## Latest closure update - 2026-08-16
+
+The latest package and runtime evidence is in
+[r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
+It records an exact local-provider apt transaction in a disposable Ubuntu
+26.04 build environment and two graphical Pop!_OS 24.04 QEMU logins with a
+reboot between them. The Pop!_OS result is useful runtime evidence, but it is
+not an Ubuntu Resolute runtime claim.
+
+The same note records two package-metadata boundaries: a stale bare inputd
+artifact and a Voulage double-distro suffix in the current `cosmic-osd`
+output. Those items remain open for packaging review.
+
 ## Current closure slice - 2026-08-12
 
 Current aggregate public proof tip: `main`.
