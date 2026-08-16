@@ -99,6 +99,14 @@ with version `0.1.0-1-1regolith-resolute`, SHA-256
 Lintian exit `0`. This is package-quality evidence only; it does not prove
 signing, official publication, or graphical runtime.
 
+The [final tuple graphical-login rerun](proof-notes/2026-08-16-final-tuple-graphical-login-rerun.md)
+adds a fresh Pop!_OS QEMU reboot/login using the current session target-start,
+inputd, displayd, and wm-config packages. The COSMIC target and helper units
+were healthy, the GNOME target was inactive, `dpkg --audit` was empty, ilia
+launched through `Mod4+Space`, and representative workspace switching passed.
+This strengthens QEMU evidence without closing the Ubuntu Resolute or
+hardware gates.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without

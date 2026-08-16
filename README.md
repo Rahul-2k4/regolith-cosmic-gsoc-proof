@@ -42,6 +42,12 @@ zero Lintian findings; see the [cosmic-osd metadata and Lintian closure](proof-n
 The artifact is unsigned and from a personal fork, so this does not prove
 official publication or final release readiness.
 
+The [final tuple graphical-login rerun](proof-notes/2026-08-16-final-tuple-graphical-login-rerun.md)
+adds a fresh disposable Pop!_OS QEMU login after reboot. It verifies the
+COSMIC target, healthy inputd/displayd helpers, GNOME target exclusion, empty
+`dpkg --audit`, the ilia launcher binding, and representative workspace
+switching. It remains Pop!_OS/QEMU-only evidence.
+
 ## Current closure slice - 2026-08-12
 
 Current aggregate public proof tip: `main`.
