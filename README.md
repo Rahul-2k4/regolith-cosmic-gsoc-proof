@@ -39,6 +39,12 @@ the package-install evidence for Criteria 9 and 10. It does not prove a
 greeter-selected graphical Resolute login, signed archive publication, or
 hardware behavior.
 
+The [clean COSMIC-only survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md)
+replays `apt-get install regolith-session-cosmic` without explicitly
+installing the GNOME target. The GNOME session/bootstrap packages and session
+payload paths are absent, but four GNOME-related transitive packages remain and
+still need written removal plans. Criterion 9 therefore remains Partial.
+
 The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
 then installed the same Resolute session tuple on a copy-on-write overlay,
 rebooted, and reached a greetd COSMIC login with the COSMIC target and both

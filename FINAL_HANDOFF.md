@@ -19,6 +19,12 @@ adds a fresh overlay install, reboot, greetd COSMIC login, active COSMIC
 target/helpers, inactive GNOME target, and clean `dpkg --audit`. It strengthens
 Criterion 9 but does not replace the clean archive or complete survivor audit.
 
+The [clean COSMIC-only survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md)
+also installs only `regolith-session-cosmic` in a fresh Ubuntu 26.04
+container. It finds no GNOME session/bootstrap package or session payload, but
+four GNOME-related transitive packages remain. Criterion 9 stays Partial until
+each survivor has a written justification and removal plan.
+
 The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
 records the latest lifecycle attempt. The guest reached a clean COSMIC login
 with the target and helpers active, but an SSH-created transient logind session
