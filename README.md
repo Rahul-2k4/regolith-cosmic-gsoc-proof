@@ -33,7 +33,9 @@ not an Ubuntu Resolute runtime claim.
 
 The same note records two package-metadata boundaries: a stale bare inputd
 artifact and a Voulage double-distro suffix in the current `cosmic-osd`
-output. Those items remain open for packaging review.
+output. The suffix issue is now fixed and independently rebuilt on the
+personal fork; see the [Voulage version-composition fix](proof-notes/2026-08-16-voulage-version-composition-fix.md).
+The stale inputd artifact and release-level packaging checks remain open.
 
 ## Current closure slice - 2026-08-12
 
