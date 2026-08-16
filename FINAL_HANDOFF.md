@@ -76,6 +76,12 @@ and 23 GNOME-only tests, with formatting and diff checks clean. This confirms
 the backend feature split at source level; it does not replace the QEMU runtime
 proof or close physical input coverage.
 
+The [criterion 9 exact repin audit](proof-notes/2026-08-16-criterion-9-session-repin-audit.md)
+rechecks source `831596f`, Voulage model `5b11b055`, six package hashes, and
+GNOME/COSMIC target ownership. It keeps the exact-packet closure and matching
+graphical-guest limitations explicit; it does not claim a Resolute graphical
+login from the available Noble guest.
+
 The fresh [QEMU inputd verifier proof](proof-notes/2026-08-12-qemu-inputd-feature-matrix-runtime.md)
 returned zero failures for the installed binary, COSMIC environment, target
 ownership, inputd/displayd health, and failed-unit state. It is installed-tuple

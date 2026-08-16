@@ -16,7 +16,7 @@ sanitized wrapper proof.
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
 | 7 | Settings persist across reboot | Partial | exact cosmolith/inputd packages persist one keyboard setting across a QEMU cold reboot; display and full settings matrix remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
-| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | direct metadata and current staged amd64 solver/install checks are clean; three expected GNOME keyring/theme survivors remain documented; canonical Trixie output and final survivor/release review remain |
+| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | exact `831596f` repin and six-package metadata/ownership audit pass; `gnome-keyring` and Regolith Look theme survivors are justified; exact-packet archive closure and matching-guest graphical login remain open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | Personal Voulage wrapper now produces a real unsigned Resolute displayd package and Ubuntu 26.04 install passes from a signed local repository; canonical publication and maintainer coordination remain open |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
@@ -32,6 +32,13 @@ The follow-up [target-split package build](proof-notes/2026-08-16-voulage-sessio
 built the exact pin successfully and verified package ownership. The complete
 external dependency graph and fresh install were not rerun from this artifact,
 so criterion 9 remains `Partial`.
+
+The newer [criterion 9 exact repin audit](proof-notes/2026-08-16-criterion-9-session-repin-audit.md)
+rechecks source `831596f`, Voulage model `5b11b055`, six package hashes, target
+ownership, and direct metadata. It records the exact QEMU and clean-container
+boundaries honestly: the available graphical guest is Noble while the packet
+is Resolute, and the disposable closure run lacked the complete upstream
+Regolith dependency pool. No exact-packet graphical-login claim is made.
 
 The earlier read-only QEMU pass confirmed guest key-based SSH but found only
 the greeter. A later snapshot-backed cold login reached a live COSMIC/Sway
