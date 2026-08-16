@@ -53,6 +53,11 @@ COSMIC target, healthy inputd/displayd helpers, GNOME target exclusion, empty
 `dpkg --audit`, the ilia launcher binding, and representative workspace
 switching. It remains Pop!_OS/QEMU-only evidence.
 
+The [canonical inputd QEMU runtime note](proof-notes/2026-08-16-inputd-canonical-qemu-runtime.md)
+repeats that contract with the canonical inputd source commit and the
+`0.4.1-2-1regolith-resolute` package. Live COSMIC input-source mutation and
+physical touchpad reverse-sync remain unproven.
+
 ## Current closure slice - 2026-08-12
 
 Current aggregate public proof tip: `main`.

@@ -115,6 +115,15 @@ launched through `Mod4+Space`, and representative workspace switching passed.
 This strengthens QEMU evidence without closing the Ubuntu Resolute or
 hardware gates.
 
+The [canonical inputd QEMU runtime note](proof-notes/2026-08-16-inputd-canonical-qemu-runtime.md)
+repeats the packaged COSMIC backend/session contract with source commit
+`c658754e`, inputd package SHA-256
+`52dfaba9617f046100ae0b32392662254e5411cc8d3c7c1265c57358e1901d34`, and
+installed binary SHA-256
+`955bc3838fda47d69d14cd132cba64960b35a52323e88d201d986fbc75be6315`.
+It does not claim live input-source mutation, physical touchpad reverse-sync,
+Ubuntu Resolute graphical login, or hardware proof.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
