@@ -124,6 +124,12 @@ installed binary SHA-256
 It does not claim live input-source mutation, physical touchpad reverse-sync,
 Ubuntu Resolute graphical login, or hardware proof.
 
+The [canonical inputd xkb live-watch proof](proof-notes/2026-08-17-inputd-canonical-xkb-live-watch-qemu.md)
+adds a fresh Pop!_OS QEMU run against the same package. A COSMIC xkb config
+mutation to French/AZERTY and repeat `540/31` was reflected by Sway, then the
+US `600/25` state was restored. This is config-layer watcher evidence, not a
+COSMIC Settings GUI, physical touchpad, or hardware claim.
+
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
 introduced in `cedcd52` and hardened in `f8a84a0`. It checks an already-installed session without
