@@ -65,8 +65,8 @@ and maintainer acceptance remain open.
 
 ## Current result
 
-The strict evidence-backed result is **62-68%**, with **4 of 12** proposal
-success criteria fully met. This is a QEMU-first engineering result, not a
+The strict evidence-backed result is **62-68%**, with **5 of 12** proposal
+success criteria fully met in the current QEMU-only ledger. This is not a
 claim of completed hardware validation or upstream release.
 
 The complete criteria table and links to source, package, test, and runtime

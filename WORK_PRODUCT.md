@@ -4,7 +4,7 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
-## Proposal success criteria: 4 of 12 fully met
+## Proposal success criteria: 5 of 12 fully met
 
 | # | Criterion | Status | Scope |
 |---|---|---|---|
@@ -14,7 +14,7 @@ sanitized wrapper proof.
 | 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
-| 7 | Settings persist across reboot | Partial | exact cosmolith/inputd packages persist one keyboard setting across a QEMU cold reboot; display and full settings matrix remain open |
+| 7 | Settings persist across reboot | Met | QEMU-only: after a second cold reboot/login, corrected COSMolith `XkbConfig` retained French/AZERTY, repeat `540/31`, and `1024x768`; hardware and full settings matrix remain open |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | exact `831596f` repin and six-package metadata/ownership audit pass; `gnome-keyring` and Regolith Look theme survivors are justified; exact-packet archive closure and matching-guest graphical login remain open |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | Personal Voulage wrapper now produces a real unsigned Resolute displayd package and Ubuntu 26.04 install passes from a signed local repository; canonical publication and maintainer coordination remain open |
@@ -73,11 +73,14 @@ adds the patched personal-fork commits and exact package hashes. After a cold
 login in a disposable QEMU overlay, the then-current candidate applied the
 named QEMU profile and Sway IPC reported `Virtual-1` at `1024x768@60.004Hz`.
 That run used the pre-correction Kanshi ownership and is retained as
-historical single-output persistence evidence only. The newer package proof
-below is a separate COSMolith generated-Sway-config path: it does not claim
-that the displayd-only observer applies profiles. Criterion 7 remains
-`Partial`, and the strict status remains **62-68%** and **4 of 12 criteria
-fully met**. See the [exact COSMolith package proof](proof-notes/2026-08-16-cosmolith-exact-package-display-runtime.md).
+historical single-output persistence evidence only.
+
+The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+is the current persistence result. With the active Sway session context,
+COSMolith applied French/AZERTY and repeat `540/31` live; the generated
+directives and `1024x768` display state remained after a second login. This
+moves Criterion 7 to `Met` for the tested QEMU scope. Hardware hotplug, mixed
+DPI, the native Settings GUI, and the full settings matrix remain open.
 
 The later [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
 tested the final displayd package alone. The live mode change was accepted,
@@ -131,10 +134,12 @@ US `600/25` state was restored. This is config-layer watcher evidence, not a
 COSMIC Settings GUI, physical touchpad, or hardware claim.
 
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
-uses the same input package with COSMolith in one disposable tuple. French/AZERTY
-and `Virtual-1` 1024x768 survived a second cold login, but repeat reverted to
-`600/25`; criterion 7 therefore remains `Partial` and repeat persistence is an
-open implementation gate.
+is a historical same-day tuple whose traced launcher lacked the active Sway
+session context; its repeat value reverted to `600/25`. The [fresh
+session-context proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+supersedes that diagnostic result: it records the corrected launcher identity,
+live repeat application, and the second cold reboot/login result used for the
+current Criterion 7 status.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),

@@ -130,6 +130,11 @@ merged upstream work.
 
 At the Aug 12 freeze, four of the proposal's twelve success criteria are fully
 met. All four are QEMU-only. The honest strict proposal estimate is **62-68%**.
+Since that freeze, the [fresh QEMU proof](../proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+has moved the reboot-persistence criterion to `Met` for the tested tuple. The
+current ledger is five of twelve, still QEMU-only; the percentage estimate is
+unchanged because the remaining gates cover hardware, the native Settings
+path, release work, and maintainer review.
 The remaining work is not hidden: native display mutation, the hardware
 matrix, complete idle and parent-session lifecycle semantics, signing and
 canonical publication, and final maintainer review remain open.
