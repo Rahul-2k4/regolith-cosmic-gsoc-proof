@@ -46,6 +46,11 @@ helpers active, the GNOME target inactive, and an empty `dpkg --audit`. This
 is stronger QEMU evidence for Criterion 9, not a clean archive or hardware
 claim.
 
+The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
+records a separate lifecycle attempt. Login and target/helper health passed,
+but the SSH/logind session race prevented a valid managed termination request.
+No logout, shutdown, or native idle claim is made from that attempt.
+
 The latest package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
 It records an exact local-provider apt transaction in a disposable Ubuntu

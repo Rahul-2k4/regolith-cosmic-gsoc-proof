@@ -19,6 +19,12 @@ adds a fresh overlay install, reboot, greetd COSMIC login, active COSMIC
 target/helpers, inactive GNOME target, and clean `dpkg --audit`. It strengthens
 Criterion 9 but does not replace the clean archive or complete survivor audit.
 
+The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
+records the latest lifecycle attempt. The guest reached a clean COSMIC login
+with the target and helpers active, but an SSH-created transient logind session
+prevented the harness from selecting a stable local session for termination.
+Managed logout, shutdown, and native idle semantics remain unproven.
+
 ## Start here
 
 1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.
