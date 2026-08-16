@@ -56,7 +56,7 @@ switching. It remains Pop!_OS/QEMU-only evidence.
 The [canonical inputd QEMU runtime note](proof-notes/2026-08-16-inputd-canonical-qemu-runtime.md)
 repeats that contract with the canonical inputd source commit and the
 `0.4.1-2-1regolith-resolute` package. Live COSMIC input-source mutation and
-physical touchpad reverse-sync remain unproven.
+physical touchpad reverse-sync were not covered by that verifier note.
 
 The [canonical inputd xkb live-watch proof](proof-notes/2026-08-17-inputd-canonical-xkb-live-watch-qemu.md)
 adds a fresh Pop!_OS QEMU mutation/restore run for the current package. The

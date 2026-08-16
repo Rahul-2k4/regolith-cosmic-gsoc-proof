@@ -121,8 +121,8 @@ repeats the packaged COSMIC backend/session contract with source commit
 `52dfaba9617f046100ae0b32392662254e5411cc8d3c7c1265c57358e1901d34`, and
 installed binary SHA-256
 `955bc3838fda47d69d14cd132cba64960b35a52323e88d201d986fbc75be6315`.
-It does not claim live input-source mutation, physical touchpad reverse-sync,
-Ubuntu Resolute graphical login, or hardware proof.
+That verifier note does not claim live input-source mutation, physical touchpad
+reverse-sync, Ubuntu Resolute graphical login, or hardware proof.
 
 The [canonical inputd xkb live-watch proof](proof-notes/2026-08-17-inputd-canonical-xkb-live-watch-qemu.md)
 adds a fresh Pop!_OS QEMU run against the same package. A COSMIC xkb config
