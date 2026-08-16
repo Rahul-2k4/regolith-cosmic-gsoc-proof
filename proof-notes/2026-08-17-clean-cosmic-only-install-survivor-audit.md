@@ -42,3 +42,20 @@ This closes the clean COSMIC-only dependency transaction and the absence check
 for the GNOME session/bootstrap packages. It does not prove a graphical
 Ubuntu Resolute login, archive publication, or hardware behavior. Criterion 9
 remains Partial until the surviving packages are justified with removal plans.
+
+## Dependency trace and removal-plan candidates
+
+- regolith-look-default directly depends on gnome-themes-extra. Candidate
+  plan: replace that theme provider, verify GTK rendering, then drop the
+  dependency.
+- network-manager-gnome is installed with network-manager-applet and the
+  libnma libraries. Candidate plan: verify the COSMIC network workflow, then
+  remove the applet stack from the experimental session closure.
+- gnome-keyring remains the keyring/Secret Service implementation. Candidate
+  plan: confirm the replacement Secret Service expected by Regolith/COSMIC
+  before removing it.
+- gnome-themes-extra-data follows the theme package and should be removed with
+  it after the theme replacement is validated.
+
+These are plans to validate, not completed removals. The package audit remains
+Partial pending maintainer direction and a tested dependency change.
