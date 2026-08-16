@@ -585,13 +585,14 @@ integrity evidence, not a new package build or release claim.
   helper health checks were clean.
   [Cosmolith fresh-session QEMU proof](proof-notes/2026-08-09-cosmolith-fresh-session-qemu-proof.md)
 - **Runtime-owned helper teardown (QEMU):** the reviewed Sway-backed wrapper
-  cleans the Regolith-owned compositor, `cosmolith`, helper process groups, and
-  COSMIC targets. The latest packaged lifecycle run observed direct `swaymsg
-  exit` stopping Sway and the Regolith-owned helpers while the exact
-  `cosmic-session` parent remained. The display-manager-owned logout path is
-  still the clean logout result.
-  Earlier Sway-exit captures remain historical context; the canonical negative
-  result is the [parent lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
+  stops the Regolith-owned compositor, `cosmolith`, helper process groups, and
+  COSMIC targets during the tested Sway-exit path. The exact
+  `cosmic-session` parent and display-manager-owned logout semantics remain
+  separate open boundaries. The latest managed-logout attempt could not select
+  a stable local logind session, as recorded in the [managed logout harness
+  boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md).
+  Earlier Sway-exit captures remain historical context; see the [parent
+  lifecycle diagnostic](proof-notes/2026-08-11-parent-lifecycle-diagnostic-qemu-proof.md).
 - **Physical hardware boundary:** a read-only host audit found a physical
   touchpad but no active Regolith/COSMIC session and only the internal display
   connected. No host state was changed; physical touchpad, hotplug, and
@@ -696,12 +697,12 @@ integrity evidence, not a new package build or release claim.
   two fallback idle timeout-lock/unlock cycles are proven in QEMU; native
   cosmic-idle/logind semantics and hardware remain open. The patched
   `cosmic-session` candidate now closes the direct Sway-exit parent process in
-  the disposable proof; the display-manager-owned logout path remains the
-  separately proven clean logout result.
-- **Managed logout:** `loginctl terminate-session` returned the guest to the
-  COSMIC greeter and stopped the COSMIC target plus Regolith helpers. The
-  separate `swaymsg exit` result is documented as a QEMU parent-lifecycle
-  boundary, not as parent cleanup or complete logout semantics.
+  the disposable proof; the display-manager-owned logout path remains
+  unproven.
+- **Managed logout:** the latest disposable attempt reached a clean COSMIC
+  login and healthy target/helpers, but an SSH-created transient logind session
+  prevented the harness from issuing a valid termination request. Managed
+  logout and shutdown remain unproven; see the [harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md).
 - Signing, release readiness/publication, and final mentor review remain open.
 - Signing, the full display matrix, native Settings validation, and hardware
   validation remain open for the newer displayd artifact.

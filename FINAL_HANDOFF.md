@@ -30,7 +30,7 @@ Managed logout, shutdown, and native idle semantics remain unproven.
 1. Read [`WORK_PRODUCT.md`](WORK_PRODUCT.md) for the 12 proposal criteria.
 2. Read [`ARCHITECTURE.md`](ARCHITECTURE.md) for component boundaries, data
    flow, and design decisions.
-3. Read [`TECHNICAL_ARTICLE.md`](TECHNICAL_ARTICLE.md) for the engineering
+3. Read [`docs/ARTICLE.md`](docs/ARTICLE.md) for the reconciled engineering
    narrative.
 4. Read the [install guide](docs/INSTALL.md), [build-dependency matrix](docs/BUILD_DEP_MATRIX.md),
    and [known limitations](docs/KNOWN_LIMITATIONS.md).
@@ -135,12 +135,13 @@ Its isolated [Voulage candidate model](proof-notes/2026-08-12-voulage-displayd-c
 passes model checks and reaches the real build before the known interactive-
 sudo boundary; it is not a release or QEMU package proof.
 
-## Reproduce the verified QEMU result
+## Reproduce the latest verified QEMU result
 
-The exact final runtime result is recorded in [final QEMU graphical-login
-proof](proof-notes/2026-08-11-final-inputd-qemu-runtime-success.md). It used a
-copy-on-write overlay, installed the staged Resolute tuple, rebooted, and
-created a real user session through greetd IPC.
+The latest exact session-package result is recorded in the [Aug 17 QEMU
+proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md). It
+used a copy-on-write overlay, installed the exact Resolute session tuple,
+rebooted, and reached a COSMIC user session through greetd IPC. The earlier
+Aug 11 proof remains a historical baseline for the same runtime contract.
 
 The result verified:
 
@@ -152,11 +153,11 @@ The result verified:
 - inactive `regolith-gnome.target`;
 - empty `dpkg --audit`.
 
-The current package tuple also passes disposable amd64 filesystem installation
-on Ubuntu 26.04 and Debian Trixie with empty `dpkg --audit`. The Trixie run
-uses the available local COSMIC packages with a Resolute suffix, so it is staged
-install evidence rather than canonical Trixie publication proof. See the
-[package install proof](proof-notes/2026-08-12-clean-container-amd64-package-install.md).
+The current package tuple also passes the fresh Ubuntu 26.04 local-pool
+transaction with an empty `dpkg --audit`; see the [Aug 17 closure
+proof](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md). The older
+Debian Trixie run uses local COSMIC packages with a Resolute suffix, so it is
+staged install evidence rather than canonical Trixie publication proof.
 
 Representative keyboard evidence is in the [launcher binding
 proof](proof-notes/2026-08-11-qemu-launcher-binding-proof.md): QEMU HMP

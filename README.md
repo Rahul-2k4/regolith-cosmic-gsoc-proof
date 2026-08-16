@@ -51,7 +51,7 @@ records a separate lifecycle attempt. Login and target/helper health passed,
 but the SSH/logind session race prevented a valid managed termination request.
 No logout, shutdown, or native idle claim is made from that attempt.
 
-The latest package and runtime evidence is in
+Additional package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
 It records an exact local-provider apt transaction in a disposable Ubuntu
 26.04 build environment and two graphical Pop!_OS 24.04 QEMU logins with a
@@ -358,7 +358,8 @@ The script has a cleanup trap that tries to apply the configured restore mode tu
 
 This public repo is a lightweight proof-note bundle. Large raw assets from the private working vault are not copied here; the script above regenerates the display-monitoring proof artifacts.
 
-Reviewer-facing technical article: [TECHNICAL_ARTICLE.md](TECHNICAL_ARTICLE.md).
+Reviewer-facing technical article: [docs/ARTICLE.md](docs/ARTICLE.md).
+`TECHNICAL_ARTICLE.md` remains a legacy snapshot.
 
 ## Claim boundaries
 
