@@ -9,7 +9,8 @@ sanitized wrapper proof.
 The [sprint proof note](proof-notes/2026-08-18-implementation-packaging-sprint.md)
 records accepted source commits and unsigned Voulage artifacts for
 `regolith-session` (`8cfc501`), `regolith-inputd` (`10ba5d8`), COSMolith
-(`592c1f6`), and `cosmic-settings` (`e530ab7`). Displayd `ba8a35a` passed
+(`592c1f6`), and `cosmic-settings` (`e530ab7`). Session source `54d5684`
+also integrates the reviewed native COSMIC idle/fallback gate. Displayd `ba8a35a` passed
 source review for connector-identity equality and hashing and was rebuilt as
 an unsigned Resolute package by Voulage model `79de7831`. The proposed inputd
 reverse-sync commit `531f3b9` was

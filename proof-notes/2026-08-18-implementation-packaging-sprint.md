@@ -7,7 +7,7 @@ work-product update. It does not promote source-only work to runtime proof.
 
 | Component | Personal-fork branch | Accepted source commit | Result |
 |---|---|---|---|
-| `regolith-session` | `codex/session-target-ownership-20260818` | `8cfc501` | COSMIC helper activation is idempotent; GNOME/COSMIC target ownership remains separate |
+| `regolith-session` | `rahul/cosmic-idle-target-start-20260818` | `54d5684` | COSMIC helper activation is idempotent; native COSMIC idle is gated on native compositor ownership; GNOME/COSMIC target ownership remains separate |
 | `regolith-inputd` | `codex/inputd-cosmic-backend-20260818` | `10ba5d8` | one backend per package; GNOME remains default and COSMIC uses `CARGO_FEATURES=cosmic` |
 | COSMolith | `codex/cosmolith-input-layout-variant-20260818` | `592c1f6` | initial layout state, variant-only changes, and comma-separated multi-layout changes covered |
 | `cosmic-settings` | `codex/cosmic-settings-regolith-filter-20260818` | `e530ab7` | exact Regolith COSMIC token filters compositor-only pages |
@@ -23,7 +23,7 @@ They are package/build evidence, not archive publication or runtime evidence.
 
 | Package | Voulage model commit | Artifact and result | SHA-256 |
 |---|---|---|---|
-| `regolith-session` | `42dbf87` | `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`; build and eight shell tests passed; Lintian: 1 error, 8 warnings | tuple preflight verified prefix `de3df8bb...`; full hash retained in the Voulage worktree |
+| `regolith-session` | `6ae27b2` | `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`; target/idle tests, metadata, and package checks passed; direct COSMIC Lintian: 0 | `8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643` |
 | `regolith-inputd` | `707eaf9` | `0.4.1-2-1regolith-resolute`; checks and Lintian returned 0 | `2d27eb6e58951ed6fdd19e0a78cbc38bed5272e37388f21ebb86ef4c46f4aaa0` |
 | COSMolith | `71b5af7` | `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb`; `dpkg-deb` and Lintian returned 0 | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` |
 | `cosmic-settings` | `f6c054a` | `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb`; build and metadata/content passed; Lintian returned 2 | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` |
