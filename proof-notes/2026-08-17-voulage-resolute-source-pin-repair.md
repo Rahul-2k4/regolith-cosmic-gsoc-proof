@@ -24,6 +24,12 @@ clean graphical Resolute guest can log in. The existing source-pin regression
 test still expects an older `regolith-session` ref, so that test-drift finding
 is retained separately rather than hidden.
 
+The focused `main.sh build --only-package regolith-displayd` rerun reached
+vendoring and source-package creation, then stopped at `debsign` because the
+builder has no matching private key. No new binary package is claimed from
+that rerun. The frozen `817becd9` tuple already has an earlier exact unsigned
+binary proof with package SHA-256
+`a452caa4e7f1764fe837447ae92a9cfcd666a5ca7aea03c9378edefe0f57e3ba`.
+
 The two source-pin edits remain local to the disposable worktree. No upstream
 Voulage branch or canonical archive was changed.
-
