@@ -53,6 +53,7 @@ is stronger QEMU evidence for Criterion 9, not a clean archive or hardware
 claim.
 
 The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
+is now followed by a successful [exact-tuple managed logout proof](proof-notes/2026-08-17-managed-logout-exact-tuple-success.md).
 records a separate lifecycle attempt. Login and target/helper health passed,
 but the SSH/logind session race prevented a valid managed termination request.
 No logout, shutdown, or native idle claim is made from that attempt.

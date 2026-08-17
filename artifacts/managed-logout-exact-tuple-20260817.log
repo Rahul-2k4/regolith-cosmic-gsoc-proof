@@ -1,0 +1,44 @@
+PRE
+2026-08-17T19:21:04+05:30
+23 1000 rahul seat0 tty1 active no -
+26 1000 rahul -     -    active no -
+Id=23
+User=1000
+Name=rahul
+Seat=seat0
+Display=
+Remote=no
+Service=cosmic-greeter
+Desktop=Regolith-Wayland
+Leader=3055
+Type=wayland
+Class=user
+Active=yes
+State=active
+rahul       3296    3055 dbus-run-sessio dbus-run-session -- /usr/bin/cosmic-session /usr/lib/regolith/regolith-session-cosmic-runtime sway -c /etc/regolith/sway/config
+rahul       3429    3296 cosmic-session  /usr/bin/cosmic-session /usr/lib/regolith/regolith-session-cosmic-runtime sway -c /etc/regolith/sway/config
+rahul       3431    3429 regolith-sessio /bin/bash /usr/lib/regolith/regolith-session-cosmic-runtime sway -c /etc/regolith/sway/config
+rahul       3432    3431 sway            sway -c /etc/regolith/sway/config
+rahul       3472    3257 regolith-displa /usr/bin/regolith-displayd
+rahul       3523    3257 swayidle        swayidle -w timeout 300 gtklock
+rahul       3525    3257 regolith-inputd /usr/bin/regolith-inputd
+rahul       3686    3591 sh              sh -c i3status-rs /etc/regolith/i3status-rust/config.toml
+rahul       3691    3686 i3status-rs     i3status-rs /etc/regolith/i3status-rust/config.toml
+rahul       3812    3431 systemctl       systemctl --user mask --runtime regolith-init-powerd.service
+TERMINATE
+TERMINATE_RC=0
+POST
+2026-08-17T19:21:16+05:30
+26 1000 rahul          -     -    active no -
+27  987 cosmic-greeter seat0 tty1 active no -
+inactive
+active
+rahul       3472    3257 regolith-displa /usr/bin/regolith-displayd
+rahul       3525    3257 regolith-inputd /usr/bin/regolith-inputd
+cosmic-+    3925    3871 cosmic-comp     cosmic-comp systemd-cat -t cosmic-greeter cosmic-greeter
+AFTER_SETTLE
+27  987 cosmic-greeter seat0 tty1 active no -
+33 1000 rahul          -     -    active no -
+inactive
+inactive
+inactive
