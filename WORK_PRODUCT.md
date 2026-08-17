@@ -10,8 +10,9 @@ The [sprint proof note](proof-notes/2026-08-18-implementation-packaging-sprint.m
 records accepted source commits and unsigned Voulage artifacts for
 `regolith-session` (`8cfc501`), `regolith-inputd` (`10ba5d8`), COSMolith
 (`592c1f6`), and `cosmic-settings` (`e530ab7`). Displayd `ba8a35a` passed
-source review for connector-identity equality and hashing, but its Voulage
-repin is still pending. The proposed inputd reverse-sync commit `531f3b9` was
+source review for connector-identity equality and hashing and was rebuilt as
+an unsigned Resolute package by Voulage model `79de7831`. The proposed inputd
+reverse-sync commit `531f3b9` was
 rejected because it can destroy entries in comma-separated layout lists and is
 not part of the accepted package state.
 

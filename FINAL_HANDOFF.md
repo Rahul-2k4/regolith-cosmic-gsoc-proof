@@ -9,8 +9,8 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
 The [2026-08-18 implementation and packaging sprint](proof-notes/2026-08-18-implementation-packaging-sprint.md)
 records accepted source commits and unsigned Voulage artifacts for
 `regolith-session`, `regolith-inputd`, COSMolith, and `cosmic-settings`.
-Displayd source commit `ba8a35a` passed review, but its Voulage repin remains
-pending. Inputd reverse-sync commit `531f3b9` was rejected because it can
+Displayd source commit `ba8a35a` passed review and was rebuilt as an unsigned
+Resolute package through Voulage model `79de7831`. Inputd reverse-sync commit `531f3b9` was rejected because it can
 collapse comma-separated layout lists and is not packaged or merged. Package
 inspection confirms that `regolith-session-cosmic` has no GNOME runtime
 dependencies; this is not a claim that all transitive GNOME-related packages

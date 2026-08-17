@@ -23,19 +23,20 @@ They are package/build evidence, not archive publication or runtime evidence.
 
 | Package | Voulage model commit | Artifact and result | SHA-256 |
 |---|---|---|---|
-| `regolith-session` | `42dbf87` | `regolith-session-cosmic_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb`; build and eight shell tests passed; Lintian: 1 error, 8 warnings | tuple preflight verified prefix `de3df8bb...`; full hash retained in the Voulage worktree |
+| `regolith-session` | `42dbf87` | `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`; build and eight shell tests passed; Lintian: 1 error, 8 warnings | tuple preflight verified prefix `de3df8bb...`; full hash retained in the Voulage worktree |
 | `regolith-inputd` | `707eaf9` | `0.4.1-2-1regolith-resolute`; checks and Lintian returned 0 | `2d27eb6e58951ed6fdd19e0a78cbc38bed5272e37388f21ebb86ef4c46f4aaa0` |
 | COSMolith | `71b5af7` | `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb`; `dpkg-deb` and Lintian returned 0 | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` |
 | `cosmic-settings` | `f6c054a` | `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb`; build and metadata/content passed; Lintian returned 2 | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` |
+| `regolith-displayd` | `79de7831` | `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`; `dpkg-deb` metadata/content passed; Lintian: 1 error, 4 warnings | `11f0b101c02319b94664b6afb6e82325d3caaba137ea53768471e0a443056815` |
 
 The session artifact's full binary hash is not present in the local tracker
 text; the current tuple preflight records the verified prefix above and the
 full hash remains in the Voulage worktree. The COSMIC settings Lintian result
 includes two errors and existing warnings. No zero-warning claim is made.
 
-The reviewed displayd source `ba8a35a` had no source-level findings, but its
-Voulage repin/build was still pending at this checkpoint. No displayd package
-artifact is attributed to `ba8a35a` here.
+The displayd package is built from the reviewed source `ba8a35a` through model
+`79de7831`. It is an unsigned package/build result, not archive publication or
+runtime proof.
 
 ## Rejected inputd correction
 
