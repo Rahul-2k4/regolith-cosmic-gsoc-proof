@@ -141,6 +141,9 @@ The tuple now uses the corrected published COSMIC inputd package from source
 `3b3309a`, Voulage model `fff1c5c0`, SHA-256
 `7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785ccb811`; the
 updated runner is on commit `9762101`.
+Displayd profile storage is isolated in source commit `44660e8`, with 76 tests
+passing. The Wayland observer still needs to retain output-management handles
+before a real COSMIC `create_configuration` reapply can be implemented.
 
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
 is a historical same-day tuple whose traced launcher lacked the active Sway
