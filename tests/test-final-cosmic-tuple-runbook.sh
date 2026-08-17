@@ -5,7 +5,7 @@ repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 runbook=${repo_root}/scripts/run-final-cosmic-tuple.sh
 
 [[ "$(bash "${runbook}" --contract-test)" == 'CONTRACT_TUPLE=PASS' ]]
-for source in 54d5684 3b3309a ba8a35a 592c1f6 e530ab7; do
+for source in 54d5684 3b3309a 91bdd26 592c1f6 e530ab7; do
   grep -q "${source}" "${runbook}"
 done
 grep -q 'printf.*GUEST_PASS.*guest_ssh_with_stdin' "${runbook}"
