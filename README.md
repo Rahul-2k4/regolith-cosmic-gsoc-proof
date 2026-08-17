@@ -54,9 +54,11 @@ claim.
 
 The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
 is now followed by a successful [exact-tuple managed logout proof](proof-notes/2026-08-17-managed-logout-exact-tuple-success.md).
-records a separate lifecycle attempt. Login and target/helper health passed,
-but the SSH/logind session race prevented a valid managed termination request.
-No logout, shutdown, or native idle claim is made from that attempt.
+The supported [fallback idle-to-lock proof](proof-notes/2026-08-17-fallback-lock-exact-tuple-success.md)
+is also recorded for the same QEMU scope. The earlier boundary note records a
+separate lifecycle attempt where login and target/helper health passed, but the
+SSH/logind session race prevented a valid managed termination request. No
+logout, shutdown, or native idle claim is made from that attempt.
 
 Additional package and runtime evidence is in
 [r31 package closure and QEMU runtime proof](proof-notes/2026-08-16-r31-package-and-qemu-runtime.md).
