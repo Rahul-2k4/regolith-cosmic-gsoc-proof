@@ -38,9 +38,11 @@ The exact five-package tuple was staged and hash-verified. The corrected
 [final-tuple runbook](scripts/run-final-cosmic-tuple.sh) and its
 [contract test](tests/test-final-cosmic-tuple-runbook.sh) now provide the
 install/reboot/login path; runtime execution still requires the guest sudo
-credential at invocation time. No new runtime result follows. The strict
-headline remains **5 of 12 criteria fully met, 62-68% overall, QEMU-only**
-until the tuple runs.
+credential at invocation time. The clean tuple has now completed a disposable
+QEMU install, reboot, and greetd session start; see the [runtime note](proof-notes/2026-08-18-clean-inputd-final-tuple-qemu-runtime.md).
+The strict headline remains **5 of 12 criteria fully met, 62-68% overall,
+QEMU-only** because the run strengthens existing package/runtime criteria but
+does not close hardware, publication, or mentor-acceptance gates.
 
 ## Proposal success criteria: 5 of 12 fully met
 

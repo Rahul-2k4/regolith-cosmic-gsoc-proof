@@ -182,6 +182,11 @@ proof](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md). The older
 Debian Trixie run uses local COSMIC packages with a Resolute suffix, so it is
 staged install evidence rather than canonical Trixie publication proof.
 
+The clean inputd final tuple was subsequently installed in a disposable
+offline-prepared QEMU overlay, rebooted, and started through greetd with
+`RUNTIME_RC=0`. The exact package hashes and cleanup result are in the [Aug 18
+runtime note](proof-notes/2026-08-18-clean-inputd-final-tuple-qemu-runtime.md).
+
 Representative keyboard evidence is in the [launcher binding
 proof](proof-notes/2026-08-11-qemu-launcher-binding-proof.md): QEMU HMP
 `meta_l-spc` launched `ilia`, while `meta_l-2` and `meta_l-1` switched

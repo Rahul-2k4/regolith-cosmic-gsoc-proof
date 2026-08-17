@@ -78,6 +78,13 @@ supplied candidate guest credential was rejected by sudo. Cleanup removed the
 overlay and QEMU process; no password was stored, and no new runtime claim
 follows from this attempt.
 
+After that preflight, an offline-prepared disposable overlay was used to set a
+temporary overlay-local credential and preinstall the tuple. The normal runner
+then completed the child-overlay install, reboot, greetd authentication, and
+COSMIC session start with `RUNTIME_RC=0`. The detailed result is in
+`2026-08-18-clean-inputd-final-tuple-qemu-runtime.md`; all temporary state was
+removed afterward.
+
 The strict work-product headline therefore remains **5/12 criteria fully met,
 62-68% overall, QEMU-only** until the tuple runs. Hardware, native COSMIC
 settings behavior, archive publication, and maintainer acceptance remain open.
