@@ -133,6 +133,11 @@ mutation to French/AZERTY and repeat `540/31` was reflected by Sway, then the
 US `600/25` state was restored. This is config-layer watcher evidence, not a
 COSMIC Settings GUI, physical touchpad, or hardware claim.
 
+The [updated displayd Kanshi-guard runtime note](proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md)
+records the corrected displayd source `91bdd26`, Voulage model `616d9f16`, and
+a successful disposable-QEMU install, reboot, greetd authentication, and
+COSMIC session start with the five-package tuple.
+
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
 is a historical same-day tuple whose traced launcher lacked the active Sway
 session context; its repeat value reverted to `600/25`. The [fresh
