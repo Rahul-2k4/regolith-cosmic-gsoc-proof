@@ -4,7 +4,22 @@ Project: **Build a COSMIC-based Wayland Session for Regolith**
 
 Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
-## Latest update - 2026-08-17
+## Latest update - 2026-08-18
+
+The [2026-08-18 implementation and packaging sprint](proof-notes/2026-08-18-implementation-packaging-sprint.md)
+records accepted source commits and unsigned Voulage artifacts for
+`regolith-session`, `regolith-inputd`, COSMolith, and `cosmic-settings`.
+Displayd source commit `ba8a35a` passed review, but its Voulage repin remains
+pending. Inputd reverse-sync commit `531f3b9` was rejected because it can
+collapse comma-separated layout lists and is not packaged or merged. Package
+inspection confirms that `regolith-session-cosmic` has no GNOME runtime
+dependencies; this is not a claim that all transitive GNOME-related packages
+are absent from a complete system.
+
+The exact four-package tuple was staged and hash-verified, but the combined
+QEMU run stopped before overlay creation because the runtime-only `GUEST_PASS`
+variable was unavailable. The headline remains **5 of 12**, **62-68%**, and
+**QEMU-only** until that tuple runs.
 
 The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
 adds a verified live and second-cold-reboot QEMU result: French/AZERTY,

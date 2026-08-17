@@ -4,6 +4,27 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## 2026-08-18 implementation and packaging sprint
+
+The [sprint proof note](proof-notes/2026-08-18-implementation-packaging-sprint.md)
+records accepted source commits and unsigned Voulage artifacts for
+`regolith-session` (`8cfc501`), `regolith-inputd` (`10ba5d8`), COSMolith
+(`592c1f6`), and `cosmic-settings` (`e530ab7`). Displayd `ba8a35a` passed
+source review for connector-identity equality and hashing, but its Voulage
+repin is still pending. The proposed inputd reverse-sync commit `531f3b9` was
+rejected because it can destroy entries in comma-separated layout lists and is
+not part of the accepted package state.
+
+The package boundary is explicit: `regolith-session-cosmic` has no GNOME
+runtime dependencies, while GNOME dependencies remain isolated to the
+Flashback/Sway packages. This does not claim that every GNOME-related
+transitive package is absent from a full installation.
+
+The exact four-package tuple was staged and hash-verified, but the combined
+QEMU run did not start because the runtime-only `GUEST_PASS` variable was not
+available. No new runtime result follows. The strict headline remains **5 of
+12 criteria fully met, 62-68% overall, QEMU-only** until the tuple runs.
+
 ## Proposal success criteria: 5 of 12 fully met
 
 | # | Criterion | Status | Scope |
