@@ -1,0 +1,20 @@
+PRE
+2026-08-17T19:33:55+05:30
+WAYLAND_DISPLAY=wayland-1
+SWAYSOCK=/run/user/1000/sway-ipc.1000.1825.sock
+{
+  "human_readable": "1.9",
+  "variant": "sway",
+  "major": 1,
+  "minor": 9,
+  "patch": 0,
+  "loaded_config_file_name": "\/etc\/regolith\/sway\/config"
+}
+1927 swayidle -w timeout 300 gtklock
+LOCK_SEEN=1
+IDLE_PID=2600
+CLEANUP=1
+● app-polkit\x2dmate\x2dauthentication\x2dagent\x2d1@autostart.service loaded failed failed PolicyKit Authentication Agent
+POST
+1927 swayidle -w timeout 300 gtklock
+● app-polkit\x2dmate\x2dauthentication\x2dagent\x2d1@autostart.service loaded failed failed PolicyKit Authentication Agent
