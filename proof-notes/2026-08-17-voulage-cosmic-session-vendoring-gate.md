@@ -39,8 +39,11 @@ overlay. Installation returned `INSTALL_RC=0`; after reboot and greetd login,
 `cosmic-session` and Sway were running, `regolith-cosmic.target` was active,
 `regolith-gnome.target` was inactive, both Regolith helper services were
 active, the launcher/workspace key paths worked, and `dpkg --audit` was empty.
-The harness returned `COSMIC_SESSION_QEMU_RC=0` and removed the overlay while
-leaving the protected base image unchanged. This is QEMU proof only.
+The long `regolith-displayd` process-name check emitted the standard `pgrep`
+15-character warning; the service check reported `ActiveState=active`,
+`SubState=running`, and a live `MainPID`, so no separate process-name claim is
+made. The harness returned `COSMIC_SESSION_QEMU_RC=0` and removed the overlay
+while leaving the protected base image unchanged. This is QEMU proof only.
 
 The next gate is to fix the Lintian error and rerun the package/archive
 closure. Signing, archive publication, and maintainer acceptance remain
