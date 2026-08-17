@@ -4,12 +4,12 @@ umask 077
 
 # Final accepted COSMIC tuple. These are package hashes, not runtime claims.
 readonly SESSION_SOURCE=54d5684
-readonly INPUTD_SOURCE=10ba5d8
+readonly INPUTD_SOURCE=3b3309a
 readonly DISPLAYD_SOURCE=ba8a35a
 readonly COSMOLITH_SOURCE=592c1f6
 readonly SETTINGS_SOURCE=e530ab7
 readonly SESSION_SHA=8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643
-readonly INPUTD_SHA=2d27eb6e58951ed6fdd19e0a78cbc38bed5272e37388f21ebb86ef4c46f4aaa0
+readonly INPUTD_SHA=5f2a280600b1a8a6ad01f6d5275b0d772d272a2e316b4439532c9b96e036b33b
 readonly DISPLAYD_SHA=11f0b101c02319b94664b6afb6e82325d3caaba137ea53768471e0a443056815
 readonly COSMOLITH_SHA=ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e
 readonly SETTINGS_SHA=5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f
@@ -168,7 +168,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then usage; exit 0; fi
 if [[ "${1:-}" == '--contract-test' ]]; then
   [[ "${SESSION_SHA}" == 8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643 ]]
-  [[ "${INPUTD_SHA}" == 2d27eb6e58951ed6fdd19e0a78cbc38bed5272e37388f21ebb86ef4c46f4aaa0 ]]
+  [[ "${INPUTD_SHA}" == 5f2a280600b1a8a6ad01f6d5275b0d772d272a2e316b4439532c9b96e036b33b ]]
   [[ "${DISPLAYD_SHA}" == 11f0b101c02319b94664b6afb6e82325d3caaba137ea53768471e0a443056815 ]]
   [[ "${COSMOLITH_SHA}" == ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e ]]
   [[ "${SETTINGS_SHA}" == 5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f ]]
