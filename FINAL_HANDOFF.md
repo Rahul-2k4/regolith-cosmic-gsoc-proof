@@ -252,6 +252,13 @@ the frozen runtime tuple.
 - [`capture-runtime-state.sh`](scripts/capture-runtime-state.sh) captures
   installed package, unit, process, and failure-state information without
   changing the system.
+- [`run-final-cosmic-tuple.sh`](scripts/run-final-cosmic-tuple.sh) verifies and
+  stages the five exact package hashes, boots a disposable copy-on-write QEMU
+  guest, installs the tuple, reboots, and invokes the graphical-login client.
+  It reads the guest sudo credential only at runtime and never stores it.
+- [`test-final-cosmic-tuple-runbook.sh`](tests/test-final-cosmic-tuple-runbook.sh)
+  checks the tuple constants, cleanup behavior, and password-stdin routing
+  without needing a guest credential.
 
 The older [`install-current-tuple.sh`](scripts/install-current-tuple.sh) is a
 historical seven-package installer. Do not treat it as the current final tuple
