@@ -71,5 +71,18 @@ and `dpkg --audit` was empty. The protected base image was unchanged. The
 exact stdout and package are retained in the local audit directory. This is
 still QEMU-only proof.
 
+## Signed archive replay boundary
+
+The corrected package was staged into a disposable copy of the retained
+31-package Resolute signed pool. Repository metadata was regenerated and
+verified in a fresh Ubuntu 26.04 container: `APT_UPDATE_RC=0`, with no
+`NO_PUBKEY`, `BADSIG`, `EXPKEYSIG`, or unsigned-repository result. The pool is
+incomplete for a full install, however: `APT_INSTALL_RC=100` because
+`cosmic-workspaces`, `trawlcat`, `trawld`, `trawldb`, and other runtime
+providers are not present. This is a dependency-pool boundary, not a signing
+failure. The previous full DoD replay used the real Regolith archive as a
+second signed source; a complete corrected-artifact archive replay remains
+open.
+
 The next gate is the package/archive closure. Signing, archive publication,
 and maintainer acceptance remain separate.
