@@ -137,6 +137,10 @@ The [updated displayd Kanshi-guard runtime note](proof-notes/2026-08-18-displayd
 records the corrected displayd source `91bdd26`, Voulage model `616d9f16`, and
 a successful disposable-QEMU install, reboot, greetd authentication, and
 COSMIC session start with the five-package tuple.
+The tuple now uses the corrected published COSMIC inputd package from source
+`3b3309a`, Voulage model `fff1c5c0`, SHA-256
+`7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785ccb811`; the
+updated runner is on commit `9762101`.
 
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
 is a historical same-day tuple whose traced launcher lacked the active Sway
