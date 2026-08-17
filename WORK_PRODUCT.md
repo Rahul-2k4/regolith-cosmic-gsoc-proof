@@ -17,6 +17,18 @@ reverse-sync commit `531f3b9` was
 rejected because it can destroy entries in comma-separated layout lists and is
 not part of the accepted package state.
 
+The clean follow-up inputd branch `rahul/inputd-cosmic-forward-xkb-clean-20260818`
+at `3b3309a` is based directly on `10ba5d8` and forwards the remaining COSMIC
+XKB fields without reverse-sync mutation. Its Voulage artifact is
+`regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb`, SHA-256
+`5f2a280600b1a8a6ad01f6d5275b0d772d272a2e316b4439532c9b96e036b33b`.
+
+The COSMIC OSD active-index fix is source `44eacc8`; its Voulage model
+`272dbc0` produced `cosmic-osd_0.1.0-1-1regolith-resolute_amd64.deb` with
+SHA-256 `0463b0526de5801baa96583741ff291c5fe97f8a4c5e0b9faa14ef719011cfc6`.
+The package has four recorded Lintian metadata/documentation findings and no
+runtime claim.
+
 The package boundary is explicit: `regolith-session-cosmic` has no GNOME
 runtime dependencies, while GNOME dependencies remain isolated to the
 Flashback/Sway packages. This does not claim that every GNOME-related
