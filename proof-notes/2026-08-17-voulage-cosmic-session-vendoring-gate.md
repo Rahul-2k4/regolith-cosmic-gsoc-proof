@@ -45,6 +45,31 @@ The long `regolith-displayd` process-name check emitted the standard `pgrep`
 made. The harness returned `COSMIC_SESSION_QEMU_RC=0` and removed the overlay
 while leaving the protected base image unchanged. This is QEMU proof only.
 
-The next gate is to fix the Lintian error and rerun the package/archive
-closure. Signing, archive publication, and maintainer acceptance remain
-separate.
+## Corrected metadata candidate
+
+The first binary above is retained as the historical baseline. A minimal
+Debian long-description patch was applied on the personal-fork branch
+[`codex/cosmic-session-lintian-description-20260817`](https://github.com/Rahul-2k4/cosmic-session/tree/codex/cosmic-session-lintian-description-20260817)
+at source commit `c103c5ed84a4f107540713862c975df34b65c1a3`. The isolated
+Voulage rebuild returned `BUILD_RC=0`, and the corrected unsigned binary is:
+
+```text
+cosmic-session_1.0.0-1-1regolith-resolute_amd64.deb
+SHA-256: 76d9a5fc3e910ffd2c56ce52fae99f5e3c20e1bcf5ee023f2587e5dca29774c2
+```
+
+The former `extended-description-is-empty` error is resolved. Four warnings
+remain: the synopsis starts with an article, the two binaries have no manual
+pages, and the generated dbgsym package has no debug symbols. No
+zero-warning, signed, or archive-publication claim is made.
+
+The corrected package was replayed through the same disposable QEMU
+install/reboot/greetd harness. `INSTALL_RC=0` and
+`COSMIC_SESSION_LINTIAN_FIX_QEMU_RC=0`; COSMIC target was active, GNOME target
+inactive, helper services were active, launcher/workspace key paths passed,
+and `dpkg --audit` was empty. The protected base image was unchanged. The
+exact stdout and package are retained in the local audit directory. This is
+still QEMU-only proof.
+
+The next gate is the package/archive closure. Signing, archive publication,
+and maintainer acceptance remain separate.
