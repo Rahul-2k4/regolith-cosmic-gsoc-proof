@@ -8,6 +8,8 @@ runbook=${repo_root}/scripts/run-final-cosmic-tuple.sh
 for source in 54d5684 10ba5d8 ba8a35a 592c1f6 e530ab7; do
   grep -q "${source}" "${runbook}"
 done
+grep -q 'printf.*GUEST_PASS.*guest_ssh_with_stdin' "${runbook}"
+! grep -A4 '^guest_ssh_with_stdin()' "${runbook}" | grep -q '/dev/null'
 
 tmp=$(mktemp -d)
 trap 'rm -rf -- "${tmp}"' EXIT
@@ -29,4 +31,13 @@ env OVERLAY="${OVERLAY}" HMP="${HMP}" LOG="${LOG}" \
 
 [[ ! -e "${OVERLAY}" && ! -e "${HMP}" && ! -e "${LOG}" && ! -e "${KNOWN_HOSTS}" ]]
 [[ ! -e "${STAGE_DIR}" ]]
+
+fake_bin=${tmp}/bin
+mkdir -p "${fake_bin}"
+printf '#!/usr/bin/env bash\ncat >"$CAPTURE"\n' >"${fake_bin}/ssh"
+chmod +x "${fake_bin}/ssh"
+capture=${tmp}/captured-stdin
+printf 'secret-from-pipe\n' | env PATH="${fake_bin}:${PATH}" CAPTURE="${capture}" \
+  bash -c 'source "$1"; guest_ssh_with_stdin test-command' bash "${runbook}"
+[[ "$(cat "${capture}")" == 'secret-from-pipe' ]]
 printf 'RUNBOOK_CONTRACT=PASS\n'

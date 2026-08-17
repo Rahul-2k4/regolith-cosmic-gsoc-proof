@@ -90,6 +90,12 @@ guest_ssh() {
     "${GUEST_USER}@127.0.0.1" "$1" </dev/null
 }
 
+guest_ssh_with_stdin() {
+  ssh -p "${SSH_PORT}" -o BatchMode=yes -o ConnectTimeout=5 \
+    -o StrictHostKeyChecking=no -o UserKnownHostsFile="${KNOWN_HOSTS}" \
+    "${GUEST_USER}@127.0.0.1" "$1"
+}
+
 guest_root() {
   printf '%s\n' "${GUEST_PASS}" | ssh -p "${SSH_PORT}" -o BatchMode=yes \
     -o ConnectTimeout=5 -o StrictHostKeyChecking=no \
@@ -153,7 +159,7 @@ run_runtime() {
   scp -q -P "${SSH_PORT}" -o BatchMode=yes -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile="${KNOWN_HOSTS}" "${LOGIN_CLIENT}" \
     "${GUEST_USER}@127.0.0.1:/tmp/regolith-final-cosmic-tuple-login.py"
-  printf '%s\n%s\n' "${GUEST_PASS}" "${GUEST_PASS}" | guest_ssh \
+  printf '%s\n%s\n' "${GUEST_PASS}" "${GUEST_PASS}" | guest_ssh_with_stdin \
     "sudo -S -p '' python3 /tmp/regolith-final-cosmic-tuple-login.py"
   printf 'RUNTIME_COMMANDS_COMPLETED=1\n'
 }
