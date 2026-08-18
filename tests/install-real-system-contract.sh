@@ -17,7 +17,7 @@ FAILURES=0
 
 readonly -a PACKAGE_FILES=(
     regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb
-    regolith-session-common_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb
+    regolith-session-common_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb
     regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb
     regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb
     cosmolith_0.1.0-1-1regolith-resolute_amd64.deb
@@ -26,7 +26,7 @@ readonly -a PACKAGE_FILES=(
 )
 readonly -a PACKAGE_HASHES=(
     8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643
-    bcf78bbabd644bc2e4c382c7eefb0a525e9f1b7dc4852b0473213901989dcf7f
+    b30a39055ee49783aaf51025da0818ea746043af057c5d784fa4d44a5cc0d066
     a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19
     949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d
     ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e
@@ -53,7 +53,7 @@ write_mock sha256sum '#!/usr/bin/env bash
 file=${@: -1}
 case $(basename -- "$file") in
   regolith-session-cosmic_*) hash=8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643 ;;
-  regolith-session-common_*) hash=bcf78bbabd644bc2e4c382c7eefb0a525e9f1b7dc4852b0473213901989dcf7f ;;
+  regolith-session-common_*) hash=b30a39055ee49783aaf51025da0818ea746043af057c5d784fa4d44a5cc0d066 ;;
   regolith-inputd_*) hash=a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19 ;;
   regolith-displayd_*) hash=949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d ;;
   cosmolith_*) hash=ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e ;;

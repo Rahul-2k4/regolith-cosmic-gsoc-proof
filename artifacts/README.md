@@ -32,6 +32,16 @@ model branch and the apt-build-dependency boundary are documented in the
 | `regolith-session-flashback_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` | `a1ef11a68c37168ed9e887f76499aeff3c5b2472e8b07f2a65b8964cfc2f0671` |
 | `regolith-session-flashback-ext_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` | `56fa37f6dd12662b4043a4688b39ca3bf51b01fb0b377bdc04d545678736844e` |
 
+`regolith-session-common_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` (SHA-256
+`bcf78bba...`, listed in an earlier draft of the mentor-test manifest) is
+**superseded and must not be used**: its version string sorts lower than the
+`-1-1regolith-resolute` build above, which caused a real `apt` downgrade
+abort in QEMU. The corrected replacement is:
+
+| File | SHA-256 | Proof note |
+|---|---|---|
+| `regolith-session-common_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `b30a39055ee49783aaf51025da0818ea746043af057c5d784fa4d44a5cc0d066` | [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+
 ## Verification
 
 ```bash

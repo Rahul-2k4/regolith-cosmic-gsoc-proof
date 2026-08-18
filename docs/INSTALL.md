@@ -42,26 +42,25 @@ session at the greeter, log in, then run:
 ./scripts/install-real-system.sh verify
 ```
 
-**What this exact seven-package bundle has and has not been tested as.**
-Component-level proof (package build, Lintian, individual QEMU install) exists
-for all seven packages — see the table below. A **six-explicit-file**
-variant of this tuple (the same six COSMIC packages, with
-`regolith-session-common` resolved as an apt dependency rather than supplied
-directly) has a full QEMU proof: install, cold reboot, greetd login, and a
-healthy COSMIC session
-(`proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md`). The
-current **seven-explicit-file** manifest — where `regolith-session-common` is
-supplied as an explicit input alongside the other six — has not yet been run
-through a full install-reboot-login controller as one set; see
-`proof-notes/2026-08-18-final-cosmic-tuple-settings-daemon-integration.md`
-("no seven-explicit-package runtime claim is made here"). This mentor run is
-expected to be the first time the exact seven-file bundle is exercised
-end-to-end. Report back if `verify` fails — that is useful signal, not a
-surprise finding.
+**What this exact seven-package bundle has been tested as.** This bundle
+previously shipped a `regolith-session-common` build whose version string
+sorted *lower* than a copy already present on our own QEMU test image, which
+made `apt` abort the whole install as an unintended downgrade — a real defect,
+not a proof-process gap. That package has been rebuilt with a corrected
+version (verified with `dpkg --compare-versions`, not assumed), and the
+**exact current seven-file manifest** has since passed a full disposable QEMU
+run: install, `dpkg --audit` clean, cold reboot, greetd login, and a healthy
+COSMIC session with both helper daemons active. See
+[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+for the full record, including the failed attempts kept for honesty rather
+than discarded. That proof is QEMU-only, on Pop!_OS 24.04 — this mentor run
+is the first time this bundle will be tried on real hardware.
 
-Try these four things, understanding the proof-version caveat above (see
+Try these four things. Item 1 (login, target/helper state) matches exactly
+what the QEMU proof above measured. Items 2-4 rely on component-level proof
+from a slightly different package combination — see
 [What is proven vs targeted](#what-is-proven-vs-targeted) for exactly which
-package versions each claim was measured on):
+versions each claim was measured on:
 
 1. Confirm Regolith COSMIC logs in, while the GNOME target stays inactive.
 2. Change keyboard, mouse, or touchpad settings and confirm Regolith follows them.
@@ -85,9 +84,9 @@ was already installed and got upgraded, the script reports its old version
 for manual restoration. It does not run `autoremove`.
 
 This installer has contract-test coverage
-(`tests/install-real-system-contract.sh`), and each of its seven packages has
-independent QEMU/build proof. Real-hardware success, and a controller run of
-this precise seven-file bundle, are both still pending this mentor run.
+(`tests/install-real-system-contract.sh`), and the exact seven-file bundle it
+ships has now passed a full QEMU install→reboot→login run (see above).
+Real-hardware success is still pending this mentor run.
 
 Define once:
 
@@ -101,8 +100,8 @@ All paths below use `$WORKSPACE`. Do not hard-code personal home directories.
 
 | Surface | Status |
 |---|---|
-| Pop!_OS 24.04 QEMU cold login + six-explicit-file tuple (`regolith-session-common` as a resolved dependency) | Proven (QEMU) |
-| This installer's seven-explicit-file bundle, run end-to-end as one set | **Not yet run** — first real attempt is this mentor test |
+| Pop!_OS 24.04 QEMU: this exact seven-file bundle, install→reboot→greetd login | **Proven (QEMU)** — [proof note](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| Real (non-QEMU) hardware, this exact bundle | **Not yet run** — this mentor test is the first attempt |
 | Ubuntu 26.04 Resolute: local package install (`apt`) resolves, `dpkg --audit` clean | Proven (disposable container/QEMU package-install only) |
 | Ubuntu 26.04 Resolute: graphical cold login / greetd session | **Not proven** — no Resolute graphical QEMU image exists yet |
 | Debian Trixie / Ubuntu 26.04 apt availability of build deps | Queried in Docker; see matrix |
@@ -207,41 +206,41 @@ Direct `swaymsg exit` is **not** a clean parent teardown: it can leave
 
 ## Verify a successful install (in-session)
 
-Do not invent fresh QEMU output here. The following values were recorded by
-the inputd candidate verifier on 2026-08-10 (six-explicit-file tuple; see the
-proof-version caveat above) and are quoted from
-[`proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md`](../proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
-and its artifact files under
-`artifacts/inputd-candidate-verifier-qemu-20260810/`.
+Do not invent fresh QEMU output here. The following values were recorded
+against **this exact seven-package bundle**, on 2026-08-18, and are quoted
+from
+[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+and its artifacts.
 
 Quoted environment / target evidence from that proof:
 
 ```text
 XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway
+XDG_SESSION_TYPE=wayland
 regolith-cosmic.target=active
 regolith-gnome.target=inactive
+regolith-init-inputd.service=active
+regolith-init-displayd.service=active
 ```
 
 From the same note's result summary:
 
-- no `gnome-session-bin` process;
-- `regolith-init-inputd.service` and `regolith-init-displayd.service` both
-  `ActiveState=active`, `Result=success`, `NRestarts=0`;
+- `cosmic-session`, `sway`, and `regolith-inputd` processes confirmed
+  running (`regolith-displayd` did not show under `pgrep -ax` due to a known
+  15-character `comm`-name truncation limit in `pgrep`, but its systemd unit
+  independently reported `active` — treat a missing `pgrep -ax
+  regolith-displayd` match as inconclusive, not a failure; try `pgrep -f
+  regolith-displayd` instead);
+- `swaymsg -t get_workspaces` succeeded with one active workspace;
 - one unrelated pre-existing failed unit,
   `app-polkit-mate-authentication-agent-1@autostart.service` (GNOME-flashback
-  polkit agent leftover, not part of this project);
-- verifier: `Runtime verification failures: 0`.
+  polkit agent leftover, not part of this project) — no other unit failed;
+- `dpkg --audit`: clean before and after install.
 
-Artifact files that hold those strings:
+Evidence files:
 
-- `artifacts/inputd-candidate-verifier-qemu-20260810/04-sway-environment.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/04-regolith-inputd-environment.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/05-regolith-cosmic.target.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/05-regolith-gnome.target.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/06-regolith-init-inputd.service.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/06-regolith-init-displayd.service.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/07-user-failed-units.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/11-result.txt`
+- [Framebuffer screenshot](../artifacts/mentor-seven-package-tuple-qemu-20260818.png)
+- [Full run transcript](../artifacts/mentor-seven-package-tuple-qemu-20260818/transcript.log)
 
 A reviewer reproducing on a live guest should expect the same shape of
 checks (desktop token, no `gnome-session-bin`, cosmic target active, gnome
