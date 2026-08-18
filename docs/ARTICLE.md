@@ -45,12 +45,11 @@ The later routing head is `271bc2a`; it sends Sway keyboard events to both the
 keyboard and input-source handlers. Its source/build proof is separate from
 the touchpad package evidence and is linked in the [keyboard-routing proof](../proof-notes/2026-08-11-inputd-keyboard-routing.md).
 
-The source gates are concrete:
-
-- default/GNOME tests: 22 passed;
-- COSMIC-feature tests: 46 passed;
-- all-feature tests: 49 passed;
-- formatting and whitespace checks: passed.
+The source gates are concrete. The current COSMIC input branch
+`ff5ae80c` passes 55 COSMIC-feature tests, formatting, `cargo check`, and
+diff validation. Its reverse-sync preserves the complete Sway
+`xkb_layout_names` collection while leaving COSMIC fields that Sway does not
+expose unchanged.
 
 Those numbers prove source and unit-test behaviour. They do not prove a real
 touchpad, because the qualification VM exposes virtual pointer devices rather
@@ -69,6 +68,13 @@ fresh login. It does not prove that native `cosmic-comp` accepts every
 `cosmic-randr` mutation. In a separate native COSMIC QEMU seat, a mode command
 returned success without changing the active mode or the saved profile. That
 is a useful negative result, not a persistence pass.
+
+The current displayd source `af5112e` validates stored profiles against
+observed output identity, mode, position, transform, and scale. The observer
+handle-retention prerequisite is isolated at `3d24cb7`; the direct live
+configuration request is still a separate follow-up. The final six-package
+QEMU tuple, including the new displayd and inputd packages, is recorded in the
+[tuple runtime note](../proof-notes/2026-08-18-final-cosmic-tuple-settings-daemon-integration.md).
 
 See the [Wayland observer proof](../proof-notes/2026-08-04-cosmic-wayland-observer-qemu-proof.md)
 and the [native display boundary](../proof-notes/2026-08-10-native-cosmic-display-mutation-boundary.md).
@@ -96,8 +102,11 @@ proof](../proof-notes/2026-08-12-clean-container-amd64-package-install.md).
 The Voulage path also exposed smaller release issues: quilt version formatting,
 source identity, manual-page metadata, debug information, and the difference
 between an unsigned local artifact and a published repository package. The
-current proof bundle records hashes and build inputs, but the packages remain
-unsigned and are not published to a canonical Regolith archive.
+new inputd package has a verified vendored `pkgbuild` artifact and zero direct
+Lintian output; its `pkgpublish` source-archive parity still needs a generic
+pre-source vendoring hook. The current proof bundle records hashes and build
+inputs, but the packages remain unsigned and are not published to a canonical
+Regolith archive.
 
 The [build dependency matrix](BUILD_DEP_MATRIX.md) and [install guide](INSTALL.md)
 describe what a reviewer can reproduce. They separate build-dependency proof
@@ -130,13 +139,13 @@ merged upstream work.
 
 ## Result
 
-At the Aug 12 freeze, four of the proposal's twelve success criteria are fully
-met. All four are QEMU-only. The honest strict proposal estimate is **62-68%**.
-Since that freeze, the [fresh QEMU proof](../proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
-has moved the reboot-persistence criterion to `Met` for the tested tuple. The
-current ledger is five of twelve, still QEMU-only; the percentage estimate is
-unchanged because the remaining gates cover hardware, the native Settings
-path, release work, and maintainer review.
+At the Aug 12 freeze, four of the proposal's twelve success criteria were fully
+met. Since then, the [fresh QEMU proof](../proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
+and the final six-package tuple have strengthened the reboot-persistence,
+input backend, display observer, and package/runtime gates. The current ledger
+remains QEMU-only; the remaining gates cover hardware, native Settings
+mutation, the direct display apply path, release packaging, and maintainer
+review.
 The remaining work is not hidden: native display mutation, the hardware
 matrix, complete idle and parent-session lifecycle semantics, signing and
 canonical publication, and final maintainer review remain open.

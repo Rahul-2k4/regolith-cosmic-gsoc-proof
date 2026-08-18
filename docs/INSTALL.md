@@ -72,12 +72,12 @@ Proof-bundle hashes for committed artifacts are listed under
 ## Install the tuple (unsigned / local-only)
 
 1. Copy the hash-verified `.deb` files into the guest.
-2. Install with `dpkg -i` (or `apt install ./file.deb`) for the session, WM
-   config, `regolith-inputd`, and `regolith-displayd` artifacts that match
-   the proof note you are reproducing.
-3. Resolve any missing runtime deps with `apt-get -f install` **only** from
-   the guest’s configured archives — do not silently substitute a different
-   Regolith build.
+2. Install the staged tuple with `apt-get install ./file.deb ...` so declared
+   runtime dependencies are resolved by the guest package manager. The final
+   runbook uses this path for the six project packages and the Qt dependencies
+   of `cosmic-settings-daemon`.
+3. Use `dpkg --audit` after installation. Do not silently substitute a
+   different Regolith build or use a mismatched package hash.
 4. Reboot or restart the display manager so the greeter reloads session
    desktop files.
 
