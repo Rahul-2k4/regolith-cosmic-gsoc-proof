@@ -4,6 +4,17 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Contents
+
+- [Proposal success criteria: 5 of 12 fully met](#proposal-success-criteria-5-of-12-fully-met)
+- [Source of truth](#source-of-truth)
+- [Proven areas](#proven-areas) — long; organized newest-first, not by topic. Use your browser's find (Ctrl/Cmd+F) for a package or feature name rather than scrolling.
+- [Open boundaries](#open-boundaries)
+- [Upstream contribution status](#upstream-contribution-status)
+- [Code inventory](#code-inventory)
+- [Next steps](#next-steps)
+- [Claim boundary](#claim-boundary)
+
 ## Proposal success criteria: 5 of 12 fully met
 
 | # | Criterion | Status | Scope |

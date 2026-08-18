@@ -7,6 +7,17 @@ by component.
 
 Each entry: what fails or is unproven, why, what would close it.
 
+## Contents
+
+- [Hardware-blocked](#hardware-blocked)
+- [Upstream-blocked](#upstream-blocked)
+- [Protocol-limited](#protocol-limited)
+- [Session lifecycle](#session-lifecycle)
+- [Distribution](#distribution)
+- [Scope not attempted (stretch / rejected paths)](#scope-not-attempted-stretch--rejected-paths)
+- [Additional vault blockers mapped here](#additional-vault-blockers-mapped-here)
+- [Explicit closure-plan exclusions](#explicit-closure-plan-exclusions)
+
 ## Hardware-blocked
 
 ### Mixed DPI / multi-display / hotplug
