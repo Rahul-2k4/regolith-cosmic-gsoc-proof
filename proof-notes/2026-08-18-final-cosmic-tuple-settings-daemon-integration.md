@@ -2,93 +2,73 @@
 
 ## Scope
 
-The final COSMIC tuple runner now includes `cosmic-settings-daemon` in the
-COSMIC runtime tuple. The runner verifies, stages, copies, and installs it
-with the existing five artifacts. Existing package hashes are unchanged.
+The final COSMIC tuple runner now requires seven explicit package files. It
+verifies and stages `regolith-session-common` alongside the six COSMIC
+runtime packages, then installs the complete staged set with
+`apt-get install`.
 
-## Tuple contract
+## Canonical tuple
+
+The canonical package identities are copied from
+`artifacts/mentor-test-2026-08-18.sha256`:
 
 | Artifact | SHA-256 |
 |---|---|
-| `regolith-session-cosmic` | `8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643` |
-| `regolith-inputd` | `b11dd8a4495aae59687a4ae4650e242e8fc75f859fb81e8580f34a9ccbdfaf52` |
-| `regolith-displayd` | `4fc2d5b9a921df69ccfb01a7e34b3b97d915db29e08a0998f9f12011b92eaefe` |
-| `cosmolith` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` |
-| `cosmic-settings` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` |
-| `cosmic-settings-daemon` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` |
+| `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` | `8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643` |
+| `regolith-session-common_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` | `bcf78bbabd644bc2e4c382c7eefb0a525e9f1b7dc4852b0473213901989dcf7f` |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` |
+| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` |
+| `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` |
+| `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` |
+| `cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` |
 
-The daemon artifact is supplied at runtime through `SETTINGS_DAEMON_DEB`:
+The runner stages these files as `regolith-session-cosmic.deb`,
+`regolith-session-common.deb`, `regolith-inputd.deb`,
+`regolith-displayd.deb`, `cosmolith.deb`, `cosmic-settings.deb`, and
+`cosmic-settings-daemon.deb`. `COMMON_DEB` is required for the
+`regolith-session-common` input; `COMMON_SHA` is fixed to the canonical
+manifest hash above.
 
-```text
-/home/rahul/Desktop/GSoC_2026/ccextractor/regolith/voulage/.worktrees/codex-cosmic-settings-daemon-build-20260816/pkgpublish/ubuntu/resolute/unstable/cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb
-```
+The source pins currently recorded by the runner are:
 
-For a QEMU execution, use
-`/Users/rahul/Desktop/Gsoc/.tmp/greetd-session-cosmic-client.py` as
-`LOGIN_CLIENT` and pass the existing five current-tuple paths together with
-the daemon path above.
+| Component | Source ref |
+|---|---|
+| `regolith-session-cosmic` | `54d5684` |
+| `regolith-inputd` | `rahul/voulage-vendor-optin-20260818` |
+| `regolith-displayd` | `rahul/cosmic-live-apply-20260818` |
+| `cosmolith` | `592c1f6` |
+| `cosmic-settings` | `e530ab7` |
 
-The runner installs the staged project packages with `apt-get install` rather
-than raw `dpkg -i`, so declared Qt dependencies such as `qt5ct` and `qt6ct`
-are resolved by the guest package manager. It waits for any initial guest
-package-manager activity to finish before starting this install.
+## Verification contract
 
-The inputd artifact in this tuple is the vendored opt-in candidate from source
-`rahul/voulage-vendor-optin-20260818`, with SHA-256
-`a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19`.
+The runbook contract and test require the exact seven manifest lines, all
+seven expected hashes, all seven staged names, and the current source refs.
+They also preserve the cleanup and password-stdin checks.
 
-The displayd artifact in this tuple is the live-apply candidate from source
-`rahul/cosmic-live-apply-20260818`, with SHA-256
-`949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d`.
-
-The exact package files for these two candidate hashes are required before a
-runtime rerun can be claimed. This proof branch records the contract update;
-it does not add or modify the untracked `proof-packets/` directory.
-
-## Verification
-
-The following local checks passed:
+Expected local checks:
 
 ```text
 bash -n scripts/run-final-cosmic-tuple.sh
 bash scripts/run-final-cosmic-tuple.sh --contract-test
 CONTRACT_TUPLE=PASS
 bash tests/test-final-cosmic-tuple-runbook.sh
+RUNBOOK_CONTRACT=PASS
 git diff --check
 ```
 
-The syntax, repository contract, and diff checks exited `0`. The contract
-asserts the unchanged session, cosmolith, settings, and settings-daemon hashes
-plus the new inputd and displayd hashes above.
+These checks prove the source and runbook contract only. They do not prove a
+graphical runtime session.
 
-## Runtime result
+## Historical QEMU result
 
-The dependency-aware tuple was run on the Pop!_OS COSMIC QEMU guest after the
-runner change:
+The earlier QEMU run is historical and was not a seven-explicit-package
+execution. At the runner boundary it supplied six explicit project files:
+`regolith-session-cosmic`, `regolith-inputd`, `regolith-displayd`,
+`cosmolith`, `cosmic-settings`, and `cosmic-settings-daemon`.
+`regolith-session-common` was resolved as a package dependency rather than
+being supplied as an explicit runner input.
 
-```text
-PACKAGE_PREFLIGHT=PASS
-GUEST_SSH_UP attempt=1
-6 upgraded, 24 newly installed, 0 to remove
-GUEST_SSH_UP attempt=1
-CANCEL_REPLY success
-REPLY auth_message
-REPLY success
-START_REPLY success
-RUNTIME_COMMANDS_COMPLETED=1
-```
-
-The guest installed all six project packages and the required Qt runtime
-dependencies, rebooted, authenticated through greetd, and started the COSMIC
-session launch path. The runner exited successfully and cleaned up the
-temporary QEMU state.
-
-## Final source tuple rerun
-
-Not run in this contract-only update. No local file matched the requested
-inputd SHA at
-`/Users/rahul/Desktop/Gsoc/.artifacts/final-tuple/regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb`,
-and no local file matched the requested displayd SHA at
-`/Users/rahul/Desktop/Gsoc/.artifacts/final-tuple/regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`.
-The disposable QEMU runner was therefore not invoked. A remote check was also
-blocked because the configured SSH alias could not resolve its hostname.
+That run reported successful package-manager completion, reboot, greetd
+authentication, and COSMIC session launch. It supports only that historical
+six-file result. The current seven-package tuple has not been run through a
+controller yet, so no seven-explicit-package runtime claim is made here.

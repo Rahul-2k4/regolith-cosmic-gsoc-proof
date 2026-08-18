@@ -9,6 +9,7 @@ readonly DISPLAYD_SOURCE=rahul/cosmic-live-apply-20260818
 readonly COSMOLITH_SOURCE=592c1f6
 readonly SETTINGS_SOURCE=e530ab7
 readonly SESSION_SHA=8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643
+readonly COMMON_SHA=bcf78bbabd644bc2e4c382c7eefb0a525e9f1b7dc4852b0473213901989dcf7f
 readonly INPUTD_SHA=a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19
 readonly DISPLAYD_SHA=949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d
 readonly COSMOLITH_SHA=ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e
@@ -20,6 +21,7 @@ readonly BASE_IMAGE=${BASE_IMAGE:-}
 readonly VM_ROOT=${VM_ROOT:-}
 readonly LOGIN_CLIENT=${LOGIN_CLIENT:-}
 readonly SESSION_DEB=${SESSION_DEB:-}
+readonly COMMON_DEB=${COMMON_DEB:-}
 readonly INPUTD_DEB=${INPUTD_DEB:-}
 readonly DISPLAYD_DEB=${DISPLAYD_DEB:-}
 readonly COSMOLITH_DEB=${COSMOLITH_DEB:-}
@@ -37,11 +39,11 @@ qemu_pid=''
 
 usage() {
   cat <<'USAGE'
-Usage: configure the six *_DEB paths, BASE_IMAGE, VM_ROOT, LOGIN_CLIENT,
+Usage: configure the seven *_DEB paths, BASE_IMAGE, VM_ROOT, LOGIN_CLIENT,
 and GUEST_PASS, then run this script.
 
 Required variables:
-  SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB
+  SESSION_DEB COMMON_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB
   BASE_IMAGE VM_ROOT LOGIN_CLIENT GUEST_PASS
 
 Optional paths: OVERLAY HMP LOG STAGE_DIR KNOWN_HOSTS; GUEST_USER SSH_PORT.
@@ -81,6 +83,7 @@ verify_and_stage() {
 stage_tuple() {
   mkdir -p -- "${STAGE_DIR}"
   verify_and_stage "${SESSION_DEB}" "${SESSION_SHA}" regolith-session-cosmic.deb
+  verify_and_stage "${COMMON_DEB}" "${COMMON_SHA}" regolith-session-common.deb
   verify_and_stage "${INPUTD_DEB}" "${INPUTD_SHA}" regolith-inputd.deb
   verify_and_stage "${DISPLAYD_DEB}" "${DISPLAYD_SHA}" regolith-displayd.deb
   verify_and_stage "${COSMOLITH_DEB}" "${COSMOLITH_SHA}" cosmolith.deb
@@ -177,6 +180,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then usage; exit 0; fi
 if [[ "${1:-}" == '--contract-test' ]]; then
   [[ "${SESSION_SHA}" == 8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643 ]]
+  [[ "${COMMON_SHA}" == bcf78bbabd644bc2e4c382c7eefb0a525e9f1b7dc4852b0473213901989dcf7f ]]
   [[ "${INPUTD_SHA}" == a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19 ]]
   [[ "${DISPLAYD_SHA}" == 949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d ]]
   [[ "${COSMOLITH_SHA}" == ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e ]]
@@ -186,7 +190,7 @@ if [[ "${1:-}" == '--contract-test' ]]; then
   exit 0
 fi
 
-for required in BASE_IMAGE VM_ROOT LOGIN_CLIENT SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB; do
+for required in BASE_IMAGE VM_ROOT LOGIN_CLIENT SESSION_DEB COMMON_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB; do
   [[ -n "${!required}" ]] || die "${required} is required"
 done
 stage_tuple
