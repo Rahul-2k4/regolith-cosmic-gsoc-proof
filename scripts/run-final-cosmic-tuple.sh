@@ -107,6 +107,10 @@ guest_root() {
     "sudo -S -p '' $1"
 }
 
+wait_for_guest_package_manager() {
+  guest_root "sh -c 'for attempt in \$(seq 1 60); do if ! pgrep -x apt-get >/dev/null 2>&1 && ! pgrep -x dpkg >/dev/null 2>&1; then exit 0; fi; sleep 2; done; exit 1'"
+}
+
 wait_for_guest() {
   local attempt
   for attempt in $(seq 1 40); do
@@ -155,7 +159,8 @@ run_runtime() {
   scp -q -P "${SSH_PORT}" -o BatchMode=yes -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile="${KNOWN_HOSTS}" "${STAGE_DIR}"/*.deb \
     "${GUEST_USER}@127.0.0.1:/tmp/regolith-final-cosmic-tuple-pkgs/"
-  guest_root 'dpkg -i /tmp/regolith-final-cosmic-tuple-pkgs/*.deb'
+  wait_for_guest_package_manager
+  guest_root 'DEBIAN_FRONTEND=noninteractive apt-get install -y /tmp/regolith-final-cosmic-tuple-pkgs/*.deb'
   guest_root 'dpkg --audit'
   guest_root 'systemctl reboot' || true
   sleep 10

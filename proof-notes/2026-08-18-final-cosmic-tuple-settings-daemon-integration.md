@@ -2,10 +2,9 @@
 
 ## Scope
 
-The final COSMIC tuple runner now treats `cosmic-settings-daemon` as an
-optional COSMIC component that is required for a tuple runtime execution. The
-runner verifies, stages, copies, and installs it with the existing five
-artifacts. Existing package hashes are unchanged.
+The final COSMIC tuple runner now includes `cosmic-settings-daemon` in the
+COSMIC runtime tuple. The runner verifies, stages, copies, and installs it
+with the existing five artifacts. Existing package hashes are unchanged.
 
 ## Tuple contract
 
@@ -29,6 +28,11 @@ For a QEMU execution, use
 `LOGIN_CLIENT` and pass the existing five current-tuple paths together with
 the daemon path above.
 
+The runner installs the staged project packages with `apt-get install` rather
+than raw `dpkg -i`, so declared Qt dependencies such as `qt5ct` and `qt6ct`
+are resolved by the guest package manager. It waits for any initial guest
+package-manager activity to finish before starting this install.
+
 ## Verification
 
 The following local checks passed:
@@ -46,6 +50,22 @@ asserts the unchanged five package hashes and the new settings-daemon hash.
 
 ## Runtime result
 
-QEMU was not run for this integration change. No package transfer, guest
-installation, login attempt, or temporary QEMU state was created. This note
-does not make a runtime claim.
+The dependency-aware tuple was run on the Pop!_OS COSMIC QEMU guest after the
+runner change:
+
+```text
+PACKAGE_PREFLIGHT=PASS
+GUEST_SSH_UP attempt=1
+6 upgraded, 24 newly installed, 0 to remove
+GUEST_SSH_UP attempt=1
+CANCEL_REPLY success
+REPLY auth_message
+REPLY success
+START_REPLY success
+RUNTIME_COMMANDS_COMPLETED=1
+```
+
+The guest installed all six project packages and the required Qt runtime
+dependencies, rebooted, authenticated through greetd, and started the COSMIC
+session launch path. The runner exited successfully and cleaned up the
+temporary QEMU state.
