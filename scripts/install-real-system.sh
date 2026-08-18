@@ -203,21 +203,21 @@ dependency_available() {
     done
     return 1
 }
-
 preflight_dependencies() {
-    local file depends clause
+    local file field depends clause
     local clauses=()
     for file in "${PACKAGE_FILES[@]}"; do
-        depends=$(dpkg-deb -f "$BUNDLE_DIR/$file" Depends 2>/dev/null || true)
-        [[ -n $depends ]] || continue
-        IFS=',' read -r -a clauses <<<"$depends"
-        for clause in "${clauses[@]}"; do
-            dependency_available "$clause" || fail "no apt candidate for dependency: $clause"
+        for field in Pre-Depends Depends; do
+            depends=$(dpkg-deb -f "$BUNDLE_DIR/$file" "$field" 2>/dev/null || true)
+            [[ -n $depends ]] || continue
+            IFS=',' read -r -a clauses <<<"$depends"
+            for clause in "${clauses[@]}"; do
+                dependency_available "$clause" || fail "no apt candidate for dependency: $clause"
+            done
         done
     done
     printf 'PASS: dependency preflight\n'
 }
-
 check_bundle() {
     local acquire_status=0
     acquire_bundle || acquire_status=$?
@@ -230,7 +230,6 @@ check_bundle() {
     preflight_dependencies
     printf 'PASS: package set validated\n'
 }
-
 capture_baseline() {
     ensure_tmp
     local stage=$TMP_WORK/baseline
@@ -250,10 +249,11 @@ capture_baseline() {
     done
     dpkg --get-selections >"$stage/dpkg-selections.txt"
     cp -- "$MANIFEST_FILE" "$stage/bundle-manifest.sha256"
-    sudo install -d -m 0700 "$STATE_ROOT" "$baseline"
-    sudo install -m 0600 "$stage/tuple-state.tsv" "$baseline/tuple-state.tsv"
-    sudo install -m 0600 "$stage/dpkg-selections.txt" "$baseline/dpkg-selections.txt"
-    sudo install -m 0600 "$stage/bundle-manifest.sha256" "$baseline/bundle-manifest.sha256"
+    # These files contain package metadata only; readable modes let the invoking user rollback.
+    sudo install -d -m 0755 "$STATE_ROOT" "$baseline"
+    sudo install -m 0644 "$stage/tuple-state.tsv" "$baseline/tuple-state.tsv"
+    sudo install -m 0644 "$stage/dpkg-selections.txt" "$baseline/dpkg-selections.txt"
+    sudo install -m 0644 "$stage/bundle-manifest.sha256" "$baseline/bundle-manifest.sha256"
     BASELINE_PATH=$baseline
     printf 'BASELINE: %s\n' "$baseline"
 }
@@ -302,7 +302,7 @@ FILES
     for unit in regolith-cosmic.target regolith-gnome.target regolith-init-inputd.service regolith-init-displayd.service; do
         expected=active; [[ $unit == regolith-gnome.target ]] && expected=inactive
         state=$(systemctl --user is-active "$unit" 2>/dev/null || true)
-        if { [[ $expected == active && $state == active ]] || [[ $expected == inactive && $state != active ]]; }; then
+        if { [[ $expected == active && $state == active ]] || [[ $expected == inactive && $state == inactive ]]; }; then
             printf 'PASS: %s %s\n' "$unit" "$expected"
         else
             printf 'FAIL: %s expected %s, got %s\n' "$unit" "$expected" "${state:-unknown}"

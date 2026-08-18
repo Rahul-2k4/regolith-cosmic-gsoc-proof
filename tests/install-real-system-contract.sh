@@ -72,6 +72,7 @@ case $field in
   Package) [[ -n ${MOCK_DEB_PACKAGE:-} ]] && printf "%s\n" "$MOCK_DEB_PACKAGE" || basename -- "$file" | sed -E "s/_.*//" ;;
   Version) base=$(basename -- "$file"); version=${base#*_}; printf "%s\n" "${MOCK_DEB_VERSION:-${version%_amd64.deb}}" ;;
   Architecture) printf "%s\n" "${MOCK_DEB_ARCH:-amd64}" ;;
+  Pre-Depends) [[ $(basename -- "$file") == cosmic-settings-daemon_* ]] && printf "pre-required\n" ;;
   Depends) [[ $(basename -- "$file") == regolith-session-cosmic_* ]] && printf "cosmic-session (>= 1), sway | swayfx\n" ;;
   *) exit 1 ;;
 esac'
@@ -96,7 +97,8 @@ write_mock apt-cache '#!/usr/bin/env bash
 printf "apt-cache" >>"$COMMAND_LOG"
 for arg in "$@"; do printf " %q" "$arg" >>"$COMMAND_LOG"; done
 printf "\n" >>"$COMMAND_LOG"
-if [[ ${MOCK_APT_NONE:-0} == 1 ]]; then printf "Candidate: (none)\n"; else printf "Candidate: 1.0\n"; fi'
+package=${@: -1}
+if [[ ${MOCK_APT_NONE:-0} == 1 || ( ${MOCK_PREDEP_NONE:-0} == 1 && $package == pre-required ) ]]; then printf "Candidate: (none)\n"; else printf "Candidate: 1.0\n"; fi'
 
 write_mock apt-get '#!/usr/bin/env bash
 printf "apt-get" >>"$COMMAND_LOG"
@@ -147,7 +149,7 @@ reset_case() {
     : >"$COMMAND_LOG"; : >"$OUTPUT"
     rm -rf -- "$STATE_ROOT"/* "$ROOT_PREFIX"/*
     prepare_packages; write_os pop 24.04 noble
-    unset MOCK_BAD_HASH MOCK_DEB_ARCH MOCK_DEB_PACKAGE MOCK_DEB_VERSION MOCK_APT_NONE MOCK_BASELINE_ABSENT
+    unset MOCK_BAD_HASH MOCK_DEB_ARCH MOCK_DEB_PACKAGE MOCK_DEB_VERSION MOCK_APT_NONE MOCK_PREDEP_NONE MOCK_BASELINE_ABSENT
     unset MOCK_GRAPHICAL_STATE MOCK_COSMIC_STATE MOCK_GNOME_STATE MOCK_INPUTD_STATE MOCK_DISPLAYD_STATE
 }
 run_script() {
@@ -195,12 +197,18 @@ test_os_and_metadata_guards() {
 test_preflight_and_download() {
     reset_case; MOCK_APT_NONE=1 expect_failure check --package-dir "$PACKAGE_DIR"
     assert_contains 'FAIL: no apt candidate' "$OUTPUT"
+    reset_case; MOCK_PREDEP_NONE=1 expect_failure check --package-dir "$PACKAGE_DIR"
+    assert_contains 'FAIL: no apt candidate for dependency: pre-required' "$OUTPUT"
     reset_case; run_script check
     local package
     [[ $(grep -c '^curl -fL' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: expected seven downloads\n' >&2; FAILURES=$((FAILURES + 1)); }
     for package in "${PACKAGE_FILES[@]}"; do
         assert_contains "https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/releases/download/mentor-test-2026-08-18/$package" "$COMMAND_LOG"
     done
+    reset_case; run_script check --release-tag release-candidate
+    assert_contains "https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/releases/download/release-candidate/${PACKAGE_FILES[0]}" "$COMMAND_LOG"
+    reset_case; run_script check --base-url https://packages.example.test/regolith
+    assert_contains "https://packages.example.test/regolith/${PACKAGE_FILES[0]}" "$COMMAND_LOG"
     assert_contains 'PASS: package set validated' "$OUTPUT"
 }
 
@@ -217,6 +225,8 @@ test_install_is_one_exact_apt_transaction() {
     local package
     for package in "${PACKAGE_FILES[@]}"; do assert_contains "$PACKAGE_DIR/$package" "$COMMAND_LOG"; done
     assert_contains 'sudo dpkg --audit' "$COMMAND_LOG"; assert_contains 'BASELINE:' "$OUTPUT"
+    assert_contains 'sudo install -d -m 0755' "$COMMAND_LOG"
+    [[ $(grep -c '^sudo install -m 0644' "$COMMAND_LOG" || true) == 3 ]] || { printf 'FAIL: baseline metadata is not installed readable\n' >&2; FAILURES=$((FAILURES + 1)); }
     [[ -f $STATE_ROOT/baseline-test/tuple-state.tsv && -f $STATE_ROOT/baseline-test/dpkg-selections.txt ]] || { printf 'FAIL: incomplete baseline\n' >&2; FAILURES=$((FAILURES + 1)); }
     cmp -s -- "$MANIFEST" "$STATE_ROOT/baseline-test/bundle-manifest.sha256" || { printf 'FAIL: baseline manifest differs\n' >&2; FAILURES=$((FAILURES + 1)); }
     (( $(wc -l <"$STATE_ROOT/baseline-test/tuple-state.tsv") == 7 )) || { printf 'FAIL: baseline tuple row count\n' >&2; FAILURES=$((FAILURES + 1)); }
@@ -225,12 +235,16 @@ test_install_is_one_exact_apt_transaction() {
 }
 
 test_verify_statuses() {
-    reset_case; prepare_system_files
+    reset_case; prepare_system_files; local bad_state
     XDG_CURRENT_DESKTOP=COSMIC run_script verify
     assert_contains 'PASS: desktop entry' "$OUTPUT"; assert_contains 'PASS: regolith-cosmic.target active' "$OUTPUT"
     assert_contains 'PASS: regolith-gnome.target inactive' "$OUTPUT"; assert_contains 'PASS: regolith-init-inputd.service active' "$OUTPUT"
     MOCK_COSMIC_STATE=inactive XDG_CURRENT_DESKTOP=COSMIC expect_failure verify
     assert_contains 'FAIL: regolith-cosmic.target expected active' "$OUTPUT"
+    for bad_state in failed activating unknown; do
+        MOCK_COSMIC_STATE=active MOCK_GNOME_STATE=$bad_state XDG_CURRENT_DESKTOP=COSMIC expect_failure verify
+        assert_contains "FAIL: regolith-gnome.target expected inactive, got $bad_state" "$OUTPUT"
+    done
     MOCK_GRAPHICAL_STATE=inactive run_script verify
     assert_contains 'SKIP: runtime checks outside graphical session' "$OUTPUT"
 }
