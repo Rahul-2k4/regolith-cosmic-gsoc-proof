@@ -4,13 +4,13 @@ umask 077
 
 # Final accepted COSMIC tuple. These are package hashes, not runtime claims.
 readonly SESSION_SOURCE=54d5684
-readonly INPUTD_SOURCE=3b3309a
-readonly DISPLAYD_SOURCE=44660e8
+readonly INPUTD_SOURCE=ff5ae80c6c8ae2f8bcae44e63314c7fc18ef3687
+readonly DISPLAYD_SOURCE=af5112eee8ae085eb9b73b1b9b49a18a37bcf7e
 readonly COSMOLITH_SOURCE=592c1f6
 readonly SETTINGS_SOURCE=e530ab7
 readonly SESSION_SHA=8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643
-readonly INPUTD_SHA=7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785ccb811
-readonly DISPLAYD_SHA=11ac1a713aa5437a1b598e590c5980127b84f150b671de0896acd36a078d78fd
+readonly INPUTD_SHA=b11dd8a4495aae59687a4ae4650e242e8fc75f859fb81e8580f34a9ccbdfaf52
+readonly DISPLAYD_SHA=4fc2d5b9a921df69ccfb01a7e34b3b97d915db29e08a0998f9f12011b92eaefe
 readonly COSMOLITH_SHA=ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e
 readonly SETTINGS_SHA=5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f
 # Optional COSMIC component, required for this runtime tuple.
@@ -177,8 +177,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then usage; exit 0; fi
 if [[ "${1:-}" == '--contract-test' ]]; then
   [[ "${SESSION_SHA}" == 8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643 ]]
-  [[ "${INPUTD_SHA}" == 7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785ccb811 ]]
-  [[ "${DISPLAYD_SHA}" == 11ac1a713aa5437a1b598e590c5980127b84f150b671de0896acd36a078d78fd ]]
+  [[ "${INPUTD_SHA}" == b11dd8a4495aae59687a4ae4650e242e8fc75f859fb81e8580f34a9ccbdfaf52 ]]
+  [[ "${DISPLAYD_SHA}" == 4fc2d5b9a921df69ccfb01a7e34b3b97d915db29e08a0998f9f12011b92eaefe ]]
   [[ "${COSMOLITH_SHA}" == ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e ]]
   [[ "${SETTINGS_SHA}" == 5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f ]]
   [[ "${SETTINGS_DAEMON_SHA}" == 16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1 ]]
