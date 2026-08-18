@@ -5,6 +5,55 @@
 locally built (or proof-bundle) artifacts only. Do not treat this guide as a
 release install path.
 
+## Mentor real-system test
+
+Supported test hosts are amd64 Pop!_OS 24.04 with COSMIC and Ubuntu 26.04
+Resolute. The system must already have working Regolith and COSMIC package
+sources for dependencies. The seven project packages come from an unsigned
+GitHub prerelease and are checked against the committed SHA-256 manifest.
+
+Install from the review branch:
+
+```sh
+git clone --branch codex/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install
+```
+
+The script does not reboot, stop the display manager, change the default
+session, or store the sudo password. It prints the baseline path before the
+APT transaction. After installation, log out, select the Regolith COSMIC
+session at the greeter, log in, then run:
+
+```sh
+./scripts/install-real-system.sh verify
+```
+
+Try these four things:
+
+1. Confirm Regolith COSMIC logs in, while the GNOME target stays inactive.
+2. Change keyboard, mouse, or touchpad settings and confirm Regolith follows them.
+3. Change a display setting, log out and back in, and check persistence.
+4. Try lock, OSD, launcher/workspace keys, and managed logout.
+
+For a pre-install check without system changes:
+
+```sh
+./scripts/install-real-system.sh install --dry-run
+```
+
+For rollback, pass the exact baseline path printed by the installer:
+
+```sh
+./scripts/install-real-system.sh rollback /var/lib/regolith-cosmic-gsoc/<timestamp>
+```
+
+Rollback removes packages introduced by this APT transaction. If a package
+was already installed and got upgraded, the script reports its old version
+for manual restoration. It does not run `autoremove`.
+
+The package tuple has passed the project QEMU login and service checks. This
+installer has contract-test coverage, but real-hardware success is still
+pending this mentor run.
+
 Define once:
 
 ```sh
