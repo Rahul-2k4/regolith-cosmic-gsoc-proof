@@ -24,13 +24,20 @@ Supported test hosts: amd64 **Pop!_OS 24.04 with COSMIC** (full graphical
 QEMU proof exists for this host) and amd64 **Ubuntu 26.04 Resolute**
 (package-install proof only — see the caveat in the status table below). The
 system must already have working Regolith and COSMIC package sources for
-dependencies. The seven project packages come from an unsigned GitHub
-prerelease and are checked against the committed SHA-256 manifest.
+dependencies. The seven project packages are committed at
+`artifacts/mentor-seven-package-bundle/` in this branch (unsigned, ~34MB)
+and are checked against the committed SHA-256 manifest before anything is
+installed. Use exactly that subdirectory with `--package-dir` — the parent
+`artifacts/` directory also holds older historical builds for provenance,
+and the installer refuses to run against a directory containing any `.deb`
+file outside the manifest. The installer also supports fetching from a
+GitHub release if one is published later (omit `--package-dir` and pass
+`--release-tag`/`--base-url` for that path), but that isn't required here.
 
 Install from the review branch:
 
 ```sh
-git clone --branch codex/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install
+git clone --branch codex/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
 ```
 
 The script does not reboot, stop the display manager, change the default
@@ -70,7 +77,7 @@ versions each claim was measured on:
 For a pre-install check without system changes:
 
 ```sh
-./scripts/install-real-system.sh install --dry-run
+./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle --dry-run
 ```
 
 For rollback, pass the exact baseline path printed by the installer:

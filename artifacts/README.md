@@ -38,18 +38,19 @@ model branch and the apt-build-dependency boundary are documented in the
 `bcf78bba...`, listed in an earlier draft of the mentor-test manifest) is
 **superseded and must not be used**: its version string sorts lower than the
 `-1-1regolith-resolute` build above, which caused a real `apt` downgrade
-abort in QEMU. The corrected replacement is:
-
-| File | SHA-256 | Proof note |
-|---|---|---|
-| `regolith-session-common_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `b30a39055ee49783aaf51025da0818ea746043af057c5d784fa4d44a5cc0d066` | [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+abort in QEMU. The corrected replacement is the `regolith-session-common`
+row in the table below.
 
 ## Mentor seven-package tuple (2026-08-18)
 
 This is the exact bundle `scripts/install-real-system.sh` installs, pinned in
 `mentor-test-2026-08-18.sha256`. It passed a full install→reboot→greetd-login
 QEMU run on 2026-08-18 — see the proof note linked below for the complete
-record. Two filenames here are byte-identical duplicates of a package name
+record. All seven files live at `mentor-seven-package-bundle/` in this
+directory, not at the top level — the installer's `--package-dir` mode
+refuses to run against a folder containing any `.deb` file outside its
+manifest, and the top-level `artifacts/` folder also holds older historical
+builds. Two filenames here are byte-identical duplicates of a package name
 listed elsewhere in this file at a different hash: `regolith-inputd_0.4.1-2-*`
 and `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_*` are
 **different binaries** from the ones in the tables above, despite similar or
@@ -68,6 +69,11 @@ given proof note is describing.
 ## Verification
 
 ```bash
+# Historical builds at the top level:
 cd artifacts
 shasum -a 256 *.deb
+
+# The mentor seven-package bundle, against its own manifest:
+cd mentor-seven-package-bundle
+shasum -a 256 -c ../mentor-test-2026-08-18.sha256
 ```
