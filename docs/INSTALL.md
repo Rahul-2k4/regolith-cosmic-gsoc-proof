@@ -37,7 +37,7 @@ GitHub release if one is published later (omit `--package-dir` and pass
 Install from the review branch:
 
 ```sh
-git clone --branch codex/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
+git clone --branch rahul/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
 ```
 
 The script does not reboot, stop the display manager, change the default
