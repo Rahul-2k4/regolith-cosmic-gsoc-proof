@@ -13,6 +13,8 @@ readonly INPUTD_SHA=7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785cc
 readonly DISPLAYD_SHA=11ac1a713aa5437a1b598e590c5980127b84f150b671de0896acd36a078d78fd
 readonly COSMOLITH_SHA=ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e
 readonly SETTINGS_SHA=5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f
+# Optional COSMIC component, required for this runtime tuple.
+readonly SETTINGS_DAEMON_SHA=16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1
 
 readonly BASE_IMAGE=${BASE_IMAGE:-}
 readonly VM_ROOT=${VM_ROOT:-}
@@ -22,6 +24,7 @@ readonly INPUTD_DEB=${INPUTD_DEB:-}
 readonly DISPLAYD_DEB=${DISPLAYD_DEB:-}
 readonly COSMOLITH_DEB=${COSMOLITH_DEB:-}
 readonly COSMIC_SETTINGS_DEB=${COSMIC_SETTINGS_DEB:-}
+readonly SETTINGS_DAEMON_DEB=${SETTINGS_DAEMON_DEB:-}
 readonly GUEST_USER=${GUEST_USER:-rahul}
 readonly SSH_PORT=${SSH_PORT:-2222}
 readonly OVERLAY=${OVERLAY:-/tmp/regolith-final-cosmic-tuple.qcow2}
@@ -34,11 +37,11 @@ qemu_pid=''
 
 usage() {
   cat <<'USAGE'
-Usage: configure the five *_DEB paths, BASE_IMAGE, VM_ROOT, LOGIN_CLIENT,
+Usage: configure the six *_DEB paths, BASE_IMAGE, VM_ROOT, LOGIN_CLIENT,
 and GUEST_PASS, then run this script.
 
 Required variables:
-  SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB
+  SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB
   BASE_IMAGE VM_ROOT LOGIN_CLIENT GUEST_PASS
 
 Optional paths: OVERLAY HMP LOG STAGE_DIR KNOWN_HOSTS; GUEST_USER SSH_PORT.
@@ -82,6 +85,7 @@ stage_tuple() {
   verify_and_stage "${DISPLAYD_DEB}" "${DISPLAYD_SHA}" regolith-displayd.deb
   verify_and_stage "${COSMOLITH_DEB}" "${COSMOLITH_SHA}" cosmolith.deb
   verify_and_stage "${COSMIC_SETTINGS_DEB}" "${SETTINGS_SHA}" cosmic-settings.deb
+  verify_and_stage "${SETTINGS_DAEMON_DEB}" "${SETTINGS_DAEMON_SHA}" cosmic-settings-daemon.deb
 }
 
 guest_ssh() {
@@ -172,11 +176,12 @@ if [[ "${1:-}" == '--contract-test' ]]; then
   [[ "${DISPLAYD_SHA}" == 11ac1a713aa5437a1b598e590c5980127b84f150b671de0896acd36a078d78fd ]]
   [[ "${COSMOLITH_SHA}" == ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e ]]
   [[ "${SETTINGS_SHA}" == 5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f ]]
+  [[ "${SETTINGS_DAEMON_SHA}" == 16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1 ]]
   printf 'CONTRACT_TUPLE=PASS\n'
   exit 0
 fi
 
-for required in BASE_IMAGE VM_ROOT LOGIN_CLIENT SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB; do
+for required in BASE_IMAGE VM_ROOT LOGIN_CLIENT SESSION_DEB INPUTD_DEB DISPLAYD_DEB COSMOLITH_DEB COSMIC_SETTINGS_DEB SETTINGS_DAEMON_DEB; do
   [[ -n "${!required}" ]] || die "${required} is required"
 done
 stage_tuple
