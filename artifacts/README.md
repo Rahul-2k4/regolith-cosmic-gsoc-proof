@@ -2,7 +2,9 @@
 
 This directory holds the unsigned `.deb` files committed with the public proof
 bundle. Hashes below were recomputed on 2026-08-10 with `shasum -a 256`, and the
-2026-08-11 reconciled package hash was recomputed the same way.
+2026-08-11 reconciled package hash was recomputed the same way. The
+`regolith-session-common` entries dated 2026-08-18 were recomputed on that
+date, independently of the earlier batch.
 
 `0.4.1-1-1regolith-resolute` and `0.4.1-2-1regolith-resolute` are Voulage-generated
 version strings that were reused across successive candidate builds. Distinct

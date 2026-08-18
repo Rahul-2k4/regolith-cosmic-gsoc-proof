@@ -509,6 +509,13 @@ integrity evidence, not a new package build or release claim.
   intentionally excludes unrelated failed units and does not claim hardware or
   native compositor coverage.
   [Verifier QEMU proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
+- **Mentor seven-package tuple (QEMU):** the full mentor-test bundle (session,
+  inputd, displayd, cosmolith, cosmic-settings, cosmic-settings-daemon) later
+  passed install, reboot, and greetd login as one set on 2026-08-18, after
+  fixing a `regolith-session-common` version regression that had made an
+  earlier attempt abort as an unintended apt downgrade. See
+  [Mentor seven-package tuple QEMU runtime](proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+  and [`docs/INSTALL.md`](docs/INSTALL.md).
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
 - **Cosmolith source closure:** the personal fork now has structured watcher
