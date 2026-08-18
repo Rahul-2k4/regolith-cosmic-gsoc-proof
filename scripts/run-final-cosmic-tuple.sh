@@ -163,7 +163,7 @@ run_runtime() {
     -o UserKnownHostsFile="${KNOWN_HOSTS}" "${STAGE_DIR}"/*.deb \
     "${GUEST_USER}@127.0.0.1:/tmp/regolith-final-cosmic-tuple-pkgs/"
   wait_for_guest_package_manager
-  guest_root 'DEBIAN_FRONTEND=noninteractive apt-get install -y /tmp/regolith-final-cosmic-tuple-pkgs/*.deb'
+  guest_root 'DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-downgrades /tmp/regolith-final-cosmic-tuple-pkgs/*.deb'
   guest_root 'dpkg --audit'
   guest_root 'systemctl reboot' || true
   sleep 10

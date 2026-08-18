@@ -59,6 +59,25 @@ git diff --check
 These checks prove the source and runbook contract only. They do not prove a
 graphical runtime session.
 
+## QEMU downgrade correction
+
+The first controller attempt after `c966e77` failed before package mutation.
+The exact `regolith-session-common` package was a downgrade relative to the
+disposable guest state, and the runner used `apt-get install -y` without
+`--allow-downgrades`. APT stopped at that transaction policy check.
+
+The disposable QEMU command now uses:
+
+```text
+DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-downgrades /tmp/regolith-final-cosmic-tuple-pkgs/*.deb
+```
+
+This permission is scoped to the disposable overlay runner. It allows the
+fresh test guest to converge on the exact seven-package tuple without
+changing the real-system installer or broadening its mutation policy. The
+failed attempt changed no package state and does not count as runtime proof;
+the corrected seven-package tuple still requires a successful controller run.
+
 ## Historical QEMU result
 
 The earlier QEMU run is historical and was not a seven-explicit-package

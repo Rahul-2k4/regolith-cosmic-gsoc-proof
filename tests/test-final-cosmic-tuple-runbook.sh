@@ -48,6 +48,8 @@ done
 ! grep -Eq '3b3309a|91bdd26' "${runbook}"
 
 [[ "$(bash "${runbook}" --contract-test)" == 'CONTRACT_TUPLE=PASS' ]]
+grep -Fq "apt-get install -y --allow-downgrades /tmp/regolith-final-cosmic-tuple-pkgs/*.deb" "${runbook}"
+! grep -Fq "apt-get install -y /tmp/regolith-final-cosmic-tuple-pkgs/*.deb" "${runbook}"
 grep -q 'printf.*GUEST_PASS.*guest_ssh_with_stdin' "${runbook}"
 ! grep -A4 '^guest_ssh_with_stdin()' "${runbook}" | grep -q '/dev/null'
 
