@@ -33,15 +33,17 @@ than raw `dpkg -i`, so declared Qt dependencies such as `qt5ct` and `qt6ct`
 are resolved by the guest package manager. It waits for any initial guest
 package-manager activity to finish before starting this install.
 
-The inputd artifact in this tuple is the reverse-sync candidate from source
-commit `ff5ae80c6c8ae2f8bcae44e63314c7fc18ef3687`. Its Voulage model commit is
-`c8f714e7536bfbffd78d98bdc947b96df30e7a8e`; the vendored build repaired the
-missing Cargo registry manifests and direct Lintian reported zero issues.
+The inputd artifact in this tuple is the vendored opt-in candidate from source
+`rahul/voulage-vendor-optin-20260818`, with SHA-256
+`a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19`.
 
-The displayd artifact in this tuple is built from source commit
-`af5112eee8ae085eb9b73b1b9b49a18a37bcf7e` through Voulage model commit
-`7c8491bad4c99cdae21a58d9f900970009fbb071`. Its vendored build and package
-checks passed; only the two existing binary manual-page warnings remain.
+The displayd artifact in this tuple is the live-apply candidate from source
+`rahul/cosmic-live-apply-20260818`, with SHA-256
+`949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d`.
+
+The exact package files for these two candidate hashes are required before a
+runtime rerun can be claimed. This proof branch records the contract update;
+it does not add or modify the untracked `proof-packets/` directory.
 
 ## Verification
 
@@ -56,7 +58,8 @@ git diff --check
 ```
 
 The syntax, repository contract, and diff checks exited `0`. The contract
-asserts the unchanged five package hashes and the new settings-daemon hash.
+asserts the unchanged session, cosmolith, settings, and settings-daemon hashes
+plus the new inputd and displayd hashes above.
 
 ## Runtime result
 
@@ -82,20 +85,10 @@ temporary QEMU state.
 
 ## Final source tuple rerun
 
-The tuple was rerun after replacing both the displayd and inputd artifacts:
-
-```text
-PACKAGE_PREFLIGHT=PASS
-GUEST_SSH_UP attempt=1
-6 upgraded, 24 newly installed, 0 to remove
-GUEST_SSH_UP attempt=7
-CANCEL_REPLY success
-REPLY auth_message
-REPLY success
-START_REPLY success
-RUNTIME_COMMANDS_COMPLETED=1
-```
-
-This run used displayd source `af5112e` and inputd source `ff5ae80c`, with
-their corresponding Voulage packages listed above. It completed the same
-dependency-aware install, reboot, greetd login, and COSMIC session start.
+Not run in this contract-only update. No local file matched the requested
+inputd SHA at
+`/Users/rahul/Desktop/Gsoc/.artifacts/final-tuple/regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb`,
+and no local file matched the requested displayd SHA at
+`/Users/rahul/Desktop/Gsoc/.artifacts/final-tuple/regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`.
+The disposable QEMU runner was therefore not invoked. A remote check was also
+blocked because the configured SSH alias could not resolve its hostname.
