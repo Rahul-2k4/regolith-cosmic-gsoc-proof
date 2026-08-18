@@ -4,7 +4,6 @@ umask 077
 readonly SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 readonly DEFAULT_RELEASE_TAG=mentor-test-2026-08-18
 readonly MANIFEST_FILE=$SCRIPT_DIR/../artifacts/mentor-test-2026-08-18.sha256
-
 ACTION=${1:-}; [[ -n $ACTION ]] && shift || true
 PACKAGE_DIR= DRY_RUN=0 RELEASE_TAG=$DEFAULT_RELEASE_TAG BASE_URL= BASE_URL_SET=0
 ALLOW_UNSUPPORTED=0 BASELINE_ARG= TMP_WORK= BUNDLE_DIR=
@@ -13,29 +12,24 @@ ROOT_PREFIX=${ROOT_PREFIX:-}
 STATE_ROOT=${STATE_ROOT:-${ROOT_PREFIX}/var/lib/regolith-cosmic-gsoc}
 NOW=${NOW:-$(date -u +%Y%m%dT%H%M%SZ)}
 PACKAGE_FILES=(); PACKAGE_HASHES=(); PACKAGE_NAMES=()
-
 cleanup() {
     [[ -z $TMP_WORK ]] || rm -rf -- "$TMP_WORK"
 }
 trap cleanup EXIT
-
 fail() {
     printf 'FAIL: %s\n' "$*" >&2
     exit 1
 }
-
 usage() {
     printf 'Usage: %s {check|install|verify} [options]\n' "$0" >&2
     printf '       %s rollback BASELINE [options]\n' "$0" >&2
     exit 2
 }
-
 case $ACTION in
     check|install|verify) ;;
     rollback) (($#)) || usage; BASELINE_ARG=$1; shift ;;
     *) usage ;;
 esac
-
 while (($#)); do
     case $1 in
         --package-dir) (($# >= 2)) || usage; PACKAGE_DIR=$2; shift 2 ;;
@@ -46,18 +40,15 @@ while (($#)); do
         *) usage ;;
     esac
 done
-
 if (( ! BASE_URL_SET )); then
     BASE_URL=https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/releases/download/$RELEASE_TAG
 fi
 BASE_URL=${BASE_URL%/}
-
 ensure_tmp() {
     if [[ -z $TMP_WORK ]]; then
         TMP_WORK=$(mktemp -d "${TMPDIR:-/tmp}/install-real-system.XXXXXX")
     fi
 }
-
 load_manifest() {
     [[ -f $MANIFEST_FILE ]] || fail "bundle manifest missing: $MANIFEST_FILE"
     local hash file extra prior
@@ -74,7 +65,6 @@ load_manifest() {
     done <"$MANIFEST_FILE"
     ((${#PACKAGE_FILES[@]} == 7)) || fail "bundle manifest must contain exactly 7 packages"
 }
-
 read_os_release() {
     [[ -r $OS_RELEASE_FILE ]] || fail "OS release file is unreadable: $OS_RELEASE_FILE"
     OS_ID= OS_VERSION= OS_CODENAME=
@@ -89,7 +79,6 @@ read_os_release() {
         esac
     done <"$OS_RELEASE_FILE"
 }
-
 check_host() {
     read_os_release
     local reason=
@@ -109,7 +98,6 @@ check_host() {
         printf 'PASS: host compatibility\n'
     fi
 }
-
 is_bundled() {
     local wanted=$1 name
     for name in "${PACKAGE_NAMES[@]}"; do
@@ -117,31 +105,25 @@ is_bundled() {
     done
     return 1
 }
-
-validate_package_dir() {
-    local dir=$1 path file file_expected expected found=0
-    [[ -d $dir ]] || fail "package directory missing: $dir"
-    for path in "$dir"/*.deb; do
-        [[ -e $path ]] || continue
-        file=${path##*/}
-        expected=0
-        for file_expected in "${PACKAGE_FILES[@]}"; do
-            [[ $file != "$file_expected" ]] || expected=1
-        done
+stage_local_bundle() {
+    [[ -d $PACKAGE_DIR ]] || fail "package directory missing: $PACKAGE_DIR"
+    ensure_tmp; BUNDLE_DIR=$TMP_WORK/packages; mkdir -p -- "$BUNDLE_DIR"
+    local path file wanted expected found=0
+    shopt -s nullglob dotglob
+    for path in "$PACKAGE_DIR"/*; do
+        [[ -f $path && ! -L $path ]] || fail "package source must be a regular file: $path"
+        file=${path##*/}; [[ $file == *.deb ]] || continue; expected=0
+        for wanted in "${PACKAGE_FILES[@]}"; do [[ $file != "$wanted" ]] || expected=1; done
         (( expected )) || fail "package set differs from manifest: unexpected $file"
-        found=$((found + 1))
+        cp -- "$path" "$BUNDLE_DIR/$file"; found=$((found + 1))
     done
+    shopt -u nullglob dotglob
     (( found == 7 )) || fail "package set differs from manifest: found $found of 7 packages"
-    for file in "${PACKAGE_FILES[@]}"; do
-        [[ -f $dir/$file ]] || fail "package set differs from manifest: missing $file"
-    done
+    for file in "${PACKAGE_FILES[@]}"; do [[ -f $BUNDLE_DIR/$file ]] || fail "package set differs from manifest: missing $file"; done
 }
-
 acquire_bundle() {
     if [[ -n $PACKAGE_DIR ]]; then
-        BUNDLE_DIR=$PACKAGE_DIR
-        validate_package_dir "$BUNDLE_DIR"
-        return 0
+        stage_local_bundle; return 0
     fi
     if (( DRY_RUN )); then
         local file
@@ -157,7 +139,6 @@ acquire_bundle() {
     for file in "${PACKAGE_FILES[@]}"; do
         curl -fL "$BASE_URL/$file" -o "$BUNDLE_DIR/$file"
     done
-    validate_package_dir "$BUNDLE_DIR"
 }
 
 validate_packages() {
@@ -231,13 +212,10 @@ check_bundle() {
     printf 'PASS: package set validated\n'
 }
 capture_baseline() {
-    ensure_tmp
-    local stage=$TMP_WORK/baseline
-    local baseline=$STATE_ROOT/$NOW
-    local name record status version extra
+    ensure_tmp; local stage=$TMP_WORK/baseline baseline=$STATE_ROOT/$NOW
+    local name record status version extra metadata
     [[ ! -e $baseline ]] || fail "baseline already exists: $baseline"
-    mkdir -p -- "$stage"
-    : >"$stage/tuple-state.tsv"
+    mkdir -p -- "$stage"; : >"$stage/tuple-state.tsv"
     for name in "${PACKAGE_NAMES[@]}"; do
         if record=$(dpkg-query -W -f='${db:Status-Status}\t${Version}\n' "$name" 2>/dev/null); then
             IFS=$'\t' read -r status version extra <<<"$record"
@@ -249,20 +227,23 @@ capture_baseline() {
     done
     dpkg --get-selections >"$stage/dpkg-selections.txt"
     cp -- "$MANIFEST_FILE" "$stage/bundle-manifest.sha256"
+    dpkg-query -W -f='${binary:Package}\t${Version}\n' | LC_ALL=C sort -u >"$stage/installed-packages.tsv"
+    if command -v apt-mark >/dev/null; then apt-mark showmanual | LC_ALL=C sort -u >"$stage/apt-mark-manual.txt"
+    else printf 'UNAVAILABLE\n' >"$stage/apt-mark-manual.txt"; fi
     # These files contain package metadata only; readable modes let the invoking user rollback.
     sudo install -d -m 0755 "$STATE_ROOT" "$baseline"
-    sudo install -m 0644 "$stage/tuple-state.tsv" "$baseline/tuple-state.tsv"
-    sudo install -m 0644 "$stage/dpkg-selections.txt" "$baseline/dpkg-selections.txt"
-    sudo install -m 0644 "$stage/bundle-manifest.sha256" "$baseline/bundle-manifest.sha256"
+    for metadata in tuple-state.tsv dpkg-selections.txt bundle-manifest.sha256 installed-packages.tsv apt-mark-manual.txt; do
+        sudo install -m 0644 "$stage/$metadata" "$baseline/$metadata"
+    done
     BASELINE_PATH=$baseline
     printf 'BASELINE: %s\n' "$baseline"
 }
-
 install_bundle() {
-    local check_status=0 file
+    local check_status=0 file stage metadata
     local paths=()
     check_bundle || check_status=$?
     if (( DRY_RUN )); then
+        (( check_status == 0 || check_status == 2 )) || return "$check_status"
         printf 'DRY-RUN: would install exactly 7 packages\n'
         return 0
     fi
@@ -272,6 +253,10 @@ install_bundle() {
         paths+=("$BUNDLE_DIR/$file")
     done
     sudo apt-get install -y "${paths[@]}"
+    stage=$TMP_WORK/baseline
+    dpkg-query -W -f='${binary:Package}\t${Version}\n' | LC_ALL=C sort -u >"$stage/post-install-packages.tsv"
+    LC_ALL=C comm -13 <(cut -f1 "$stage/installed-packages.tsv") <(cut -f1 "$stage/post-install-packages.tsv") >"$stage/introduced-packages.txt"
+    for metadata in post-install-packages.tsv introduced-packages.txt; do sudo install -m 0644 "$stage/$metadata" "$BASELINE_PATH/$metadata"; done
     sudo dpkg --audit
     printf 'PASS: installed exactly 7 packages\n'
 }
@@ -313,32 +298,47 @@ FILES
 }
 
 rollback_baseline() {
-    local baseline=$BASELINE_ARG name status version extra known seen='|' rows=0
+    local baseline=$BASELINE_ARG name status version extra known seen='|' rows=0 metadata state index
     local removals=() existing_names=() existing_versions=()
     [[ -d $baseline ]] || baseline=$STATE_ROOT/$BASELINE_ARG
-    [[ -d $baseline && -f $baseline/tuple-state.tsv && -f $baseline/dpkg-selections.txt && -f $baseline/bundle-manifest.sha256 ]] || fail "baseline is missing or incomplete: $baseline"
+    [[ -d $baseline ]] || fail "baseline is missing or incomplete: $baseline"
+    for metadata in tuple-state.tsv dpkg-selections.txt bundle-manifest.sha256 installed-packages.tsv apt-mark-manual.txt post-install-packages.tsv introduced-packages.txt; do
+        [[ -f $baseline/$metadata ]] || fail "baseline is missing or incomplete: $baseline/$metadata"
+    done
     [[ -s $baseline/dpkg-selections.txt ]] || fail "malformed baseline: empty dpkg selections"
     awk 'NF != 2 || $2 !~ /^(install|hold|deinstall|purge)$/ {exit 1}' "$baseline/dpkg-selections.txt" || fail "malformed baseline: invalid dpkg selections"
     cmp -s -- "$MANIFEST_FILE" "$baseline/bundle-manifest.sha256" || fail "malformed baseline: bundle manifest mismatch"
+    for metadata in installed-packages.tsv post-install-packages.tsv; do
+        awk -F '\t' 'NF != 2 || $1 !~ /^[a-z0-9][a-z0-9+.-]*(:[a-z0-9]+)?$/ || $2 == "" || seen[$1]++ {exit 1}' "$baseline/$metadata" || fail "malformed baseline: $metadata"
+        LC_ALL=C sort -cu "$baseline/$metadata" || fail "malformed baseline: unsorted $metadata"
+    done
+    awk 'NF != 1 || ($1 != "UNAVAILABLE" && $1 !~ /^[a-z0-9][a-z0-9+.-]*(:[a-z0-9]+)?$/) || seen[$1]++ {exit 1} $1 == "UNAVAILABLE" {u++} END {if (u && NR != 1) exit 1}' "$baseline/apt-mark-manual.txt" || fail "malformed baseline: apt-mark manual list"
+    awk 'NF != 1 || $1 !~ /^[a-z0-9][a-z0-9+.-]*(:[a-z0-9]+)?$/ || seen[$1]++ {exit 1}' "$baseline/introduced-packages.txt" || fail "malformed baseline: introduced packages"
+    ensure_tmp; cut -f1 "$baseline/installed-packages.tsv" >"$TMP_WORK/before.names"; cut -f1 "$baseline/post-install-packages.tsv" >"$TMP_WORK/after.names"
+    LC_ALL=C comm -13 "$TMP_WORK/before.names" "$TMP_WORK/after.names" >"$TMP_WORK/expected-introduced"
+    cmp -s -- "$TMP_WORK/expected-introduced" "$baseline/introduced-packages.txt" || fail "malformed baseline: introduced package diff"
     while IFS=$'\t' read -r name status version extra; do
         [[ -n $name && -n $status && -n $version && -z ${extra:-} ]] || fail "malformed baseline: invalid tuple row"
         known=0; is_bundled "$name" && known=1
         (( known )) || fail "malformed baseline: unknown package $name"
         [[ $seen != *"|$name|"* ]] || fail "malformed baseline: duplicate package $name"
         seen+="$name|"; rows=$((rows + 1))
-        if [[ $status == absent && $version == ABSENT ]]; then removals+=("$name")
+        if [[ $status == absent && $version == ABSENT ]]; then :
         elif [[ $status =~ ^(not-installed|config-files|half-installed|unpacked|half-configured|triggers-awaited|triggers-pending|installed)$ && $version != ABSENT ]]; then existing_names+=("$name"); existing_versions+=("$version")
         else fail "malformed baseline: inconsistent state for $name"; fi
     done <"$baseline/tuple-state.tsv"
     (( rows == 7 )) || fail "malformed baseline: expected 7 tuple rows"
-    local index
     for index in "${!existing_names[@]}"; do
         printf 'MANUAL: restore %s to exact version %s (prior status recorded)\n' "${existing_names[index]}" "${existing_versions[index]}"
     done
-    printf 'MANUAL: restore dpkg selections from %s/dpkg-selections.txt\n' "$baseline"
-    if (( DRY_RUN )); then printf 'DRY-RUN: would remove %d ABSENT-before packages\n' "${#removals[@]}"; return 0; fi
+    while IFS= read -r name; do
+        state=$(dpkg-query -W -f='${db:Status-Status}\n' "$name" 2>/dev/null || true)
+        [[ $state != installed ]] || removals+=("$name")
+    done <"$baseline/introduced-packages.txt"
+    printf 'MANUAL: restore dpkg selections and apt-mark manual state from %s\n' "$baseline"
+    if (( DRY_RUN )); then printf 'DRY-RUN: would remove %d introduced packages\n' "${#removals[@]}"; return 0; fi
     if ((${#removals[@]})); then sudo apt-get remove -y "${removals[@]}"; sudo dpkg --audit
-    else printf 'PASS: no ABSENT-before packages to remove\n'; fi
+    else printf 'PASS: no introduced packages to remove\n'; fi
 }
 
 load_manifest
