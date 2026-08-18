@@ -44,6 +44,27 @@ abort in QEMU. The corrected replacement is:
 |---|---|---|
 | `regolith-session-common_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `b30a39055ee49783aaf51025da0818ea746043af057c5d784fa4d44a5cc0d066` | [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
 
+## Mentor seven-package tuple (2026-08-18)
+
+This is the exact bundle `scripts/install-real-system.sh` installs, pinned in
+`mentor-test-2026-08-18.sha256`. It passed a full install→reboot→greetd-login
+QEMU run on 2026-08-18 — see the proof note linked below for the complete
+record. Two filenames here are byte-identical duplicates of a package name
+listed elsewhere in this file at a different hash: `regolith-inputd_0.4.1-2-*`
+and `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_*` are
+**different binaries** from the ones in the tables above, despite similar or
+identical filenames. Use the hash, not the filename, to know which build a
+given proof note is describing.
+
+| File | SHA-256 | Proof note |
+|---|---|---|
+| `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` | `8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643` | [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` (a277811b build, distinct from the `759f87dc` build above sharing this filename) | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); a *different* build of this package (hash `e10c88b9...`) has its own [Lintian closure note](../proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md), which does not describe this hash |
+
 ## Verification
 
 ```bash
