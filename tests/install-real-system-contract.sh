@@ -236,10 +236,10 @@ test_dry_run_is_non_mutating() {
 }
 test_install_is_one_exact_apt_transaction() {
     reset_case; MUTATE_SOURCE="$PACKAGE_DIR/${PACKAGE_FILES[0]}" MOCK_BASELINE_ABSENT=cosmolith run_script install --package-dir "$PACKAGE_DIR" || { printf 'FAIL: frozen install transaction failed\n' >&2; FAILURES=$((FAILURES + 1)); }
-    [[ $(grep -c '^apt-get install -y' "$COMMAND_LOG" || true) == 1 ]] || { printf 'FAIL: install was not one apt transaction\n' >&2; FAILURES=$((FAILURES + 1)); }
+    [[ $(grep -c '^apt-get install -y --no-install-recommends' "$COMMAND_LOG" || true) == 1 ]] || { printf 'FAIL: install was not one apt transaction\n' >&2; FAILURES=$((FAILURES + 1)); }
     local package
     for package in "${PACKAGE_FILES[@]}"; do assert_not_contains "$PACKAGE_DIR/$package" "$COMMAND_LOG"; done
-    grep -Eq '^apt-get install -y .*/install-real-system\.[^/]*/packages/' "$COMMAND_LOG" || { printf 'FAIL: apt did not use private staged paths\n' >&2; FAILURES=$((FAILURES + 1)); }
+    grep -Eq '^apt-get install -y --no-install-recommends .*/install-real-system\.[^/]*/packages/' "$COMMAND_LOG" || { printf 'FAIL: apt did not use private staged paths\n' >&2; FAILURES=$((FAILURES + 1)); }
     assert_contains 'sudo dpkg --audit' "$COMMAND_LOG"; assert_contains 'BASELINE:' "$OUTPUT"
     assert_contains 'sudo install -d -m 0755' "$COMMAND_LOG"
     [[ $(grep -c '^sudo install -m 0644' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: baseline metadata is not installed readable\n' >&2; FAILURES=$((FAILURES + 1)); }

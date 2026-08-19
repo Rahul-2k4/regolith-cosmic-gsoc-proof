@@ -252,7 +252,7 @@ install_bundle() {
     for file in "${PACKAGE_FILES[@]}"; do
         paths+=("$BUNDLE_DIR/$file")
     done
-    sudo apt-get install -y "${paths[@]}"
+    sudo apt-get install -y --no-install-recommends "${paths[@]}"
     stage=$TMP_WORK/baseline
     dpkg-query -W -f='${binary:Package}\t${Version}\n' | LC_ALL=C sort -u >"$stage/post-install-packages.tsv"
     LC_ALL=C comm -13 <(cut -f1 "$stage/installed-packages.tsv") <(cut -f1 "$stage/post-install-packages.tsv") >"$stage/introduced-packages.txt"
