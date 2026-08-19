@@ -41,7 +41,7 @@ model branch and the apt-build-dependency boundary are documented in the
 abort in QEMU. The corrected replacement is the `regolith-session-common`
 row in the table below.
 
-## Mentor seven-package tuple (2026-08-18)
+## Mentor seven-package tuple (2026-08-18, `regolith-session-cosmic` corrected 2026-08-19)
 
 This is the exact bundle `scripts/install-real-system.sh` installs, pinned in
 `mentor-test-2026-08-18.sha256`. It passed a full install→reboot→greetd-login
@@ -50,16 +50,32 @@ record. All seven files live at `mentor-seven-package-bundle/` in this
 directory, not at the top level — the installer's `--package-dir` mode
 refuses to run against a folder containing any `.deb` file outside its
 manifest, and the top-level `artifacts/` folder also holds older historical
-builds. Two filenames here are byte-identical duplicates of a package name
+builds. One filename here is a byte-identical duplicate of a package name
 listed elsewhere in this file at a different hash: `regolith-inputd_0.4.1-2-*`
-and `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_*` are
-**different binaries** from the ones in the tables above, despite similar or
-identical filenames. Use the hash, not the filename, to know which build a
+is a **different binary** from the one in the tables above, despite the
+identical filename. Use the hash, not the filename, to know which build a
 given proof note is describing.
+
+`regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`
+(SHA-256 `8e3559e8...`) shipped in this bundle through 2026-08-18 carries
+the exact same version-ordering defect fixed in `regolith-session-common`
+above: its version string sorts lower than a stale pre-installed build,
+which would cause the identical `apt` downgrade-refusal failure. It is
+**superseded and must not be used**. The corrected replacement,
+`regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb`
+(SHA-256 `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d`),
+was built from the same Voulage run that fixed `-common` (branch
+`rahul/session-common-version-fix-20260818`, commit `b6c4478`) but was
+never staged into this bundle until now. Confirmed via
+`dpkg --compare-versions` that the new version sorts above the stale
+baseline that triggered the original `-common` bug. The other four
+sibling packages built from the same source (`-flashback`,
+`-flashback-ext`, `-gnome-targets`, `-sway`) are not part of this bundle
+and carry no live shipping risk today.
 
 | File | SHA-256 | Proof note |
 |---|---|---|
-| `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` | `8e3559e8dfd1eb33cbe3187da4772055a4f0ee048d69bf188ca0196b43635643` | [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d` | Version-ordering fix staged 2026-08-19, same class of bug as `-common`; not yet re-run through a fresh QEMU install proof with this corrected file — see `01_Proposal_Alignment.md`/vault for status |
 | `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` (a277811b build, distinct from the `759f87dc` build above sharing this filename) | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
 | `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
 | `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |

@@ -86,6 +86,23 @@ are shipped elsewhere at the old version, they carry the same class of
 version-ordering risk relative to any host that already has a newer-suffixed
 copy installed.
 
+**Update, 2026-08-19: this follow-up is done for `-cosmic`.** An audit
+found `regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`
+(the exact old version shown in the table below) was still the one staged
+in `mentor-seven-package-bundle/` and pinned in the manifest — carrying the
+identical version-ordering risk as the original `-common` bug, just not
+yet triggered because attempt 3 above was a fresh install, not a downgrade
+against a newer-suffixed baseline. Swapped in the already-built
+`1.2.0-1ubuntu1-2-1regolith-resolute` binary (sha256
+`790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d`, from
+the same Voulage run that fixed `-common`), updated the manifest and
+contract test to match. The other four siblings
+(`-flashback`/`-flashback-ext`/`-gnome-targets`/`-sway`) are not part of
+this bundle and carry no live shipping risk today. See
+`05_Testing_Proof/2026-08-19-mentor-cosmic-version-fix-staged.md` in the
+vault for the full audit trail; a fresh QEMU install proof with the
+corrected bundle is the remaining step to close this out end to end.
+
 ## Attempt 3 — success
 
 Same procedure as attempt 2, with the corrected `regolith-session-common`
