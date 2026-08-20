@@ -27,6 +27,51 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
+## Work product
+
+The GSoC final work product for this project is the submission write-up:
+<https://gist.github.com/Rahul-2k4/ace071f9dc818ae31d72ff1f0fa27f49>. This
+repository is the evidence trail behind it.
+
+## Latest closure update - 2026-08-20
+
+Five things changed since the 2026-08-17 notes further down, which are kept as
+a historical record.
+
+`apt install regolith-session-cosmic` was proven on a real QEMU Ubuntu 26.04
+Resolute guest for the first time, rather than only in a disposable container.
+See [first package closure](proof-notes/2026-08-18-ubuntu-2604-resolute-first-package-closure.md).
+
+A corrected seven-package mentor bundle passed a full install, reboot and
+greetd login on Pop!_OS 24.04. That was the first real-system test handed to
+the mentor. See [mentor tuple runtime](proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md).
+
+The session reached its first fully healthy graphical COSMIC login on Ubuntu
+26.04 Resolute. Two fixes were needed to get there: `virtio-gpu-pci` in place
+of legacy VGA before render nodes appeared at all
+([GPU fix](proof-notes/2026-08-19-ubuntu-2604-resolute-gpu-fix-new-blocker.md)),
+then importing `XDG_CURRENT_DESKTOP` into the COSMIC user manager so
+`regolith-init-inputd` stopped selecting the wrong backend
+([graphical login](proof-notes/2026-08-19-regolith-inputd-xdg-env-fix-graphical-login.md)).
+Three consecutive fresh-overlay boots came back clean. QEMU proof, not hardware.
+
+A GNOME cascade of roughly 290 packages, `gdm3` and `gnome-shell` among them,
+was traced to `network-manager-applet`'s `Recommends` metadata and removed with
+`--no-install-recommends`. See the
+[transitive audit](proof-notes/2026-08-19-gnome-survivor-transitive-audit.md),
+the [verification follow-up](proof-notes/2026-08-19-mentor-bundle-no-install-recommends-followup.md),
+and the [per-package removal plan](docs/2026-08-20-gnome-survivor-removal-plan.md).
+
+`regolith-displayd`'s `apply_monitors_config` now reaches an actual Wayland
+apply call, bridged through `calloop`, with 91 tests passing. See the
+[wiring proof](proof-notes/2026-08-20-displayd-calloop-apply-wiring.md). This is
+unit level only; no live compositor has exercised it yet.
+
+The criteria ledger is unchanged at **5 of 12**, QEMU-only, with a
+**62-68%** working estimate. What is genuinely out of reach, and who has to act
+on each item, is set out in the
+[completion ceiling audit](docs/2026-08-20-completion-ceiling-audit.md).
+
 ## Latest closure update - 2026-08-17
 
 The [fresh COSMolith input/display persistence proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
