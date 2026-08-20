@@ -5,6 +5,96 @@
 locally built (or proof-bundle) artifacts only. Do not treat this guide as a
 release install path.
 
+## Contents
+
+- [Mentor real-system test](#mentor-real-system-test)
+- [What is proven vs targeted](#what-is-proven-vs-targeted)
+- [Prerequisites](#prerequisites)
+- [Build from source](#build-from-source-voulage-vendored-offline)
+- [Install the tuple](#install-the-tuple-unsigned--local-only)
+- [Select the session at the greeter](#select-the-session-at-the-greeter)
+- [Roll back to the GNOME session](#roll-back-to-the-gnome-session)
+- [Verify a successful install](#verify-a-successful-install-in-session)
+- [Cheap reviewer path (no VM)](#cheap-reviewer-path-no-vm)
+- [Related documents](#related-documents)
+
+## Mentor real-system test
+
+Supported test hosts: amd64 **Pop!_OS 24.04 with COSMIC** (full graphical
+QEMU proof exists for this host) and amd64 **Ubuntu 26.04 Resolute**
+(package-install proof only — see the caveat in the status table below). The
+system must already have working Regolith and COSMIC package sources for
+dependencies. The seven project packages are committed at
+`artifacts/mentor-seven-package-bundle/` in this branch (unsigned, ~34MB)
+and are checked against the committed SHA-256 manifest before anything is
+installed. Use exactly that subdirectory with `--package-dir` — the parent
+`artifacts/` directory also holds older historical builds for provenance,
+and the installer refuses to run against a directory containing any `.deb`
+file outside the manifest. The installer also supports fetching from a
+GitHub release if one is published later (omit `--package-dir` and pass
+`--release-tag`/`--base-url` for that path), but that isn't required here.
+
+Install from the review branch:
+
+```sh
+git clone --branch rahul/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
+```
+
+The script does not reboot, stop the display manager, change the default
+session, or store the sudo password. It prints the baseline path before the
+APT transaction. After installation, log out, select the Regolith COSMIC
+session at the greeter, log in, then run:
+
+```sh
+./scripts/install-real-system.sh verify
+```
+
+**What this exact seven-package bundle has been tested as.** This bundle
+previously shipped a `regolith-session-common` build whose version string
+sorted *lower* than a copy already present on our own QEMU test image, which
+made `apt` abort the whole install as an unintended downgrade — a real defect,
+not a proof-process gap. That package has been rebuilt with a corrected
+version (verified with `dpkg --compare-versions`, not assumed), and the
+**exact current seven-file manifest** has since passed a full disposable QEMU
+run: install, `dpkg --audit` clean, cold reboot, greetd login, and a healthy
+COSMIC session with both helper daemons active. See
+[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+for the full record, including the failed attempts kept for honesty rather
+than discarded. That proof is QEMU-only, on Pop!_OS 24.04 — this mentor run
+is the first time this bundle will be tried on real hardware.
+
+Try these four things. Item 1 (login, target/helper state) matches exactly
+what the QEMU proof above measured. Items 2-4 rely on component-level proof
+from a slightly different package combination — see
+[What is proven vs targeted](#what-is-proven-vs-targeted) for exactly which
+versions each claim was measured on:
+
+1. Confirm Regolith COSMIC logs in, while the GNOME target stays inactive.
+2. Change keyboard, mouse, or touchpad settings and confirm Regolith follows them.
+3. Change a display setting, log out and back in, and check persistence.
+4. Try lock, OSD, launcher/workspace keys, and managed logout.
+
+For a pre-install check without system changes:
+
+```sh
+./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle --dry-run
+```
+
+For rollback, pass the exact baseline path printed by the installer:
+
+```sh
+./scripts/install-real-system.sh rollback /var/lib/regolith-cosmic-gsoc/<timestamp>
+```
+
+Rollback removes packages introduced by this APT transaction. If a package
+was already installed and got upgraded, the script reports its old version
+for manual restoration. It does not run `autoremove`.
+
+This installer has contract-test coverage
+(`tests/install-real-system-contract.sh`), and the exact seven-file bundle it
+ships has now passed a full QEMU install→reboot→login run (see above).
+Real-hardware success is still pending this mentor run.
+
 Define once:
 
 ```sh
@@ -13,27 +103,58 @@ WORKSPACE="${WORKSPACE:-$HOME/regolith-cosmic-workspace}"
 
 All paths below use `$WORKSPACE`. Do not hard-code personal home directories.
 
+## What is proven vs targeted
+
+| Surface | Status |
+|---|---|
+| Pop!_OS 24.04 QEMU: this exact seven-file bundle, install→reboot→greetd login | **Proven (QEMU)** — [proof note](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| Real (non-QEMU) hardware, this exact bundle | **Not yet run** — this mentor test is the first attempt |
+| Ubuntu 26.04 Resolute: local package install (`apt`) resolves, `dpkg --audit` clean | Proven (disposable container/QEMU package-install only) |
+| Ubuntu 26.04 Resolute: graphical cold login / greetd session | **Not proven** — no Resolute graphical QEMU image exists yet |
+| Debian Trixie / Ubuntu 26.04 apt availability of build deps | Queried in Docker; see matrix |
+| Debian Trixie graphical session | **Not** proven |
+| Physical laptop full boot | **Not** proven — see [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) |
+| Signed / archive-published packages | **Not** done |
+
+The four "try these" behaviors above (login, live settings, display
+persistence, lock/OSD/logout) were measured against a **slightly different**
+package set than the one this installer ships: `regolith-inputd 0.4.1-1`
+(this bundle ships `0.4.1-2`, a same-day fix) plus `regolith-wm-config`
+(this bundle does not include a standalone wm-config package; the
+functionality is expected to come from `regolith-session-common`). Treat
+those four items as **expected behavior backed by component proof**, not as
+a rerun of the identical bundle. If any of them behave differently on this
+exact tuple, that is a real, useful finding for this mentor test — not
+evidence the installer is broken.
+
+One unrelated, pre-existing failed unit
+(`app-polkit-mate-authentication-agent-1@autostart.service`) appears in the
+underlying QEMU proofs referenced above. It is a leftover GNOME-flashback
+polkit agent, unrelated to this project's packages, and does not affect the
+`Runtime verification failures: 0` result quoted below.
+
 ## Prerequisites
 
 - A Linux amd64 build host with Docker (for Voulage/local package builds) and
   a Rust toolchain able to run `cargo test`.
 - For session install: a disposable QEMU guest (or equivalent). Proven
-  runtime seat: **Ubuntu Resolute** QEMU guest running the Regolith COSMIC
-  Sway-backed session. Debian Trixie and Ubuntu 26.04 are **build-dep
-  targets** only in [`BUILD_DEP_MATRIX.md`](BUILD_DEP_MATRIX.md) — no
-  graphical boot on those distros was performed.
+  runtime seat: **Pop!_OS 24.04 with COSMIC** QEMU guest running the Regolith
+  COSMIC Sway-backed session. Ubuntu 26.04 Resolute has package-install proof
+  only (see table above). Debian Trixie is a **build-dep target** only in
+  [`BUILD_DEP_MATRIX.md`](BUILD_DEP_MATRIX.md) — no graphical boot on that
+  distro was performed.
 - Ability to install local `.deb` files with `dpkg` / `apt` in the guest.
 - Greeter access so the COSMIC / Regolith session can be selected visibly.
-
-## What is proven vs targeted
-
-| Surface | Status |
-|---|---|
-| Ubuntu Resolute QEMU cold login + tuple install | Proven (QEMU) |
-| Debian Trixie / Ubuntu 26.04 apt availability of build deps | Queried in Docker; see matrix |
-| Debian Trixie / Ubuntu 26.04 graphical session | **Not** proven |
-| Physical laptop full boot | **Not** proven — see [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) |
-| Signed / archive-published packages | **Not** done |
+- **`cosmic-comp` must already be installed** before running this
+  installer. This installer only patches specific override packages onto
+  an existing Regolith COSMIC install — it does not perform the base
+  `apt install regolith-session-cosmic` for you. `cosmic-comp` is a
+  Recommends of `cosmic-session`, not a hard Depends, so a from-scratch
+  `--no-install-recommends` base install can silently end up without a
+  compositor even though the rest of the install reports success. The
+  installer checks for this and fails loudly (`FAIL: cosmic-comp is not
+  installed`) rather than proceeding into a broken state — see
+  [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) for the full trace.
 
 ## Build from source (Voulage, vendored offline)
 
@@ -63,7 +184,7 @@ DEBFULLNAME="Regolith Linux" \
 ```
 
 Build one package per isolated build root. Sharing `pkgbuild` directories can
-delete another package’s Rust target during cleanup.
+delete another package's Rust target during cleanup.
 
 After build, record SHA-256 of every `.deb` before copying into a guest.
 Proof-bundle hashes for committed artifacts are listed under
@@ -72,12 +193,11 @@ Proof-bundle hashes for committed artifacts are listed under
 ## Install the tuple (unsigned / local-only)
 
 1. Copy the hash-verified `.deb` files into the guest.
-2. Install with `dpkg -i` (or `apt install ./file.deb`) for the session, WM
-   config, `regolith-inputd`, and `regolith-displayd` artifacts that match
-   the proof note you are reproducing.
-3. Resolve any missing runtime deps with `apt-get -f install` **only** from
-   the guest’s configured archives — do not silently substitute a different
-   Regolith build.
+2. Install the staged tuple with `apt-get install ./file.deb ...` so declared
+   runtime dependencies are resolved by the guest package manager. The final
+   runbook uses this path for the seven project packages.
+3. Use `dpkg --audit` after installation. Do not silently substitute a
+   different Regolith build or use a mismatched package hash.
 4. Reboot or restart the display manager so the greeter reloads session
    desktop files.
 
@@ -103,36 +223,41 @@ Direct `swaymsg exit` is **not** a clean parent teardown: it can leave
 
 ## Verify a successful install (in-session)
 
-Do not invent fresh QEMU output here. The following values were recorded by
-the inputd candidate verifier on 2026-08-10 and are quoted from
-[`proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md`](../proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
-and its artifact files under
-`artifacts/inputd-candidate-verifier-qemu-20260810/`.
+Do not invent fresh QEMU output here. The following values were recorded
+against **this exact seven-package bundle**, on 2026-08-18, and are quoted
+from
+[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+and its artifacts.
 
 Quoted environment / target evidence from that proof:
 
 ```text
 XDG_CURRENT_DESKTOP=Regolith-Wayland:COSMIC:sway
+XDG_SESSION_TYPE=wayland
 regolith-cosmic.target=active
 regolith-gnome.target=inactive
+regolith-init-inputd.service=active
+regolith-init-displayd.service=active
 ```
 
-From the same note’s result summary:
+From the same note's result summary:
 
-- no `gnome-session-bin` process;
-- `regolith-init-inputd.service` and `regolith-init-displayd.service` both
-  `ActiveState=active`, `Result=success`, `NRestarts=0`;
-- verifier: `Runtime verification failures: 0`.
+- `cosmic-session`, `sway`, and `regolith-inputd` processes confirmed
+  running (`regolith-displayd` did not show under `pgrep -ax` due to a known
+  15-character `comm`-name truncation limit in `pgrep`, but its systemd unit
+  independently reported `active` — treat a missing `pgrep -ax
+  regolith-displayd` match as inconclusive, not a failure; try `pgrep -f
+  regolith-displayd` instead);
+- `swaymsg -t get_workspaces` succeeded with one active workspace;
+- one unrelated pre-existing failed unit,
+  `app-polkit-mate-authentication-agent-1@autostart.service` (GNOME-flashback
+  polkit agent leftover, not part of this project) — no other unit failed;
+- `dpkg --audit`: clean before and after install.
 
-Artifact files that hold those strings:
+Evidence files:
 
-- `artifacts/inputd-candidate-verifier-qemu-20260810/04-sway-environment.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/04-regolith-inputd-environment.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/05-regolith-cosmic.target.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/05-regolith-gnome.target.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/06-regolith-init-inputd.service.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/06-regolith-init-displayd.service.txt`
-- `artifacts/inputd-candidate-verifier-qemu-20260810/11-result.txt`
+- [Framebuffer screenshot](../artifacts/mentor-seven-package-tuple-qemu-20260818.png)
+- [Full run transcript](../artifacts/mentor-seven-package-tuple-qemu-20260818/transcript.log)
 
 A reviewer reproducing on a live guest should expect the same shape of
 checks (desktop token, no `gnome-session-bin`, cosmic target active, gnome

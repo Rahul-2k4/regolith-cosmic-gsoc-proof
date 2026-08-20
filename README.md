@@ -1,5 +1,10 @@
 # Regolith COSMIC proof bundle
 
+Mentor hardware test: use the
+[real-system installer](docs/INSTALL.md#mentor-real-system-test) for the exact
+unsigned package tuple. The script checks the host, verifies every package,
+records a rollback baseline, and leaves session selection to the greeter.
+
 This bundle contains the original midterm snapshot plus the reviewed QEMU
 proof notes. Use `WORK_PRODUCT.md` for the current submission status. Native
 `cosmic-comp` compositor runtime and the installed Sway-backed Regolith

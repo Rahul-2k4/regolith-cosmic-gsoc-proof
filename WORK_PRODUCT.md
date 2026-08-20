@@ -4,6 +4,17 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Contents
+
+- [Proposal success criteria: 5 of 12 fully met](#proposal-success-criteria-5-of-12-fully-met)
+- [Source of truth](#source-of-truth)
+- [Proven areas](#proven-areas) — long; organized newest-first, not by topic. Use your browser's find (Ctrl/Cmd+F) for a package or feature name rather than scrolling.
+- [Open boundaries](#open-boundaries)
+- [Upstream contribution status](#upstream-contribution-status)
+- [Code inventory](#code-inventory)
+- [Next steps](#next-steps)
+- [Claim boundary](#claim-boundary)
+
 ## Proposal success criteria: 5 of 12 fully met
 
 | # | Criterion | Status | Scope |
@@ -132,6 +143,18 @@ adds a fresh Pop!_OS QEMU run against the same package. A COSMIC xkb config
 mutation to French/AZERTY and repeat `540/31` was reflected by Sway, then the
 US `600/25` state was restored. This is config-layer watcher evidence, not a
 COSMIC Settings GUI, physical touchpad, or hardware claim.
+
+The [updated displayd Kanshi-guard runtime note](proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md)
+records the corrected displayd source `91bdd26`, Voulage model `616d9f16`, and
+a successful disposable-QEMU install, reboot, greetd authentication, and
+COSMIC session start with the five-package tuple.
+The tuple now uses the corrected published COSMIC inputd package from source
+`3b3309a`, Voulage model `fff1c5c0`, SHA-256
+`7fbd2078e423f73dcdd05276057eb6bf5dfcd71150fd473dc9ad63b785ccb811`; the
+updated runner is on commit `9762101`.
+Displayd profile storage is isolated in source commit `44660e8`, with 76 tests
+passing. The Wayland observer still needs to retain output-management handles
+before a real COSMIC `create_configuration` reapply can be implemented.
 
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
 is a historical same-day tuple whose traced launcher lacked the active Sway
@@ -497,6 +520,13 @@ integrity evidence, not a new package build or release claim.
   intentionally excludes unrelated failed units and does not claim hardware or
   native compositor coverage.
   [Verifier QEMU proof](proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md)
+- **Mentor seven-package tuple (QEMU):** the full mentor-test bundle (session,
+  inputd, displayd, cosmolith, cosmic-settings, cosmic-settings-daemon) later
+  passed install, reboot, and greetd login as one set on 2026-08-18, after
+  fixing a `regolith-session-common` version regression that had made an
+  earlier attempt abort as an unintended apt downgrade. See
+  [Mentor seven-package tuple QEMU runtime](proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
+  and [`docs/INSTALL.md`](docs/INSTALL.md).
 - **Inputd package artifact:** the exact unsigned package and its metadata are
   recorded in the [Voulage package proof](proof-notes/2026-08-10-inputd-voulage-package-proof.md).
 - **Cosmolith source closure:** the personal fork now has structured watcher

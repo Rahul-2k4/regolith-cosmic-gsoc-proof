@@ -7,6 +7,17 @@ by component.
 
 Each entry: what fails or is unproven, why, what would close it.
 
+## Contents
+
+- [Hardware-blocked](#hardware-blocked)
+- [Upstream-blocked](#upstream-blocked)
+- [Protocol-limited](#protocol-limited)
+- [Session lifecycle](#session-lifecycle)
+- [Distribution](#distribution)
+- [Scope not attempted (stretch / rejected paths)](#scope-not-attempted-stretch--rejected-paths)
+- [Additional vault blockers mapped here](#additional-vault-blockers-mapped-here)
+- [Explicit closure-plan exclusions](#explicit-closure-plan-exclusions)
+
 ## Hardware-blocked
 
 ### Mixed DPI / multi-display / hotplug
@@ -183,6 +194,31 @@ Each entry: what fails or is unproven, why, what would close it.
   (toolchain resolved; package closure notes still relevant historically),
   `2026-07-21-macos-voulage-resolver-shell.md`
   (macOS shell blocker resolved for resolver-only checks)
+
+### `cosmic-comp` is a Recommends, not a Depends — mitigated, not fixed upstream
+
+- **What:** `cosmic-comp` (the actual COSMIC compositor binary) is only a
+  Recommends of `cosmic-session`. A combined QEMU test doing a from-scratch
+  `--no-install-recommends` install found this silently produces a system
+  with no compositor at all — `cosmic-session.target` reaches then
+  immediately stops, no Sway IPC socket ever exists, and downstream
+  daemons (e.g. `regolith-inputd`) fail in ways that look like unrelated
+  bugs but are actually just "nothing is running."
+- **Why:** Regolith/COSMIC packaging declares `cosmic-comp` as a
+  Recommends rather than a hard Depends of `cosmic-session`. This wasn't
+  a bug in this installer's `--no-install-recommends` fix itself (which
+  correctly removes an unrelated ~300-package GNOME cascade) — it's a
+  separate, real gap in upstream packaging metadata that the flag exposes.
+- **Mitigated:** `install-real-system.sh` now checks for `cosmic-comp`
+  being installed before proceeding and fails loudly
+  (`FAIL: cosmic-comp is not installed`) rather than silently completing
+  into a broken state. This does not fix the underlying packaging — it
+  only prevents this installer from making the problem worse or hiding
+  it.
+- **Need:** `cosmic-comp` promoted to a hard `Depends` in
+  `cosmic-session`'s own packaging (an upstream/Regolith-side change, not
+  something this installer can fix).
+- **Vault:** `05_Testing_Proof/2026-08-20-no-install-recommends-strips-cosmic-comp.md`.
 
 ### Historical cosmolith artifact retraction
 

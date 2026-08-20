@@ -2,7 +2,9 @@
 
 This directory holds the unsigned `.deb` files committed with the public proof
 bundle. Hashes below were recomputed on 2026-08-10 with `shasum -a 256`, and the
-2026-08-11 reconciled package hash was recomputed the same way.
+2026-08-11 reconciled package hash was recomputed the same way. The
+`regolith-session-common` entries dated 2026-08-18 were recomputed on that
+date, independently of the earlier batch.
 
 `0.4.1-1-1regolith-resolute` and `0.4.1-2-1regolith-resolute` are Voulage-generated
 version strings that were reused across successive candidate builds. Distinct
@@ -32,9 +34,62 @@ model branch and the apt-build-dependency boundary are documented in the
 | `regolith-session-flashback_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` | `a1ef11a68c37168ed9e887f76499aeff3c5b2472e8b07f2a65b8964cfc2f0671` |
 | `regolith-session-flashback-ext_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` | `56fa37f6dd12662b4043a4688b39ca3bf51b01fb0b377bdc04d545678736844e` |
 
+`regolith-session-common_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb` (SHA-256
+`bcf78bba...`, listed in an earlier draft of the mentor-test manifest) is
+**superseded and must not be used**: its version string sorts lower than the
+`-1-1regolith-resolute` build above, which caused a real `apt` downgrade
+abort in QEMU. The corrected replacement is the `regolith-session-common`
+row in the table below.
+
+## Mentor seven-package tuple (2026-08-18, `regolith-session-cosmic` corrected 2026-08-19)
+
+This is the exact bundle `scripts/install-real-system.sh` installs, pinned in
+`mentor-test-2026-08-18.sha256`. It passed a full install→reboot→greetd-login
+QEMU run on 2026-08-18 — see the proof note linked below for the complete
+record. All seven files live at `mentor-seven-package-bundle/` in this
+directory, not at the top level — the installer's `--package-dir` mode
+refuses to run against a folder containing any `.deb` file outside its
+manifest, and the top-level `artifacts/` folder also holds older historical
+builds. One filename here is a byte-identical duplicate of a package name
+listed elsewhere in this file at a different hash: `regolith-inputd_0.4.1-2-*`
+is a **different binary** from the one in the tables above, despite the
+identical filename. Use the hash, not the filename, to know which build a
+given proof note is describing.
+
+`regolith-session-cosmic_1.2.0-1ubuntu1-1regolith-resolute_amd64.deb`
+(SHA-256 `8e3559e8...`) shipped in this bundle through 2026-08-18 carries
+the exact same version-ordering defect fixed in `regolith-session-common`
+above: its version string sorts lower than a stale pre-installed build,
+which would cause the identical `apt` downgrade-refusal failure. It is
+**superseded and must not be used**. The corrected replacement,
+`regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb`
+(SHA-256 `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d`),
+was built from the same Voulage run that fixed `-common` (branch
+`rahul/session-common-version-fix-20260818`, commit `b6c4478`) but was
+never staged into this bundle until now. Confirmed via
+`dpkg --compare-versions` that the new version sorts above the stale
+baseline that triggered the original `-common` bug. The other four
+sibling packages built from the same source (`-flashback`,
+`-flashback-ext`, `-gnome-targets`, `-sway`) are not part of this bundle
+and carry no live shipping risk today.
+
+| File | SHA-256 | Proof note |
+|---|---|---|
+| `regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d` | Version-ordering fix staged 2026-08-19, same class of bug as `-common`; not yet re-run through a fresh QEMU install proof with this corrected file — see `01_Proposal_Alignment.md`/vault for status |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` (a277811b build, distinct from the `759f87dc` build above sharing this filename) | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| `cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); a *different* build of this package (hash `e10c88b9...`) has its own [Lintian closure note](../proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md), which does not describe this hash |
+
 ## Verification
 
 ```bash
+# Historical builds at the top level:
 cd artifacts
 shasum -a 256 *.deb
+
+# The mentor seven-package bundle, against its own manifest:
+cd mentor-seven-package-bundle
+shasum -a 256 -c ../mentor-test-2026-08-18.sha256
 ```
