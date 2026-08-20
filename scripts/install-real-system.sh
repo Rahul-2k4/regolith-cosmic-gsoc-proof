@@ -199,6 +199,11 @@ preflight_dependencies() {
     done
     printf 'PASS: dependency preflight\n'
 }
+check_cosmic_comp_present() {
+    local state
+    state=$(dpkg-query -W -f='${db:Status-Status}\n' cosmic-comp 2>/dev/null || true)
+    [[ $state == installed ]] || fail "cosmic-comp is not installed. This installer only patches specific override packages onto an existing Regolith COSMIC install — it does not perform a full 'apt install regolith-session-cosmic' from scratch, and cosmic-comp is a Recommends (not a hard Depends) of cosmic-session, so a --no-install-recommends base install can be missing it silently. Install the base COSMIC session first (see docs/INSTALL.md prerequisites), confirm cosmic-comp is present, then re-run this installer."
+}
 check_bundle() {
     local acquire_status=0
     acquire_bundle || acquire_status=$?
@@ -209,6 +214,7 @@ check_bundle() {
     (( acquire_status == 0 )) || return "$acquire_status"
     validate_packages
     preflight_dependencies
+    check_cosmic_comp_present
     printf 'PASS: package set validated\n'
 }
 capture_baseline() {

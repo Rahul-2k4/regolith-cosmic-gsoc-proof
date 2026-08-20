@@ -145,6 +145,16 @@ polkit agent, unrelated to this project's packages, and does not affect the
   distro was performed.
 - Ability to install local `.deb` files with `dpkg` / `apt` in the guest.
 - Greeter access so the COSMIC / Regolith session can be selected visibly.
+- **`cosmic-comp` must already be installed** before running this
+  installer. This installer only patches specific override packages onto
+  an existing Regolith COSMIC install — it does not perform the base
+  `apt install regolith-session-cosmic` for you. `cosmic-comp` is a
+  Recommends of `cosmic-session`, not a hard Depends, so a from-scratch
+  `--no-install-recommends` base install can silently end up without a
+  compositor even though the rest of the install reports success. The
+  installer checks for this and fails loudly (`FAIL: cosmic-comp is not
+  installed`) rather than proceeding into a broken state — see
+  [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) for the full trace.
 
 ## Build from source (Voulage, vendored offline)
 

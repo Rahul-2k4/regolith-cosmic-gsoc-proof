@@ -78,7 +78,11 @@ if [[ $* == *binary:Package* ]]; then
   printf "pre-existing\t9.0\nregolith-session-cosmic\t1.0\nregolith-session-common\t1.0\nregolith-inputd\t1.0\nregolith-displayd\t1.0\ncosmic-settings\t1.0\ncosmic-settings-daemon\t1.0\n"
   [[ ! -e $PACKAGE_DB_MARKER ]] || printf "cosmolith\t1.0\ntransitive-new\t2.0\n"
   exit 0; fi
-[[ $* != *Version* && $* == *Status-Status* ]] && { printf "installed\n"; exit 0; }
+if [[ $* != *Version* && $* == *Status-Status* ]]; then
+  dpkg_query_package=${@: -1}
+  if [[ ${MOCK_COSMIC_COMP_ABSENT:-0} == 1 && $dpkg_query_package == cosmic-comp ]]; then exit 1; fi
+  printf "installed\n"; exit 0
+fi
 package=${@: -1}
 if [[ ${MOCK_BASELINE_ABSENT:-} == "$package" ]]; then
   exit 1
@@ -252,6 +256,13 @@ test_install_is_one_exact_apt_transaction() {
     assert_contains 'cosmolith' "$STATE_ROOT/baseline-test/introduced-packages.txt"
     assert_contains 'transitive-new' "$STATE_ROOT/baseline-test/introduced-packages.txt"
 }
+test_install_requires_cosmic_comp_present() {
+    reset_case; MOCK_COSMIC_COMP_ABSENT=1 expect_failure install --package-dir "$PACKAGE_DIR"
+    assert_contains 'FAIL: cosmic-comp is not installed' "$OUTPUT"
+    [[ ! -e $STATE_ROOT/baseline-test ]] || { printf 'FAIL: baseline captured despite missing cosmic-comp\n' >&2; FAILURES=$((FAILURES + 1)); }
+    reset_case; MOCK_COSMIC_COMP_ABSENT=1 expect_failure check --package-dir "$PACKAGE_DIR"
+    assert_contains 'FAIL: cosmic-comp is not installed' "$OUTPUT"
+}
 test_verify_statuses() {
     reset_case; prepare_system_files; local bad_state
     XDG_CURRENT_DESKTOP=COSMIC run_script verify
@@ -293,6 +304,7 @@ test_os_and_metadata_guards
 test_preflight_and_download
 test_dry_run_is_non_mutating
 test_install_is_one_exact_apt_transaction
+test_install_requires_cosmic_comp_present
 test_verify_statuses
 test_rollback_scope
 (( FAILURES == 0 )) || { printf 'FAIL: %d contract assertion(s) failed\n' "$FAILURES" >&2; exit 1; }
