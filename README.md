@@ -33,6 +33,35 @@ The GSoC final work product for this project is the submission write-up:
 <https://gist.github.com/Rahul-2k4/ace071f9dc818ae31d72ff1f0fa27f49>. This
 repository is the evidence trail behind it.
 
+## Latest closure update - 2026-08-21
+
+Re-tested the install path on a genuinely fresh, purged disk for the first
+time in this project — every earlier QEMU proof had reused a disk carrying a
+leftover install from a prior run. That hid a real bug: the COSMIC session
+aborted outright, in under a second, on a truly fresh install. Root cause: a
+shell function checking whether a legacy Regolith unit was masked had no case
+for a unit that was never installed at all, which is exactly the state on a
+COSMIC-only system.
+
+Fixed with a test that fails against the old code and passes after
+([regolith-session#3](https://github.com/Rahul-2k4/regolith-session/pull/3),
+merged). Getting the fix onto the right base took two attempts — the first
+was built on a branch whose runtime script didn't actually match the shipped
+package, caught by hashing every candidate branch rather than trusting a
+visual diff, and corrected. The rebuilt package reaches a live COSMIC session
+on a fresh install with no hand workaround, across two independent cold
+boots, plus a plain-Sway negative control on the same disk confirming the
+COSMIC helpers only start when session identity says COSMIC. See
+[the fresh-install ordering proof](proof-notes/2026-08-21-criterion-3-fresh-install-ordering-qemu.md),
+[the first rebuild](proof-notes/2026-08-21-rebuilt-cosmic-not-found-fix-fresh-install-qemu.md),
+[the corrected-lineage rebuild](proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md),
+and [the full writeup](docs/2026-08-21-cosmic-session-launcher-abort-on-not-found-legacy-target.md).
+
+This does not add a new criterion to the ledger. It strengthens Criterion 1
+("fresh login without helper rerun"), already `Met`, whose evidence had never
+actually covered a genuinely fresh install until now. Ledger unchanged: **6/12,
+QEMU-only, 62-68%**.
+
 ## Latest closure update - 2026-08-20
 
 Five things changed since the 2026-08-17 notes further down, which are kept as
