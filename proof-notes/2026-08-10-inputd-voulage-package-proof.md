@@ -23,7 +23,12 @@ packages through the Debian extension.
 
 The resulting unsigned package is available here:
 
-[regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb](../artifacts/regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb)
+[regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb](../artifacts/mentor-seven-package-bundle/regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb)
+
+(Note added 2026-08-21: the original top-level copy of this file was later
+split into `artifacts/mentor-seven-package-bundle/` — see that directory's
+own README for why. Link corrected to follow it, content of the note is
+unchanged.)
 
 SHA-256:
 
