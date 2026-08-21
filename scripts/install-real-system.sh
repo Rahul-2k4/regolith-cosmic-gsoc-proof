@@ -178,7 +178,13 @@ dependency_available() {
         dependency=${REPLY%%:*}
         [[ -n $dependency && $dependency != \$* ]] || continue
         is_bundled "$dependency" && return 0
-        if apt-cache policy "$dependency" | grep -Eq 'Candidate:[[:space:]]+[^()]'; then
+        # Capture first, then match. Piping straight into `grep -q` let grep
+        # exit on the first match while apt-cache was still writing, which
+        # raised SIGPIPE and, under `pipefail`, turned a successful match into
+        # a pipeline failure.
+        local policy
+        policy=$(apt-cache policy "$dependency" 2>/dev/null || true)
+        if grep -Eq 'Candidate:[[:space:]]+[^()]' <<<"$policy"; then
             return 0
         fi
     done
