@@ -9,6 +9,7 @@ PACKAGE_DIR= DRY_RUN=0 RELEASE_TAG=$DEFAULT_RELEASE_TAG BASE_URL= BASE_URL_SET=0
 ALLOW_UNSUPPORTED=0 BASELINE_ARG= TMP_WORK= BUNDLE_DIR=
 OS_RELEASE_FILE=${OS_RELEASE_FILE:-/etc/os-release}
 ROOT_PREFIX=${ROOT_PREFIX:-}
+GNOME_TARGET_PATH=/usr/lib/systemd/user/regolith-gnome.target
 STATE_ROOT=${STATE_ROOT:-${ROOT_PREFIX}/var/lib/regolith-cosmic-gsoc}
 NOW=${NOW:-$(date -u +%Y%m%dT%H%M%SZ)}
 PACKAGE_FILES=(); PACKAGE_HASHES=(); PACKAGE_NAMES=()
@@ -281,10 +282,17 @@ verify_system() {
     done <<'FILES'
 desktop entry|/usr/share/wayland-sessions/regolith-cosmic.desktop
 regolith-cosmic.target unit|/usr/lib/systemd/user/regolith-cosmic.target
-regolith-gnome.target unit|/usr/lib/systemd/user/regolith-gnome.target
 regolith-init-inputd.service unit|/usr/lib/systemd/user/regolith-init-inputd.service
 regolith-init-displayd.service unit|/usr/lib/systemd/user/regolith-init-displayd.service
 FILES
+    # regolith-gnome.target belongs to the GNOME path, not to this COSMIC-only
+    # bundle, so its absence is a normal outcome rather than a failure. When it
+    # is present the runtime loop below still asserts it stays inactive.
+    if [[ -f ${ROOT_PREFIX}$GNOME_TARGET_PATH ]]; then
+        printf 'PASS: regolith-gnome.target unit: %s\n' "$GNOME_TARGET_PATH"
+    else
+        printf 'PASS: regolith-gnome.target absent (GNOME path not installed)\n'
+    fi
     state=$(systemctl --user is-active graphical-session.target 2>/dev/null || true)
     if [[ $state != active ]]; then
         printf 'SKIP: runtime checks outside graphical session\n'; for unit in graphical-session.target regolith-cosmic.target regolith-gnome.target regolith-init-inputd.service regolith-init-displayd.service; do printf 'SKIP: %s runtime outside graphical session\n' "$unit"; done
@@ -297,6 +305,9 @@ FILES
         return "$failures"
     fi
     for unit in regolith-cosmic.target regolith-gnome.target regolith-init-inputd.service regolith-init-displayd.service; do
+        if [[ $unit == regolith-gnome.target && ! -f ${ROOT_PREFIX}$GNOME_TARGET_PATH ]]; then
+            printf 'SKIP: regolith-gnome.target runtime (unit not installed)\n'; continue
+        fi
         expected=active; [[ $unit == regolith-gnome.target ]] && expected=inactive
         state=$(systemctl --user is-active "$unit" 2>/dev/null || true)
         if { [[ $expected == active && $state == active ]] || [[ $expected == inactive && $state == inactive ]]; }; then
