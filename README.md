@@ -59,8 +59,30 @@ and [the full writeup](docs/2026-08-21-cosmic-session-launcher-abort-on-not-foun
 
 This does not add a new criterion to the ledger. It strengthens Criterion 1
 ("fresh login without helper rerun"), already `Met`, whose evidence had never
-actually covered a genuinely fresh install until now. Ledger unchanged: **6/12,
-QEMU-only, 62-68%**.
+actually covered a genuinely fresh install until now. Ledger at the time: 6/12,
+QEMU-only, 62-68% — since corrected downward, see the newer update above.
+
+## Latest closure update - 2026-08-21 (later) - real display persistence proven, and a prior Met claim corrected to Partial
+
+`regolith-displayd`'s new apply wiring was verified under a real QEMU
+display sink (`-vnc`, not `-display none` — the latter had silently capped
+every earlier display test at "no output can ever be enabled"). A real
+mode/scale change was applied live and persisted across two independent
+cold reboots with a clean negative control. Full writeup:
+[proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md).
+
+That same run found a real bug: a requested 60Hz refresh rate is silently
+applied and persisted as 50Hz, while resolution and scale persist
+correctly. See
+[docs/2026-08-21-displayd-refresh-rate-persistence-mismatch.md](docs/2026-08-21-displayd-refresh-rate-persistence-mismatch.md).
+
+Criterion 7 ("display/input settings persist across reboot") had been
+marked `Met` in the published work product on the strength of an earlier
+run that never tested a specific requested refresh rate. That claim does
+not hold up once a display setting is shown to persist at the wrong value.
+**Corrected the work product's Criterion 7 to `Partial` and the ledger from
+6/12 to 5/12.** This is a downward correction found by testing something
+the earlier proof never checked, not a new defect introduced this week.
 
 ## Latest closure update - 2026-08-20
 

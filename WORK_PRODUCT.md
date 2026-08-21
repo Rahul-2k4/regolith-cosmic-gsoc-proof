@@ -25,7 +25,7 @@ sanitized wrapper proof.
 | 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
-| 7 | Settings persist across reboot | Met | QEMU-only: after a second cold reboot/login, corrected COSMolith `XkbConfig` retained French/AZERTY, repeat `540/31`, and `1024x768`; hardware and full settings matrix remain open |
+| 7 | Settings persist across reboot | Partial | QEMU-only: keyboard layout/repeat and a specific display mode persisted across reboot in the 2026-08-17 run, but a 2026-08-21 run with a real display sink found refresh rate does NOT persist as requested (60Hz -> 50Hz), while resolution/scale do; see the newest proof note |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
 | 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | the [clean COSMIC-only install and survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md) returns `INSTALL_RC=0` with empty `dpkg --audit` and no GNOME session/bootstrap payload, while four GNOME-related transitive survivors still need written justification and removal plans; the [exact-tuple QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md) adds graphical COSMIC target evidence |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | Unsigned Resolute builds, vendoring, and the clean local-pool package transaction are proven; see the [Ubuntu 26.04 closure](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md) and [fresh QEMU COSMolith proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md); canonical publication and maintainer coordination remain open |
@@ -87,11 +87,19 @@ That run used the pre-correction Kanshi ownership and is retained as
 historical single-output persistence evidence only.
 
 The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
-is the current persistence result. With the active Sway session context,
-COSMolith applied French/AZERTY and repeat `540/31` live; the generated
-directives and `1024x768` display state remained after a second login. This
-moves Criterion 7 to `Met` for the tested QEMU scope. Hardware hotplug, mixed
-DPI, the native Settings GUI, and the full settings matrix remain open.
+was the basis for an earlier `Met` claim on Criterion 7: with the active
+Sway session context, COSMolith applied French/AZERTY and repeat `540/31`
+live, and the generated directives and `1024x768` display state remained
+after a second login. That claim is now corrected to `Partial`: the
+[2026-08-21 real-apply/persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md),
+run with a genuine display sink instead of `-display none`, found that a
+specifically requested refresh rate (60Hz) does not persist — it silently
+comes back as 50Hz after reboot, even though resolution and scale persist
+correctly. "Settings persist" cannot be `Met` while one of them is proven
+to persist wrong; see
+[docs/2026-08-21-displayd-refresh-rate-persistence-mismatch.md](docs/2026-08-21-displayd-refresh-rate-persistence-mismatch.md)
+for the open defect. Hardware hotplug, mixed DPI, the native Settings GUI,
+and the full settings matrix remain open regardless.
 
 The later [current-package persistence attempt](proof-notes/2026-08-16-final-displayd-persistence-attempt-failed.md)
 tested the final displayd package alone. The live mode change was accepted,
@@ -161,8 +169,9 @@ is a historical same-day tuple whose traced launcher lacked the active Sway
 session context; its repeat value reverted to `600/25`. The [fresh
 session-context proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
 supersedes that diagnostic result: it records the corrected launcher identity,
-live repeat application, and the second cold reboot/login result used for the
-current Criterion 7 status.
+live repeat application, and the second cold reboot/login result that was
+the basis for Criterion 7's since-corrected `Met` claim — see the 2026-08-21
+real-apply/persistence proof above for why it's `Partial` again.
 
 The public branch includes the reviewed
 [inputd candidate QEMU verifier](scripts/verify-inputd-candidate-qemu-runtime.sh),
