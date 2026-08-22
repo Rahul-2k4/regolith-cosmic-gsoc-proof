@@ -7,11 +7,12 @@ sanitized wrapper proof.
 ## Latest source checkpoint — 2026-08-23
 
 The current reconciled `regolith-inputd` source includes vendored offline build
-wiring (`e3fbd5c`) and keyboard/input-source reverse synchronization
-(`b07ea315`). Its current unsigned package is
-`regolith-inputd_0.4.1-2-1regolith-resolute_b07ea315_amd64.deb`, SHA-256
-`2ca5f9335dc3a4d9d6fece9ef76858a4babc53d22a0b106c40390d47c3ac8399`.
-The branch passes 53 tests with both GNOME and COSMIC features enabled. This
+wiring (`e3fbd5c`), keyboard/input-source reverse synchronization
+(`b07ea315`), and pointer reverse synchronization (`e8fce66`). Its current
+unsigned package is
+`regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
+`650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`.
+The branch passes 55 tests with both GNOME and COSMIC features enabled. This
 source/package checkpoint is not a fresh QEMU installation claim; the strict
 ledger below remains 5/12 fully met, QEMU-only.
 

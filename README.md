@@ -25,12 +25,15 @@ and persistent session configuration.
 ## Latest source checkpoint - 2026-08-23
 
 The reconciled inputd branch now contains vendored offline build wiring
-(`e3fbd5c`) and keyboard/input-source reverse synchronization (`b07ea315`).
+(`e3fbd5c`), keyboard/input-source reverse synchronization (`b07ea315`), and
+pointer reverse synchronization (`e8fce66`).
 The current unsigned package is
-`regolith-inputd_0.4.1-2-1regolith-resolute_b07ea315_amd64.deb`, SHA-256
-`2ca5f9335dc3a4d9d6fece9ef76858a4babc53d22a0b106c40390d47c3ac8399`, with 53
+`regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
+`650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`, with 55
 GNOME+COSMIC feature tests passing. This is source/package evidence only; the
 strict ledger remains 5 of 12, QEMU-only.
+
+See the [pointer reverse-sync source checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
 
 ## Historical closure update - 2026-08-21
 

@@ -7,24 +7,28 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
 ## Current source checkpoint — 2026-08-23
 
 The reconciled `regolith-inputd` branch currently contains vendored offline
-build wiring in `e3fbd5c` and keyboard/input-source reverse synchronization in
-`b07ea315`. The exact unsigned package is
-`regolith-inputd_0.4.1-2-1regolith-resolute_b07ea315_amd64.deb`, SHA-256
-`2ca5f9335dc3a4d9d6fece9ef76858a4babc53d22a0b106c40390d47c3ac8399`.
+build wiring in `e3fbd5c`, keyboard/input-source reverse synchronization in
+`b07ea315`, and pointer reverse synchronization in `e8fce66`. The exact
+unsigned package is
+`regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
+`650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`.
 
 Verification from the project host:
 
 ```text
-CARGO_NET_OFFLINE=true cargo test --all-features --offline   53 passed
+CARGO_NET_OFFLINE=true cargo test --all-features --offline   55 passed
 cargo fmt --check                                          PASS
 git diff --check                                            PASS
 CARGO_NET_OFFLINE=true VENDOR=1 dpkg-buildpackage -us -uc -b PASS
 ```
 
-The remaining source follow-up is pointer reverse synchronization in
-`CosmicMouseHandler`; it is not claimed complete. The strict proposal ledger
-remains **5/12 fully met, QEMU-only**. The package checkpoint is source/build
-evidence, not a fresh QEMU installation claim.
+The source-level pointer reverse-sync slice is now complete and preserves
+unrelated COSMIC input fields. The strict proposal ledger remains **5/12 fully
+met, QEMU-only** until the exact package is installed in the combined QEMU
+tuple. This package checkpoint is source/build evidence, not a fresh QEMU
+installation claim.
+
+Source proof: [inputd pointer reverse-sync checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
 
 ## Latest update - 2026-08-21
 
