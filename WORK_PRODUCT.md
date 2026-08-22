@@ -13,8 +13,13 @@ unsigned package is
 `regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
 `650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`.
 The branch passes 55 tests with both GNOME and COSMIC features enabled. This
-source/package checkpoint is not a fresh QEMU installation claim; the strict
-ledger below remains 5/12 fully met, QEMU-only.
+exact package was then installed in the combined tuple and survived a fresh
+reboot with Sway, inputd, displayd, active COSMIC targets, persistent Sway IPC,
+one headless output, no failed user units, and clean `dpkg --audit`. This is
+headless/pixman QEMU proof only; the strict ledger below remains 5/12 fully met,
+QEMU-only.
+
+See the [final exact-package cold-login proof](proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md).
 
 ## Proposal success criteria: 5 of 12 fully met
 

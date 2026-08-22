@@ -24,12 +24,14 @@ CARGO_NET_OFFLINE=true VENDOR=1 dpkg-buildpackage -us -uc -b PASS
 
 The source-level pointer reverse-sync slice is now complete and preserves
 unrelated COSMIC input fields. The strict proposal ledger remains **5/12 fully
-met, QEMU-only** until the exact package is installed in the combined QEMU
-tuple. This package checkpoint is source/build evidence, not a fresh QEMU
-installation claim.
+met, QEMU-only**. A fresh reboot of the exact tuple now keeps Sway, COSMIC,
+inputd, and displayd alive with active COSMIC targets, persistent Sway IPC, one
+headless output, no failed user units, and clean `dpkg --audit`. This is
+headless/pixman QEMU proof only, not native-GPU or hardware proof.
 
 Source proof: [inputd pointer reverse-sync checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
 QEMU package proof: [install checkpoint](proof-notes/2026-08-23-inputd-pointer-qemu-package-install.md).
+Final cold-login proof: [exact-package QEMU session](proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md).
 
 ## Latest update - 2026-08-21
 

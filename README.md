@@ -30,12 +30,17 @@ pointer reverse synchronization (`e8fce66`).
 The current unsigned package is
 `regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
 `650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`, with 55
-GNOME+COSMIC feature tests passing. This is source/package evidence only; the
-strict ledger remains 5 of 12, QEMU-only.
+GNOME+COSMIC feature tests passing. A fresh reboot of the exact package tuple
+now keeps Sway, COSMIC, inputd, and displayd alive with active COSMIC targets,
+Sway IPC, one headless output, no failed user units, and clean `dpkg --audit`.
+This is headless/pixman QEMU session proof only; the strict ledger remains 5 of
+12, QEMU-only.
 
 See the [pointer reverse-sync source checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
 The [QEMU package-install checkpoint](proof-notes/2026-08-23-inputd-pointer-qemu-package-install.md)
-records the matching in-guest hash and cold-boot boundary.
+records the matching in-guest hash and initial cold-boot boundary. The [final
+exact-package cold-login proof](proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md)
+records the fresh reboot and running-daemon evidence.
 
 ## Historical closure update - 2026-08-21
 
