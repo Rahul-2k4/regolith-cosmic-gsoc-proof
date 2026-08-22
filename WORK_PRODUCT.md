@@ -6,6 +6,18 @@ sanitized wrapper proof.
 
 ## Latest source checkpoint — 2026-08-23
 
+`regolith-displayd` commit `48025e352dc107de90067dccb33e5dc280ade8f7` also
+passes 66 offline library tests and produces
+`regolith-displayd_0.3.4-1_amd64.deb` with SHA-256
+`4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601`. The
+exact package was installed in the disposable COSMIC QEMU overlay;
+`regolith-init-displayd.service` stayed active and verify/apply
+`ApplyMonitorsConfig` D-Bus calls returned code 0. This is package/runtime
+execution proof against a headless output, not native mode mutation or
+multi-display/hardware proof.
+
+See the [displayd package/runtime proof](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
 The current reconciled `regolith-inputd` source includes vendored offline build
 wiring (`e3fbd5c`), keyboard/input-source reverse synchronization
 (`b07ea315`), and pointer reverse synchronization (`e8fce66`). Its current

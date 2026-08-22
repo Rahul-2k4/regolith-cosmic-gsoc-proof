@@ -18,7 +18,9 @@ general. The hashes below are the authoritative values for the files committed h
 | `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` | `759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193` | [Inputd Voulage package proof](../proof-notes/2026-08-10-inputd-voulage-package-proof.md) · [Candidate verifier QEMU runtime](../proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md) |
 | `regolith-inputd_0.4.1-2-1regolith-resolute_reconciled-e641b43_amd64.deb` | `37f678cf76f371c08a23c971b1dd87a41f61f2c75cb27329e83b5239e7843a4e` | [Inputd Voulage repin reconciled](../proof-notes/2026-08-11-inputd-voulage-repin.md) |
 | `regolith-inputd_0.4.1-2-1regolith-resolute_b07ea315_amd64.deb` | `2ca5f9335dc3a4d9d6fece9ef76858a4babc53d22a0b106c40390d47c3ac8399` | Inputd keyboard/input-source reverse-sync source build; QEMU installation pending |
-| `regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb` | `650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b` | Inputd pointer reverse-sync source build; QEMU installation pending |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb` | `650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b` | [Inputd pointer reverse-sync source build](../proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md) · [final QEMU cold-login proof](../proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md) |
+
+| `regolith-displayd_0.3.4-1_48025e3_amd64.deb` | `4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601` | [COSMIC Wayland apply source proof](../proof-notes/2026-08-23-displayd-cosmic-wayland-apply-source.md) · [QEMU package/runtime proof](../proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md) |
 
 The following six session packages were built through the reviewed Voulage
 local-build path from `regolith-session` `831596f` on 2026-08-12. The canonical

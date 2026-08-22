@@ -6,6 +6,17 @@ Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-
 
 ## Current source checkpoint — 2026-08-23
 
+The displayd COSMIC apply path is now package/runtime exercised as well:
+commit `48025e3` passes 66 offline library tests, and the exact unsigned
+package hash is
+`4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601`.
+The installed service stayed active in the disposable COSMIC QEMU tuple and
+verify/apply `ApplyMonitorsConfig` calls returned code 0. This is headless
+runtime proof only; native mode mutation, hardware, and multi-display remain
+separate.
+
+Displayd proof: [exact QEMU package/runtime check](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
 The reconciled `regolith-inputd` branch currently contains vendored offline
 build wiring in `e3fbd5c`, keyboard/input-source reverse synchronization in
 `b07ea315`, and pointer reverse synchronization in `e8fce66`. The exact

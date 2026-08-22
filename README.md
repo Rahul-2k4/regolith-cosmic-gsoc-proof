@@ -24,6 +24,14 @@ and persistent session configuration.
 
 ## Latest source checkpoint - 2026-08-23
 
+`regolith-displayd` commit `48025e3` passes 66 offline library tests and its
+exact package has SHA-256
+`4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601`. It was
+installed in the disposable COSMIC QEMU tuple; the user service stayed active
+and verify/apply DisplayConfig D-Bus calls returned code 0. This is headless
+package/runtime proof, not native mode or hardware proof. See the [displayd
+QEMU proof](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
 The reconciled inputd branch now contains vendored offline build wiring
 (`e3fbd5c`), keyboard/input-source reverse synchronization (`b07ea315`), and
 pointer reverse synchronization (`e8fce66`).
