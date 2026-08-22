@@ -63,11 +63,23 @@ Fallback lock/unlock and OSD paths have QEMU evidence; native logind/idle
 semantics, complete parent-session teardown, signing, canonical publication,
 and maintainer acceptance remain open.
 
+The package-audit result is stronger than the earlier staged-install notes on
+their own. A later combined QEMU verification boot proved the tested COSMIC
+session path had no `gdm3`, `gnome-shell`, `gnome-session-bin`, or
+`ubuntu-session`, zero failed user units, and clean `dpkg --audit` on the same
+boot. That is the current package-audit result for the QEMU scope.
+
+Display evidence also improved and narrowed at the same time. A later
+VNC-backed QEMU run proved that live display configuration requests really did
+change mode and scale and that those values survived cold reboot. The same run
+found a real bug: refresh rate persisted wrong. That is why the project still
+reports `5 of 12` instead of claiming a cleaner settings-persistence result.
+
 ## Current result
 
-The strict evidence-backed result is **62-68%**, with **5 of 12** proposal
-success criteria fully met in the current QEMU-only ledger. This is not a
-claim of completed hardware validation or upstream release.
+The strict evidence-backed result is still **62-68%**, with **5 of 12**
+proposal success criteria fully met in the current QEMU-only ledger. This is
+not a claim of completed hardware validation or upstream release.
 
 The complete criteria table and links to source, package, test, and runtime
 proof are in [`WORK_PRODUCT.md`](WORK_PRODUCT.md). The final graphical-login

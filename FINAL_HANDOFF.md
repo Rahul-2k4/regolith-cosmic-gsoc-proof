@@ -4,15 +4,32 @@ Project: **Build a COSMIC-based Wayland Session for Regolith**
 
 Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
+## Latest update - 2026-08-21
+
+The current public ledger is still **5 of 12**, QEMU-only.
+
+The [combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+is the current package-audit result. The tested COSMIC session path had no
+GNOME session or bootstrap packages, zero failed user units, and clean
+`dpkg --audit` on the same verification boot. For the tested QEMU scope, that
+closes the package-audit criterion.
+
+The [displayd real apply and persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md)
+is the current display result. It proved real live display changes plus cold
+reboot persistence for resolution and scale. It also found that refresh rate
+persisted wrong, so the broad settings-persist criterion is `Partial`, not
+`Met`.
+
+The earlier 2026-08-17 section below is kept as a dated stage result.
+
 ## Latest update - 2026-08-17
 
 The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
 adds a verified live and second-cold-reboot QEMU result: French/AZERTY,
 repeat `540/31`, and `1024x768` survived with COSMIC target/inputd/displayd
-active and the GNOME target inactive. The current criteria ledger is **5 of
-12**, all QEMU-only. The strict estimate remains **62-68%**; the native
-Settings GUI, hardware display matrix, archive publication, and maintainer
-acceptance remain open.
+active and the GNOME target inactive. That was the keyboard-side persistence
+result at the time. Later Aug 21 display testing found the refresh-rate bug
+noted above, so this section is historical rather than current-ledger status.
 
 The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
 adds a fresh overlay install, reboot, greetd COSMIC login, active COSMIC
@@ -22,8 +39,7 @@ Criterion 9 but does not replace the clean archive or complete survivor audit.
 The [clean COSMIC-only survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md)
 also installs only `regolith-session-cosmic` in a fresh Ubuntu 26.04
 container. It finds no GNOME session/bootstrap package or session payload, but
-four GNOME-related transitive packages remain. Criterion 9 stays Partial until
-each survivor has a written justification and removal plan.
+four GNOME-related transitive packages remained at that stage.
 
 The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
 records the latest lifecycle attempt. The guest reached a clean COSMIC login

@@ -27,14 +27,38 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
+## Latest closure update - 2026-08-21
+
+The public status is still **5 of 12**, QEMU-only. One criterion moved up and
+one different criterion moved back down on the same day, so the headline count
+did not change.
+
+The [combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+is the current package-audit result. The tested COSMIC session path had no
+`gdm3`, `gnome-shell`, `gnome-session-bin`, or `ubuntu-session`, zero failed
+user units, clean `dpkg --audit`, and only documented non-bootstrap
+GNOME-named survivors. That is enough to treat the package-audit criterion as
+met for the tested QEMU scope.
+
+The [displayd real apply and persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md)
+is the current display result. It proved live mode and scale changes on a real
+QEMU output and showed those settings surviving cold reboot. It also found a
+real bug: refresh rate persisted wrong (`60Hz` requested, `50Hz` restored).
+That pulled the broad settings-persist criterion back to `Partial`, which is
+why the ledger stays at **5 of 12**.
+
+The earlier 2026-08-17 section below is kept as a dated stage result, not the
+current ledger authority.
+
 ## Latest closure update - 2026-08-17
 
 The [fresh COSMolith input/display persistence proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
 supersedes the earlier same-day diagnostic tuple. With the active Sway session
 context inherited, live Sway applied French/AZERTY and repeat `540/31`; the
-same state and `1024x768` remained after a second cold reboot/login. The
-current criteria ledger is **5 of 12**, all QEMU-only, and the strict estimate
-remains **62-68%**.
+same state and `1024x768` remained after a second cold reboot/login. That was
+the keyboard-side persistence result at the time. Later Aug 21 display testing
+found the refresh-rate bug noted above, so this section is historical rather
+than current-ledger status.
 
 The [Ubuntu 26.04 local-pool closure proof](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md)
 adds a fresh disposable package transaction. The local Resolute pool indexed
@@ -48,7 +72,7 @@ The [clean COSMIC-only survivor audit](proof-notes/2026-08-17-clean-cosmic-only-
 replays `apt-get install regolith-session-cosmic` without explicitly
 installing the GNOME target. The GNOME session/bootstrap packages and session
 payload paths are absent, but four GNOME-related transitive packages remain and
-still need written removal plans. Criterion 9 therefore remains Partial.
+still needed written removal plans at that stage.
 
 The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
 then installed the same Resolute session tuple on a copy-on-write overlay,
@@ -108,7 +132,9 @@ COSMIC Settings GUI or physical touchpad coverage.
 The [combined input/display persistence proof](proof-notes/2026-08-17-combined-input-display-persistence-qemu.md)
 is retained as a historical diagnostic tuple. Its manually traced COSMolith
 process lacked the active Sway session context, so repeat reverted to `600/25`.
-The fresh session-context proof above is the current Criterion 7 evidence.
+The fresh session-context proof above was the keyboard-side Criterion 7
+evidence at the time. The later Aug 21 display proof is the current authority
+for the broad settings-persist row.
 
 ## Current closure slice - 2026-08-12
 

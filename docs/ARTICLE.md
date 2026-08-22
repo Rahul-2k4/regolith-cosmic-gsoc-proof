@@ -83,6 +83,15 @@ The Settings panel also exposed a practical testbed limitation: the resolution
 selector reproduced a renderer crash. The CLI and compositor state were used
 for the supported observer proof instead of treating the panel as validated.
 
+That changed slightly on 2026-08-21. A VNC-backed QEMU run finally gave the
+guest a real active output instead of the old `-display none` ceiling. On that
+seat, `ApplyMonitorsConfig` changed the live mode and scale and those values
+survived cold reboot. That is the strongest display evidence in the bundle. It
+also found a real defect: refresh rate persisted wrong. The requested
+`1920x1080@60Hz` came back as `1920x1080@50Hz`, so the broad
+"settings persist across reboot" claim stays partial instead of being quietly
+promoted.
+
 ## Packaging is part of the integration work
 
 The first staged compositor artifact showed why packaging cannot be treated as
@@ -98,6 +107,13 @@ Debian Trixie check uses available local COSMIC packages that still carry the
 Resolute suffix, so it remains staged install evidence rather than canonical
 Trixie publication proof; see the [Trixie install
 proof](../proof-notes/2026-08-12-clean-container-amd64-package-install.md).
+
+The package-audit story also moved forward after the Aug 17 container-only
+closure. The later [combined three-fix verification boot](../proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+reached a clean COSMIC session on the same boot that proved there was no
+`gdm3`, `gnome-shell`, `gnome-session-bin`, or `ubuntu-session`, no failed user
+units, and no `dpkg --audit` residue. For the tested QEMU scope, that is the
+current package-audit result.
 
 The Voulage path also exposed smaller release issues: quilt version formatting,
 source identity, manual-page metadata, debug information, and the difference
@@ -139,13 +155,14 @@ merged upstream work.
 
 ## Result
 
-At the Aug 12 freeze, four of the proposal's twelve success criteria were fully
-met. Since then, the [fresh QEMU proof](../proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
-and the final six-package tuple have strengthened the reboot-persistence,
-input backend, display observer, and package/runtime gates. The current ledger
-remains QEMU-only; the remaining gates cover hardware, native Settings
-mutation, the direct display apply path, release packaging, and maintainer
-review.
+The current public ledger is **5 of 12**, QEMU-only. That number hides some
+movement. The package-audit criterion is stronger than it was at the Aug 12
+freeze and is now closed for the tested QEMU scope. A different display
+criterion moved the other way after the Aug 21 live apply proof exposed the
+refresh-rate bug, so the headline count did not go up.
+
+The remaining gates cover hardware, multi-display and mixed-DPI validation,
+native Settings-panel behavior, release packaging, and maintainer review.
 The remaining work is not hidden: native display mutation, the hardware
 matrix, complete idle and parent-session lifecycle semantics, signing and
 canonical publication, and final maintainer review remain open.
