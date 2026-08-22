@@ -34,6 +34,8 @@ GNOME+COSMIC feature tests passing. This is source/package evidence only; the
 strict ledger remains 5 of 12, QEMU-only.
 
 See the [pointer reverse-sync source checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
+The [QEMU package-install checkpoint](proof-notes/2026-08-23-inputd-pointer-qemu-package-install.md)
+records the matching in-guest hash and cold-boot boundary.
 
 ## Historical closure update - 2026-08-21
 

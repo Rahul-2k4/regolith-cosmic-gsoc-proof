@@ -29,6 +29,7 @@ tuple. This package checkpoint is source/build evidence, not a fresh QEMU
 installation claim.
 
 Source proof: [inputd pointer reverse-sync checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
+QEMU package proof: [install checkpoint](proof-notes/2026-08-23-inputd-pointer-qemu-package-install.md).
 
 ## Latest update - 2026-08-21
 
