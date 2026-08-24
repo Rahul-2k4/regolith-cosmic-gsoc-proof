@@ -4,6 +4,28 @@ Project: **Build a COSMIC-based Wayland Session for Regolith**
 
 Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
+## Latest update - 2026-08-24
+
+The mentor-directed unstable-source and GDM handoff run is now recorded in the
+[GDM COSMIC QEMU proof](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md).
+The run reproduced the global `default.target.wants` link, removed it after
+disabling `sway-audio-idle-inhibit`, upgraded the helper from `unstable`, and
+then launched the COSMIC session through GDM.
+
+The exact process chain reached Sway, the session bus carried the COSMIC
+desktop markers, and both `regolith-init-inputd.service` and
+`regolith-init-displayd.service` stayed active. The user failed-unit list and
+`dpkg --audit` were empty. The guest was restored to greetd and the disposable
+QEMU process was stopped cleanly.
+
+The session source branch is `4da4ce3`. Its 11 shell tests pass on macOS and
+Linux. The final Voulage package is
+`regolith-session-cosmic_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` with
+SHA-256
+`bfd7e2788cf7d5fda2a974e2c34d5da9aa979711f64fbdba9a7610c7bc6178a9`.
+This remains QEMU evidence; it does not claim native hardware or archive
+publication.
+
 ## Current source checkpoint — 2026-08-23
 
 The displayd COSMIC apply path is now package/runtime exercised as well:

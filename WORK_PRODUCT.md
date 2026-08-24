@@ -4,6 +4,22 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Latest source checkpoint — 2026-08-24
+
+The [GDM COSMIC environment handoff](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md)
+records a fresh QEMU login through `gdm-wayland-session`,
+`regolith-session-cosmic-launch`, `dbus-run-session`,
+`regolith-session-cosmic-bus`, and `cosmic-session`. The session exported the
+COSMIC desktop markers, kept both `regolith-init-inputd.service` and
+`regolith-init-displayd.service` active, and ended with no failed user units or
+`dpkg --audit` findings. The source checkpoint is `regolith-session` commit
+`4da4ce39ce837bc662b47c7d3625b781ba4a0514`; its 11 shell tests pass on macOS
+and Linux. The final unsigned Voulage package has SHA-256
+`bfd7e2788cf7d5fda2a974e2c34d5da9aa979711f64fbdba9a7610c7bc6178a9`.
+
+This closes the GDM-to-COSMIC environment handoff for QEMU. It does not claim
+native hardware, multi-display, or canonical archive publication.
+
 ## Latest source checkpoint — 2026-08-23
 
 `regolith-displayd` commit `48025e352dc107de90067dccb33e5dc280ade8f7` also

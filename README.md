@@ -22,6 +22,20 @@ The public branch includes the new
 (introduced in `cedcd52`); it is read-only with respect to package installation
 and persistent session configuration.
 
+## Latest source checkpoint - 2026-08-24
+
+The [GDM COSMIC environment proof](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md)
+records the mentor-directed `unstable` upgrade order, stale user-unit cleanup,
+and a fresh GDM COSMIC login. The bus carried the COSMIC desktop markers, while
+inputd and displayd stayed active with no failed user units and a clean
+`dpkg --audit`. The guest was restored to greetd and the disposable QEMU
+process was stopped cleanly.
+
+The current `regolith-session` source checkpoint is `4da4ce3`. Its 11 shell
+tests pass on macOS and Linux. The final unsigned Voulage session package has
+SHA-256
+`bfd7e2788cf7d5fda2a974e2c34d5da9aa979711f64fbdba9a7610c7bc6178a9`.
+
 ## Latest source checkpoint - 2026-08-23
 
 `regolith-displayd` commit `48025e3` passes 66 offline library tests and its
