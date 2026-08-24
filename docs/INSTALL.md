@@ -93,9 +93,10 @@ was already installed and got upgraded, the script reports its old version
 for manual restoration. It does not run `autoremove`.
 
 This installer has contract-test coverage
-(`tests/install-real-system-contract.sh`), and the exact seven-file bundle it
-ships has now passed a full QEMU install→reboot→login run (see above).
-Real-hardware success is still pending this mentor run.
+(`tests/install-real-system-contract.sh`). The earlier seven-file bundle passed
+a full QEMU install→reboot→login run, but the current bundle contains a newer
+displayd build recorded above; that exact refreshed bundle still needs a fresh
+runtime test. Real-hardware success is pending this mentor run.
 
 Define once:
 
@@ -123,7 +124,9 @@ persistence, lock/OSD/logout) were measured against a **slightly different**
 package set than the one this installer ships: `regolith-inputd 0.4.1-1`
 (this bundle ships `0.4.1-2`, a same-day fix) plus `regolith-wm-config`
 (this bundle does not include a standalone wm-config package; the
-functionality is expected to come from `regolith-session-common`). Treat
+functionality is expected to come from `regolith-session-common`). This
+historical comparison also used an earlier displayd build; the current bundle
+displayd artifact is pinned above. Treat
 those four items as **expected behavior backed by component proof**, not as
 a rerun of the identical bundle. If any of them behave differently on this
 exact tuple, that is a real, useful finding for this mentor test — not

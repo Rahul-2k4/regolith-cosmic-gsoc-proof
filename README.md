@@ -154,7 +154,11 @@ source commit `575004619ae0aafef627ba87493e87546da15534` and Voulage target
 `ubuntu/resolute/unstable`. This is build provenance only; real-hardware
 installation remains unverified. See the [displayd bundle build note](proof-notes/2026-08-24-displayd-mentor-bundle-build.md).
 
-## Latest source checkpoint - 2026-08-23
+## Historical source checkpoint - 2026-08-23
+
+The following package/runtime result predates the displayd artifact refresh
+recorded above; it remains useful component evidence but is not a runtime proof
+of the current mentor bundle.
 
 `regolith-displayd` commit `48025e3` passes 66 offline library tests and its
 exact package has SHA-256
@@ -163,6 +167,10 @@ installed in the disposable COSMIC QEMU tuple; the user service stayed active
 and verify/apply DisplayConfig D-Bus calls returned code 0. This is headless
 package/runtime proof, not native mode or hardware proof. See the [displayd
 QEMU proof](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
+The inputd source facts below remain current, but the cold-login tuple they
+describe used the pre-refresh displayd package and is therefore historical
+runtime evidence, not a proof of the current mentor bundle.
 
 The reconciled inputd branch now contains vendored offline build wiring
 (`e3fbd5c`), keyboard/input-source reverse synchronization (`b07ea315`), and

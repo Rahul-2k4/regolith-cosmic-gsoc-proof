@@ -43,7 +43,11 @@ from source commit `575004619ae0aafef627ba87493e87546da15534` for Voulage target
 `ubuntu/resolute/unstable`. This records build provenance only; real-hardware
 installation remains unverified. See the [displayd bundle build note](proof-notes/2026-08-24-displayd-mentor-bundle-build.md).
 
-## Current source checkpoint — 2026-08-23
+## Historical source checkpoint — 2026-08-23
+
+The following displayd and inputd runtime records predate the displayd artifact
+refresh above. They remain component evidence, not a fresh runtime proof of the
+current mentor bundle.
 
 The displayd COSMIC apply path is now package/runtime exercised as well:
 commit `48025e3` passes 66 offline library tests, and the exact unsigned
@@ -55,6 +59,10 @@ runtime proof only; native mode mutation, hardware, and multi-display remain
 separate.
 
 Displayd proof: [exact QEMU package/runtime check](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
+The inputd source facts below remain current, but the cold-login tuple they
+describe used the pre-refresh displayd package and is therefore historical
+runtime evidence, not a proof of the current mentor bundle.
 
 The reconciled `regolith-inputd` branch currently contains vendored offline
 build wiring in `e3fbd5c`, keyboard/input-source reverse synchronization in
