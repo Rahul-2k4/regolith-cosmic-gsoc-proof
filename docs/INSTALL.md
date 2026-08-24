@@ -57,6 +57,13 @@ The exact `-4` package lineage and two fresh cold boots are recorded in
 [`proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md`](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
 That proof is QEMU-only and headless — this mentor run is the first time this
 bundle will be tried on real hardware.
+The bundle's displayd artifact is
+`regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`, SHA-256
+`413d793b3d073f8e00934206cb5b41477850699a84c6b8510dc34f249afb073a`, built
+from source commit `575004619ae0aafef627ba87493e87546da15534` for Voulage target
+`ubuntu/resolute/unstable`. Its build provenance is recorded in the
+[displayd bundle build note](../proof-notes/2026-08-24-displayd-mentor-bundle-build.md);
+real-hardware installation remains unverified.
 
 Try these four things. Item 1 (login, target/helper state) matches exactly
 what the QEMU proof above measured. Items 2-4 rely on component-level proof

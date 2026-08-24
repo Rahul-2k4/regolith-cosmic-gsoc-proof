@@ -147,6 +147,13 @@ SHA-256
 The exact QEMU proof for that installer artifact is the [correct-lineage
 session proof](proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
 
+The current bundle's displayd artifact is
+`regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`, SHA-256
+`413d793b3d073f8e00934206cb5b41477850699a84c6b8510dc34f249afb073a`, from
+source commit `575004619ae0aafef627ba87493e87546da15534` and Voulage target
+`ubuntu/resolute/unstable`. This is build provenance only; real-hardware
+installation remains unverified. See the [displayd bundle build note](proof-notes/2026-08-24-displayd-mentor-bundle-build.md).
+
 ## Latest source checkpoint - 2026-08-23
 
 `regolith-displayd` commit `48025e3` passes 66 offline library tests and its

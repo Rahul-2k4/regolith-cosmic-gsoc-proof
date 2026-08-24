@@ -36,6 +36,13 @@ session proof](proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.
 This remains QEMU evidence; it does not claim native hardware or archive
 publication.
 
+The mentor bundle's displayd artifact is
+`regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`, SHA-256
+`413d793b3d073f8e00934206cb5b41477850699a84c6b8510dc34f249afb073a`, built
+from source commit `575004619ae0aafef627ba87493e87546da15534` for Voulage target
+`ubuntu/resolute/unstable`. This records build provenance only; real-hardware
+installation remains unverified. See the [displayd bundle build note](proof-notes/2026-08-24-displayd-mentor-bundle-build.md).
+
 ## Current source checkpoint — 2026-08-23
 
 The displayd COSMIC apply path is now package/runtime exercised as well:
