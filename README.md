@@ -154,6 +154,14 @@ source commit `575004619ae0aafef627ba87493e87546da15534` and Voulage target
 `ubuntu/resolute/unstable`. This is build provenance only; real-hardware
 installation remains unverified. See the [displayd bundle build note](proof-notes/2026-08-24-displayd-mentor-bundle-build.md).
 
+The exact seven-package bundle was then run through
+`scripts/install-real-system.sh` in a disposable Pop!_OS 24.04 QEMU guest.
+The dry-run, install transaction, reboot, COSMIC login, target/helper checks,
+empty failed-user-unit list, and clean `dpkg --audit` all passed. The installer
+used an `_apt`-readable staging path without the earlier unsandboxed-download
+warning. This remains QEMU proof; the real-hardware run is still the mentor's
+test. See the [installer proof note](proof-notes/2026-08-24-mentor-installer-current-main-qemu.md).
+
 ## Historical source checkpoint - 2026-08-23
 
 The following package/runtime result predates the displayd artifact refresh

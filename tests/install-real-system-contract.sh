@@ -49,6 +49,13 @@ case ${1:-} in
   -m) printf "%s\n" "${MOCK_UNAME_M:-x86_64}" ;;
   *) exit 2 ;;
 esac'
+write_mock id '#!/usr/bin/env bash
+case "$*" in
+  "-u _apt") printf "998\n" ;;
+  "-g _apt") printf "998\n" ;;
+  "-u") printf "1000\n" ;;
+  *) exit 2 ;;
+esac'
 write_mock sha256sum '#!/usr/bin/env bash
 file=${@: -1}
 case $(basename -- "$file") in
@@ -108,12 +115,28 @@ package=${@: -1}
 if [[ ${MOCK_APT_NONE:-0} == 1 || ( ${MOCK_PREDEP_NONE:-0} == 1 && $package == pre-required ) ]]; then printf "Candidate: (none)\n"; else printf "Candidate: 1.0\n"; fi'
 
 write_mock apt-get '#!/usr/bin/env bash
+mode_of() {
+  if stat -c "%a" "$1" 2>/dev/null; then :; else stat -f "%Lp" "$1"; fi
+}
 printf "apt-get" >>"$COMMAND_LOG"
 for arg in "$@"; do printf " %q" "$arg" >>"$COMMAND_LOG"; done
 printf "\n" >>"$COMMAND_LOG"
 if [[ ${1:-} == install ]]; then
   [[ -z ${MUTATE_SOURCE:-} ]] || printf "changed\n" >"$MUTATE_SOURCE"
-  for arg in "$@"; do [[ $arg != *.deb ]] || grep -qx deb "$arg" || exit 9; done
+  for arg in "$@"; do
+    [[ $arg != *.deb ]] || {
+      grep -qx deb "$arg" || exit 9
+      [[ $(mode_of "$arg") == 640 ]] || exit 10
+      package_dir=$(dirname -- "$arg")
+      staging_root=$(dirname -- "$package_dir")
+      [[ $(mode_of "$package_dir") == 710 ]] || exit 11
+      [[ $staging_root == /tmp/install-real-system.* ]] || exit 12
+      [[ $(mode_of "$staging_root") == 710 ]] || exit 13
+      tmp_mode=$(mode_of /tmp); tmp_other=${tmp_mode: -1}
+      [[ $tmp_other == 1 || $tmp_other == 5 || $tmp_other == 7 ]] || exit 14
+      printf "staged-mode 640 710 710 tmp\n" >>"$COMMAND_LOG"
+    }
+  done
   : >"$PACKAGE_DB_MARKER"
 fi'
 
@@ -141,7 +164,11 @@ write_mock sudo '#!/usr/bin/env bash
 printf "sudo" >>"$COMMAND_LOG"
 for arg in "$@"; do printf " %q" "$arg" >>"$COMMAND_LOG"; done
 printf "\n" >>"$COMMAND_LOG"
-"$@"'
+case ${1:-} in
+  chown) exit 0 ;;
+  chmod) shift; /bin/chmod "$@" ;;
+  *) "$@" ;;
+esac'
 
 write_os() { printf 'ID=%s\nVERSION_ID="%s"\nVERSION_CODENAME=%s\n' "$1" "$2" "$3" >"$OS_RELEASE_FILE"; }
 prepare_packages() {
@@ -245,6 +272,11 @@ test_install_is_one_exact_apt_transaction() {
     for package in "${PACKAGE_FILES[@]}"; do assert_not_contains "$PACKAGE_DIR/$package" "$COMMAND_LOG"; done
     grep -Eq '^apt-get install -y --no-install-recommends .*/install-real-system\.[^/]*/packages/' "$COMMAND_LOG" || { printf 'FAIL: apt did not use private staged paths\n' >&2; FAILURES=$((FAILURES + 1)); }
     assert_contains 'sudo dpkg --audit' "$COMMAND_LOG"; assert_contains 'BASELINE:' "$OUTPUT"
+    [[ $(grep -c '^sudo chown 1000:998 .*/install-real-system\.[^/]*/packages$' "$COMMAND_LOG" || true) == 1 ]] || { printf 'FAIL: staging directory ownership was not prepared for _apt\n' >&2; FAILURES=$((FAILURES + 1)); }
+    [[ $(grep -c '^sudo chmod 0710 .*/install-real-system\.[^/]*/packages$' "$COMMAND_LOG" || true) == 1 ]] || { printf 'FAIL: staging directory modes were not restricted to owner and _apt group\n' >&2; FAILURES=$((FAILURES + 1)); }
+    [[ $(grep -c '^sudo chown 1000:998 .*/install-real-system\.[^/]*/packages/.*\.deb$' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: staged package ownership was not prepared for _apt\n' >&2; FAILURES=$((FAILURES + 1)); }
+    [[ $(grep -c '^sudo chmod 0640 .*/install-real-system\.[^/]*/packages/.*\.deb$' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: staged package modes were not restricted to owner and _apt group\n' >&2; FAILURES=$((FAILURES + 1)); }
+    [[ $(grep -c '^staged-mode 640 710 710 tmp$' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: staged package permissions or apt-safe path chain are incorrect\n' >&2; FAILURES=$((FAILURES + 1)); }
     assert_contains 'sudo install -d -m 0755' "$COMMAND_LOG"
     [[ $(grep -c '^sudo install -m 0644' "$COMMAND_LOG" || true) == 7 ]] || { printf 'FAIL: baseline metadata is not installed readable\n' >&2; FAILURES=$((FAILURES + 1)); }
     [[ -f $STATE_ROOT/baseline-test/tuple-state.tsv && -f $STATE_ROOT/baseline-test/dpkg-selections.txt && -f $STATE_ROOT/baseline-test/installed-packages.tsv && -f $STATE_ROOT/baseline-test/apt-mark-manual.txt ]] || { printf 'FAIL: incomplete baseline\n' >&2; FAILURES=$((FAILURES + 1)); }

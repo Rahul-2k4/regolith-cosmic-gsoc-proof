@@ -47,7 +47,7 @@ fi
 BASE_URL=${BASE_URL%/}
 ensure_tmp() {
     if [[ -z $TMP_WORK ]]; then
-        TMP_WORK=$(mktemp -d "${TMPDIR:-/tmp}/install-real-system.XXXXXX")
+        TMP_WORK=$(mktemp -d "/tmp/install-real-system.XXXXXX")
     fi
 }
 load_manifest() {
@@ -108,7 +108,7 @@ is_bundled() {
 }
 stage_local_bundle() {
     [[ -d $PACKAGE_DIR ]] || fail "package directory missing: $PACKAGE_DIR"
-    ensure_tmp; BUNDLE_DIR=$TMP_WORK/packages; mkdir -p -- "$BUNDLE_DIR"
+    ensure_tmp; BUNDLE_DIR=$TMP_WORK/packages; mkdir -m 0700 -p -- "$BUNDLE_DIR"
     local path file wanted expected found=0
     shopt -s nullglob dotglob
     for path in "$PACKAGE_DIR"/*; do
@@ -116,7 +116,7 @@ stage_local_bundle() {
         file=${path##*/}; [[ $file == *.deb ]] || continue; expected=0
         for wanted in "${PACKAGE_FILES[@]}"; do [[ $file != "$wanted" ]] || expected=1; done
         (( expected )) || fail "package set differs from manifest: unexpected $file"
-        cp -- "$path" "$BUNDLE_DIR/$file"; found=$((found + 1))
+        cp -- "$path" "$BUNDLE_DIR/$file"; chmod 0644 "$BUNDLE_DIR/$file"; found=$((found + 1))
     done
     shopt -u nullglob dotglob
     (( found == 7 )) || fail "package set differs from manifest: found $found of 7 packages"
@@ -135,10 +135,11 @@ acquire_bundle() {
     fi
     ensure_tmp
     BUNDLE_DIR=$TMP_WORK/packages
-    mkdir -p -- "$BUNDLE_DIR"
+    mkdir -m 0700 -p -- "$BUNDLE_DIR"
     local file
     for file in "${PACKAGE_FILES[@]}"; do
         curl -fL "$BASE_URL/$file" -o "$BUNDLE_DIR/$file"
+        chmod 0644 "$BUNDLE_DIR/$file"
     done
 }
 
@@ -206,6 +207,19 @@ preflight_dependencies() {
     done
     printf 'PASS: dependency preflight\n'
 }
+prepare_apt_access() {
+    local owner_uid apt_uid apt_gid file
+    owner_uid=$(id -u 2>/dev/null) || fail 'could not resolve the invoking user for APT staging'
+    apt_uid=$(id -u _apt 2>/dev/null) || fail 'APT sandbox user _apt is missing'
+    apt_gid=$(id -g _apt 2>/dev/null) || fail 'APT sandbox primary group for _apt is missing'
+    [[ $owner_uid =~ ^[0-9]+$ && $apt_uid =~ ^[0-9]+$ && $apt_gid =~ ^[0-9]+$ ]] || fail 'invalid APT sandbox identity'
+    sudo chown "$owner_uid:$apt_gid" "$TMP_WORK" "$BUNDLE_DIR"
+    sudo chmod 0710 "$TMP_WORK" "$BUNDLE_DIR"
+    for file in "${PACKAGE_FILES[@]}"; do
+        sudo chown "$owner_uid:$apt_gid" "$BUNDLE_DIR/$file"
+        sudo chmod 0640 "$BUNDLE_DIR/$file"
+    done
+}
 check_cosmic_comp_present() {
     local state
     state=$(dpkg-query -W -f='${db:Status-Status}\n' cosmic-comp 2>/dev/null || true)
@@ -262,6 +276,7 @@ install_bundle() {
     fi
     (( check_status == 0 )) || return "$check_status"
     capture_baseline
+    prepare_apt_access
     for file in "${PACKAGE_FILES[@]}"; do
         paths+=("$BUNDLE_DIR/$file")
     done

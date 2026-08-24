@@ -55,15 +55,18 @@ SHA-256
 `3e2c58752fd4cd65ca710f8db440434bdc4eed0641c2753f31aa4686e35539a7`.
 The exact `-4` package lineage and two fresh cold boots are recorded in
 [`proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md`](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
-That proof is QEMU-only and headless — this mentor run is the first time this
-bundle will be tried on real hardware.
+That proof is QEMU-only and headless. The current installer tuple has since
+also been run through the installer, rebooted, and verified in the disposable
+Pop!_OS QEMU guest; the real-hardware run remains the mentor's test.
 The bundle's displayd artifact is
 `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb`, SHA-256
 `413d793b3d073f8e00934206cb5b41477850699a84c6b8510dc34f249afb073a`, built
 from source commit `575004619ae0aafef627ba87493e87546da15534` for Voulage target
 `ubuntu/resolute/unstable`. Its build provenance is recorded in the
 [displayd bundle build note](../proof-notes/2026-08-24-displayd-mentor-bundle-build.md);
-real-hardware installation remains unverified.
+the installer/runtime rerun is recorded in the
+[current installer proof note](../proof-notes/2026-08-24-mentor-installer-current-main-qemu.md).
+Real-hardware installation remains unverified.
 
 Try these four things. Item 1 (login, target/helper state) matches exactly
 what the QEMU proof above measured. Items 2-4 rely on component-level proof
@@ -93,10 +96,11 @@ was already installed and got upgraded, the script reports its old version
 for manual restoration. It does not run `autoremove`.
 
 This installer has contract-test coverage
-(`tests/install-real-system-contract.sh`). The earlier seven-file bundle passed
-a full QEMU install→reboot→login run, but the current bundle contains a newer
-displayd build recorded above; that exact refreshed bundle still needs a fresh
-runtime test. Real-hardware success is pending this mentor run.
+(`tests/install-real-system-contract.sh`). The current seven-file bundle passed
+the installer dry-run and a real install transaction in disposable Pop!_OS
+QEMU, with no APT sandbox warning, a clean `dpkg --audit`, and a fresh
+reboot/login verification. Real-hardware success is still pending this mentor
+run.
 
 Define once:
 
@@ -111,6 +115,7 @@ All paths below use `$WORKSPACE`. Do not hard-code personal home directories.
 | Surface | Status |
 |---|---|
 | QEMU: exact `regolith-session-cosmic` `-4` package lineage and two cold boots | **Proven (QEMU)** — [proof note](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) |
+| QEMU: current seven-package installer transaction, reboot, and verifier | **Proven (QEMU)** — [installer proof note](../proof-notes/2026-08-24-mentor-installer-current-main-qemu.md) |
 | Real (non-QEMU) hardware, this exact bundle | **Not yet run** — this mentor test is the first attempt |
 | Ubuntu 26.04 Resolute: local package install (`apt`) resolves, `dpkg --audit` clean | Proven (disposable container/QEMU package-install only) |
 | Ubuntu 26.04 Resolute: graphical cold login / greetd session | **Not proven** — no Resolute graphical QEMU image exists yet |
