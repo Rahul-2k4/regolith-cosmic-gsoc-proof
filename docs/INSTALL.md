@@ -25,7 +25,7 @@ QEMU proof exists for this host) and amd64 **Ubuntu 26.04 Resolute**
 (package-install proof only — see the caveat in the status table below). The
 system must already have working Regolith and COSMIC package sources for
 dependencies. The seven project packages are committed at
-`artifacts/mentor-seven-package-bundle/` in this branch (unsigned, ~34MB)
+`artifacts/mentor-seven-package-bundle/` in this branch (unsigned, ~21MB)
 and are checked against the committed SHA-256 manifest before anything is
 installed. Use exactly that subdirectory with `--package-dir` — the parent
 `artifacts/` directory also holds older historical builds for provenance,
@@ -37,7 +37,7 @@ GitHub release if one is published later (omit `--package-dir` and pass
 Install from the review branch:
 
 ```sh
-git clone --branch rahul/mentor-real-system-installer-20260818 --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
+git clone --branch main --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
 ```
 
 The script does not reboot, stop the display manager, change the default
@@ -49,19 +49,14 @@ session at the greeter, log in, then run:
 ./scripts/install-real-system.sh verify
 ```
 
-**What this exact seven-package bundle has been tested as.** This bundle
-previously shipped a `regolith-session-common` build whose version string
-sorted *lower* than a copy already present on our own QEMU test image, which
-made `apt` abort the whole install as an unintended downgrade — a real defect,
-not a proof-process gap. That package has been rebuilt with a corrected
-version (verified with `dpkg --compare-versions`, not assumed), and the
-**exact current seven-file manifest** has since passed a full disposable QEMU
-run: install, `dpkg --audit` clean, cold reboot, greetd login, and a healthy
-COSMIC session with both helper daemons active. See
-[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
-for the full record, including the failed attempts kept for honesty rather
-than discarded. That proof is QEMU-only, on Pop!_OS 24.04 — this mentor run
-is the first time this bundle will be tried on real hardware.
+**What this exact seven-package bundle has been tested as.** The current
+bundle contains `regolith-session-cosmic_1.2.0-1ubuntu1-4-1regolith-resolute`,
+SHA-256
+`3e2c58752fd4cd65ca710f8db440434bdc4eed0641c2753f31aa4686e35539a7`.
+The exact `-4` package lineage and two fresh cold boots are recorded in
+[`proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md`](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
+That proof is QEMU-only and headless — this mentor run is the first time this
+bundle will be tried on real hardware.
 
 Try these four things. Item 1 (login, target/helper state) matches exactly
 what the QEMU proof above measured. Items 2-4 rely on component-level proof
@@ -107,7 +102,7 @@ All paths below use `$WORKSPACE`. Do not hard-code personal home directories.
 
 | Surface | Status |
 |---|---|
-| Pop!_OS 24.04 QEMU: this exact seven-file bundle, install→reboot→greetd login | **Proven (QEMU)** — [proof note](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
+| QEMU: exact `regolith-session-cosmic` `-4` package lineage and two cold boots | **Proven (QEMU)** — [proof note](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) |
 | Real (non-QEMU) hardware, this exact bundle | **Not yet run** — this mentor test is the first attempt |
 | Ubuntu 26.04 Resolute: local package install (`apt`) resolves, `dpkg --audit` clean | Proven (disposable container/QEMU package-install only) |
 | Ubuntu 26.04 Resolute: graphical cold login / greetd session | **Not proven** — no Resolute graphical QEMU image exists yet |
@@ -223,11 +218,10 @@ Direct `swaymsg exit` is **not** a clean parent teardown: it can leave
 
 ## Verify a successful install (in-session)
 
-Do not invent fresh QEMU output here. The following values were recorded
-against **this exact seven-package bundle**, on 2026-08-18, and are quoted
-from
-[`proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md`](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md)
-and its artifacts.
+Do not invent fresh QEMU output here. The exact
+`regolith-session-cosmic_1.2.0-1ubuntu1-4-1regolith-resolute` package and its
+two cold-boot result are recorded in
+[`proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md`](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
 
 Quoted environment / target evidence from that proof:
 
@@ -253,11 +247,6 @@ From the same note's result summary:
   `app-polkit-mate-authentication-agent-1@autostart.service` (GNOME-flashback
   polkit agent leftover, not part of this project) — no other unit failed;
 - `dpkg --audit`: clean before and after install.
-
-Evidence files:
-
-- [Framebuffer screenshot](../artifacts/mentor-seven-package-tuple-qemu-20260818.png)
-- [Full run transcript](../artifacts/mentor-seven-package-tuple-qemu-20260818/transcript.log)
 
 A reviewer reproducing on a live guest should expect the same shape of
 checks (desktop token, no `gnome-session-bin`, cosmic target active, gnome

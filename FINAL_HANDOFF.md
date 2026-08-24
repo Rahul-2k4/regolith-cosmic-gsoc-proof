@@ -4,15 +4,104 @@ Project: **Build a COSMIC-based Wayland Session for Regolith**
 
 Public proof bundle: [main branch](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/tree/main)
 
+## Latest update - 2026-08-24
+
+The mentor-directed unstable-source and GDM handoff run is now recorded in the
+[GDM COSMIC QEMU proof](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md).
+The run reproduced the global `default.target.wants` link, removed it after
+disabling `sway-audio-idle-inhibit`, upgraded the helper from `unstable`, and
+then launched the COSMIC session through GDM.
+
+The exact process chain reached Sway, the session bus carried the COSMIC
+desktop markers, and both `regolith-init-inputd.service` and
+`regolith-init-displayd.service` stayed active. The user failed-unit list and
+`dpkg --audit` were empty. The guest was restored to greetd and the disposable
+QEMU process was stopped cleanly.
+
+The session source branch is `4da4ce3`. Its 11 shell tests pass on macOS and
+Linux. The final Voulage package is
+`regolith-session-cosmic_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` with
+SHA-256
+`bfd7e2788cf7d5fda2a974e2c34d5da9aa979711f64fbdba9a7610c7bc6178a9`.
+This `bfd7...` package is the latest `regolith-session` source/Voulage
+checkpoint, not the artifact used by the mentor-facing installer. That
+installer uses the separate seven-package bundle pinned by
+[`artifacts/mentor-test-2026-08-18.sha256`](artifacts/mentor-test-2026-08-18.sha256).
+Its COSMIC session artifact is
+`regolith-session-cosmic_1.2.0-1ubuntu1-4-1regolith-resolute_amd64.deb`,
+SHA-256
+`3e2c58752fd4cd65ca710f8db440434bdc4eed0641c2753f31aa4686e35539a7`.
+The exact QEMU proof for that installer artifact is the [correct-lineage
+session proof](proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md).
+This remains QEMU evidence; it does not claim native hardware or archive
+publication.
+
+## Current source checkpoint — 2026-08-23
+
+The displayd COSMIC apply path is now package/runtime exercised as well:
+commit `48025e3` passes 66 offline library tests, and the exact unsigned
+package hash is
+`4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601`.
+The installed service stayed active in the disposable COSMIC QEMU tuple and
+verify/apply `ApplyMonitorsConfig` calls returned code 0. This is headless
+runtime proof only; native mode mutation, hardware, and multi-display remain
+separate.
+
+Displayd proof: [exact QEMU package/runtime check](proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md).
+
+The reconciled `regolith-inputd` branch currently contains vendored offline
+build wiring in `e3fbd5c`, keyboard/input-source reverse synchronization in
+`b07ea315`, and pointer reverse synchronization in `e8fce66`. The exact
+unsigned package is
+`regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb`, SHA-256
+`650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b`.
+
+Verification from the project host:
+
+```text
+CARGO_NET_OFFLINE=true cargo test --all-features --offline   55 passed
+cargo fmt --check                                          PASS
+git diff --check                                            PASS
+CARGO_NET_OFFLINE=true VENDOR=1 dpkg-buildpackage -us -uc -b PASS
+```
+
+The source-level pointer reverse-sync slice is now complete and preserves
+unrelated COSMIC input fields. The strict proposal ledger remains **5/12 fully
+met, QEMU-only**. A fresh reboot of the exact tuple now keeps Sway, COSMIC,
+inputd, and displayd alive with active COSMIC targets, persistent Sway IPC, one
+headless output, no failed user units, and clean `dpkg --audit`. This is
+headless/pixman QEMU proof only, not native-GPU or hardware proof.
+
+Source proof: [inputd pointer reverse-sync checkpoint](proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md).
+QEMU package proof: [install checkpoint](proof-notes/2026-08-23-inputd-pointer-qemu-package-install.md).
+Final cold-login proof: [exact-package QEMU session](proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md).
+
+## Latest update - 2026-08-21
+
+The current public ledger is still **5 of 12**, QEMU-only.
+
+The [combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+is the current package-audit result. The tested COSMIC session path had no
+GNOME session or bootstrap packages, zero failed user units, and clean
+`dpkg --audit` on the same verification boot. For the tested QEMU scope, that
+closes the package-audit criterion.
+
+The [displayd real apply and persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md)
+is the current display result. It proved real live display changes plus cold
+reboot persistence for resolution and scale. It also found that refresh rate
+persisted wrong, so the broad settings-persist criterion is `Partial`, not
+`Met`.
+
+The earlier 2026-08-17 section below is kept as a dated stage result.
+
 ## Latest update - 2026-08-17
 
 The [fresh COSMolith input/display proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md)
 adds a verified live and second-cold-reboot QEMU result: French/AZERTY,
 repeat `540/31`, and `1024x768` survived with COSMIC target/inputd/displayd
-active and the GNOME target inactive. The current criteria ledger is **5 of
-12**, all QEMU-only. The strict estimate remains **62-68%**; the native
-Settings GUI, hardware display matrix, archive publication, and maintainer
-acceptance remain open.
+active and the GNOME target inactive. That was the keyboard-side persistence
+result at the time. Later Aug 21 display testing found the refresh-rate bug
+noted above, so this section is historical rather than current-ledger status.
 
 The [exact session-package QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md)
 adds a fresh overlay install, reboot, greetd COSMIC login, active COSMIC
@@ -21,9 +110,10 @@ Criterion 9 but does not replace the clean archive or complete survivor audit.
 
 The [clean COSMIC-only survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md)
 also installs only `regolith-session-cosmic` in a fresh Ubuntu 26.04
-container. It finds no GNOME session/bootstrap package or session payload, but
-four GNOME-related transitive packages remain. Criterion 9 stays Partial until
-each survivor has a written justification and removal plan.
+container. That dated run found four GNOME-related transitive packages. The
+later August 21 combined verification supersedes its status wording and closes
+Criterion 9 for the tested QEMU scope; the survivor note remains historical
+evidence, not the current ledger.
 
 The [managed logout harness boundary](proof-notes/2026-08-17-managed-logout-harness-boundary.md)
 records the latest lifecycle attempt. The guest reached a clean COSMIC login

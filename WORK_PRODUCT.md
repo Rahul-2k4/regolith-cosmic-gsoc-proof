@@ -4,6 +4,22 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Latest source checkpoint - 2026-08-24
+
+The [GDM COSMIC environment handoff](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md)
+records a fresh QEMU login through GDM, the Regolith COSMIC launcher,
+`dbus-run-session`, and `cosmic-session`. COSMIC desktop markers were present,
+inputd and displayd were active, failed user units were empty, and
+`dpkg --audit` was clean. This closes the GDM-to-COSMIC environment handoff
+for QEMU; it does not claim native hardware, multi-display, or archive
+publication.
+
+## Latest source checkpoint - 2026-08-23
+
+The displayd and inputd checkpoints cover the Wayland apply path, vendored
+offline builds, keyboard/input-source and pointer reverse sync, and a fresh
+COSMIC cold-login tuple. These remain QEMU-only results.
+
 ## Contents
 
 - [Proposal success criteria: 5 of 12 fully met](#proposal-success-criteria-5-of-12-fully-met)
@@ -25,24 +41,57 @@ sanitized wrapper proof.
 | 4 | Keyboard layout + variant via cosmic-settings reflected in Sway | Not met as written | Settings panel crashes; propagation proven via config mutation |
 | 5 | Shipped lock/unlock validated end-to-end on Sway | Met | QEMU |
 | 6 | OSDs render correctly | Partial | volume OSD only; media keys uninjectable in QEMU |
-| 7 | Settings persist across reboot | Partial | QEMU-only: keyboard layout/repeat and a specific display mode persisted across reboot in the 2026-08-17 run, but a 2026-08-21 run with a real display sink found refresh rate does NOT persist as requested (60Hz -> 50Hz), while resolution/scale do; see the newest proof note |
+| 7 | Settings persist across reboot | Partial | QEMU-only: keyboard state, display resolution, and display scale persisted on the tested path, but a later real display proof found refresh-rate persistence was wrong (`60Hz` requested, `50Hz` restored), so the broad criterion cannot stay `Met` |
 | 8 | Retained surface (workspaces, i3status-rs, ilia) works | Partial | live QEMU Sway session; i3status-rs, ilia, and representative workspace switching observed; full matrix open |
-| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Partial | the [clean COSMIC-only install and survivor audit](proof-notes/2026-08-17-clean-cosmic-only-install-survivor-audit.md) returns `INSTALL_RC=0` with empty `dpkg --audit` and no GNOME session/bootstrap payload, while four GNOME-related transitive survivors still need written justification and removal plans; the [exact-tuple QEMU proof](proof-notes/2026-08-17-exact-session-package-qemu-criterion-9.md) adds graphical COSMIC target evidence |
+| 9 | Package audit: GNOME session/bootstrap removed, survivors justified | Met | the [combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md) reached a clean QEMU COSMIC login with no `gdm3`, `gnome-shell`, `gnome-session-bin`, or `ubuntu-session`, zero failed user units, clean `dpkg --audit`, and only documented non-bootstrap GNOME-named survivors |
 | 10 | Voulage metadata + validated builds, publication coordinated | Partial | Unsigned Resolute builds, vendoring, and the clean local-pool package transaction are proven; see the [Ubuntu 26.04 closure](proof-notes/2026-08-17-ubuntu-resolute-local-pool-closure.md) and [fresh QEMU COSMolith proof](proof-notes/2026-08-17-fresh-cosmolith-input-display-persistence-qemu.md); canonical publication and maintainer coordination remain open |
 | 11 | Vendored tarballs for all Rust-heavy components, offline verified | Met | 35+ packages, `--frozen --offline` |
 | 12 | Keyboard-first workflow preserved via Sway `bindsym` | Partial | fresh QEMU `Mod4+Space` launcher plus `Mod4+2`/`Mod4+1` workspace switches; full keyboard matrix open |
 
+The [combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+is the current package-audit result. It supersedes the earlier partial-stage
+survivor notes for the QEMU scope: the tested boot had no GNOME session or
+bootstrap packages in the active COSMIC path, zero failed user units, and
+clean package state on the same boot. The remaining GNOME-named packages in
+that run were documented dependency or theme survivors, not session bring-up
+payload.
+
+The [displayd real apply and persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md)
+is the current display-persistence result. It proved real live mode and scale
+changes plus cold-reboot persistence on a VNC-backed QEMU output, but it also
+found a real bug: the requested refresh rate did not persist correctly. That
+keeps Criterion 7 at `Partial`.
+
+The August 22 inputd gate is a historical package checkpoint at the mentor-approved tuple
+`0.4.1-2-1regolith-resolute`. Source `fc895d00b890ff010dae58be8f4265fa219cabbb`
+passed 61 offline feature tests; the unsigned package SHA-256 is
+`e1cf3eaca8a73b0aab6b1f117897baddb724c914c1797f9d3ecb126d89d2a221`, and it
+was installed in the disposable guest. A fresh post-reboot greetd launch still
+leaves only `cosmic-session`; the user Sway child exits before persistent IPC
+remains, so this package result does not claim combined user-session closure.
+
+The [target-edge rerun](proof-notes/2026-08-23-session-target-edge-rerun.md)
+rebuilt the session package from `35a0833eb98acbdcb756b65655e08c3ece37e0ac`
+as `1.2.0-1ubuntu1` (SHA-256
+`5a74aba9ccb9f0ca9bb499237be7ebc1187c7e25af789f2ce57242f545b9c3b3`). The
+premature parent-target edge is removed and the runtime starts
+`regolith-cosmic.target` after compositor readiness. QEMU reached that target,
+but the COSMIC-supervised Sway child still exited before persistent IPC in that
+stage. Follow-up commits `a29cc13` and `6670d8b` now bridge the COSMIC `SetEnv`
+handshake and tolerate absent legacy units; the rebuilt package keeps Sway,
+cosmic-session, inputd, displayd, and the idle fallback active with persistent
+Wayland/Sway IPC sockets in a fresh QEMU login.
+
 The isolated [Voulage target-split repin](proof-notes/2026-08-16-voulage-session-target-split-repin.md)
 now pins the proven `regolith-session` target split at `831596f`. This closes
 the model-integrity gap for that isolated branch, but it is not a new build or
-runtime result. The remaining `gnome-keyring` and Regolith Look theme packages
-are retained and documented because current source inspection shows their
-runtime roles; criterion 9 remains `Partial`.
+runtime result. At the time of that repin note, Criterion 9 was still `Partial`.
+The current row above is based on the later Aug 21 combined verification boot.
 
 The follow-up [target-split package build](proof-notes/2026-08-16-voulage-session-target-split-build.md)
 built the exact pin successfully and verified package ownership. The complete
-external dependency graph and fresh install were not rerun from this artifact,
-so criterion 9 remains `Partial`.
+external dependency graph and fresh install were not rerun from this artifact.
+It remains historical support for the later Aug 21 package-audit result.
 
 The newer [criterion 9 exact repin audit](proof-notes/2026-08-16-criterion-9-session-repin-audit.md)
 rechecks source `831596f`, Voulage model `5b11b055`, six package hashes, target
@@ -193,7 +242,10 @@ upstream PR or `main` merge is claimed. COSMIC-specific cosmolith PRs #17,
 #18, and #19 are open under mentor authorization and are not presented as
 merged. No hardware result is claimed.
 
-The latest criteria review is recorded in the [proposal criteria audit](proof-notes/2026-08-11-proposal-criteria-audit.md).
+The latest criteria-affecting notes in this repository are the
+[combined three-fix verification boot](proof-notes/2026-08-21-combined-three-fix-verification-qemu.md)
+and the
+[displayd real apply and persistence proof](proof-notes/2026-08-21-displayd-real-apply-and-persistence-qemu.md).
 
 The latest target-owned helper runtime result is recorded in the [QEMU lifecycle v2 proof](proof-notes/2026-08-11-target-owned-helper-lifecycle-qemu-runtime-v2.md). The final target-split package tuple has now also passed disposable QEMU installation, cold reboot, greetd graphical login, target/helper health, launcher binding, workspace switching, and empty `dpkg --audit`; see the [direct package audit and final tuple proof](proof-notes/2026-08-11-direct-session-package-audit.md). Parent-session teardown is separately covered by the reviewed `cosmic-session` candidate proof; full display-manager logout and shutdown remain open.
 

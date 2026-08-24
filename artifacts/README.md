@@ -19,6 +19,10 @@ general. The hashes below are the authoritative values for the files committed h
 | `regolith-inputd_0.4.1-1-1regolith-resolute_amd64.deb` | `ab4283c0b667104ceb231719ecb51ee8113edc09b5e2de2cda50ac210b48815d` | [Voulage current-tuple build](../proof-notes/2026-08-08-voulage-current-tuple-build.md) · [Voulage branch-tuple build](../proof-notes/2026-08-08-voulage-branch-tuple-build.md) |
 | `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` | `759f87dc908182359a17d3930bf67b0f4c3a188fe02e75bdc71f7bd9238ff193` | [Inputd Voulage package proof](../proof-notes/2026-08-10-inputd-voulage-package-proof.md) · [Candidate verifier QEMU runtime](../proof-notes/2026-08-10-inputd-candidate-verifier-qemu-runtime.md) |
 | `regolith-inputd_0.4.1-2-1regolith-resolute_reconciled-e641b43_amd64.deb` | `37f678cf76f371c08a23c971b1dd87a41f61f2c75cb27329e83b5239e7843a4e` | [Inputd Voulage repin reconciled](../proof-notes/2026-08-11-inputd-voulage-repin.md) |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_b07ea315_amd64.deb` | `2ca5f9335dc3a4d9d6fece9ef76858a4babc53d22a0b106c40390d47c3ac8399` | Inputd keyboard/input-source reverse-sync source build; QEMU installation pending |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_e8fce66_amd64.deb` | `650bd6f38bf67a08e140fa566aff4e7c63b2a41fc2cc60b04aada670a420823b` | [Inputd pointer reverse-sync source build](../proof-notes/2026-08-23-inputd-pointer-reverse-sync-source.md) · [final QEMU cold-login proof](../proof-notes/2026-08-23-inputd-cosmic-cold-login-final.md) |
+
+| `regolith-displayd_0.3.4-1_48025e3_amd64.deb` | `4d410cc022ecdcd497ce48d94e05ba4464dacddb75ea15dd57d033334ec4e601` | [COSMIC Wayland apply source proof](../proof-notes/2026-08-23-displayd-cosmic-wayland-apply-source.md) · [QEMU package/runtime proof](../proof-notes/2026-08-23-displayd-cosmic-wayland-apply-qemu.md) |
 
 The following six session packages were built through the reviewed Voulage
 local-build path from `regolith-session` `831596f` on 2026-08-12. The canonical
@@ -41,12 +45,11 @@ model branch and the apt-build-dependency boundary are documented in the
 abort in QEMU. The corrected replacement is the `regolith-session-common`
 row in the table below.
 
-## Mentor seven-package tuple (2026-08-18, `regolith-session-cosmic` corrected 2026-08-19)
+## Mentor seven-package tuple (current bundle, refreshed 2026-08-24)
 
-This is the exact bundle `scripts/install-real-system.sh` installs, pinned in
-`mentor-test-2026-08-18.sha256`. It passed a full install→reboot→greetd-login
-QEMU run on 2026-08-18 — see the proof note linked below for the complete
-record. All seven files live at `mentor-seven-package-bundle/` in this
+This is the current exact bundle `scripts/install-real-system.sh` installs.
+The fresh QEMU install→reboot→greetd-login evidence is recorded in the proof
+note linked below. All seven files live at `mentor-seven-package-bundle/` in this
 directory, not at the top level — the installer's `--package-dir` mode
 refuses to run against a folder containing any `.deb` file outside its
 manifest, and the top-level `artifacts/` folder also holds older historical
@@ -61,7 +64,7 @@ given proof note is describing.
 the exact same version-ordering defect fixed in `regolith-session-common`
 above: its version string sorts lower than a stale pre-installed build,
 which would cause the identical `apt` downgrade-refusal failure. It is
-**superseded and must not be used**. The corrected replacement,
+**superseded and must not be used**. The historical replacement,
 `regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb`
 (SHA-256 `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d`),
 was built from the same Voulage run that fixed `-common` (branch
@@ -75,12 +78,12 @@ and carry no live shipping risk today.
 
 | File | SHA-256 | Proof note |
 |---|---|---|
-| `regolith-session-cosmic_1.2.0-1ubuntu1-2-1regolith-resolute_amd64.deb` | `790dbb85cd49b19930edca9c52a6f1157f0bd7cd4b97629faa8a55fe4a25957d` | Version-ordering fix staged 2026-08-19, same class of bug as `-common`; not yet re-run through a fresh QEMU install proof with this corrected file — see `01_Proposal_Alignment.md`/vault for status |
-| `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` (a277811b build, distinct from the `759f87dc` build above sharing this filename) | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
-| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
-| `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
-| `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` | [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (reboot+login proof, 5-package combination) · [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md) |
-| `cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` | Bundle-install proof only — see [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); a *different* build of this package (hash `e10c88b9...`) has its own [Lintian closure note](../proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md), which does not describe this hash |
+| `regolith-session-cosmic_1.2.0-1ubuntu1-4-1regolith-resolute_amd64.deb` | `3e2c58752fd4cd65ca710f8db440434bdc4eed0641c2753f31aa4686e35539a7` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) |
+| `regolith-inputd_0.4.1-2-1regolith-resolute_amd64.deb` (a277811b build, distinct from the `759f87dc` build above sharing this filename) | `a277811b7843791b3556f2bbb0d5c5a600b483f41f34d71f5f75cad08886aa19` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) · historical [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `regolith-displayd_0.3.4-1-1regolith-resolute_amd64.deb` | `949b9aedf8b4e64f2feeabc67947e7a64d6ca0cfb810e11a87896fb654afea1d` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) · historical [Mentor seven-package tuple QEMU runtime](../proof-notes/2026-08-18-mentor-seven-package-tuple-qemu-runtime.md); no proof note documents this exact build in isolation |
+| `cosmolith_0.1.0-1-1regolith-resolute_amd64.deb` | `ad5af5edee6d278c4b9990c02f13ea3b715e260686cc6b58f2f5c48f6e6bb04e` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) · [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (historical reboot+login proof, 5-package combination) |
+| `cosmic-settings_1.0.12-1-1regolith-resolute_amd64.deb` | `5459b91e7d5281ff0727cef8431a31a7e1dc4a70031da855984938068563d29f` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md) · [Displayd COSMIC Kanshi guard runtime](../proof-notes/2026-08-18-displayd-kanshi-guard-runtime.md) (historical reboot+login proof, 5-package combination) |
+| `cosmic-settings-daemon_0.1.0-1-1regolith-resolute_amd64.deb` | `16dbe4a274d31080055a6f0a2699f9b9d0d1a542c44798c9724ff3a0bfbb2fe1` | [Fresh QEMU evidence](../proof-notes/2026-08-21-cosmic-not-found-fix-correct-lineage-qemu.md); a *different* build of this package (hash `e10c88b9...`) has its own [Lintian closure note](../proof-notes/2026-08-16-cosmic-settings-daemon-lintian-closure.md), which does not describe this hash |
 
 ## Verification
 
