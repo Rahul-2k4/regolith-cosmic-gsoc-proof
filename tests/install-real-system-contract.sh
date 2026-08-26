@@ -53,7 +53,7 @@ write_mock id '#!/usr/bin/env bash
 case "$*" in
   "-u _apt") printf "998\n" ;;
   "-g _apt") printf "998\n" ;;
-  "-u") printf "1000\n" ;;
+  "-u") printf "%s\n" "${MOCK_EUID:-1000}" ;;
   *) exit 2 ;;
 esac'
 write_mock sha256sum '#!/usr/bin/env bash
@@ -116,7 +116,19 @@ if [[ ${MOCK_APT_NONE:-0} == 1 || ( ${MOCK_PREDEP_NONE:-0} == 1 && $package == p
   printf "Candidate: (none)\n"
 else
   printf "Candidate: 1.0\n"
-  [[ $package == sway-audio-idle-inhibit && ${MOCK_REGOLITH_SOURCE_NONE:-0} != 1 ]] && printf "  500 https://archive.regolith-desktop.com/ubuntu/unstable noble/main amd64 Packages\n"
+  if [[ $package == sway-audio-idle-inhibit ]]; then
+    printf "Version table:\n"
+    printf " *** 1.0 500\n"
+    if [[ ${MOCK_REGOLITH_SOURCE_WRONG_VERSION:-0} == 1 ]]; then
+      printf "  500 https://archive.example.test/ubuntu/stable noble/main amd64 Packages\n"
+      printf "    0.9 500\n"
+      printf "  500 https://archive.regolith-desktop.com/ubuntu/unstable noble/main amd64 Packages\n"
+    elif [[ ${MOCK_REGOLITH_SOURCE_NONE:-0} != 1 ]]; then
+      printf "  500 https://archive.regolith-desktop.com/ubuntu/unstable noble/main amd64 Packages\n"
+    else
+      printf "  500 https://archive.example.test/ubuntu/stable noble/main amd64 Packages\n"
+    fi
+  fi
 fi'
 
 write_mock apt-get '#!/usr/bin/env bash
@@ -159,6 +171,10 @@ printf "\n" >>"$COMMAND_LOG"
 if [[ $* == *" disable --now sway-audio-idle-inhibit.service"* ]]; then exit "${MOCK_DISABLE_STATUS:-0}"; fi
 if [[ $* == *" daemon-reload"* ]]; then exit 0; fi
 query=${1:-}; [[ $query == --user ]] && query=${2:-}; unit=${@: -1}
+if [[ $query == show-environment ]]; then
+  [[ ${MOCK_USER_BUS_STATUS:-0} == 0 ]] || exit "$MOCK_USER_BUS_STATUS"
+  printf "SYSTEMD_UNIT_PATH=/usr/lib/systemd/user\n"; exit 0
+fi
 if [[ $query == is-enabled && $unit == sway-audio-idle-inhibit.service ]]; then
   state=${MOCK_HELPER_ENABLED:-disabled}; printf "%s\n" "$state"; [[ $state == disabled ]]; exit $?
 fi
@@ -206,7 +222,7 @@ reset_case() {
     prepare_packages; write_os pop 24.04 noble
     unset MOCK_BAD_HASH MOCK_DEB_ARCH MOCK_DEB_PACKAGE MOCK_DEB_VERSION MOCK_APT_NONE MOCK_PREDEP_NONE MOCK_BASELINE_ABSENT
     unset MOCK_GRAPHICAL_STATE MOCK_COSMIC_STATE MOCK_GNOME_STATE MOCK_INPUTD_STATE MOCK_DISPLAYD_STATE MUTATE_SOURCE
-    unset MOCK_DISABLE_STATUS MOCK_HELPER_ENABLED MOCK_HELPER_ACTIVE MOCK_REGOLITH_SOURCE_NONE
+    unset MOCK_DISABLE_STATUS MOCK_HELPER_ENABLED MOCK_HELPER_ACTIVE MOCK_REGOLITH_SOURCE_NONE MOCK_REGOLITH_SOURCE_WRONG_VERSION MOCK_USER_BUS_STATUS MOCK_EUID
 }
 run_script() {
     PATH="$MOCK_BIN:$PATH" COMMAND_LOG="$COMMAND_LOG" OS_RELEASE_FILE="$OS_RELEASE_FILE" \
@@ -285,9 +301,10 @@ test_dry_run_is_non_mutating() {
 test_prepare_gdm_guards_and_cleanup() {
     reset_case
     run_script prepare-gdm
-    assert_contains 'PASS: Regolith unstable apt candidate' "$OUTPUT"
+    assert_contains 'PASS: selected candidate/source: 1.0 from archive.regolith-desktop.com/ubuntu/unstable' "$OUTPUT"
     assert_contains 'PASS: stale helper link absent' "$OUTPUT"
     assert_contains 'PASS: sway-audio-idle-inhibit.service disabled and inactive' "$OUTPUT"
+    assert_contains 'systemctl --user show-environment' "$COMMAND_LOG"
     assert_contains 'systemctl --user disable --now sway-audio-idle-inhibit.service' "$COMMAND_LOG"
 
     reset_case
@@ -313,12 +330,24 @@ test_prepare_gdm_guards_and_cleanup() {
     assert_not_contains 'sudo unlink' "$COMMAND_LOG"
 
     reset_case; MOCK_APT_NONE=1 expect_failure prepare-gdm
-    assert_contains 'FAIL: Regolith unstable apt candidate' "$OUTPUT"
+    assert_contains 'FAIL: selected APT candidate missing' "$OUTPUT"
     assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
 
     reset_case; MOCK_REGOLITH_SOURCE_NONE=1 expect_failure prepare-gdm
-    assert_contains 'FAIL: Regolith unstable apt candidate' "$OUTPUT"
+    assert_contains 'FAIL: selected APT candidate/source mismatch' "$OUTPUT"
     assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
+
+    reset_case; MOCK_REGOLITH_SOURCE_WRONG_VERSION=1 expect_failure prepare-gdm
+    assert_contains 'FAIL: selected APT candidate/source mismatch' "$OUTPUT"
+    assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
+
+    reset_case; MOCK_EUID=0 expect_failure prepare-gdm
+    assert_contains 'FAIL: prepare-gdm must run as a non-root user' "$OUTPUT"
+    assert_not_contains 'apt-cache' "$COMMAND_LOG"
+
+    reset_case; MOCK_USER_BUS_STATUS=1 expect_failure prepare-gdm
+    assert_contains 'FAIL: no usable current-user systemd bus' "$OUTPUT"
+    assert_not_contains 'apt-cache' "$COMMAND_LOG"
 
     reset_case; MOCK_DISABLE_STATUS=1 expect_failure prepare-gdm
     assert_contains 'FAIL: could not disable' "$OUTPUT"

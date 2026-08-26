@@ -212,13 +212,35 @@ preflight_dependencies() {
     printf 'PASS: dependency preflight\n'
 }
 prepare_gdm() {
-    local policy candidate link_path target enabled active
+    local policy candidate link_path target enabled active current_uid
+    current_uid=$(id -u 2>/dev/null) || fail 'could not determine effective user ID'
+    [[ $current_uid != 0 ]] || fail 'prepare-gdm must run as a non-root user, not via sudo'
+    if ! systemctl --user show-environment >/dev/null 2>&1; then
+        fail 'no usable current-user systemd bus; log into the graphical user session first'
+    fi
+
     policy=$(apt-cache policy "$GDM_HELPER_PACKAGE" 2>/dev/null || true)
     candidate=$(awk '/^[[:space:]]*Candidate:/ {print $2; exit}' <<<"$policy")
-    if [[ -z $candidate || $candidate == '(none)' || $policy != *"$REGOLITH_UNSTABLE_MARKER"* ]]; then
-        fail "Regolith unstable apt candidate missing for $GDM_HELPER_UNIT"
+    if [[ -z $candidate || $candidate == '(none)' ]]; then
+        fail "selected APT candidate missing for $GDM_HELPER_PACKAGE"
     fi
-    printf 'PASS: Regolith unstable apt candidate: %s\n' "$candidate"
+    if ! awk -v candidate="$candidate" -v marker="$REGOLITH_UNSTABLE_MARKER" '
+        function is_version_line() {
+            return (($1 == "***" && NF >= 3 && $3 ~ /^[0-9]+$/) ||
+                    ($1 != "500" && NF >= 2 && $2 ~ /^[0-9]+$/))
+        }
+        {
+            if (is_version_line()) {
+            in_candidate=(($1 == "***" ? $2 : $1) == candidate)
+            next
+            }
+            if (in_candidate && index($0, marker)) found=1
+        }
+        END { exit !found }
+    ' <<<"$policy"; then
+        fail "selected APT candidate/source mismatch: $candidate is not from $REGOLITH_UNSTABLE_MARKER"
+    fi
+    printf 'PASS: selected candidate/source: %s from %s\n' "$candidate" "$REGOLITH_UNSTABLE_MARKER"
 
     link_path=${ROOT_PREFIX}${GDM_HELPER_LINK}
     if [[ -L $link_path ]]; then
