@@ -10,6 +10,10 @@ ALLOW_UNSUPPORTED=0 BASELINE_ARG= TMP_WORK= BUNDLE_DIR=
 OS_RELEASE_FILE=${OS_RELEASE_FILE:-/etc/os-release}
 ROOT_PREFIX=${ROOT_PREFIX:-}
 GNOME_TARGET_PATH=/usr/lib/systemd/user/regolith-gnome.target
+GDM_HELPER_UNIT=sway-audio-idle-inhibit.service
+GDM_HELPER_PACKAGE=sway-audio-idle-inhibit
+GDM_HELPER_LINK=/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service
+REGOLITH_UNSTABLE_MARKER=archive.regolith-desktop.com/ubuntu/unstable
 STATE_ROOT=${STATE_ROOT:-${ROOT_PREFIX}/var/lib/regolith-cosmic-gsoc}
 NOW=${NOW:-$(date -u +%Y%m%dT%H%M%SZ)}
 PACKAGE_FILES=(); PACKAGE_HASHES=(); PACKAGE_NAMES=()
@@ -22,12 +26,12 @@ fail() {
     exit 1
 }
 usage() {
-    printf 'Usage: %s {check|install|verify} [options]\n' "$0" >&2
+    printf 'Usage: %s {check|install|verify|prepare-gdm} [options]\n' "$0" >&2
     printf '       %s rollback BASELINE [options]\n' "$0" >&2
     exit 2
 }
 case $ACTION in
-    check|install|verify) ;;
+    check|install|verify|prepare-gdm) ;;
     rollback) (($#)) || usage; BASELINE_ARG=$1; shift ;;
     *) usage ;;
 esac
@@ -207,6 +211,49 @@ preflight_dependencies() {
     done
     printf 'PASS: dependency preflight\n'
 }
+prepare_gdm() {
+    local policy candidate link_path target enabled active
+    policy=$(apt-cache policy "$GDM_HELPER_PACKAGE" 2>/dev/null || true)
+    candidate=$(awk '/^[[:space:]]*Candidate:/ {print $2; exit}' <<<"$policy")
+    if [[ -z $candidate || $candidate == '(none)' || $policy != *"$REGOLITH_UNSTABLE_MARKER"* ]]; then
+        fail "Regolith unstable apt candidate missing for $GDM_HELPER_UNIT"
+    fi
+    printf 'PASS: Regolith unstable apt candidate: %s\n' "$candidate"
+
+    link_path=${ROOT_PREFIX}${GDM_HELPER_LINK}
+    if [[ -L $link_path ]]; then
+        target=$(readlink -- "$link_path")
+        [[ $target == /usr/lib/systemd/user/$GDM_HELPER_UNIT ]] || fail "stale helper link points to unexpected target: $target"
+    elif [[ -e $link_path ]]; then
+        fail "stale helper path is not the expected symlink: $link_path"
+    else
+        printf 'PASS: stale helper link absent\n'
+    fi
+
+    if (( DRY_RUN )); then
+        printf 'DRY-RUN: would disable --now %s\n' "$GDM_HELPER_UNIT"
+        if [[ -L $link_path ]]; then
+            printf 'DRY-RUN: would unlink %s\n' "$link_path"
+            printf 'DRY-RUN: would run systemctl --user daemon-reload\n'
+        fi
+        printf 'DRY-RUN: would verify %s is disabled and inactive\n' "$GDM_HELPER_UNIT"
+        return 0
+    fi
+
+    if ! systemctl --user disable --now "$GDM_HELPER_UNIT"; then
+        fail "could not disable $GDM_HELPER_UNIT"
+    fi
+    if [[ -L $link_path ]]; then
+        sudo unlink -- "$link_path"
+        systemctl --user daemon-reload
+    fi
+    [[ ! -e $link_path && ! -L $link_path ]] || fail "stale helper link remains: $link_path"
+    enabled=$(systemctl --user is-enabled "$GDM_HELPER_UNIT" 2>/dev/null || true)
+    [[ $enabled == disabled ]] || fail "$GDM_HELPER_UNIT is not disabled (state: ${enabled:-unknown})"
+    active=$(systemctl --user is-active "$GDM_HELPER_UNIT" 2>/dev/null || true)
+    [[ $active == inactive ]] || fail "$GDM_HELPER_UNIT is still active (state: ${active:-unknown})"
+    printf 'PASS: %s disabled and inactive\n' "$GDM_HELPER_UNIT"
+}
 prepare_apt_access() {
     local owner_uid apt_uid apt_gid file
     owner_uid=$(id -u 2>/dev/null) || fail 'could not resolve the invoking user for APT staging'
@@ -384,5 +431,6 @@ case $ACTION in
     check) check_host; check_bundle || [[ $? == 2 ]] ;;
     install) check_host; install_bundle ;;
     verify) verify_system ;;
+    prepare-gdm) check_host; prepare_gdm ;;
     rollback) rollback_baseline ;;
 esac

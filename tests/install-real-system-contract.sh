@@ -112,7 +112,12 @@ printf "apt-cache" >>"$COMMAND_LOG"
 for arg in "$@"; do printf " %q" "$arg" >>"$COMMAND_LOG"; done
 printf "\n" >>"$COMMAND_LOG"
 package=${@: -1}
-if [[ ${MOCK_APT_NONE:-0} == 1 || ( ${MOCK_PREDEP_NONE:-0} == 1 && $package == pre-required ) ]]; then printf "Candidate: (none)\n"; else printf "Candidate: 1.0\n"; fi'
+if [[ ${MOCK_APT_NONE:-0} == 1 || ( ${MOCK_PREDEP_NONE:-0} == 1 && $package == pre-required ) ]]; then
+  printf "Candidate: (none)\n"
+else
+  printf "Candidate: 1.0\n"
+  [[ $package == sway-audio-idle-inhibit && ${MOCK_REGOLITH_SOURCE_NONE:-0} != 1 ]] && printf "  500 https://archive.regolith-desktop.com/ubuntu/unstable noble/main amd64 Packages\n"
+fi'
 
 write_mock apt-get '#!/usr/bin/env bash
 mode_of() {
@@ -148,7 +153,18 @@ while (($#)); do [[ $1 == -o ]] && { printf deb >"$2"; exit 0; }; shift; done
 exit 2'
 
 write_mock systemctl '#!/usr/bin/env bash
-unit=${@: -1}
+printf "systemctl" >>"$COMMAND_LOG"
+for arg in "$@"; do printf " %q" "$arg" >>"$COMMAND_LOG"; done
+printf "\n" >>"$COMMAND_LOG"
+if [[ $* == *" disable --now sway-audio-idle-inhibit.service"* ]]; then exit "${MOCK_DISABLE_STATUS:-0}"; fi
+if [[ $* == *" daemon-reload"* ]]; then exit 0; fi
+query=${1:-}; [[ $query == --user ]] && query=${2:-}; unit=${@: -1}
+if [[ $query == is-enabled && $unit == sway-audio-idle-inhibit.service ]]; then
+  state=${MOCK_HELPER_ENABLED:-disabled}; printf "%s\n" "$state"; [[ $state == disabled ]]; exit $?
+fi
+if [[ $query == is-active && $unit == sway-audio-idle-inhibit.service ]]; then
+  state=${MOCK_HELPER_ACTIVE:-inactive}; printf "%s\n" "$state"; [[ $state == inactive ]]; exit $?
+fi
 case $unit in
   graphical-session.target) state=${MOCK_GRAPHICAL_STATE:-active} ;;
   regolith-cosmic.target) state=${MOCK_COSMIC_STATE:-active} ;;
@@ -190,6 +206,7 @@ reset_case() {
     prepare_packages; write_os pop 24.04 noble
     unset MOCK_BAD_HASH MOCK_DEB_ARCH MOCK_DEB_PACKAGE MOCK_DEB_VERSION MOCK_APT_NONE MOCK_PREDEP_NONE MOCK_BASELINE_ABSENT
     unset MOCK_GRAPHICAL_STATE MOCK_COSMIC_STATE MOCK_GNOME_STATE MOCK_INPUTD_STATE MOCK_DISPLAYD_STATE MUTATE_SOURCE
+    unset MOCK_DISABLE_STATUS MOCK_HELPER_ENABLED MOCK_HELPER_ACTIVE MOCK_REGOLITH_SOURCE_NONE
 }
 run_script() {
     PATH="$MOCK_BIN:$PATH" COMMAND_LOG="$COMMAND_LOG" OS_RELEASE_FILE="$OS_RELEASE_FILE" \
@@ -265,6 +282,64 @@ test_dry_run_is_non_mutating() {
     reset_case; MOCK_APT_NONE=1 expect_failure install --dry-run --package-dir "$PACKAGE_DIR"
     assert_contains 'FAIL: no apt candidate' "$OUTPUT"
 }
+test_prepare_gdm_guards_and_cleanup() {
+    reset_case
+    run_script prepare-gdm
+    assert_contains 'PASS: Regolith unstable apt candidate' "$OUTPUT"
+    assert_contains 'PASS: stale helper link absent' "$OUTPUT"
+    assert_contains 'PASS: sway-audio-idle-inhibit.service disabled and inactive' "$OUTPUT"
+    assert_contains 'systemctl --user disable --now sway-audio-idle-inhibit.service' "$COMMAND_LOG"
+
+    reset_case
+    mkdir -p -- "$ROOT_PREFIX/etc/systemd/user/default.target.wants"
+    ln -s /usr/lib/systemd/user/sway-audio-idle-inhibit.service "$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service"
+    run_script prepare-gdm
+    [[ ! -e "$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service" ]] || { printf 'FAIL: exact stale link was not removed\n' >&2; FAILURES=$((FAILURES + 1)); }
+    assert_contains 'sudo unlink' "$COMMAND_LOG"
+    assert_contains 'systemctl --user daemon-reload' "$COMMAND_LOG"
+
+    reset_case
+    mkdir -p -- "$ROOT_PREFIX/etc/systemd/user/default.target.wants"
+    printf 'regular\n' >"$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service"
+    expect_failure prepare-gdm
+    assert_contains 'FAIL: stale helper path is not the expected symlink' "$OUTPUT"
+    assert_not_contains 'sudo unlink' "$COMMAND_LOG"
+
+    reset_case
+    mkdir -p -- "$ROOT_PREFIX/etc/systemd/user/default.target.wants"
+    ln -s /usr/lib/systemd/user/other.service "$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service"
+    expect_failure prepare-gdm
+    assert_contains 'FAIL: stale helper link points to unexpected target' "$OUTPUT"
+    assert_not_contains 'sudo unlink' "$COMMAND_LOG"
+
+    reset_case; MOCK_APT_NONE=1 expect_failure prepare-gdm
+    assert_contains 'FAIL: Regolith unstable apt candidate' "$OUTPUT"
+    assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
+
+    reset_case; MOCK_REGOLITH_SOURCE_NONE=1 expect_failure prepare-gdm
+    assert_contains 'FAIL: Regolith unstable apt candidate' "$OUTPUT"
+    assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
+
+    reset_case; MOCK_DISABLE_STATUS=1 expect_failure prepare-gdm
+    assert_contains 'FAIL: could not disable' "$OUTPUT"
+
+    reset_case; MOCK_HELPER_ENABLED=enabled expect_failure prepare-gdm
+    assert_contains 'FAIL: sway-audio-idle-inhibit.service is not disabled' "$OUTPUT"
+
+    reset_case; MOCK_HELPER_ACTIVE=active expect_failure prepare-gdm
+    assert_contains 'FAIL: sway-audio-idle-inhibit.service is still active' "$OUTPUT"
+
+    reset_case
+    mkdir -p -- "$ROOT_PREFIX/etc/systemd/user/default.target.wants"
+    ln -s /usr/lib/systemd/user/sway-audio-idle-inhibit.service "$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service"
+    run_script prepare-gdm --dry-run
+    assert_contains 'DRY-RUN: would disable --now sway-audio-idle-inhibit.service' "$OUTPUT"
+    assert_contains 'DRY-RUN: would unlink' "$OUTPUT"
+    [[ -L "$ROOT_PREFIX/etc/systemd/user/default.target.wants/sway-audio-idle-inhibit.service" ]] || { printf 'FAIL: dry-run mutated stale link\n' >&2; FAILURES=$((FAILURES + 1)); }
+    assert_not_contains 'systemctl --user disable --now' "$COMMAND_LOG"
+    assert_not_contains 'sudo unlink' "$COMMAND_LOG"
+    assert_not_contains 'daemon-reload' "$COMMAND_LOG"
+}
 test_install_is_one_exact_apt_transaction() {
     reset_case; MUTATE_SOURCE="$PACKAGE_DIR/${PACKAGE_FILES[0]}" MOCK_BASELINE_ABSENT=cosmolith run_script install --package-dir "$PACKAGE_DIR" || { printf 'FAIL: frozen install transaction failed\n' >&2; FAILURES=$((FAILURES + 1)); }
     [[ $(grep -c '^apt-get install -y --no-install-recommends' "$COMMAND_LOG" || true) == 1 ]] || { printf 'FAIL: install was not one apt transaction\n' >&2; FAILURES=$((FAILURES + 1)); }
@@ -335,6 +410,7 @@ test_manifest_contract
 test_os_and_metadata_guards
 test_preflight_and_download
 test_dry_run_is_non_mutating
+test_prepare_gdm_guards_and_cleanup
 test_install_is_one_exact_apt_transaction
 test_install_requires_cosmic_comp_present
 test_verify_statuses
