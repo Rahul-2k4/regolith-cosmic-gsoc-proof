@@ -4,6 +4,16 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Latest source checkpoint - 2026-08-26
+
+The displayd refresh-rate matching defect found in the 2026-08-21 real-output
+proof has a source-level fix in commits `0df4443` and `8ea3f93`. The offline
+source tests and Voulage package build pass; the exact package hash and
+remaining runtime boundary are recorded in the [source/build note](docs/2026-08-26-displayd-refresh-rate-fix-source-build.md).
+The QEMU rerun was not completed because the validation host became
+unreachable during boot, so Criterion 7 remains `Partial` and the strict
+ledger remains 5/12.
+
 ## Latest source checkpoint - 2026-08-24
 
 The [GDM COSMIC environment handoff](proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md)
