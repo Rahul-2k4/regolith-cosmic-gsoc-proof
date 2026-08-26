@@ -18,6 +18,13 @@ desktop markers, and both `regolith-init-inputd.service` and
 `dpkg --audit` were empty. The guest was restored to greetd and the disposable
 QEMU process was stopped cleanly.
 
+For the real-system handoff, [`docs/INSTALL.md`](docs/INSTALL.md) starts with
+the same guarded preparation order: check the selected Regolith `unstable`
+candidate, disable the user helper, remove only the exact stale wants symlink,
+and then run the reviewed seven-package installer. The action must run from a
+logged-in user session and does not rewrite APT sources or perform unrelated
+upgrades.
+
 The session source branch is `4da4ce3`. Its 11 shell tests pass on macOS and
 Linux. The final Voulage package is
 `regolith-session-cosmic_1.2.0-1ubuntu1-1-1regolith-resolute_amd64.deb` with

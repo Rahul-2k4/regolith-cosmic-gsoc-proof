@@ -37,7 +37,35 @@ GitHub release if one is published later (omit `--package-dir` and pass
 Install from the review branch:
 
 ```sh
-git clone --branch main --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git && cd regolith-cosmic-gsoc-proof && ./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
+git clone --branch main --single-branch https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof.git
+cd regolith-cosmic-gsoc-proof
+```
+
+Before installing, run the GDM preparation action from the logged-in
+graphical user session. Do not prefix the whole script with `sudo`:
+
+```sh
+./scripts/install-real-system.sh prepare-gdm --dry-run
+./scripts/install-real-system.sh prepare-gdm
+```
+
+This checks that the selected `sway-audio-idle-inhibit` candidate comes from
+the signed Regolith `ubuntu/unstable` source, disables the user unit, and
+removes only the exact stale `default.target.wants` symlink described in the
+[GDM QEMU proof](../proof-notes/2026-08-24-gdm-cosmic-environment-qemu.md).
+It refuses an unexpected file or symlink target, and it requires a working
+current-user systemd bus. The action does not add an APT source or upgrade
+packages. If the helper has an older installed version, upgrade it after the
+preparation step with the normal package manager:
+
+```sh
+sudo apt-get install --only-upgrade sway-audio-idle-inhibit
+```
+
+Then install the reviewed seven-package bundle:
+
+```sh
+./scripts/install-real-system.sh install --package-dir artifacts/mentor-seven-package-bundle
 ```
 
 The script does not reboot, stop the display manager, change the default
