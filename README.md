@@ -9,27 +9,21 @@ and separate backends, not a second set of replacement daemons.
 
 ## Current result
 
-**Strict status: 5 of 12 proposal criteria fully met. Estimated overall
-progress: 62-68%. Proof is QEMU-only.**
+**Status: 9 of 12 proposal criteria met** (1, 2, 4, 5, 6, 8, 9, 11, 12).
+Partial: 7 (scale persists, but refresh rate cannot be tested on a panel that
+only offers 59.999 Hz) and 10 (packages are unsigned and need a signing and
+publication decision). Not met: 3 (needs multi-display hardware).
 
-The current evidence shows:
+Proof for 4, 6, 8 and 12 comes from a physical Pop!_OS laptop with the
+packages installed. Proof for 1, 2, 5, 9 and 11 is mostly from QEMU, also
+seen on the laptop session. There was no fresh login after the final
+install, apart from a check that the settings daemon autostarted.
 
-- a COSMIC session can launch through the Regolith wrapper in the tested QEMU
-  environment;
-- COSMIC and GNOME session targets are kept separate;
-- `regolith-inputd` and `regolith-displayd` can be supervised by the COSMIC
-  target;
-- the COSMIC inputd backend has feature-gated source coverage and reverse-sync
-  tests;
-- display configuration can be applied through the Wayland observer path;
-- the exact unsigned Resolute package tuple can be built and installed in the
-  disposable QEMU test environment;
-- the guarded real-system installer checks the unstable source and stale user
-  unit before installation.
+**Demo video (112 s, physical laptop):**
+[![Regolith on COSMIC demo](artifacts/demo-thumb.png)](https://github.com/Rahul-2k4/regolith-cosmic-gsoc-proof/releases/download/gsoc-final-2026-10-17/regolith-on-cosmic-demo.mp4)
 
-The latest displayd refresh-rate fix has passed source tests and an offline
-Voulage build. Its QEMU persistence rerun is still pending, so the strict
-criterion count has not changed.
+To install, rebuild or check the packages, follow [REPRODUCE.md](REPRODUCE.md).
+The release is `gsoc-final-2026-10-17`.
 
 ## Architecture
 
@@ -51,29 +45,27 @@ than introducing an unrelated persistence daemon.
 
 ## What is working
 
-- QEMU cold-login and session-target supervision for the tested package tuple.
-- COSMIC inputd source, feature, reverse-sync, and package-contract tests.
-- COSMIC displayd apply-path source tests and unsigned offline package builds.
-- GNOME/COSMIC target ownership and the mentor-directed GDM cleanup order in
-  the tested QEMU scope.
-- Lock/unlock and volume OSD proof in the supported QEMU paths.
-- Reproduction scripts and dated proof notes for each accepted boundary.
+- Login into the COSMIC-backed session through the Regolith wrapper, with
+  separate COSMIC and GNOME targets.
+- `regolith-inputd` COSMIC backend, including keyboard layout and variant set
+  as a pair.
+- Regolith key bindings winning over colliding COSMIC shortcuts.
+- Lock/unlock and OSDs, and the retained Sway workspace and launcher keys.
+- Vendored offline builds, and Voulage pins for every package.
 
-## What is not yet proven
+## What is not proven
 
-- Physical-hardware installation and cold login.
-- Multi-monitor, hotplug, mixed-DPI, and physical-touchpad behaviour.
-- Media-key OSD delivery through the current QEMU setup.
-- Full display refresh-rate persistence after the latest source fix.
-- Final Voulage publication, signing, and maintainer acceptance.
-- A completely current fork-PR set for every source candidate.
+- Multi-display, hotplug and mixed-DPI behaviour (criterion 3).
+- Refresh-rate persistence, which needs a panel with more than one rate.
+- Package signing and archive publication (criterion 10).
+- A fresh login after the final package install.
 
 These are proof boundaries, not claims that the missing behaviour is already
-implemented.
+implemented. Older QEMU-only notes in this repository are dated history.
 
 ## Reproduce the verified work
 
-Start with the [final handoff](FINAL_HANDOFF.md), then use the current
+Start with [REPRODUCE.md](REPRODUCE.md). For history, see the [final handoff](FINAL_HANDOFF.md) and use the current
 [work product](WORK_PRODUCT.md) for the evidence map. The exact installer
 order and safety checks are in [docs/INSTALL.md](docs/INSTALL.md).
 
@@ -89,16 +81,11 @@ Useful entry points:
 The scripts are evidence helpers. They do not replace a real hardware test.
 Read each script's prerequisites before running it.
 
-## Demo
-
-The bundle currently contains screenshot evidence. A video attachment still
-needs to be added to both this repository and the submitted gist before the
-mentor-facing submission is considered complete.
-
 ## Source branches
 
-The code remains on personal fork branches while the mentor reviews the work.
-No new upstream PR or merge is claimed here. The current branch and PR
+The final code is on `Rahul-2k4` fork branches (see the table in
+[REPRODUCE.md](REPRODUCE.md)). Upstream sandptel/cosmolith PR #15 is merged;
+#17, #18 and #19 are open. The current branch and PR
 inventory, including local-only candidates, is maintained in
 [docs/REPOSITORY_STATUS.md](docs/REPOSITORY_STATUS.md).
 

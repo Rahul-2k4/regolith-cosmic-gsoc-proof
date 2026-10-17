@@ -4,6 +4,15 @@ This is the stable reviewer-facing work-product page for the Regolith COSMIC
 proof bundle. It records only evidence in this repository and the latest
 sanitized wrapper proof.
 
+## Final status - 2026-10-17
+
+**9 of 12 criteria met** (1, 2, 4, 5, 6, 8, 9, 11, 12); 7 and 10 partial; 3 not
+met. Criteria 4, 6, 8 and 12 were proven on a physical Pop!_OS laptop with the
+packages installed. The table and checkpoints below are dated history, from
+when the count was 5 of 12 and proof was QEMU-only. For the final packages,
+install steps and the demo video, see [REPRODUCE.md](REPRODUCE.md) and release
+`gsoc-final-2026-10-17`.
+
 ## Latest source checkpoint - 2026-08-26
 
 The displayd refresh-rate matching defect found in the 2026-08-21 real-output
@@ -32,7 +41,7 @@ COSMIC cold-login tuple. These remain QEMU-only results.
 
 ## Contents
 
-- [Proposal success criteria: 5 of 12 fully met](#proposal-success-criteria-5-of-12-fully-met)
+- [Proposal success criteria (historical, 5 of 12)](#proposal-success-criteria-5-of-12-fully-met)
 - [Source of truth](#source-of-truth)
 - [Proven areas](#proven-areas) — long; organized newest-first, not by topic. Use your browser's find (Ctrl/Cmd+F) for a package or feature name rather than scrolling.
 - [Open boundaries](#open-boundaries)
@@ -42,6 +51,8 @@ COSMIC cold-login tuple. These remain QEMU-only results.
 - [Claim boundary](#claim-boundary)
 
 ## Proposal success criteria: 5 of 12 fully met
+
+Historical table from 2026-08. The current status is in the final-status block at the top.
 
 | # | Criterion | Status | Scope |
 |---|---|---|---|

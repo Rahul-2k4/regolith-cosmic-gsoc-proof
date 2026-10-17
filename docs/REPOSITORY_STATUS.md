@@ -1,5 +1,9 @@
 # Repository and branch status
 
+> **Superseded for the final code.** The final branches, commits and release
+> are in [../REPRODUCE.md](../REPRODUCE.md). The inventory below is the
+> 2026-08-29 snapshot and is kept as history.
+
 Checked locally on **2026-08-29**. This file records readiness honestly; it
 does not publish, create, or merge a pull request.
 
